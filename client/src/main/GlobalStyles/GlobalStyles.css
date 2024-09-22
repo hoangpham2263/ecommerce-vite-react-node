@@ -1,0 +1,68 @@
+/* Button */
+.btn-primary {
+  background-color: var(--primary);
+  border-color    : var(--primary);
+  color           : #ffffff;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active,
+.show>.btn-primary.dropdown-toggle {
+  background-color: var(--primary);
+  border-color    : var(--primary);
+  opacity         : 0.8;
+}
+
+.btn-primary:active,
+.btn-primary:focus,
+.btn-primary.active {
+  background-color: var(--primary) !important;
+  border-color    : var(--primary) !important;
+  box-shadow      : none;
+}
+
+/* Font size */
+.gl-fz-12 {
+  font-size: 12px;
+}
+
+.gl-fz-13 {
+  font-size: 13px;
+}
+
+.gl-fz-14 {
+  font-size: 14px;
+}
+
+.gl-fz-15 {
+  font-size: 15px;
+}
+
+.gl-fz-16 {
+  font-size: 16px;
+}
+
+.gl-fz-17 {
+  font-size: 17px;
+}
+
+.gl-fz-18 {
+  font-size: 18px;
+}
+
+/* color */
+.gl-color-primary {
+  color: var(--primary);
+}
+
+/* background */
+.gl-bg-primary {
+  background-color: var(--primary);
+}
+
+.gl-bg-transparent {
+  background-color: transparent;
+  
+}

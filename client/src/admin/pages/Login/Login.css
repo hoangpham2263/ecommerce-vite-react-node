@@ -1,0 +1,20 @@
+.size-14{
+  font-size: 14px;
+}
+
+hr {
+  border    : 0;
+  border-top: 1px solid #ccc;
+  margin    : 0;
+}
+
+.text-line {
+  color: #000;
+  font-size: 12px;
+}
+
+.custom-hover:hover {
+  background-color: transparent !important;
+  color           : inherit !important;
+  border-color    : #000 !important;
+}

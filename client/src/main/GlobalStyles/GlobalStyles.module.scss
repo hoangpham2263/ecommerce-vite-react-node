@@ -1,0 +1,49 @@
+@import 'normalize.css';
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+:root {
+    --primary: #d70018;
+    --color-banner: #e9efff;
+
+    // color
+    --color-white: #fff;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+html,
+body {
+    scroll-behavior: smooth
+}
+
+* {
+    margin    : 0;
+    padding   : 0;
+    box-sizing: border-box;
+    font-size : 14px;
+}
+
+body {
+    font-family: "Roboto", sans-serif;
+}
+
+html::-webkit-scrollbar {
+    width          : 10px;
+    scrollbar-width: thin;
+}
+
+html::-webkit-scrollbar-thumb {
+    border-radius   : 10px;
+    background-color: rgba(22, 24, 35, 0.1);
+    cursor          : pointer;
+}
+
+html::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+html::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(22, 24, 35, 0.3);
+}
