@@ -6,7 +6,7 @@ import HeadlessTippy from '@tippyjs/react/headless'
 import classNames from 'classnames/bind'
 import styles from './Search.module.scss'
 // import ProductItem from './ProductItem/ProductItem'
-import useDebounce from '../../../../hooks/useDebounce'
+import useDebounce from '../../../hooks/useDebounce'
 // import { readProductSearch } from '../../../services/apiUserService'
 
 const cx = classNames.bind(styles)
@@ -84,7 +84,7 @@ const Search = () => {
           <input
             className={cx('input-search')}
             value={searchValue}
-            placeholder='Điểm đến, địa điểm thăm quan, khách...'
+            placeholder='Bạn cần tìm gì...'
             spellCheck={false}
             onChange={handleOnChang}
             ref={inputRef}

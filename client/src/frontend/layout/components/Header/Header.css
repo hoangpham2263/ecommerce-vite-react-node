@@ -1,0 +1,79 @@
+.icon-cart{
+  color: var(--color-white);
+  font-size: 36px;
+  margin-left: -60px;
+}
+
+.cs-badges{
+  top: 24% !important;
+}
+
+.link-social-left{
+  color: var(--color-white);
+  font-size: 13px;
+  text-decoration: none;
+}
+
+.link-social-right{
+  color: var(--color-white);
+  font-size: 13px;
+  text-decoration: none;
+  margin-left: 13px;
+}
+
+.wall-center-link{
+  width: 1px;
+  height: 13px;
+  background-color: var(--primary);
+  margin: 0 6px;
+  opacity: 0.4;
+}
+
+.link-categories{
+  margin-top: -6px;
+  color: var(--color-white);
+  font-size: 12px;
+  text-decoration: none;
+  margin-right: 13px;
+}
+
+/* modal */
+
+.social {
+  width          : 80%;
+  display        : flex;
+  align-items    : center;
+  justify-content: space-evenly;
+}
+.btn-login {
+  background-color: red;
+}
+
+.btn-social {
+  width          : 56px;
+  height         : 56px;
+  border-radius  : 50%;
+  display        : flex;
+  align-items    : center;
+  justify-content: center;
+  border         : none;
+}
+
+.facebook {
+  background-color: #1877f2;
+}
+
+.facebook-icon {
+  color           : #fff;
+  background-color: #1877f2;
+  font-size       : 28px;
+}
+
+.google {
+  background-color: #f0f2f5;
+}
+
+.google-icon {
+  background-color: #f0f2f5;
+  font-size       : 28px;
+}

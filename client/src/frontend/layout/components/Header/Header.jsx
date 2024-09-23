@@ -1,11 +1,24 @@
 import './Header.css'
-import Search from '../Search'
+import { useState } from 'react'
+import { CiLogin } from 'react-icons/ci'
+import { FcGoogle } from 'react-icons/fc'
+import { FaFacebook } from 'react-icons/fa'
 import { CgShoppingCart } from 'react-icons/cg'
-import LogoSmall from '../../../../components/Logo/LogoSmall'
+import Search from '../Search'
+import LoginBasic from '../LoginBasic'
+import LogoSmall from '../../../components/Logo/LogoSmall'
 
 const Header = () => {
+  const [optionSocial, setOptionSocial] = useState('loginBasic')
+  const handleSelectSocial = (option) => {
+    setOptionSocial(option)
+  }
   return (
     <header className='gl-bg-primary w-100'>
+      <div className='w-100 gl-height-40 gl-bg-banner'>
+        <div className='container gl-bg-transparent'>11111111111111111</div>
+      </div>
+
       <div className='container gl-bg-transparent py-1'>
         <div className='row mt-2'>
           <div className='col-6'>
@@ -26,15 +39,16 @@ const Header = () => {
               <a className='link-social-right' href='#'>Tiếng việt</a>
               <a className='link-social-right' href='#'>Đăng Ký</a>
               <span className='wall-center-link'></span>
-              <a className='link-social-left' href='#'>Đăng nhập</a>
+              <a className='link-social-left' href='#' data-bs-toggle='modal' data-bs-target='#staticBackdrop'>Đăng nhập</a>
             </div>
           </div>
         </div>
+
         <div className='row mt-3'>
-          <div className='col-2'>
+          <div className='col-2 d-flex align-items-center'>
             <LogoSmall/>
           </div>
-          <div className='col-8'>
+          <div className='col-8 d-flex align-items-center'>
             <Search/>
           </div>
           <div className='col-2 d-flex justify-content-center align-items-center'>
@@ -47,7 +61,8 @@ const Header = () => {
             </button>
           </div>
         </div>
-        <div className='row mb-1'>
+
+        {/* <div className='row mb-1'>
           <div className='col-2'></div>
           <div className='col-8'>
             <div className='d-flex align-items-center'>
@@ -59,6 +74,26 @@ const Header = () => {
             </div>
           </div>
           <div className='col-2'></div>
+        </div> */}
+      </div>
+      {/* <!-- Modal --> */}
+      <div className='modal fade' id='staticBackdrop' data-bs-backdrop='static' data-bs-keyboard='false' tabIndex='-1' aria-labelledby='staticBackdropLabel' aria-hidden='true'>
+        <div className='modal-dialog modal-dialog-centered modal-dialog-scrollablemodal-dialog'>
+          <div className='modal-content'>
+            {optionSocial === 'loginBasic' && <LoginBasic/>}
+            {optionSocial === 'facebook' && null}
+            {optionSocial === 'google' && null}
+            <div className='footer-custom'>
+              <div className='line'>
+                <div className='text-in-line'>Other Login Methods</div>
+              </div>
+              <div className='social'>
+                <button type='button' className='btn-social google' onClick={() => handleSelectSocial('loginBasic')}><CiLogin className='google-icon' /></button>
+                <button type='button' className='btn-social facebook' onClick={() => handleSelectSocial('facebook')}><FaFacebook className='facebook-icon' /></button>
+                <button type='button' className='btn-social google' onClick={() => handleSelectSocial('google')}><FcGoogle className='google-icon' /></button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </header>

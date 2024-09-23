@@ -1,0 +1,41 @@
+.cs-wrapper {
+    width: 100%;
+    margin-top: 20px;
+    box-shadow: 0 1px 2px 0 rgba(60, 64, 67, .1), 0 2px 6px 2px rgba(60, 64, 67, .15);
+}
+
+.cs-img-pay{
+    text-decoration: none;
+}
+
+.cs-img{
+    display: block;
+    width: 50px;
+    height: 32px;
+    margin: 0 2px 5px 0;
+    border: 1px solid #dee2e6;
+    border-radius: 3px;
+}
+
+.cs-social{
+    text-decoration: none;
+}
+
+.cs-social-img{
+    display: block;
+    width: 44px;
+    height: 32px;
+    margin: 0 8px 5px 0;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+}
+
+.cs-banner{
+    text-decoration: none;
+}
+
+.cs-banner-img{
+    display: block;
+    height: 30px;
+}
+

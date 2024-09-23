@@ -1,0 +1,139 @@
+import './Footer.css'
+
+
+const Footer = () => {
+  return (
+    <footer className='cs-wrapper'>
+      <div className='container py-3'>
+        <div className='row'>
+          {/* block 1 */}
+          <div className='col-3'>
+            <div className='gl-mb-12'>
+              <div className='gl-fz-16 gl-mb-12 fw-normal'>Tổng đài hỗ trợ miễn phí</div>
+              <div className='gl-fz-12 gl-mb-5 ms-2 fw-normal gl-color-white-4a'>Gọi mua hàng <strong className='gl-fz-12'>1800.2097</strong> (7h30 - 22h00)</div>
+              <div className='gl-fz-12 gl-mb-5 ms-2 fw-normal gl-color-white-4a'>Gọi khiếu nại <strong className='gl-fz-12'>1800.2063</strong> (8h00 - 21h30)</div>
+              <div className='gl-fz-12 gl-mb-5 ms-2 fw-normal gl-color-white-4a'>Gọi bảo hành <strong className='gl-fz-12'>1800.2064</strong> (8h00 - 21h00)</div>
+            </div>
+            <div className='gl-mb-12'>
+              <div className='gl-fz-16 gl-mb-12 fw-normal'>Phương thức thanh toán</div>
+              <div className='d-flex flex-wrap'>
+                <a className='cs-img-pay' href='#'><img className='cs-img' src='https://cdn2.cellphones.com.vn/x35,webp/media/wysiwyg/apple-pay-og.png' alt=''/></a>
+                <a className='cs-img-pay' href='#'><img className='cs-img' src='https://cdn2.cellphones.com.vn/x35,webp/media/logo/payment/vnpay-logo.png' alt=''/></a>
+                <a className='cs-img-pay' href='#'><img className='cs-img' src='https://cdn2.cellphones.com.vn/x/media/wysiwyg/momo_1.png' alt=''/></a>
+                <a className='cs-img-pay' href='#'><img className='cs-img' src='https://cdn2.cellphones.com.vn/x35,webp/media/logo/payment/onepay-logo.png' alt=''/></a>
+                <a className='cs-img-pay' href='#'><img className='cs-img' src='https://cdn2.cellphones.com.vn/x35,webp/media/logo/payment/mpos-logo.png' alt=''/></a>
+                <a className='cs-img-pay' href='#'><img className='cs-img' src='https://cdn2.cellphones.com.vn/x35,webp/media/logo/payment/kredivo-logo.png' alt=''/></a>
+                <a className='cs-img-pay' href='#'><img className='cs-img' src='https://cdn2.cellphones.com.vn/x35,webp/media/logo/payment/zalopay-logo.png' alt=''/></a>
+                <a className='cs-img-pay' href='#'><img className='cs-img' src='https://cdn2.cellphones.com.vn/x35,webp/media/logo/payment/alepay-logo.png' alt=''/></a>
+                <a className='cs-img-pay' href='#'><img className='cs-img' src='https://cdn2.cellphones.com.vn/x/media/wysiwyg/fundiin.png' alt=''/></a>
+              </div>
+            </div>
+            <div className='gl-mb-12'>
+              <div className='gl-fz-16 gl-mb-5 fw-normal'>ĐĂNG KÝ NHẬN TIN KHUYẾN MÃI</div>
+              <div className='gl-fz-14 gl-mb-5 fw-normal gl-color-white-4a text-danger'>(*) Nhận ngay voucher 10%</div>
+              <div className='gl-fz-13 gl-mb-5 fw-normal gl-color-white-4a'>*Voucher sẽ được gửi sau 24h, chỉ áp dụng cho khách hàng mới</div>
+            </div>
+          </div>
+          {/* block 2 */}
+          <div className='col-3'>
+            <div className='gl-mb-12'>
+              <div className='gl-fz-16 gl-mb-12 fw-normal'>Thông tin và chính sách</div>
+              <div className='gl-fz-12 gl-mb-5 ms-2 fw-normal gl-color-white-4a'>Mua hàng và thanh toán Online</div>
+              <div className='gl-fz-12 gl-mb-5 ms-2 fw-normal gl-color-white-4a'>Mua hàng trả góp Online</div>
+              <div className='gl-fz-12 gl-mb-5 ms-2 fw-normal gl-color-white-4a'>Mua hàng trả góp bằng thẻ tín dụng</div>
+              <div className='gl-fz-12 gl-mb-5 ms-2 fw-normal gl-color-white-4a'>Chính sách giao hàng</div>
+              <div className='gl-fz-12 gl-mb-5 ms-2 fw-normal gl-color-white-4a'>Tra điểm Smember</div>
+              <div className='gl-fz-12 gl-mb-5 ms-2 fw-normal gl-color-white-4a'>Xem ưu đãi Smember</div>
+              <div className='gl-fz-12 gl-mb-5 ms-2 fw-normal gl-color-white-4a'>Tra thông tin bảo hành</div>
+              <div className='gl-fz-12 gl-mb-5 ms-2 fw-normal gl-color-white-4a'>Tra cứu hoá đơn điện tử</div>
+              <div className='gl-fz-12 gl-mb-5 ms-2 fw-normal gl-color-white-4a'>Thông tin hoá đơn mua hàng</div>
+              <div className='gl-fz-12 gl-mb-5 ms-2 fw-normal gl-color-white-4a'>Trung tâm bảo hành chính hãng</div>
+              <div className='gl-fz-12 gl-mb-5 ms-2 fw-normal gl-color-white-4a'>Quy định về việc sao lưu dữ liệu</div>
+              <div className='gl-fz-12 gl-mb-5 ms-2 fw-normal gl-color-white-4a'>Chính sách khui hộp sản phẩm Apple</div>
+            </div>
+          </div>
+          {/* block 3 */}
+          <div className='col-3'>
+            <div className='gl-mb-12'>
+              <div className='gl-fz-16 gl-mb-12 fw-normal'>Dịch vụ và thông tin khác</div>
+              <div className='gl-fz-12 gl-mb-5 ms-2 fw-normal gl-color-white-4a'>Khách hàng doanh nghiệp (B2B)</div>
+              <div className='gl-fz-12 gl-mb-5 ms-2 fw-normal gl-color-white-4a'>Ưu đãi thanh toán</div>
+              <div className='gl-fz-12 gl-mb-5 ms-2 fw-normal gl-color-white-4a'>Quy chế hoạt động</div>
+              <div className='gl-fz-12 gl-mb-5 ms-2 fw-normal gl-color-white-4a'>Chính sách bảo mật thông tin cá nhân</div>
+              <div className='gl-fz-12 gl-mb-5 ms-2 fw-normal gl-color-white-4a'>Chính sách Bảo hành</div>
+              <div className='gl-fz-12 gl-mb-5 ms-2 fw-normal gl-color-white-4a'>Liên hệ hợp tác kinh doanh</div>
+              <div className='gl-fz-12 gl-mb-5 ms-2 fw-normal gl-color-white-4a'>Tuyển dụng</div>
+              <div className='gl-fz-12 gl-mb-5 ms-2 fw-normal gl-color-white-4a'>Dịch vụ bảo hành mở rộng</div>
+              <div className='gl-fz-12 gl-mb-5 ms-2 fw-normal gl-color-white-4a'>Smember: Tích điểm & sử dụng ưu đãi</div>
+            </div>
+          </div>
+          {/* block 4 */}
+          <div className='col-3 pe-0'>
+            <div className='gl-mb-12'>
+              <div className='gl-fz-16 gl-mb-12 fw-normal'>Kết nối với Ecommerce</div>
+              <div className='d-flex flex-wrap'>
+                <a className='cs-social' href='#'><img className='cs-social-img' src='https://cdn2.cellphones.com.vn/44x,webp/media/logo/social/cellphones-youtube.png' alt=''/></a>
+                <a className='cs-social' href='#'><img className='cs-social-img' src='https://cdn2.cellphones.com.vn/44x,webp/media/logo/social/cellphones-facebook.png' alt=''/></a>
+                <a className='cs-social' href='#'><img className='cs-social-img' src='https://cdn2.cellphones.com.vn/44x,webp/media/logo/social/cellphones-instagram.png' alt=''/></a>
+                <a className='cs-social' href='#'><img className='cs-social-img' src='https://cdn2.cellphones.com.vn/44x,webp/media/logo/social/cellphones-tiktok.png' alt=''/></a>
+                <a className='cs-social' href='#'><img className='cs-social-img' src='https://cdn2.cellphones.com.vn/44x,webp/media/logo/social/cellphones-zalo.png' alt=''/></a>
+              </div>
+            </div>
+            <div className='gl-mb-12'>
+              <div className='gl-fz-16 gl-mb-12 fw-normal'>Website thành viên</div>
+              <div className='gl-mb-5'>
+                <div className='gl-fz-12 gl-mb-5 fw-normal gl-color-white-4a'>Hệ thống bảo hành sửa chữa Điện thoại - Máy tính</div>
+                <a className='cs-banner' href='#'><img className='cs-banner-img' src='https://cdn2.cellphones.com.vn/x30,webp/media/logo/corp-members/dienthoaivui.png' alt=''/></a>
+              </div>
+              <div className='gl-mb-5'>
+                <div className='gl-fz-12 gl-mb-5 fw-normal gl-color-white-4a'>Trung tâm bảo hành uỷ quyền Apple</div>
+                <a className='cs-banner' href='#'><img className='cs-banner-img' src='https://cdn2.cellphones.com.vn/x/media/wysiwyg/Logo_CareS_1.png' alt=''/></a>
+              </div>
+              <div className='gl-mb-5'>
+                <div className='gl-fz-12 gl-mb-5 fw-normal gl-color-white-4a'>Kênh thông tin giải trí công nghệ cho giới trẻ</div>
+                <a className='cs-banner' href='#'><img className='cs-banner-img' src='https://cdn2.cellphones.com.vn/x30,webp/media/logo/corp-members/schanel.png' alt=''/></a>
+              </div>
+              <div className='gl-mb-5'>
+                <div className='gl-fz-12 gl-mb-5 fw-normal gl-color-white-4a'>Trang thông tin công nghệ mới nhất</div>
+                <a className='cs-banner' href='#'><img className='cs-banner-img' src='https://cdn2.cellphones.com.vn/x30,webp/media/logo/corp-members/sforum.png' alt=''/></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className='w-100 gl-bg-white-1 py-3'>
+        <div className='container'>
+          <div className='row'>
+            <div className='col-3'>
+              <div className='gl-mb-12'>
+                <div className='gl-fz-10 gl-mb-5 ms-2 fw-normal gl-color-white-4a'>Điện thoại iPhone 16 Pro  – Điện thoại iPhone 16 Pro Max</div>
+                <div className='gl-fz-10 gl-mb-5 ms-2 fw-normal gl-color-white-4a'>Điện thoại iPhone 15  – Điện thoại iPhone 15 Pro Max</div>
+              </div>
+            </div>
+            <div className='col-3'>
+              <div className='gl-mb-12'>
+                <div className='gl-fz-10 gl-mb-5 ms-2 fw-normal gl-color-white-4a'>Điện thoại  – Điện thoại iPhone  – Điện thoại Xiaomi</div>
+                <div className='gl-fz-10 gl-mb-5 ms-2 fw-normal gl-color-white-4a'>Điện thoại Samsung Galaxy  – Điện thoại OPPO</div>
+              </div>
+            </div>
+            <div className='col-3'>
+              <div className='gl-mb-12'>
+                <div className='gl-fz-10 gl-mb-5 ms-2 fw-normal gl-color-white-4a'>Laptop  – Laptop Acer  – Laptop Dell  – Laptop HP</div>
+                <div className='gl-fz-10 gl-mb-5 ms-2 fw-normal gl-color-white-4a'>Tivi  – Tivi Samsung  – Tivi Sony  – Tivi LG</div>
+              </div>
+            </div>
+            <div className='col-3'>
+              <div className='gl-mb-12'>
+                <div className='gl-fz-10 gl-mb-5 ms-2 fw-normal gl-color-white-4a'>Đồ gia dụng  – Máy hút bụi gia đình</div>
+                <div className='gl-fz-10 gl-mb-5 ms-2 fw-normal gl-color-white-4a'>Laptop AI  – Back to School là gì</div>
+              </div>
+            </div>
+          </div>
+          <div className='d-flex justify-content-center gl-fz-10 gl-mb-5 fw-normal gl-color-white-92'>Công ty TNHH Thương Mại và Dịch Vụ Kỹ Thuật DIỆU PHÚC - GPĐKKD: 0316172372 cấp tại Sở KH & ĐT TP. HCM. Địa chỉ văn phòng: 350-352 Võ Văn Kiệt, Phường Cô Giang, Quận 1, Thành phố Hồ Chí Minh, Việt Nam. Điện thoại: 028.7108.9666.</div>
+        </div>
+      </div>
+    </footer>
+  )
+}
+
+export default Footer
