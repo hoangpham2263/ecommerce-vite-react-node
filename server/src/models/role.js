@@ -9,13 +9,14 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Role.belongsToMany(models.Group, { through: "Group_Role" });
+      Role.hasMany(models.Position_Role, { through: "role_id" });
+      Role.belongsToMany(models.Position, { through: 'Position_Role' });
     }
   }
   Role.init(
     {
-      url: DataTypes.STRING,
-      description: DataTypes.STRING,
+      name: DataTypes.STRING,
+      desc:DataTypes.STRING
     },
     {
       sequelize,

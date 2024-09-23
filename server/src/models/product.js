@@ -1,5 +1,3 @@
-import slugify from "slugify";
-
 ("use strict");
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
@@ -11,23 +9,13 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Product.belongsTo(models.Categories, { foreignKey: 'categoriesId' });
-      Product.belongsTo(models.Brand, { foreignKey: 'brandId' });
+      Product.hasMany(models.Sub_Product, { foreignKey: 'product_id' });
     }
   }
   Product.init(
     {
       title: DataTypes.STRING,
-      price: DataTypes.FLOAT,
-      version: DataTypes.STRING,
-      quantity: DataTypes.INTEGER,
-      image: DataTypes.JSON,
-      capacity: DataTypes.JSON,
-      color: DataTypes.JSON,
-      percentDiscount: DataTypes.INTEGER,
-      slug: DataTypes.STRING,
-      categoriesId: DataTypes.INTEGER,
-      brandId: DataTypes.INTEGER,
+      desc: DataTypes.STRING,
     },
     {
       sequelize,

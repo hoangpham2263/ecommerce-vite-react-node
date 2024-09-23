@@ -15,38 +15,8 @@ module.exports = {
       title: {
         type: Sequelize.STRING,
       },
-      price: {
-        type: Sequelize.FLOAT,
-      },
-      version: {
+      desc: {
         type: Sequelize.STRING,
-      },
-      quantity: {
-        type: Sequelize.INTEGER,
-      },
-      image: {
-        type: Sequelize.JSON,
-      },
-      capacity: {
-        type: Sequelize.JSON,
-      },
-      color: {
-        type: Sequelize.JSON,
-      },
-      percentDiscount: {
-        type: Sequelize.INTEGER,
-      },
-      description: {
-        type: Sequelize.STRING,
-      },
-      slug: {
-        type: Sequelize.STRING,
-      },
-      categoriesId: {
-        type: Sequelize.INTEGER,
-      },
-      brandId: {
-        type: Sequelize.INTEGER,
       },
       createdAt: {
         allowNull: false,

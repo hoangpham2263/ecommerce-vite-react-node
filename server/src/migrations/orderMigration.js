@@ -12,10 +12,16 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      userId: {
+      user_id: {
         type: Sequelize.INTEGER,
       },
-      status: {
+      order_line_id: {
+        type: Sequelize.INTEGER,
+      },
+      total: {
+        type: Sequelize.FLOAT,
+      },
+      note: {
         type: Sequelize.STRING,
       },
       createdAt: {

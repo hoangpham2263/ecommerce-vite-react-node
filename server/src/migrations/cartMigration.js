@@ -12,39 +12,17 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      title: {
-        type: Sequelize.STRING,
+      user_id: {
+        type: Sequelize.INTEGER,
       },
-      image: {
-        type: Sequelize.STRING,
-      },
-      color: {
-        type: Sequelize.STRING,
-      },
-      capacity: {
-        type: Sequelize.STRING,
-      },
-      price: {
-        type: Sequelize.FLOAT,
-      },
-      priceDiscount: {
-        type: Sequelize.FLOAT,
-      },
-      percentDiscount: {
+      sub_product_id: {
         type: Sequelize.INTEGER,
       },
       quantity: {
         type: Sequelize.INTEGER,
-        defaultValue: 1
       },
-      slug: {
-        type: Sequelize.STRING,
-      },
-      orderId: {
-        type: Sequelize.INTEGER,
-      },
-      userId: {
-        type: Sequelize.INTEGER,
+      total: {
+        type: Sequelize.FLOAT,
       },
       createdAt: {
         allowNull: false,

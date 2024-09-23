@@ -9,24 +9,29 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      User.belongsTo(models.Group);
-      User.hasMany(models.Cart, { foreignKey: 'userId' });
-      User.hasMany(models.Order, { foreignKey: 'userId' });
+      User.hasOne(models.Assessment, { foreignKey: 'user_id' });
+      User.hasOne(models.Cart, { foreignKey: 'user_id' });
+      User.belongsTo(models.Position, { foreignKey: 'position_id' });
+      User.hasMany(models.Address, { foreignKey: 'user_id' });
+      User.hasMany(models.Order, { foreignKey: 'user_id' });
+      User.hasMany(models.Bank_Account, { foreignKey: 'user_id' });
+      User.hasMany(models.Message, { foreignKey: 'user_id_send' });
+      User.hasMany(models.Message, { foreignKey: 'user_id_receive' });
+      
     }
   }
   User.init(
     {
-      image: DataTypes.STRING,
-      lastName: DataTypes.STRING,
-      firstName: DataTypes.STRING,
+      avatar: DataTypes.STRING,
+      username: DataTypes.STRING,
       email: DataTypes.STRING,
       password: DataTypes.STRING,
-      cities: DataTypes.STRING,
-      districts: DataTypes.STRING,
-      address: DataTypes.STRING,
-      phone: DataTypes.STRING,
-      sex: DataTypes.STRING,
-      groupId: DataTypes.INTEGER,
+      phone: DataTypes.INTEGER,
+      gender: DataTypes.ENUM,
+      is_active: DataTypes.BOOLEAN,
+      is_verified: DataTypes.BOOLEAN,
+      is_master: DataTypes.BOOLEAN,
+      position_id: DataTypes.INTEGER,
     },
     {
       sequelize,

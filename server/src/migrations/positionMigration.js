@@ -5,18 +5,27 @@ const sequelize = require("sequelize");
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("Group_Role", {
+    await queryInterface.createTable("Position", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      groupId: {
-        type: Sequelize.INTEGER,
+      name: {
+        type: Sequelize.STRING,
       },
-      roleId: {
-        type: Sequelize.INTEGER,
+      desc: {
+        type: Sequelize.STRING,
+      },
+      state: {
+        type: Sequelize.BOOLEAN,
+      },
+      slug: {
+        type: Sequelize.STRING,
+      },
+      is_master: {
+        type: Sequelize.BOOLEAN,
       },
       createdAt: {
         allowNull: false,
@@ -32,6 +41,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Group_Role");
+    await queryInterface.dropTable("Position");
   },
 };
