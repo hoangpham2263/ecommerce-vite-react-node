@@ -1,10 +1,10 @@
-.wrap-logo {
+.cs-wrap-logo{
     display    : flex;
     align-items: flex-end;
 }
 
 /* left */
-.border-rs {
+.cs-border-rs {
     position       : relative;
     width          : 26px;
     height         : 26px;
@@ -14,7 +14,7 @@
     margin-bottom  : 7px;
 }
 
-.icon-outside {
+.cs-icon-outside {
     display        : flex;
     align-items    : center;
     justify-content: center;
@@ -22,7 +22,7 @@
     color          : white;
 }
 
-.icon-inside {
+.cs-icon-inside {
     position : absolute;
     top      : 50%;
     left     : 50%;
@@ -32,7 +32,7 @@
 }
 
 /* right */
-.text-logo {
+.cs-text-logo {
     display    : flex;
     align-items: flex-end;
     line-height: 34px;

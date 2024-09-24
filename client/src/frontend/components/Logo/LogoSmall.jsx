@@ -5,13 +5,13 @@ import { BsFillBagFill } from 'react-icons/bs'
 
 const LogoSmall = () => {
   return (
-    <div className='wrap-logo'>
-      <div className='text-logo'>
+    <div className='cs-wrap-logo'>
+      <div className='cs-text-logo'>
         Ecommerce
       </div>
-      <div className='border-rs'>
-        <BsFillBagFill className='icon-outside'/>
-        <FaOpencart className='icon-inside'/>
+      <div className='cs-border-rs'>
+        <BsFillBagFill className='cs-icon-outside'/>
+        <FaOpencart className='cs-icon-inside'/>
       </div>
     </div>
   )

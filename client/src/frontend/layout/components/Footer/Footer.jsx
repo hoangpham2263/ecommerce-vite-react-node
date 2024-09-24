@@ -1,18 +1,19 @@
+import LogoIcon from '../../../components/LogoIcon/LogoIcon'
 import './Footer.css'
 
 
 const Footer = () => {
   return (
     <footer className='cs-wrapper'>
-      <div className='container py-3'>
+      <div className='container pt-3'>
         <div className='row'>
           {/* block 1 */}
           <div className='col-3'>
             <div className='gl-mb-12'>
               <div className='gl-fz-16 gl-mb-12 fw-normal'>Tổng đài hỗ trợ miễn phí</div>
-              <div className='gl-fz-12 gl-mb-5 ms-2 fw-normal gl-color-white-4a'>Gọi mua hàng <strong className='gl-fz-12'>1800.2097</strong> (7h30 - 22h00)</div>
-              <div className='gl-fz-12 gl-mb-5 ms-2 fw-normal gl-color-white-4a'>Gọi khiếu nại <strong className='gl-fz-12'>1800.2063</strong> (8h00 - 21h30)</div>
-              <div className='gl-fz-12 gl-mb-5 ms-2 fw-normal gl-color-white-4a'>Gọi bảo hành <strong className='gl-fz-12'>1800.2064</strong> (8h00 - 21h00)</div>
+              <div className='gl-fz-12 gl-mb-5 ms-2 fw-normal gl-color-white-4a'>Gọi mua hàng <strong className='gl-fz-12'>+84 971955144</strong> (7h30 - 22h00)</div>
+              <div className='gl-fz-12 gl-mb-5 ms-2 fw-normal gl-color-white-4a'>Gọi khiếu nại <strong className='gl-fz-12'>+84 971955144</strong> (8h00 - 21h30)</div>
+              <div className='gl-fz-12 gl-mb-5 ms-2 fw-normal gl-color-white-4a'>Gọi bảo hành <strong className='gl-fz-12'>+84 971955144</strong> (8h00 - 21h00)</div>
             </div>
             <div className='gl-mb-12'>
               <div className='gl-fz-16 gl-mb-12 fw-normal'>Phương thức thanh toán</div>
@@ -31,7 +32,20 @@ const Footer = () => {
             <div className='gl-mb-12'>
               <div className='gl-fz-16 gl-mb-5 fw-normal'>ĐĂNG KÝ NHẬN TIN KHUYẾN MÃI</div>
               <div className='gl-fz-14 gl-mb-5 fw-normal gl-color-white-4a text-danger'>(*) Nhận ngay voucher 10%</div>
-              <div className='gl-fz-13 gl-mb-5 fw-normal gl-color-white-4a'>*Voucher sẽ được gửi sau 24h, chỉ áp dụng cho khách hàng mới</div>
+              <div className='gl-fz-13 gl-mb-10 fw-normal gl-color-white-4a text-black'>*Voucher sẽ được gửi sau 24h, chỉ áp dụng cho khách hàng mới</div>
+              <div className="mb-3">
+                <input type="email" className="cs-input" id="exampleInputEmail1" placeholder='Email *' aria-describedby="emailHelp"/>
+              </div>
+              <div className="gl-mb-10">
+                <input type="email" className="cs-input" id="exampleInputEmail1" placeholder='Email *' aria-describedby="emailHelp"/>
+              </div>
+              <div className="gl-mb-10 form-check">
+                <input className="form-check-input" type="checkbox" value="" id="flexCheckChecked"/>
+                <label className="form-check-label gl-fz-13 gl-mb-5 fw-normal gl-color-white-4a text-danger" htmlFor="flexCheckChecked">
+                  Tôi đồng ý với điều khoản của CellphoneS
+                </label>
+              </div>
+              <button type="button" className="btn btn-danger w-100 gl-bg-primary">ĐĂNG KÝ NGAY</button>
             </div>
           </div>
           {/* block 2 */}
@@ -64,7 +78,16 @@ const Footer = () => {
               <div className='gl-fz-12 gl-mb-5 ms-2 fw-normal gl-color-white-4a'>Liên hệ hợp tác kinh doanh</div>
               <div className='gl-fz-12 gl-mb-5 ms-2 fw-normal gl-color-white-4a'>Tuyển dụng</div>
               <div className='gl-fz-12 gl-mb-5 ms-2 fw-normal gl-color-white-4a'>Dịch vụ bảo hành mở rộng</div>
-              <div className='gl-fz-12 gl-mb-5 ms-2 fw-normal gl-color-white-4a'>Smember: Tích điểm & sử dụng ưu đãi</div>
+              <div className='gl-fz-12 gl-mb-5 ms-2 fw-normal gl-color-white-4a d-flex align-items-center'><LogoIcon/> Smember: Tích điểm & sử dụng ưu đãi</div>
+              <div className='gl-mb-5 ms-2 d-flex align-items-center'>
+                <div className=''>
+                  <a className='cs-qr' href='#'><img className='cs-qr-img' src='https://cdn2.cellphones.com.vn/200x,webp/media/wysiwyg/QR_appGeneral.jpg' alt=''/></a>
+                </div>
+                <div className='d-flex flex-column justify-content-between'>
+                  <a href='#'><img className='cs-down-app my-2 ms-2' src='https://cdn2.cellphones.com.vn/200x,webp/media/wysiwyg/downloadANDROID.png' alt=''/></a>
+                  <a href='#'><img className='cs-down-app my-2 ms-2' src='https://cdn2.cellphones.com.vn/200x,webp/media/wysiwyg/downloadiOS.png' alt=''/></a>
+                </div>
+              </div>
             </div>
           </div>
           {/* block 4 */}
@@ -130,6 +153,10 @@ const Footer = () => {
             </div>
           </div>
           <div className='d-flex justify-content-center gl-fz-10 gl-mb-5 fw-normal gl-color-white-92'>Công ty TNHH Thương Mại và Dịch Vụ Kỹ Thuật DIỆU PHÚC - GPĐKKD: 0316172372 cấp tại Sở KH & ĐT TP. HCM. Địa chỉ văn phòng: 350-352 Võ Văn Kiệt, Phường Cô Giang, Quận 1, Thành phố Hồ Chí Minh, Việt Nam. Điện thoại: 028.7108.9666.</div>
+          <div className='d-flex justify-content-center align-items-center mb-3'>
+            <a className='cs-banner' href='#'><img className='cs-banner-img' src='https://cdn2.cellphones.com.vn/80x,webp/media/logo/logoSaleNoti.png' alt=''/></a>
+            <a className='cs-copyright' href='#'><img className='cs-copyright-img' src='https://images.dmca.com/Badges/dmca_copyright_protected150c.png?ID=158f5667-cce3-4a18-b2d1-826225e6b022' alt=''/></a>
+          </div>
         </div>
       </div>
     </footer>
