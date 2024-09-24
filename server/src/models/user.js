@@ -17,7 +17,6 @@ module.exports = (sequelize, DataTypes) => {
       User.hasMany(models.Bank_Account, { foreignKey: 'user_id' });
       User.hasMany(models.Message, { foreignKey: 'user_id_send' });
       User.hasMany(models.Message, { foreignKey: 'user_id_receive' });
-      
     }
   }
   User.init(
@@ -26,8 +25,8 @@ module.exports = (sequelize, DataTypes) => {
       username: DataTypes.STRING,
       email: DataTypes.STRING,
       password: DataTypes.STRING,
-      phone: DataTypes.INTEGER,
-      gender: DataTypes.ENUM,
+      phone: DataTypes.STRING,
+      gender: DataTypes.STRING,
       is_active: DataTypes.BOOLEAN,
       is_verified: DataTypes.BOOLEAN,
       is_master: DataTypes.BOOLEAN,

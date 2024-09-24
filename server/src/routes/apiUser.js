@@ -1,27 +1,27 @@
 import express from "express";
 import registerLoginController from "../controllers/registerLoginController";
-import userController from "../controllers/userController";
-import groupController from "../controllers/groupController";
-import groupRoleController from "../controllers/groupRoleController";
-import roleController from "../controllers/roleController";
-import productController from "../controllers/productController";
-import categoriesController from "../controllers/categoriesController";
-import brandController from "../controllers/brandController";
-import citiesController from "../controllers/citiesController";
-import districtsController from "../controllers/districtsController";
-import cartController from "../controllers/cartController";
-import orderController from "../controllers/orderController";
-import { checkUserJWT, checkUserPermission } from "../middleware/JWTAction";
-import SendMail from '../utility/SendMail'
-import sendMailContact from '../utility/SendMailContact'
+// import userController from "../controllers/userController";
+// import groupController from "../controllers/groupController";
+// import groupRoleController from "../controllers/groupRoleController";
+// import roleController from "../controllers/roleController";
+// import productController from "../controllers/productController";
+// import categoriesController from "../controllers/categoriesController";
+// import brandController from "../controllers/brandController";
+// import citiesController from "../controllers/citiesController";
+// import districtsController from "../controllers/districtsController";
+// import cartController from "../controllers/cartController";
+// import orderController from "../controllers/orderController";
+// import { checkUserJWT, checkUserPermission } from "../middleware/JWTAction";
+// import SendMail from '../utility/SendMail'
+// import sendMailContact from '../utility/SendMailContact'
 
 const router = express.Router();
 
 const adminRoute = (app) => {
-  const authMiddlewares = [checkUserJWT, checkUserPermission]
+  // const authMiddlewares = [checkUserJWT, checkUserPermission]
 
   // // login and register
-  // router.post("/user/register", registerLoginController.registerUser);
+  router.post("/user/register", registerLoginController.registerUser);
   // router.post("/user/login", registerLoginController.loginUser);
   // router.post("/user/logout", registerLoginController.logoutUser);
 
@@ -57,7 +57,7 @@ const adminRoute = (app) => {
   // router.post("/send-mail", SendMail);
   // router.post("/send-mail-contact", sendMailContact);
 
-  return app.use("/api/v1", router);
+  return app.use("/api", router);
 };
 
 export default adminRoute;

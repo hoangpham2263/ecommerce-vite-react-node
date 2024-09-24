@@ -9,7 +9,6 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Role.hasMany(models.Position_Role, { through: "role_id" });
       Role.belongsToMany(models.Position, { through: 'Position_Role' });
     }
   }

@@ -1,5 +1,5 @@
 "use strict";
-const { Model } = require("sequelize");
+const { Model, DataTypes, Sequelize } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Message extends Model {
     /**
@@ -15,8 +15,28 @@ module.exports = (sequelize, DataTypes) => {
   }
   Message.init(
     {
-      user_id_send: DataTypes.STRING,
-      user_id_receive: DataTypes.STRING,
+      user_id_send: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: "User",
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "SET NULL",
+      },
+      user_id_receive: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: "User",
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "SET NULL",
+      },
+      onUpdate: "CASCADE",
+      onDelete: "SET NULL",
     },
     {
       sequelize,

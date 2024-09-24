@@ -1,19 +1,19 @@
 import express from "express";
-import registerLoginController from "../controllers/registerLoginController";
-import userController from "../controllers/userController";
-import groupController from "../controllers/groupController";
-import groupRoleController from "../controllers/groupRoleController";
-import roleController from "../controllers/roleController";
-import productController from "../controllers/productController";
-import categoriesController from "../controllers/categoriesController";
-import brandController from "../controllers/brandController";
-import cartController from "../controllers/cartController";
-import { checkUserJWT, checkUserPermission } from "../middleware/JWTAction";
+// import registerLoginController from "../controllers/registerLoginController";
+// import userController from "../controllers/userController";
+// import groupController from "../controllers/groupController";
+// import groupRoleController from "../controllers/groupRoleController";
+// import roleController from "../controllers/roleController";
+// import productController from "../controllers/productController";
+// import categoriesController from "../controllers/categoriesController";
+// import brandController from "../controllers/brandController";
+// import cartController from "../controllers/cartController";
+// import { checkUserJWT, checkUserPermission } from "../middleware/JWTAction";
 
 const router = express.Router();
 
 const adminRoute = (app) => {
-  const authMiddlewares = [checkUserJWT, checkUserPermission]
+  // const authMiddlewares = [checkUserJWT, checkUserPermission]
 
   // // login and register
   // router.post("/user/register", registerLoginController.registerUser);
@@ -66,7 +66,7 @@ const adminRoute = (app) => {
   // router.put("/brand/update", authMiddlewares, brandController.updateFunc);
   // router.delete("/brand/delete", authMiddlewares, brandController.deleteFunc);
 
-  return app.use("/api/v1/admin", router);
+  return app.use("/api/admin", router);
 };
 
 export default adminRoute;

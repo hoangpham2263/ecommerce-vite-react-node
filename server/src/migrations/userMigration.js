@@ -25,11 +25,10 @@ module.exports = {
         type: Sequelize.STRING,
       },
       phone: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
       },
       gender: {
-        type: Sequelize.ENUM,
-        values: ['male', 'female', 'other']
+        type: Sequelize.STRING,
       },
       is_active: {
         type: Sequelize.BOOLEAN,

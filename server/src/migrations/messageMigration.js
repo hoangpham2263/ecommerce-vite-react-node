@@ -13,7 +13,7 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       user_id_send: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
       },
       user_id_receive: {
         type: Sequelize.INTEGER,
