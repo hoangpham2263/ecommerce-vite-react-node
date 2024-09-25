@@ -19,7 +19,7 @@ const LoginWithGoogle = () => {
 
         const accessToken = tokenResponse.data.access_token
 
-        const userInfoResponse = await axios.get(`${import.meta.REACT_APP_GOOGLE_CLIENT_ID}`, {
+        const userInfoResponse = await axios.get(`${import.meta.env.VITE_API_GOOGLE_CLIENT_ID}`, {
           headers: { Authorization: `Bearer ${accessToken}` }
         })
         setUserInfo(userInfoResponse.data)

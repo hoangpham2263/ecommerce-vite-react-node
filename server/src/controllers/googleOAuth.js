@@ -53,14 +53,13 @@ const saveAccountGoogleOAuth = async (req, res) => {
     let isEmailExist = await checkEmailExist(email);
     if (!isEmailExist) {
       await db.User.create({
-        username: name,
+        full_name: name,
         email: email,
         avatar: picture,
         is_verified: email_verified,
         google_sub: hashGoogleSubKey,
       });
     }
-
     return res.status(200).json({ message: "login successfully!", data: [] });
   } catch (error) {
     return res.status(500).json({ message: "error from server", data: [] });

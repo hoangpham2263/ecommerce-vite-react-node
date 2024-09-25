@@ -12,19 +12,22 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
+      full_name: {
+        type: Sequelize.STRING,
+      },
       avatar: {
         type: Sequelize.STRING,
       },
       username: {
         type: Sequelize.STRING,
       },
+      password: {
+        type: Sequelize.STRING,
+      },
       email: {
         type: Sequelize.STRING,
       },
       google_sub: {
-        type: Sequelize.STRING,
-      },
-      password: {
         type: Sequelize.STRING,
       },
       phone: {
