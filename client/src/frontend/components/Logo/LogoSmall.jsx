@@ -1,11 +1,13 @@
 import './LogoSmall.css'
 import { FaOpencart } from 'react-icons/fa6'
 import { BsFillBagFill } from 'react-icons/bs'
+import { Link } from 'react-router-dom'
+import config from '../../config'
 
 
 const LogoSmall = () => {
   return (
-    <div className='cs-wrap-logo'>
+    <Link className='cs-wrap-logo' to={`${config.routes.home}`}>
       <div className='cs-text-logo'>
         Ecommerce
       </div>
@@ -13,7 +15,7 @@ const LogoSmall = () => {
         <BsFillBagFill className='cs-icon-outside'/>
         <FaOpencart className='cs-icon-inside'/>
       </div>
-    </div>
+    </Link>
   )
 }
 
