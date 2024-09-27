@@ -24,6 +24,7 @@ const LoginWithGoogle = () => {
           headers: { Authorization: `Bearer ${accessToken}` }
         })
         setUserInfo(userInfoResponse.data)
+        console.log(userInfoResponse)
         const saveAccountGoogleOAuth = await axios.post(`${import.meta.env.VITE_API_API_URL}/api/admin/auth/google/create`, { data: userInfoResponse?.data })
 
         if (saveAccountGoogleOAuth.status === 200) {

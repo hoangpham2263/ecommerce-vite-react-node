@@ -50,7 +50,7 @@
 //       groupId: 3,
 //     });
 
-//     return { EM: "A user is created successfully!", EC: 0, DT: "", };
+//     return { EM: "", EC: 0, DT: "", };
 //   } catch (error) {
 //     console.log(error);
 //     return { EM: "Something wrongs with services", EC: 1, DT: [], };
