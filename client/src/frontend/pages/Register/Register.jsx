@@ -18,7 +18,7 @@ const Register = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState([false])
   const [data, setData] = useState({
     fullName:'',
-    username:'',
+    userName:'',
     email:'',
     password:'',
     confirmPassword:'',
@@ -60,8 +60,8 @@ const Register = () => {
           <input type="text" className="form-control" name='fullName' id="fullName" required onChange={handleOnChange}/>
         </div>
         <div className="mb-3 pt-2">
-          <label htmlFor="username" className="form-label mb-1 fw-light size-14">Username</label>
-          <input type="text" className="form-control" name='username' id="username" required onChange={handleOnChange}/>
+          <label htmlFor="userName" className="form-label mb-1 fw-light size-14">userName</label>
+          <input type="text" className="form-control" name='userName' id="userName" required onChange={handleOnChange}/>
         </div>
         <div className="mb-3 pt-2">
           <label htmlFor="email" className="form-label mb-1 fw-light size-14">Email address</label>

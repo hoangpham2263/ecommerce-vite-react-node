@@ -16,7 +16,9 @@ const LoginWithGoogle = () => {
     flow: 'auth-code',
     onSuccess: async (response) => {
       try {
-        const tokenResponse = await axios.post(`${import.meta.env.VITE_API_API_URL}/api/admin/auth/google`, { code: response.code })
+        const tokenResponse = await axios.post(`${import.meta.env.VITE_API_API_URL}/api/admin/auth/google`,
+          { code: response.code }
+        )
 
         const accessToken = tokenResponse.data.access_token
 
@@ -24,8 +26,11 @@ const LoginWithGoogle = () => {
           headers: { Authorization: `Bearer ${accessToken}` }
         })
         setUserInfo(userInfoResponse.data)
-        console.log(userInfoResponse)
-        const saveAccountGoogleOAuth = await axios.post(`${import.meta.env.VITE_API_API_URL}/api/admin/auth/google/create`, { data: userInfoResponse?.data })
+        const saveAccountGoogleOAuth = await axios.post(`${import.meta.env.VITE_API_API_URL}/api/admin/auth/google/create`, { data: userInfoResponse?.data },
+          { headers: {
+            'Content-Type': 'application/json'
+          },
+          withCredentials: true })
 
         if (saveAccountGoogleOAuth.status === 200) {
           toast.success(saveAccountGoogleOAuth?.data?.message)

@@ -2,6 +2,9 @@ import { FaFacebookF } from 'react-icons/fa'
 import { FaTwitter } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import { BiShow, BiHide } from 'react-icons/bi'
+import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 import './Login.css'
 import classNames from 'classnames/bind'
@@ -13,10 +16,42 @@ import { useState } from 'react'
 const cx = classNames.bind(styles)
 
 const Login = () => {
+  const navigate = useNavigate()
+
   const [showPassword, setShowPassword] = useState([false])
+  const [data, setData] = useState({
+    userName: '',
+    password: ''
+  })
 
   const handleShowPassword = () => {
     setShowPassword((prev) => !prev)
+  }
+
+  const handleOnChange = (e) => {
+    const { name, value } = e.target
+    setData((prev) => {
+      return {
+        ...prev,
+        [name]: value
+      }
+    })
+  }
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    let response = await axios.post('http://localhost:8000/api/user/login', { data }, {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      withCredentials: true
+    })
+
+    if (response) {
+      toast.success(response)
+      navigate('/')
+    } else {
+      toast.error('err')
+    }
   }
 
   return (
@@ -28,12 +63,12 @@ const Login = () => {
           <p><Link className="link-offset-2 link-underline link-underline-opacity-0 size-14" to={`${config.routes.register}`}>Don&apos;t have an account?</Link></p>
         </div>
         <div className="mb-3 pt-4">
-          <label htmlFor="email" className="form-label mb-1 fw-light size-14">Email address</label>
-          <input type="email" className="form-control" id="email" aria-describedby="emailHelp" name='email' required />
+          <label htmlFor="username" className="form-label mb-1 fw-light size-14">Username</label>
+          <input type="text" className="form-control" id="username" name='userName' required onChange={handleOnChange} />
         </div>
         <div className="mb-3 pt-2 cs-block-show-hide">
           <label htmlFor="password" className="form-label mb-1 fw-light size-14">Password</label>
-          <input type={showPassword ? 'password' : 'text'} className="form-control" id="password" name='password' required />
+          <input type={showPassword ? 'password' : 'text'} className="form-control" id="password" name='password' required onChange={handleOnChange} />
           {true && (
             <div className={cx('cs-show-hide')} onClick={handleShowPassword}>
               {showPassword ? <BiHide /> : <BiShow />}
@@ -47,19 +82,19 @@ const Login = () => {
           </div>
           <p><Link to={'#'} className="link-dark link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover size-14">Forgot Password?</Link></p>
         </div>
-        <button type="submit" className="btn btn-primary w-100 mt-4">Login</button>
+        <button type="submit" className="btn btn-primary w-100 mt-4" onClick={handleSubmit}>Login</button>
         <div className="d-flex align-items-center pt-4">
           <hr className="flex-grow-1" />
           <span className="mx-2 text-line">Login with</span>
           <hr className="flex-grow-1" />
         </div>
         <div className='d-flex justify-content-between py-4'>
-          <LoginWithGoogle/>
+          <LoginWithGoogle />
           <button type="button" className="d-flex align-items-center btn btn-outline-secondary custom-hover">
             <FaFacebookF className='text-primary' /><span className='mx-1'>{''}</span><span className='size-14'>Facebook</span>
           </button>
           <button type="button" className="d-flex align-items-center btn btn-outline-secondary custom-hover">
-            <FaTwitter className='text-info'/><span className='mx-1'>{''}</span><span className='size-14'>Twitter</span>
+            <FaTwitter className='text-info' /><span className='mx-1'>{''}</span><span className='size-14'>Twitter</span>
           </button>
         </div>
       </form>

@@ -22,8 +22,8 @@ const adminRoute = (app) => {
 
   // // login and register
   router.post("/user/register", registerLoginController.registerAccount);
-  // router.post("/user/login", registerLoginController.loginUser);
-  // router.post("/user/logout", registerLoginController.logoutUser);
+  router.post("/user/login", registerLoginController.loginAccount);
+  router.post("/user/logout", registerLoginController.logoutAccount);
 
   // // Read JWT
   // router.get("/user/jwt-token", registerLoginController.readJWT);
