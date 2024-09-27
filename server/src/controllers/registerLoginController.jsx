@@ -1,22 +1,22 @@
-import registerLoginService from "../services/registerLoginService";
+// import registerLoginService from "../services/registerLoginService";
 
 // Register
-const registerUser = async (req, res) => {
-  console.log(">>>>>>>>>>",req.body)
-  // try {
-  //   const { lastName, firstName, email, password, phone, sex } = req.body.data;
-  //   if (!lastName || !firstName || !email || !password || !phone || !sex) {
-  //     return res.status(200).json({ EM: "Missing Required Parameters", EC: 1, DT: "", });
-  //   }
-  //   if (password && password.length < 6) {
-  //     return res.status(200).json({ EM: "Your password must have more than 6 letters", EC: "1", DT: "", });
-  //   }
-  //   let data = await registerLoginService.registerNewUser(req.body.data);
+const registerAccount = async (req, res) => {
+  console.log(">>>>>>>>>>", req.body)
+  try {
+    const { fullName, username, email, password, confirmPassword, gender } = req.body.data;
+    if (!lastName || !firstName || !email || !password || !phone || !sex) {
+      return res.status(200).json({ message: "missing required parameters", data: [] });
+    }
+    if (password && password.length < 6) {
+      return res.status(200).json({ EM: "Your password must have more than 6 letters", EC: "1", DT: "", });
+    }
+    // let data = await registerLoginService.registerNewUser(req.body.data);
 
-  //   return res.status(200).json({ EM: data.EM, EC: data.EC, DT: data.DT, });
-  // } catch (error) {
-  //   return res.status(500).json({ EM: "Error from server", EC: -1, DT: "", });
-  // }
+    // return res.status(200).json({ EM: data.EM, EC: data.EC, DT: data.DT, });
+  } catch (error) {
+    return res.status(500).json({ EM: "Error from server", EC: -1, DT: "", });
+  }
 };
 
 // Login
@@ -74,4 +74,4 @@ const registerUser = async (req, res) => {
 //   }
 // };
 
-module.exports = { registerUser};
+module.exports = { registerAccount };

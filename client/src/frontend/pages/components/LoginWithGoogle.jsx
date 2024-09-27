@@ -3,6 +3,7 @@ import { useGoogleLogin } from '@react-oauth/google'
 import { FcGoogle } from 'react-icons/fc'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 const LoginWithGoogle = () => {
   const navigate = useNavigate()
@@ -26,6 +27,7 @@ const LoginWithGoogle = () => {
         const saveAccountGoogleOAuth = await axios.post(`${import.meta.env.VITE_API_API_URL}/api/admin/auth/google/create`, { data: userInfoResponse?.data })
 
         if (saveAccountGoogleOAuth.status === 200) {
+          toast.success(saveAccountGoogleOAuth?.data?.message)
           navigate('/')
         }
       } catch (error) {setError(error)}

@@ -36,3 +36,16 @@ hr {
   list-style: 12px;
   font-family: inherit;
 }
+
+/* show hide password */
+.cs-block-show-hide{
+  position: relative;
+}
+
+.cs-show-hide{
+  position: absolute;
+  top: 50%;
+  transform: translateY(calc(-50% + 14px));
+  right: 20px;
+  cursor: pointer;
+}

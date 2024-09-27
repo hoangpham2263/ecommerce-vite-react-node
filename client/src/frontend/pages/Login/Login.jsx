@@ -1,16 +1,23 @@
 import { FaFacebookF } from 'react-icons/fa'
 import { FaTwitter } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
+import { BiShow, BiHide } from 'react-icons/bi'
 
 import './Login.css'
 import classNames from 'classnames/bind'
 import styles from './Login.module.scss'
 import config from '../../config'
 import LoginWithGoogle from '../components/LoginWithGoogle'
+import { useState } from 'react'
 
 const cx = classNames.bind(styles)
 
 const Login = () => {
+  const [showPassword, setShowPassword] = useState([false])
+
+  const handleShowPassword = () => {
+    setShowPassword((prev) => !prev)
+  }
 
   return (
     <div className={cx('wrapper', 'py-5')}>
@@ -24,9 +31,14 @@ const Login = () => {
           <label htmlFor="email" className="form-label mb-1 fw-light size-14">Email address</label>
           <input type="email" className="form-control" id="email" aria-describedby="emailHelp" name='email' required />
         </div>
-        <div className="mb-3 pt-2">
+        <div className="mb-3 pt-2 cs-block-show-hide">
           <label htmlFor="password" className="form-label mb-1 fw-light size-14">Password</label>
-          <input type="password" className="form-control" id="password" name='password' required />
+          <input type={showPassword ? 'password' : 'text'} className="form-control" id="password" name='password' required />
+          {true && (
+            <div className={cx('cs-show-hide')} onClick={handleShowPassword}>
+              {showPassword ? <BiHide /> : <BiShow />}
+            </div>
+          )}
         </div>
         <div className='d-flex justify-content-between'>
           <div className="ms-2 form-check">

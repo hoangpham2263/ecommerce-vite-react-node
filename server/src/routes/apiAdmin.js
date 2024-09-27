@@ -20,7 +20,7 @@ const adminRoute = (app) => {
   router.post('/auth/google/create',googleOAuth.saveAccountGoogleOAuth)
 
   // // login and register
-  // router.post("/user/register", registerLoginController.registerUser);
+  // router.post("/user/register", registerLoginController.registerAccount);
   // router.post("/user/login", registerLoginController.loginUser);
   // router.post("/user/logout", registerLoginController.logoutUser);
 

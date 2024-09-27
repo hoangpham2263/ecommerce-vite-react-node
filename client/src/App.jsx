@@ -2,9 +2,10 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Fragment } from 'react'
 import { arrayRoutes } from './main/routes/routes'
 import DefaultLayout from './frontend/layout/DefaultLayout'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 function App() {
-
   return (
     <BrowserRouter>
       <div className="App">
@@ -20,7 +21,7 @@ function App() {
             return <Route key={index} path={route.path} element={<Layout><Page /></Layout>} />
           })}
         </Routes>
-        {/* <ToastContainer autoClose={500} /> */}
+        <ToastContainer autoClose={800} />
       </div>
     </BrowserRouter>
   )

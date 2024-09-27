@@ -34,10 +34,10 @@ const Footer = () => {
               <div className='gl-fz-14 gl-mb-5 fw-normal gl-color-white-4a text-danger'>(*) Nhận ngay voucher 10%</div>
               <div className='gl-fz-13 gl-mb-10 fw-normal gl-color-white-4a text-black'>*Voucher sẽ được gửi sau 24h, chỉ áp dụng cho khách hàng mới</div>
               <div className="mb-3">
-                <input type="email" className="cs-input" id="exampleInputEmail1" placeholder='Email *' aria-describedby="emailHelp"/>
+                <input type="email" className="cs-input" id="emailFooter" placeholder='Email *'/>
               </div>
               <div className="gl-mb-10">
-                <input type="email" className="cs-input" id="exampleInputEmail1" placeholder='Email *' aria-describedby="emailHelp"/>
+                <input type="text" className="cs-input" id="phone" placeholder='Phone number'/>
               </div>
               <div className="gl-mb-10 form-check">
                 <input className="form-check-input" type="checkbox" value="" id="flexCheckChecked"/>

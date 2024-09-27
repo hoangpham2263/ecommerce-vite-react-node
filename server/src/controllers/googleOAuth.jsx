@@ -1,6 +1,5 @@
 import axios from 'axios';
 import db from "../models/index";
-import bcrypt from "bcryptjs";
 
 const loginGoogleOAuth = async (req, res) => {
   const { code } = req.body;
@@ -35,20 +34,12 @@ const checkEmailExist = async (email) => {
   if (user) { return true; } return false;
 };
 
-const hashGoogleSub = async (password) => {
-  var salt = bcrypt.genSaltSync(10);
-  var hashPassword = bcrypt.hashSync(password, salt);
-  return hashPassword;
-};
-
 const saveAccountGoogleOAuth = async (req, res) => {
   try {
-    const { name, email, picture, email_verified, sub } = req?.body?.data;
-    if (!name || !email || !picture || !email_verified || !sub) {
+    const { name, email, picture, email_verified } = req?.body?.data;
+    if (!name || !email || !picture || !email_verified) {
       return res.status(200).json({ message: "missing required parameters", data: [] });
     }
-
-    let hashGoogleSubKey = await hashGoogleSub(sub);
 
     let isEmailExist = await checkEmailExist(email);
     if (!isEmailExist) {
@@ -57,11 +48,11 @@ const saveAccountGoogleOAuth = async (req, res) => {
         email: email,
         avatar: picture,
         is_verified: email_verified,
-        google_sub: hashGoogleSubKey,
       });
     }
-    return res.status(200).json({ message: "login successfully!", data: [] });
+    return res.status(200).json({ message: "login google successfully!", data: [] });
   } catch (error) {
+    console.log(error)
     return res.status(500).json({ message: "error from server", data: [] });
   }
 }
