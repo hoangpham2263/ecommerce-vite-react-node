@@ -1,79 +1,131 @@
-.icon-cart{
-  color: var(--color-white);
-  font-size: 36px;
-  margin-left: -60px;
-}
-
-.cs-badges{
-  top: 24% !important;
-}
-
-.link-social-left{
-  color: var(--color-white);
-  font-size: 13px;
-  text-decoration: none;
-}
-
-.link-social-right{
-  color: var(--color-white);
-  font-size: 13px;
-  text-decoration: none;
-  margin-left: 13px;
-}
-
-.wall-center-link{
-  width: 1px;
-  height: 13px;
-  background-color: var(--primary);
-  margin: 0 6px;
-  opacity: 0.4;
-}
-
-.link-categories{
-  margin-top: -6px;
-  color: var(--color-white);
-  font-size: 12px;
-  text-decoration: none;
-  margin-right: 13px;
-}
-
-/* modal */
-
-.social {
-  width          : 80%;
+.cs-header {
+  height         : var(--height-header-default);
   display        : flex;
   align-items    : center;
-  justify-content: space-evenly;
-}
-.btn-login {
-  background-color: red;
+  justify-content: space-between;
 }
 
-.btn-social {
-  width          : 56px;
-  height         : 56px;
-  border-radius  : 50%;
+.cs-nav-item {
+  font-size      : 12px;
   display        : flex;
-  align-items    : center;
   justify-content: center;
+  align-items    : center;
+  border-radius  : 10px;
+  cursor         : pointer;
+  height         : 42px;
+  padding        : 3px 8px;
+  color          : var(--color-white);
+  text-decoration: none;
   border         : none;
 }
 
-.facebook {
-  background-color: #1877f2;
+.cs-nav-item:hover {
+  background: hsla(0, 0%, 100%, .2);
 }
 
-.facebook-icon {
-  color           : #fff;
-  background-color: #1877f2;
-  font-size       : 28px;
+.cs-nav-item-bg {
+  background: hsla(0, 0%, 100%, .2);
 }
 
-.google {
-  background-color: #f0f2f5;
+.cs-nav-item-icon {
+  font-size   : 28px;
+  margin-right: 2px;
 }
 
-.google-icon {
-  background-color: #f0f2f5;
-  font-size       : 28px;
+.cs-btn-register {
+  -webkit-text-fill-color: transparent;
+  background             : linear-gradient(90deg, #ff512f, #dd2440 51%, #ff512f);
+  -webkit-background-clip: text;
+  border                 : 2px solid #dd2440 !important;
+  border-radius          : 8px;
+  box-shadow             : 0 0 20px #eee;
+  cursor                 : pointer;
+  display                : flex;
+  flex                   : 1;
+  font-weight            : 600;
+  justify-content        : center;
+  padding                : 10px;
+  transition             : .5s;
+  user-select            : none;
+}
+
+.cs-btn-register:hover {
+  background-position: 100%;
+  transform          : scale(1.02);
+}
+
+.cs-btn-login {
+  align-items     : center;
+  background-image: linear-gradient(90deg, #ff512f, #dd2440 51%, #ff512f);
+  background-size : 200% auto;
+  border-radius   : 8px;
+  box-shadow      : 0 0 20px #eee;
+  color           : #fff !important;
+  cursor          : pointer;
+  display         : flex;
+  flex            : 1;
+  font-weight     : 600;
+  justify-content : center;
+  padding         : 10px;
+  text-align      : center;
+  transition      : .5s;
+}
+
+.cs-btn-login:hover {
+  background-position    : 100%;
+  color                  : #fff;
+  -webkit-text-decoration: none;
+  text-decoration        : none;
+  transform              : scale(1.02);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.icon-cart {
+  color    : var(--color-white);
+  font-size: 36px;
+}
+
+.cs-badges {
+  top: 24% !important;
+}
+
+.link-social-left {
+  color          : var(--color-white);
+  font-size      : 13px;
+  text-decoration: none;
+}
+
+.link-social-right {
+  color          : var(--color-white);
+  font-size      : 13px;
+  text-decoration: none;
+  margin-left    : 13px;
+}
+
+.wall-center-link {
+  width           : 1px;
+  height          : 13px;
+  background-color: var(--primary);
+  margin          : 0 6px;
+  opacity         : 0.4;
+}
+
+.link-categories {
+  margin-top     : -6px;
+  color          : var(--color-white);
+  font-size      : 12px;
+  text-decoration: none;
+  margin-right   : 13px;
 }

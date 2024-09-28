@@ -1,67 +1,80 @@
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { CgShoppingCart } from 'react-icons/cg'
-
+import { CiLocationOn } from 'react-icons/ci'
+import { IoIosArrowDown } from 'react-icons/io'
+import { PiPhoneCallThin, PiUserCircleThin } from 'react-icons/pi'
+import { LiaShippingFastSolid } from 'react-icons/lia'
+import { HiOutlineShoppingBag } from 'react-icons/hi2'
 import './Header.css'
 import Search from '../Search'
 import LogoSmall from '../../../components/Logo/LogoSmall'
 import config from '../../../config'
+import BannerTopHead from '../BannerTopHead/BannerTopHead'
+import { CgLoadbarDoc } from 'react-icons/cg'
+
 
 const Header = () => {
   return (
     <header className='gl-bg-primary w-100'>
-      <div className='w-100 gl-height-40 gl-bg-banner'>
-        <div className='container gl-bg-transparent'>11111111111111111</div>
+      <BannerTopHead/>
+      <div className='container gl-bg-transparent cs-header'>
+        <div className='me-2'><LogoSmall/></div>
+        <div className='cs-nav-item cs-nav-item-bg'><CgLoadbarDoc className='cs-nav-item-icon'/>Danh Mục</div>
+        <div className='cs-nav-item cs-nav-item-bg'><CiLocationOn className='cs-nav-item-icon'/>
+          <div className='d-flex flex-column'>
+            <p className='gl-fz-10 m-0 d-flex justify-content-between'>Xem giá tại <IoIosArrowDown className='gl-fz-1 ms-1'/></p>
+            <p className='gl-fz-14 m-0'>Hồ Chí Minh</p>
+          </div>
+        </div>
+        <div className='me-2'><Search/></div>
+        <div className='cs-nav-item'><PiPhoneCallThin className='cs-nav-item-icon'/>
+          <div className='d-flex flex-column'>
+            <p className='gl-fz-12 m-0 d-flex justify-content-between'>Gọi mua hàng</p>
+            <p className='gl-fz-10 m-0'>0971955144</p>
+          </div>
+        </div>
+        <div className='cs-nav-item'><CiLocationOn className='cs-nav-item-icon'/>
+          <div className='d-flex flex-column'>
+            <p className='gl-fz-11 m-0 d-flex justify-content-between'>Cửa hàng</p>
+            <p className='gl-fz-11 m-0'>gần bạn</p>
+          </div>
+        </div>
+        <div className='cs-nav-item'><LiaShippingFastSolid className='cs-nav-item-icon'/>
+          <div className='d-flex flex-column'>
+            <p className='gl-fz-11 m-0 d-flex justify-content-between'>Tra cứu</p>
+            <p className='gl-fz-11 m-0'>đơn hàng</p>
+          </div>
+        </div>
+        <div className='cs-nav-item'><HiOutlineShoppingBag className='cs-nav-item-icon'/>
+          <div className='d-flex flex-column'>
+            <p className='gl-fz-11 m-0 d-flex justify-content-between'>Giỏ</p>
+            <p className='gl-fz-11 m-0'>hàng</p>
+          </div>
+        </div>
+        <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" className='cs-nav-item cs-nav-item-bg d-flex flex-column'>
+          <PiUserCircleThin className='cs-nav-item-icon'/>
+          <p className='gl-fz-12 m-0'>Đăng nhập</p>
+        </button>
       </div>
-
-      <div className='container gl-bg-transparent py-1'>
-        <div className='row mt-2'>
-          <div className='col-6'>
-            <div className='d-flex align-items-center'>
-              <Link className='link-social-left' to='#'>Kênh người bán</Link>
-              <span className='wall-center-link'></span>
-              <Link className='link-social-left' to='#'>trở thành người bán hàng E-Shop</Link>
-              <span className='wall-center-link'></span>
-              <Link className='link-social-left' to='#'>Tải ứng dụng</Link>
-              <span className='wall-center-link'></span>
-              <Link className='link-social-left' to='#'>Kết Nối</Link>
+      <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div className="modal-dialog modal-dialog-centered modal-sm">
+          <div className="modal-content">
+            <div className="modal-header pt-1 pb-0 x-1">
+              <h1 className="modal-title w-100 fs-2 gl-color-primary d-flex justify-content-center border-0 mt-2" id="staticBackdropLabel">Smember</h1>
+              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-          </div>
-          <div className='col-6'>
-            <div className='d-flex align-items-center justify-content-end'>
-              <Link className='link-social-right' to='#'>Thông báo</Link>
-              <Link className='link-social-right' to='#'>Hỗ trợ</Link>
-              <Link className='link-social-right' to='#'>Tiếng việt</Link>
-              <Link className='link-social-right' to={`${config.routes.register}`} >Đăng ký</Link>
-              <span className='wall-center-link'></span>
-              <Link className='link-social-left' to={`${config.routes.login}`} >Đăng nhập</Link>
+            <div className="modal-body border-0 pt-1 pb-2 px-1">
+              <div className='w-100 d-flex justify-content-center pb-2'>
+                <img className='' src='https://cdn2.cellphones.com.vn/insecure/rs:fill:0:80/q:90/plain/https://cellphones.com.vn/media/wysiwyg/chibi2.png'/>
+              </div>
+              <h4 className="w-100 d-flex justify-content-center gl-fz-14 text-center px-2" id="staticBackdropLabel">Vui lòng đăng nhập tài khoản Smember để xem ưu đãi và thanh toán dễ dàng hơn.</h4>
+            </div>
+            <div className="modal-footer border-0 d-flex justify-content-around">
+              <a href={config.routes.register} className="btn cs-btn-register">Đăng ký</a>
+              <a href={config.routes.login} className="btn cs-btn-login">Đăng Nhập</a>
             </div>
           </div>
         </div>
-
-        <div className='row mt-3'>
-          <div className='col-2 d-flex align-items-center'><LogoSmall/></div>
-          <div className='col-8 d-flex align-items-center'><Search/></div>
-          <div className='col-2 d-flex justify-content-center align-items-center'>
-            <button type="button" className="btn btn-primary position-relative">
-              <CgShoppingCart className='icon-cart'/>
-              <span className="position-absolute translate-middle badge rounded-pill bg-danger cs-badges">99+<span className="visually-hidden">unread messages</span></span>
-            </button>
-          </div>
-        </div>
-
-        {/* <div className='row mb-1'>
-          <div className='col-2'></div>
-          <div className='col-8'>
-            <div className='d-flex align-items-center'>
-              <Link className='link-categories' to='#'>Categories Item</Link>
-              <Link className='link-categories' to='#'>Categories Item</Link>
-              <Link className='link-categories' to='#'>Categories Item</Link>
-              <Link className='link-categories' to='#'>Categories Item</Link>
-              <Link className='link-categories' to='#'>Categories Item</Link>
-            </div>
-          </div>
-          <div className='col-2'></div>
-        </div> */}
       </div>
     </header>
   )

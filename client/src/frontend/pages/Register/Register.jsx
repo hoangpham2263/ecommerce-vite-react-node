@@ -1,28 +1,31 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
 import { FaFacebookF } from 'react-icons/fa'
 import { FaTwitter } from 'react-icons/fa'
 import { BiShow, BiHide } from 'react-icons/bi'
+import { toast } from 'react-toastify'
+import { useNavigate, Link } from 'react-router-dom'
 
 import './Register.css'
 import classNames from 'classnames/bind'
 import styles from './Register.module.scss'
 import config from '../../config'
 import LoginWithGoogle from '../components/LoginWithGoogle'
+import { registerAccountBasic } from '../../../main/services/sharedApi'
 
 
 const cx = classNames.bind(styles)
 
 const Register = () => {
+  const navigate = useNavigate()
+
   const [showPassword, setShowPassword] = useState([false])
   const [showConfirmPassword, setShowConfirmPassword] = useState([false])
   const [data, setData] = useState({
-    fullName:'',
-    userName:'',
-    email:'',
-    password:'',
-    confirmPassword:'',
-    gender:''
+    fullName: '',
+    userName: '',
+    password: '',
+    confirmPassword: '',
+    gender: ''
   })
 
   const handleShowPassword = () => {
@@ -35,17 +38,18 @@ const Register = () => {
 
   const handleOnChange = (e) => {
     const { name, value } = e.target
-    setData((prev) => {
-      return {
-        ...prev,
-        [name]: value
-      }
-    })
+    setData((prev) => { return { ...prev, [name]: value } })
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log(data)
+    let response = await registerAccountBasic(data)
+    if (response?.data?.code === 0) {
+      toast.success(response?.data?.message)
+      navigate(config.routes.login)
+    } else {
+      toast.error(response?.data?.message)
+    }
   }
   return (
     <div className={cx('wrapper', 'py-5')}>
@@ -57,19 +61,15 @@ const Register = () => {
         </div>
         <div className="mb-3 pt-2">
           <label htmlFor="fullName" className="form-label mb-1 fw-light size-14">Full Name</label>
-          <input type="text" className="form-control" name='fullName' id="fullName" required onChange={handleOnChange}/>
+          <input type="text" className="form-control" name='fullName' id="fullName" required onChange={handleOnChange} />
         </div>
         <div className="mb-3 pt-2">
           <label htmlFor="userName" className="form-label mb-1 fw-light size-14">userName</label>
-          <input type="text" className="form-control" name='userName' id="userName" required onChange={handleOnChange}/>
-        </div>
-        <div className="mb-3 pt-2">
-          <label htmlFor="email" className="form-label mb-1 fw-light size-14">Email address</label>
-          <input type='email' className="form-control" name='email' id="email" required onChange={handleOnChange}/>
+          <input type="text" className="form-control" name='userName' id="userName" required onChange={handleOnChange} />
         </div>
         <div className="mb-3 pt-2 cs-block-show-hide">
           <label htmlFor="password" className="form-label mb-1 fw-light size-14">Password</label>
-          <input type={showPassword ? 'password' : 'text'} className="form-control" name='password' id="password" required onChange={handleOnChange}/>
+          <input type={showPassword ? 'password' : 'text'} className="form-control" name='password' id="password" required onChange={handleOnChange} />
           {true && (
             <div className={cx('cs-show-hide')} onClick={handleShowPassword}>
               {showPassword ? <BiHide /> : <BiShow />}
@@ -78,7 +78,7 @@ const Register = () => {
         </div>
         <div className="mb-3 pt-2 cs-block-show-hide">
           <label htmlFor="confirmPassword" className="form-label mb-1 fw-light size-14">Confirm Password</label>
-          <input type={showConfirmPassword ? 'password' : 'text'} className="form-control" name='confirmPassword' id="confirmPassword" required onChange={handleOnChange}/>
+          <input type={showConfirmPassword ? 'password' : 'text'} className="form-control" name='confirmPassword' id="confirmPassword" required onChange={handleOnChange} />
           {true && (
             <div className={cx('cs-show-hide')} onClick={handleShowConfirmPassword}>
               {showConfirmPassword ? <BiHide /> : <BiShow />}
@@ -89,15 +89,15 @@ const Register = () => {
           <label htmlFor='validationServer01' className='form-label fw-normal'>Gender</label>
           <div className='d-flex gap-4 justify-content-between'>
             <label className='form-check btn-custom' htmlFor='gender1'>
-              <input className='form-check-input ms-0 me-3' type='radio' name='gender' id='gender1' value='female' onChange={handleOnChange}/>
+              <input className='form-check-input ms-0 me-3' type='radio' name='gender' id='gender1' value='female' onChange={handleOnChange} />
               <span className='form-check-label dark'>Female</span>
             </label>
             <label className='form-check btn-custom' htmlFor='gender2'>
-              <input className='form-check-input ms-0 me-3' type='radio' name='gender' id='gender2' value='male' onChange={handleOnChange}/>
+              <input className='form-check-input ms-0 me-3' type='radio' name='gender' id='gender2' value='male' onChange={handleOnChange} />
               <span className='form-check-label'>Male</span>
             </label>
             <label className='form-check btn-custom' htmlFor='gender3'>
-              <input className='form-check-input ms-0 me-3' type='radio' name='gender' id='gender3' value='other' onChange={handleOnChange}/>
+              <input className='form-check-input ms-0 me-3' type='radio' name='gender' id='gender3' value='other' onChange={handleOnChange} />
               <span className='form-check-label'>Other</span>
             </label>
           </div>
@@ -113,12 +113,12 @@ const Register = () => {
           <hr className="flex-grow-1" />
         </div>
         <div className='d-flex justify-content-between py-4'>
-          <LoginWithGoogle/>
+          <LoginWithGoogle />
           <button type="button" className="d-flex align-items-center btn btn-outline-secondary custom-hover">
             <FaFacebookF className='text-primary' /><span className='mx-1'>{''}</span><span className='size-14'>Facebook</span>
           </button>
           <button type="button" className="d-flex align-items-center btn btn-outline-secondary custom-hover">
-            <FaTwitter className='text-info'/><span className='mx-1'>{''}</span><span className='size-14'>Twitter</span>
+            <FaTwitter className='text-info' /><span className='mx-1'>{''}</span><span className='size-14'>Twitter</span>
           </button>
         </div>
       </form>

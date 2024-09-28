@@ -1,5 +1,5 @@
 import express from "express";
-import googleOAuth from '../controllers/googleOAuth'
+// import googleOAuth from '../controllers/googleOAuth'
 // import registerLoginController from "../controllers/registerLoginController";
 // import userController from "../controllers/userController";
 // import groupController from "../controllers/groupController";
@@ -16,8 +16,8 @@ const router = express.Router();
 const adminRoute = (app) => {
   // const authMiddlewares = [checkUserJWT, checkUserPermission]
 
-  router.post('/auth/google',googleOAuth.loginGoogleOAuth)
-  router.post('/auth/google/create',googleOAuth.saveAccountGoogleOAuth)
+  // router.post('/auth/google',googleOAuth.loginGoogleOAuth)
+  // router.post('/auth/google/create',googleOAuth.saveAccountGoogleOAuth)
 
   // // login and register
   // router.post("/user/register", registerLoginController.registerAccount);

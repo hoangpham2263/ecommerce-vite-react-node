@@ -84,7 +84,7 @@ const Search = () => {
           <input
             className={cx('input-search')}
             value={searchValue}
-            placeholder='Bạn cần tìm gì...'
+            placeholder='Bạn cần tìm gì ...?'
             spellCheck={false}
             onChange={handleOnChang}
             ref={inputRef}

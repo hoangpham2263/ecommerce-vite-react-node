@@ -28,6 +28,10 @@
   font-size: 10px;
 }
 
+.gl-fz-11 {
+  font-size: 11px;
+}
+
 .gl-fz-12 {
   font-size: 12px;
 }
@@ -54,6 +58,10 @@
 
 .gl-fz-18 {
   font-size: 18px;
+}
+
+.gl-fz-24 {
+  font-size: 24px;
 }
 
 /* color */
@@ -88,6 +96,10 @@
 
 .gl-bg-white-1 {
   background-color: var(--color-white-1);
+}
+
+.gl-bl-btn-pri{
+  background-image: linear-gradient(90deg, #ff512f, #dd2440 51%, #ff512f);
 }
 
 /* height */
