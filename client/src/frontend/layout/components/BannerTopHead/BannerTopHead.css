@@ -1,0 +1,31 @@
+.cs-img-banner{
+  height: 30px;
+}
+
+.cs-bl-banner{
+  position: relative;
+}
+
+.cs-prev-banner{
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.cs-prev-next{
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.cs-icon-banner{
+  font-size: 26px;
+}

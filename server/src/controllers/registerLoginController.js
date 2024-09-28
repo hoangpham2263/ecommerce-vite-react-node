@@ -86,7 +86,6 @@ const loginAccount = async (req, res) => {
           secure: process.env.NODE_SECURE,
           sameSite: 'None'
         });
-        console.log(111)
         return res.status(200).json({ message: "login successful!", data: [] });
       }
     }

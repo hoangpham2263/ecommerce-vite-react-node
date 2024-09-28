@@ -47,7 +47,7 @@ const Login = () => {
     })
 
     if (response) {
-      toast.success(response)
+      toast.success('response')
       navigate('/')
     } else {
       toast.error('err')
