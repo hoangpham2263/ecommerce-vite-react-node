@@ -1,9 +1,10 @@
-import axios from 'axios'
-import { useGoogleLogin } from '@react-oauth/google'
-import { FcGoogle } from 'react-icons/fc'
 import { useState } from 'react'
+import { FcGoogle } from 'react-icons/fc'
+import { useGoogleLogin } from '@react-oauth/google'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
+
+import { confirmGetToken, getInfoAccountUseAccessToke, saveAccountToServer } from '../../../main/services/sharedApi'
 
 const LoginWithGoogle = () => {
   const navigate = useNavigate()
@@ -16,21 +17,13 @@ const LoginWithGoogle = () => {
     flow: 'auth-code',
     onSuccess: async (response) => {
       try {
-        const tokenResponse = await axios.post(`${import.meta.env.VITE_API_API_URL}/api/admin/auth/google`,
-          { code: response.code }
-        )
+        const tokenResponse = await confirmGetToken(response)
 
         const accessToken = tokenResponse.data.access_token
 
-        const userInfoResponse = await axios.get(`${import.meta.env.VITE_API_GOOGLE_CLIENT_ID}`, {
-          headers: { Authorization: `Bearer ${accessToken}` }
-        })
+        const userInfoResponse = await getInfoAccountUseAccessToke(accessToken)
         setUserInfo(userInfoResponse.data)
-        const saveAccountGoogleOAuth = await axios.post(`${import.meta.env.VITE_API_API_URL}/api/admin/auth/google/create`, { data: userInfoResponse?.data },
-          { headers: {
-            'Content-Type': 'application/json'
-          },
-          withCredentials: true })
+        const saveAccountGoogleOAuth = await saveAccountToServer(userInfoResponse?.data)
 
         if (saveAccountGoogleOAuth.status === 200) {
           toast.success(saveAccountGoogleOAuth?.data?.message)

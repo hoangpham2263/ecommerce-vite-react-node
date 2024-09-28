@@ -1,17 +1,16 @@
+import { useState } from 'react'
+import { useNavigate, Link } from 'react-router-dom'
+import { toast } from 'react-toastify'
 import { FaFacebookF } from 'react-icons/fa'
 import { FaTwitter } from 'react-icons/fa'
-import { Link } from 'react-router-dom'
 import { BiShow, BiHide } from 'react-icons/bi'
-import { toast } from 'react-toastify'
-import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
 
 import './Login.css'
+import config from '../../config'
 import classNames from 'classnames/bind'
 import styles from './Login.module.scss'
-import config from '../../config'
 import LoginWithGoogle from '../components/LoginWithGoogle'
-import { useState } from 'react'
+import { loginAccountBasic } from '../../../main/services/sharedApi'
 
 const cx = classNames.bind(styles)
 
@@ -30,27 +29,18 @@ const Login = () => {
 
   const handleOnChange = (e) => {
     const { name, value } = e.target
-    setData((prev) => {
-      return {
-        ...prev,
-        [name]: value
-      }
-    })
+    setData((prev) => { return { ...prev, [name]: value } })
   }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
-    let response = await axios.post('http://localhost:8000/api/user/login', { data }, {
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      withCredentials: true
-    })
+    let response = await loginAccountBasic(data)
 
-    if (response) {
-      toast.success('response')
+    if (response?.data?.code === 0) {
+      toast.success(response?.data?.message)
       navigate('/')
     } else {
-      toast.error('err')
+      toast.error(response?.data?.message)
     }
   }
 

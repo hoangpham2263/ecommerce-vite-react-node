@@ -51,7 +51,7 @@ const saveAccountGoogleOAuth = async (req, res) => {
   try {
     const { name, email, picture, email_verified } = req?.body?.data;
     if (!name || !email || !picture || !email_verified) {
-      return res.status(200).json({ message: "missing required parameters", data: [] });
+      return res.status(200).json({ message: "missing required parameters", code: 1, data: [] });
     }
 
     let isEmailExist = await checkEmailExist(email);
@@ -82,12 +82,12 @@ const saveAccountGoogleOAuth = async (req, res) => {
         secure: process.env.NODE_SECURE,
         sameSite: 'None'
       });
-      return res.status(200).json({ message: "login successful", data: [] });
+      return res.status(200).json({ message: "login successful", code: 0, data: [] });
     }
-    return res.status(200).json({ message: "system error", data: [] });
+    return res.status(200).json({ message: "system error", code: 1, data: [] });
   } catch (error) {
     console.log(error)
-    return res.status(500).json({ message: "error from server", data: [] });
+    return res.status(500).json({ message: "error from server", code: -1, data: [] });
   }
 }
 

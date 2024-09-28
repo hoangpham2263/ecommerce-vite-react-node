@@ -1,5 +1,5 @@
 import express from "express";
-import registerLoginController from "../controllers/registerLoginController";
+// import registerLoginController from "../controllers/registerLoginController";
 // import userController from "../controllers/userController";
 // import groupController from "../controllers/groupController";
 // import groupRoleController from "../controllers/groupRoleController";
@@ -21,9 +21,9 @@ const adminRoute = (app) => {
   // const authMiddlewares = [checkUserJWT, checkUserPermission]
 
   // // login and register
-  router.post("/user/register", registerLoginController.registerAccount);
-  router.post("/user/login", registerLoginController.loginAccount);
-  router.post("/user/logout", registerLoginController.logoutAccount);
+  // router.post("/user/register", registerLoginController.registerAccount);
+  // router.post("/user/login", registerLoginController.loginAccount);
+  // router.post("/user/logout", registerLoginController.logoutAccount);
 
   // // Read JWT
   // router.get("/user/jwt-token", registerLoginController.readJWT);
