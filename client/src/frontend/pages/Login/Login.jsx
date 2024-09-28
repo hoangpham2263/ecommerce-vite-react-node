@@ -9,7 +9,7 @@ import './Login.css'
 import config from '../../config'
 import classNames from 'classnames/bind'
 import styles from './Login.module.scss'
-import LoginWithGoogle from '../components/LoginWithGoogle'
+import LoginWithGoogle from '../../../main/components/LoginWithGoogle'
 import { loginAccountBasic } from '../../../main/services/sharedApi'
 
 const cx = classNames.bind(styles)

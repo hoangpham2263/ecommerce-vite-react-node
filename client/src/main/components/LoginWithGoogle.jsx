@@ -4,7 +4,7 @@ import { useGoogleLogin } from '@react-oauth/google'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
-import { confirmGetToken, getInfoAccountUseAccessToke, saveAccountToServer } from '../../../main/services/sharedApi'
+import { confirmGetToken, getInfoAccountUseAccessToke, saveAccountToServer } from '../../main/services/sharedApi'
 
 const LoginWithGoogle = () => {
   const navigate = useNavigate()
