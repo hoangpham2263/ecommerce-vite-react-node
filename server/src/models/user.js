@@ -30,7 +30,6 @@ module.exports = (sequelize, DataTypes) => {
       gender: DataTypes.STRING,
       is_active: DataTypes.BOOLEAN,
       is_verified: DataTypes.BOOLEAN,
-      is_master: DataTypes.BOOLEAN,
       position_id: DataTypes.INTEGER,
     },
     {

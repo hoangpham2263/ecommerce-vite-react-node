@@ -22,7 +22,7 @@ const registerAccount = async (req, res) => {
       return res.status(200).json({ message: "missing required parameters", code: 1, data: [] });
     }
     let isUsernameExist = await checkUsernameExist(userName);
-    if (isUsernameExist) return res.status(200).json({ message: "The email is already exist", code: 1, data: [] });
+    if (isUsernameExist) return res.status(200).json({ message: "The username is already exist", code: 1, data: [] });
 
     if (password && password.length < 6) {
       return res.status(200).json({ message: "Your password must have more than 6 letters", code: 1, data: [] });
@@ -39,7 +39,6 @@ const registerAccount = async (req, res) => {
       is_master: false,
       position_id: 2
     });
-
     return res.status(200).json({ message: "account registration successful!", code: 0, data: [] });
   } catch (error) {
     return res.status(500).json({ message: "error from server", code: -1, data: [] });
@@ -67,13 +66,17 @@ const loginAccount = async (req, res) => {
       return res.status(200).json({ message: "Your password must have more than 6 letters", code: 1, data: [] });
     }
 
-    let user = await db.User.findOne({ where: { username: userName } });
+    let user = await db.User.findOne({ where: { username: userName }, include: { model: db.Position, attributes: ["id", "key_position", "name", 'desc', 'state', 'is_master'] }, });
     if (user) {
       let isCorrectPassword = await checkPassword(password, user.password);
       if (isCorrectPassword) {
-        let { id, full_name, avatar, username, email, phone, gender, is_active, is_verified, is_master, position_id, createdAt, updatedAt } = user.dataValues;
+        let { id, full_name, avatar, username, email, phone, gender, is_active, is_verified, position_id, createdAt, updatedAt } = user.dataValues;
+        let userPosition = user?.dataValues?.Position?.dataValues
         let payload = {
-          user: { id, full_name, avatar, username, email, phone, gender, is_active, is_verified, is_master, position_id, createdAt, updatedAt },
+          userPresent: {
+            user: { id, full_name, avatar, username, email, phone, gender, is_active, is_verified, position_id, createdAt, updatedAt },
+            position: userPosition
+          }
         };
         let token = await createJWT(payload);
 
@@ -111,13 +114,13 @@ const logoutAccount = async (req, res) => {
 const readJWT = async (req, res) => {
   try {
     const cookie = req.cookies;
-    if (cookie.jwt) {
-      return res.status(200).json({ message: "Read JWT success", code: 0, DT: cookie });
+    if (cookie?.jwt) {
+      return res.status(200).json({ message: "Read JWT success", code: 0, data: cookie });
     } else {
-      return res.status(200).json({ message: "JWT not exists success", code: 1, DT: [] });
+      return res.status(500).json({ message: "JWT not exists success", code: 1, data: [] });
     }
   } catch (error) {
-    return res.status(500).json({ message: "Error from server", code: -1, DT: [] });
+    return res.status(500).json({ message: "Error from server", code: -1, data: [] });
   }
 };
 

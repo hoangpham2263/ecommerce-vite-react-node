@@ -1,5 +1,6 @@
 import LogoIcon from '../../../components/LogoIcon/LogoIcon'
 import './Footer.css'
+import {Link} from 'react-router-dom'
 
 
 const Footer = () => {
@@ -18,15 +19,15 @@ const Footer = () => {
             <div className='gl-mb-12'>
               <div className='gl-fz-16 gl-mb-12 fw-normal'>Phương thức thanh toán</div>
               <div className='d-flex flex-wrap'>
-                <a className='cs-img-pay' href='#'><img className='cs-img' src='https://cdn2.cellphones.com.vn/x35,webp/media/wysiwyg/apple-pay-og.png' alt=''/></a>
-                <a className='cs-img-pay' href='#'><img className='cs-img' src='https://cdn2.cellphones.com.vn/x35,webp/media/logo/payment/vnpay-logo.png' alt=''/></a>
-                <a className='cs-img-pay' href='#'><img className='cs-img' src='https://cdn2.cellphones.com.vn/x/media/wysiwyg/momo_1.png' alt=''/></a>
-                <a className='cs-img-pay' href='#'><img className='cs-img' src='https://cdn2.cellphones.com.vn/x35,webp/media/logo/payment/onepay-logo.png' alt=''/></a>
-                <a className='cs-img-pay' href='#'><img className='cs-img' src='https://cdn2.cellphones.com.vn/x35,webp/media/logo/payment/mpos-logo.png' alt=''/></a>
-                <a className='cs-img-pay' href='#'><img className='cs-img' src='https://cdn2.cellphones.com.vn/x35,webp/media/logo/payment/kredivo-logo.png' alt=''/></a>
-                <a className='cs-img-pay' href='#'><img className='cs-img' src='https://cdn2.cellphones.com.vn/x35,webp/media/logo/payment/zalopay-logo.png' alt=''/></a>
-                <a className='cs-img-pay' href='#'><img className='cs-img' src='https://cdn2.cellphones.com.vn/x35,webp/media/logo/payment/alepay-logo.png' alt=''/></a>
-                <a className='cs-img-pay' href='#'><img className='cs-img' src='https://cdn2.cellphones.com.vn/x/media/wysiwyg/fundiin.png' alt=''/></a>
+                <Link className='cs-img-pay' href='#'><img className='cs-img' src='https://cdn2.cellphones.com.vn/x35,webp/media/wysiwyg/apple-pay-og.png' alt=''/></Link>
+                <Link className='cs-img-pay' href='#'><img className='cs-img' src='https://cdn2.cellphones.com.vn/x35,webp/media/logo/payment/vnpay-logo.png' alt=''/></Link>
+                <Link className='cs-img-pay' href='#'><img className='cs-img' src='https://cdn2.cellphones.com.vn/x/media/wysiwyg/momo_1.png' alt=''/></Link>
+                <Link className='cs-img-pay' href='#'><img className='cs-img' src='https://cdn2.cellphones.com.vn/x35,webp/media/logo/payment/onepay-logo.png' alt=''/></Link>
+                <Link className='cs-img-pay' href='#'><img className='cs-img' src='https://cdn2.cellphones.com.vn/x35,webp/media/logo/payment/mpos-logo.png' alt=''/></Link>
+                <Link className='cs-img-pay' href='#'><img className='cs-img' src='https://cdn2.cellphones.com.vn/x35,webp/media/logo/payment/kredivo-logo.png' alt=''/></Link>
+                <Link className='cs-img-pay' href='#'><img className='cs-img' src='https://cdn2.cellphones.com.vn/x35,webp/media/logo/payment/zalopay-logo.png' alt=''/></Link>
+                <Link className='cs-img-pay' href='#'><img className='cs-img' src='https://cdn2.cellphones.com.vn/x35,webp/media/logo/payment/alepay-logo.png' alt=''/></Link>
+                <Link className='cs-img-pay' href='#'><img className='cs-img' src='https://cdn2.cellphones.com.vn/x/media/wysiwyg/fundiin.png' alt=''/></Link>
               </div>
             </div>
             <div className='gl-mb-12'>
@@ -81,11 +82,11 @@ const Footer = () => {
               <div className='gl-fz-12 gl-mb-5 ms-2 fw-normal gl-color-white-4a d-flex align-items-center'><LogoIcon/> Smember: Tích điểm & sử dụng ưu đãi</div>
               <div className='gl-mb-5 ms-2 d-flex align-items-center'>
                 <div className=''>
-                  <a className='cs-qr' href='#'><img className='cs-qr-img' src='https://cdn2.cellphones.com.vn/200x,webp/media/wysiwyg/QR_appGeneral.jpg' alt=''/></a>
+                  <Link className='cs-qr' href='#'><img className='cs-qr-img' src='https://cdn2.cellphones.com.vn/200x,webp/media/wysiwyg/QR_appGeneral.jpg' alt=''/></Link>
                 </div>
                 <div className='d-flex flex-column justify-content-between'>
-                  <a href='#'><img className='cs-down-app my-2 ms-2' src='https://cdn2.cellphones.com.vn/200x,webp/media/wysiwyg/downloadANDROID.png' alt=''/></a>
-                  <a href='#'><img className='cs-down-app my-2 ms-2' src='https://cdn2.cellphones.com.vn/200x,webp/media/wysiwyg/downloadiOS.png' alt=''/></a>
+                  <Link href='#'><img className='cs-down-app my-2 ms-2' src='https://cdn2.cellphones.com.vn/200x,webp/media/wysiwyg/downloadANDROID.png' alt=''/></Link>
+                  <Link href='#'><img className='cs-down-app my-2 ms-2' src='https://cdn2.cellphones.com.vn/200x,webp/media/wysiwyg/downloadiOS.png' alt=''/></Link>
                 </div>
               </div>
             </div>
@@ -95,30 +96,30 @@ const Footer = () => {
             <div className='gl-mb-12'>
               <div className='gl-fz-16 gl-mb-12 fw-normal'>Kết nối với Ecommerce</div>
               <div className='d-flex flex-wrap'>
-                <a className='cs-social' href='#'><img className='cs-social-img' src='https://cdn2.cellphones.com.vn/44x,webp/media/logo/social/cellphones-youtube.png' alt=''/></a>
-                <a className='cs-social' href='#'><img className='cs-social-img' src='https://cdn2.cellphones.com.vn/44x,webp/media/logo/social/cellphones-facebook.png' alt=''/></a>
-                <a className='cs-social' href='#'><img className='cs-social-img' src='https://cdn2.cellphones.com.vn/44x,webp/media/logo/social/cellphones-instagram.png' alt=''/></a>
-                <a className='cs-social' href='#'><img className='cs-social-img' src='https://cdn2.cellphones.com.vn/44x,webp/media/logo/social/cellphones-tiktok.png' alt=''/></a>
-                <a className='cs-social' href='#'><img className='cs-social-img' src='https://cdn2.cellphones.com.vn/44x,webp/media/logo/social/cellphones-zalo.png' alt=''/></a>
+                <Link className='cs-social' href='#'><img className='cs-social-img' src='https://cdn2.cellphones.com.vn/44x,webp/media/logo/social/cellphones-youtube.png' alt=''/></Link>
+                <Link className='cs-social' href='#'><img className='cs-social-img' src='https://cdn2.cellphones.com.vn/44x,webp/media/logo/social/cellphones-facebook.png' alt=''/></Link>
+                <Link className='cs-social' href='#'><img className='cs-social-img' src='https://cdn2.cellphones.com.vn/44x,webp/media/logo/social/cellphones-instagram.png' alt=''/></Link>
+                <Link className='cs-social' href='#'><img className='cs-social-img' src='https://cdn2.cellphones.com.vn/44x,webp/media/logo/social/cellphones-tiktok.png' alt=''/></Link>
+                <Link className='cs-social' href='#'><img className='cs-social-img' src='https://cdn2.cellphones.com.vn/44x,webp/media/logo/social/cellphones-zalo.png' alt=''/></Link>
               </div>
             </div>
             <div className='gl-mb-12'>
               <div className='gl-fz-16 gl-mb-12 fw-normal'>Website thành viên</div>
               <div className='gl-mb-5'>
                 <div className='gl-fz-12 gl-mb-5 fw-normal gl-color-white-4a'>Hệ thống bảo hành sửa chữa Điện thoại - Máy tính</div>
-                <a className='cs-banner' href='#'><img className='cs-banner-img' src='https://cdn2.cellphones.com.vn/x30,webp/media/logo/corp-members/dienthoaivui.png' alt=''/></a>
+                <Link className='cs-banner' href='#'><img className='cs-banner-img' src='https://cdn2.cellphones.com.vn/x30,webp/media/logo/corp-members/dienthoaivui.png' alt=''/></Link>
               </div>
               <div className='gl-mb-5'>
                 <div className='gl-fz-12 gl-mb-5 fw-normal gl-color-white-4a'>Trung tâm bảo hành uỷ quyền Apple</div>
-                <a className='cs-banner' href='#'><img className='cs-banner-img' src='https://cdn2.cellphones.com.vn/x/media/wysiwyg/Logo_CareS_1.png' alt=''/></a>
+                <Link className='cs-banner' href='#'><img className='cs-banner-img' src='https://cdn2.cellphones.com.vn/x/media/wysiwyg/Logo_CareS_1.png' alt=''/></Link>
               </div>
               <div className='gl-mb-5'>
                 <div className='gl-fz-12 gl-mb-5 fw-normal gl-color-white-4a'>Kênh thông tin giải trí công nghệ cho giới trẻ</div>
-                <a className='cs-banner' href='#'><img className='cs-banner-img' src='https://cdn2.cellphones.com.vn/x30,webp/media/logo/corp-members/schanel.png' alt=''/></a>
+                <Link className='cs-banner' href='#'><img className='cs-banner-img' src='https://cdn2.cellphones.com.vn/x30,webp/media/logo/corp-members/schanel.png' alt=''/></Link>
               </div>
               <div className='gl-mb-5'>
                 <div className='gl-fz-12 gl-mb-5 fw-normal gl-color-white-4a'>Trang thông tin công nghệ mới nhất</div>
-                <a className='cs-banner' href='#'><img className='cs-banner-img' src='https://cdn2.cellphones.com.vn/x30,webp/media/logo/corp-members/sforum.png' alt=''/></a>
+                <Link className='cs-banner' href='#'><img className='cs-banner-img' src='https://cdn2.cellphones.com.vn/x30,webp/media/logo/corp-members/sforum.png' alt=''/></Link>
               </div>
             </div>
           </div>
@@ -154,8 +155,8 @@ const Footer = () => {
           </div>
           <div className='d-flex justify-content-center gl-fz-10 gl-mb-5 fw-normal gl-color-white-92'>Công ty TNHH Thương Mại và Dịch Vụ Kỹ Thuật DIỆU PHÚC - GPĐKKD: 0316172372 cấp tại Sở KH & ĐT TP. HCM. Địa chỉ văn phòng: 350-352 Võ Văn Kiệt, Phường Cô Giang, Quận 1, Thành phố Hồ Chí Minh, Việt Nam. Điện thoại: 028.7108.9666.</div>
           <div className='d-flex justify-content-center align-items-center mb-3'>
-            <a className='cs-banner' href='#'><img className='cs-banner-img' src='https://cdn2.cellphones.com.vn/80x,webp/media/logo/logoSaleNoti.png' alt=''/></a>
-            <a className='cs-copyright' href='#'><img className='cs-copyright-img' src='https://images.dmca.com/Badges/dmca_copyright_protected150c.png?ID=158f5667-cce3-4a18-b2d1-826225e6b022' alt=''/></a>
+            <Link className='cs-banner' href='#'><img className='cs-banner-img' src='https://cdn2.cellphones.com.vn/80x,webp/media/logo/logoSaleNoti.png' alt=''/></Link>
+            <Link className='cs-copyright' href='#'><img className='cs-copyright-img' src='https://images.dmca.com/Badges/dmca_copyright_protected150c.png?ID=158f5667-cce3-4a18-b2d1-826225e6b022' alt=''/></Link>
           </div>
         </div>
       </div>

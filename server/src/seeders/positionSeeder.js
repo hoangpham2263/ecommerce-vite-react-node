@@ -9,19 +9,28 @@ module.exports = {
      * Example:
      */
     await queryInterface.bulkInsert(
-      "Group",
+      "Position",
       [
         {
-          name: "Leader",
-          description: "Leader Website",
+          key_position: 1,
+          name: "admin",
+          desc: "Chủ cửa hàng",
+          state: true,
+          is_master: true
         },
         {
-          name: "Dev",
-          description: "Dev Website",
+          key_position: 2,
+          name: "staff",
+          desc: "Nhân viên của cửa hàng",
+          state: true,
+          is_master: false
         },
         {
-          name: "Customer",
-          description: "Customer Website",
+          key_position: 3,
+          name: "customer",
+          desc: "Khách hàng đăng ký tài khoản thành viên",
+          state: true,
+          is_master: false
         },
       ],
       {}

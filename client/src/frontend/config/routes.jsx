@@ -1,4 +1,5 @@
 const routes = {
+  homeAdmin: '/admin',
   home: '/',
   register: '/register',
   login: '/login'

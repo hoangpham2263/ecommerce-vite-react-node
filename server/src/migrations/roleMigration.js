@@ -12,10 +12,10 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      name: {
-        type: Sequelize.STRING,
+      key_role: {
+        type: Sequelize.INTEGER,
       },
-      desc: {
+      name: {
         type: Sequelize.STRING,
       },
       createdAt: {

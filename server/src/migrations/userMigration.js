@@ -39,9 +39,6 @@ module.exports = {
       is_verified: {
         type: Sequelize.BOOLEAN,
       },
-      is_master: {
-        type: Sequelize.BOOLEAN,
-      },
       position_id: {
         type: Sequelize.INTEGER,
       },
