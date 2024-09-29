@@ -1,12 +1,11 @@
 .wrapper {
   position           : relative;
-  // min-height      : calc(-112px + 100vh);
-  min-height         : 100vh;
+  min-height      : calc(-112px + 100vh);
   width              : 100%;
   display            : flex;
   justify-content    : center;
   align-items        : center;
-  background-color   : rgb(250, 250, 251);
+  background-color: var(--color-white);
 }
 
 .form-block {
