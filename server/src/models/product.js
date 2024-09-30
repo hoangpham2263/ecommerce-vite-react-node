@@ -20,13 +20,6 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "Product",
-      hooks: {
-        beforeValidate: (product, options) => {
-          if (product.title) {
-            product.slug = slugify(product.title, { lower: true });
-          }
-        },
-      },
     }
   );
   return Product;

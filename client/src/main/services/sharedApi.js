@@ -12,7 +12,7 @@ const saveAccountToServer = (data) => { return axios.post('/api/auth/google/crea
 
 // login basic
 const loginAccountBasic = (data) => { return axios.post('/api/auth/login', { data }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
-const registerAccountBasic = (data) => { return axios.post('/api/auth/register', { data }) }
+const registerAccountBasic = (data) => { return axios.post('/api/auth/register', { data }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
 const logoutAccount = () => { return axios.post('/api/auth/logout', {}, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
 const readProfileJWT = () => { return axios.get('/api/auth/jwt-token', { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
 

@@ -12,10 +12,10 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      position_id: {
+      PositionId: {
         type: Sequelize.INTEGER,
       },
-      role_id: {
+      RoleId: {
         type: Sequelize.INTEGER,
       },
       createdAt: {

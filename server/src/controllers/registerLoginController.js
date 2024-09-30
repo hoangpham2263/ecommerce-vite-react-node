@@ -19,13 +19,13 @@ const registerAccount = async (req, res) => {
   try {
     const { fullName, userName, password, gender } = req?.body?.data;
     if (!fullName || !userName || !password || !gender) {
-      return res.status(200).json({ message: "missing required parameters", code: 1, data: [] });
+      return res.status(200).json({ message: "missing required parameters", code: 1 });
     }
     let isUsernameExist = await checkUsernameExist(userName);
-    if (isUsernameExist) return res.status(200).json({ message: "The username is already exist", code: 1, data: [] });
+    if (isUsernameExist) return res.status(200).json({ message: "The username is already exist", code: 1 });
 
     if (password && password.length < 6) {
-      return res.status(200).json({ message: "Your password must have more than 6 letters", code: 1, data: [] });
+      return res.status(200).json({ message: "Your password must have more than 6 letters", code: 1 });
     }
 
     let hashPassword = await hashAccountPassword(password);
@@ -39,9 +39,9 @@ const registerAccount = async (req, res) => {
       is_master: false,
       position_id: 2
     });
-    return res.status(200).json({ message: "account registration successful!", code: 0, data: [] });
+    return res.status(200).json({ message: "account registration successful!", code: 0 });
   } catch (error) {
-    return res.status(500).json({ message: "error from server", code: -1, data: [] });
+    return res.status(500).json({ message: "error from server", code: -1 });
   }
 };
 
@@ -60,13 +60,13 @@ const loginAccount = async (req, res) => {
   try {
     const { userName, password } = req?.body?.data;
     if (!userName || !password) {
-      return res.status(200).json({ message: "missing required parameters", code: 1, data: [] });
+      return res.status(200).json({ message: "missing required parameters", code: 1 });
     }
     if (password && password.length < 6) {
-      return res.status(200).json({ message: "Your password must have more than 6 letters", code: 1, data: [] });
+      return res.status(200).json({ message: "Your password must have more than 6 letters", code: 1 });
     }
 
-    let user = await db.User.findOne({ where: { username: userName }, include: { model: db.Position, attributes: ["id", "key_position", "name", 'desc', 'state', 'is_master'] }, });
+    let user = await db.User.findOne({ where: { username: userName }, include: { model: db.Position, attributes: ["id", "key_position", "name", 'desc', 'state', 'is_master', "updatedAt", "createdAt"] }, });
     if (user) {
       let isCorrectPassword = await checkPassword(password, user.password);
       if (isCorrectPassword) {
@@ -86,12 +86,12 @@ const loginAccount = async (req, res) => {
           secure: process.env.NODE_SECURE,
           sameSite: 'None'
         });
-        return res.status(200).json({ message: "login successful!", code: 0, data: [] });
+        return res.status(200).json({ message: "login successful!", code: 0 });
       }
     }
-    return { message: "Your username or password is incorrect!", code: 1, data: [] };
+    return { message: "Your username or password is incorrect!", code: 1 };
   } catch (error) {
-    return res.status(500).json({ message: "error from server", code: -1, data: [] });
+    return res.status(500).json({ message: "error from server", code: -1 });
   }
 };
 
@@ -101,12 +101,12 @@ const logoutAccount = async (req, res) => {
     const cookie = req.cookies;
     if (cookie?.jwt) {
       res.clearCookie("jwt", { secure: true, });
-      return res.status(200).json({ message: "Logout user success", code: 0, data: [] });
+      return res.status(200).json({ message: "Logout user success", code: 0 });
     } else {
-      return res.status(500).json({ message: "Logout user error", code: 1, data: [] });
+      return res.status(500).json({ message: "Logout user error", code: 1 });
     }
   } catch (error) {
-    return res.status(500).json({ message: "Error from server", code: -1, data: [] });
+    return res.status(500).json({ message: "Error from server", code: -1 });
   }
 };
 
@@ -117,10 +117,10 @@ const readJWT = async (req, res) => {
     if (cookie?.jwt) {
       return res.status(200).json({ message: "Read JWT success", code: 0, data: cookie });
     } else {
-      return res.status(500).json({ message: "JWT not exists success", code: 1, data: [] });
+      return res.status(500).json({ message: "JWT not exists success", code: 1 });
     }
   } catch (error) {
-    return res.status(500).json({ message: "Error from server", code: -1, data: [] });
+    return res.status(500).json({ message: "Error from server", code: -1 });
   }
 };
 

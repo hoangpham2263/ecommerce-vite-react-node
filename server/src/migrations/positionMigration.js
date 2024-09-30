@@ -24,9 +24,6 @@ module.exports = {
       state: {
         type: Sequelize.BOOLEAN,
       },
-      slug: {
-        type: Sequelize.STRING,
-      },
       is_master: {
         type: Sequelize.BOOLEAN,
       },
