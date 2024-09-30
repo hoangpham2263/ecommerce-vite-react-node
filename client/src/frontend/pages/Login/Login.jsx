@@ -1,22 +1,22 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { FaFacebookF } from 'react-icons/fa'
 import { FaTwitter } from 'react-icons/fa'
 import { BiShow, BiHide } from 'react-icons/bi'
+import { jwtDecode } from 'jwt-decode'
 
 import './Login.css'
 import config from '../../config'
 import classNames from 'classnames/bind'
 import styles from './Login.module.scss'
-import LoginWithGoogle from '../components/LoginWithGoogle'
-import { loginAccountBasic } from '../../../main/services/sharedApi'
+import LoginWithGoogle from '../../../main/components/LoginWithGoogle'
+import { loginAccountBasic, readProfileJWT } from '../../../main/services/sharedApi'
 
 const cx = classNames.bind(styles)
 
 const Login = () => {
   const navigate = useNavigate()
-
   const [showPassword, setShowPassword] = useState([false])
   const [data, setData] = useState({
     userName: '',
@@ -35,10 +35,14 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     let response = await loginAccountBasic(data)
-
     if (response?.data?.code === 0) {
-      toast.success(response?.data?.message)
-      navigate('/')
+      const infoLoginJWT = await readProfileJWT()
+      if (infoLoginJWT?.data?.code === 0) {
+        const infoAccountLogin = jwtDecode(infoLoginJWT?.data?.data?.jwt)
+        localStorage.setItem('infoAccountLogin', JSON.stringify(infoAccountLogin))
+        toast.success(response?.data?.message)
+        navigate('/')
+      }
     } else {
       toast.error(response?.data?.message)
     }

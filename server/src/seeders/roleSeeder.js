@@ -13,140 +13,140 @@ module.exports = {
       [
         // User
         {
-          url: "/user/read",
-          description: "User Read",
+          key_role: 1,
+          name: "Read User",
         },
         {
-          url: "/user/create",
-          description: "User Create",
+          key_role: 2,
+          name: "Create User",
         },
         {
-          url: "/user/update",
-          description: "User Update",
+          key_role: 3,
+          name: "Update User",
         },
         {
-          url: "/user/delete",
-          description: "User Delete",
+          key_role: 4,
+          name: "Delete User",
         },
-        // Group
+        // Position
         {
-          url: "/group/read",
-          description: "Group Read",
-        },
-        {
-          url: "/group/create",
-          description: "Group Create",
+          key_role: 5,
+          name: "Read Position",
         },
         {
-          url: "/group/update",
-          description: "Group Update",
+          key_role: 6,
+          name: "Create Position",
         },
         {
-          url: "/group/delete",
-          description: "Group Delete",
-        },
-        // Group Role
-        {
-          url: "/group-role/read",
-          description: "Group Role Read",
+          key_role: 7,
+          name: "Update Position",
         },
         {
-          url: "/group-role/create",
-          description: "Group Role Create",
+          key_role: 8,
+          name: "Delete Position",
+        },
+        // Position Role
+        {
+          key_role: 9,
+          name: "Read Position Role",
         },
         {
-          url: "/group-role/update",
-          description: "Group Role Update",
+          key_role: 10,
+          name: "Create Position Role",
         },
         {
-          url: "/group-role/delete",
-          description: "Group Role Delete",
+          key_role: 11,
+          name: "Update Position Role",
+        },
+        {
+          key_role: 12,
+          name: "Delete Position Role",
         },
         // Role
         {
-          url: "/role/read",
-          description: "Role Read",
+          key_role: 13,
+          name: "Read Role",
         },
         {
-          url: "/role/create",
-          description: "Role Create",
+          key_role: 14,
+          name: "Create Role",
         },
         {
-          url: "/role/update",
-          description: "Role Update",
+          key_role: 15,
+          name: "Update Role",
         },
         {
-          url: "/role/delete",
-          description: "Role Delete",
+          key_role: 16,
+          name: "Delete Role",
         },
-        // Product
-        {
-          url: "/product/read",
-          description: "Product Read",
-        },
-        {
-          url: "/product/create",
-          description: "Product Create",
-        },
-        {
-          url: "/product/update",
-          description: "Product Update",
-        },
-        {
-          url: "/product/delete",
-          description: "Product Delete",
-        },
-        // Categories
-        {
-          url: "/categories/read",
-          description: "Category Read",
-        },
-        {
-          url: "/categories/create",
-          description: "Category Create",
-        },
-        {
-          url: "/categories/update",
-          description: "Category Update",
-        },
-        {
-          url: "/categories/delete",
-          description: "Category Delete",
-        },
-        // Brand
-        {
-          url: "/brand/read",
-          description: "Category Read",
-        },
-        {
-          url: "/brand/create",
-          description: "Category Create",
-        },
-        {
-          url: "/brand/update",
-          description: "Category Update",
-        },
-        {
-          url: "/brand/delete",
-          description: "Category Delete",
-        },
-        // Cart
-        {
-          url: "/cart/read",
-          description: "Cart Read",
-        },
-        {
-          url: "/cart/create",
-          description: "Cart Create",
-        },
-        {
-          url: "/cart/update",
-          description: "Cart Update",
-        },
-        {
-          url: "/cart/delete",
-          description: "Cart Delete",
-        },
+        // // Product
+        // {
+        //   key_role: 17,
+        //   name: "/product/read",
+        // },
+        // {
+        //   key_role: 18,
+        //   name: "/product/create",
+        // },
+        // {
+        //   key_role: 19,
+        //   name: "/product/update",
+        // },
+        // {
+        //   key_role: 20,
+        //   name: "/product/delete",
+        // },
+        // // Categories
+        // {
+        //   key_role: 21,
+        //   name: "/categories/read",
+        // },
+        // {
+        //   key_role: 22,
+        //   name: "/categories/create",
+        // },
+        // {
+        //   key_role: 23,
+        //   name: "/categories/update",
+        // },
+        // {
+        //   key_role: 24,
+        //   name: "/categories/delete",
+        // },
+        // // Brand
+        // {
+        //   key_role: 25,
+        //   name: "/brand/read",
+        // },
+        // {
+        //   key_role: 26,
+        //   name: "/brand/create",
+        // },
+        // {
+        //   key_role: 27,
+        //   name: "/brand/update",
+        // },
+        // {
+        //   key_role: 28,
+        //   name: "/brand/delete",
+        // },
+        // // Cart
+        // {
+        //   key_role: 29,
+        //   name: "/cart/read",
+        // },
+        // {
+        //   key_role: 30,
+        //   name: "/cart/create",
+        // },
+        // {
+        //   key_role: 31,
+        //   name: "/cart/update",
+        // },
+        // {
+        //   key_role: 32,
+        //   name: "/cart/delete",
+        // },
       ],
       {}
     );

@@ -79,19 +79,6 @@
   transform              : scale(1.02);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 .icon-cart {
   color    : var(--color-white);
   font-size: 36px;
@@ -128,4 +115,32 @@
   font-size      : 12px;
   text-decoration: none;
   margin-right   : 13px;
+}
+
+/* dropdown */
+.dropdown-toggle::after {
+  display: none !important;
+}
+
+.ul.dropdown-menu.dropdown-menu-end.show {
+  margin-top: 20px;
+}
+
+.dropdown-item.active,
+.dropdown-item:active {
+  background-color: var(--primary) !important;
+}
+
+/* user */
+.cs-nav-item-login{
+  padding: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 100%;
+}
+.img-avatar{
+  display: block;
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
 }

@@ -2,7 +2,8 @@ import config from '../config'
 // import AdminLayout from '../layout/AdminLayout'
 import NoLayout from '../layout/NoLayout'
 import Login from '../pages/Login'
-import Register from '../pages/Register'
+import Dashboard from '../pages/Dashboard'
+import Account from '../pages/Account'
 
 const adminRoutes = [
   {
@@ -11,8 +12,13 @@ const adminRoutes = [
     layout: NoLayout
   },
   {
-    path: config.routes.register,
-    component: Register,
+    path: config.routes.dashboard,
+    component: Dashboard,
+    layout: NoLayout
+  },
+  {
+    path: config.routes.account,
+    component: Account,
     layout: NoLayout
   }
 ]

@@ -15,10 +15,10 @@ module.exports = (sequelize, DataTypes) => {
   }
   Position.init(
     {
+      key_position: DataTypes.INTEGER,
       name: DataTypes.STRING,
       desc: DataTypes.STRING,
-      state:DataTypes.BOOLEAN,
-      slug:DataTypes.STRING,
+      state: DataTypes.BOOLEAN,
       is_master: DataTypes.BOOLEAN,
     },
     {

@@ -5,17 +5,17 @@ import googleOAuth from '../controllers/googleOAuth'
 const router = express.Router();
 
 const sharedApiRoute = (app) => {
-
   // login with google
-  router.post('/auth/google',googleOAuth.loginGoogleOAuth)
-  router.post('/auth/google/create',googleOAuth.saveAccountGoogleOAuth)
+  router.post('/auth/google', googleOAuth.loginGoogleOAuth)
+  router.post('/auth/google/create', googleOAuth.saveAccountGoogleOAuth)
 
   // login basic
-  router.post("/user/register", registerLoginController.registerAccount);
-  router.post("/user/login", registerLoginController.loginAccount);
+  router.post("/auth/register", registerLoginController.registerAccount);
+  router.post("/auth/login", registerLoginController.loginAccount);
 
   // logout
-  router.post("/user/logout", registerLoginController.logoutAccount);
+  router.post("/auth/logout",registerLoginController.logoutAccount);
+  router.get("/auth/jwt-token", registerLoginController.readJWT);
 
   return app.use("/api", router);
 };

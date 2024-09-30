@@ -19,12 +19,8 @@ const loginGoogleOAuth = async (req, res) => {
     res.json(tokenResponse.data);
   } catch (error) {
     if (error.response) {
-      console.error('Error Response:', error.response.data);
-      console.error('Status:', error.response.status);
-      console.error('Headers:', error.response.headers);
       res.status(error.response.status).send('Error exchanging code for token');
     } else {
-      console.error('Error Message:', error.message);
       res.status(500).send('Error exchanging code for token');
     }
   }
@@ -68,12 +64,15 @@ const saveAccountGoogleOAuth = async (req, res) => {
       });
     }
 
-    let user = await db.User.findOne({ where: { email: email } });
-    if (user?.dataValues) {
-      let { id, full_name, avatar, username, email, phone, gender, is_active, is_verified, is_master, position_id, createdAt, updatedAt } = user?.dataValues;
+    let user = await db.User.findOne({ where: { email: email }, include: { model: db.Position, attributes: ["id", "key_position", "name", 'desc', 'state', 'is_master',"updatedAt","createdAt"] } });
+    if (user) {
+      let { id, full_name, avatar, username, email, phone, gender, is_active, is_verified, position_id, createdAt, updatedAt } = user.dataValues;
+      let userPosition = user?.dataValues?.Position?.dataValues
       let payload = {
-        user: { id, full_name, avatar, username, email, phone, gender, is_active, is_verified, is_master, position_id, createdAt, updatedAt },
-      };
+        userPresent: {
+          user: { id, full_name, avatar, username, email, phone, gender, is_active, is_verified, position_id, createdAt, updatedAt},
+          position: userPosition 
+        }};
       let token = await createJWT(payload);
 
       await res.cookie("jwt", token, {

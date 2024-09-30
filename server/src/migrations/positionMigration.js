@@ -12,6 +12,9 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
+      key_position: {
+        type: Sequelize.INTEGER,
+      },
       name: {
         type: Sequelize.STRING,
       },
@@ -20,9 +23,6 @@ module.exports = {
       },
       state: {
         type: Sequelize.BOOLEAN,
-      },
-      slug: {
-        type: Sequelize.STRING,
       },
       is_master: {
         type: Sequelize.BOOLEAN,

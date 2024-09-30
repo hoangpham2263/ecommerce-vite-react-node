@@ -2,8 +2,8 @@ require("dotenv").config();
 import express from "express";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
-import apiAdminRoute from "./routes/apiAdmin";
-import apiUserRoute from "./routes/apiUser";
+import adminApiRoute from "./routes/adminApi";
+import userApiRoute from "./routes/userApi";
 import sharedApiRoute from './routes/sharedApi'
 import connectDB from './config/connectDB';
 import cors from 'cors';
@@ -25,8 +25,8 @@ app.use(bodyParser.json({ limit: "50mb" }));
 app.use(cookieParser());
 
 // routes
-apiAdminRoute(app);
-apiUserRoute(app)
+adminApiRoute(app);
+userApiRoute(app)
 sharedApiRoute(app)
 
 // connect
