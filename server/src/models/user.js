@@ -10,13 +10,15 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       User.hasOne(models.Assessment, { foreignKey: 'user_id' });
-      User.hasOne(models.Cart, { foreignKey: 'user_id' });
       User.belongsTo(models.Position, { foreignKey: 'position_id' });
       User.hasMany(models.Address, { foreignKey: 'user_id' });
       User.hasMany(models.Order, { foreignKey: 'user_id' });
       User.hasMany(models.Bank_Account, { foreignKey: 'user_id' });
       User.hasMany(models.Message, { foreignKey: 'user_id_send' });
       User.hasMany(models.Message, { foreignKey: 'user_id_receive' });
+      User.belongsToMany(models.Sub_Product, { through: 'Cart' });
+
+      // User.hasOne(models.Cart, { foreignKey: 'user_id' });
     }
   }
   User.init(
@@ -26,7 +28,6 @@ module.exports = (sequelize, DataTypes) => {
       username: DataTypes.STRING,
       password: DataTypes.STRING,
       email: DataTypes.STRING,
-      phone: DataTypes.STRING,
       gender: DataTypes.STRING,
       is_active: DataTypes.BOOLEAN,
       is_verified: DataTypes.BOOLEAN,

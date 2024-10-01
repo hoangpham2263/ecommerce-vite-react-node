@@ -18,13 +18,25 @@ module.exports = {
       full_address: {
         type: Sequelize.STRING,
       },
-      province: {
+      street_name: {
+        type: Sequelize.STRING,
+      },
+      ward: {
         type: Sequelize.STRING,
       },
       district: {
         type: Sequelize.STRING,
       },
+      province: {
+        type: Sequelize.STRING,
+      },
       country: {
+        type: Sequelize.STRING,
+      },
+      phone_number: {
+        type: Sequelize.STRING,
+      },
+      notes: {
         type: Sequelize.STRING,
       },
       createdAt: {

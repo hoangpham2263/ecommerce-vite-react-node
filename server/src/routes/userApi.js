@@ -8,6 +8,10 @@ import colorController from "../controllers/colorController"
 import orderLineController from "../controllers/orderLineController"
 import categoryController from "../controllers/categoryController"
 import brandController from "../controllers/brandController"
+import imageController from "../controllers/imageController"
+import addressController from "../controllers/addressController"
+import orderController from "../controllers/orderController"
+import cartController from "../controllers/cartController"
 
 const router = express.Router();
 
@@ -24,7 +28,11 @@ const adminRoute = (app) => {
   router.get("/color", colorController.readFunc)
   router.get("/order-line", orderLineController.readFunc)
   router.get("/category", categoryController.readFunc)
-  router.get("/brand",brandController.readFunc)
+  router.get("/brand", brandController.readFunc)
+  router.get("/image", imageController.readFunc)
+  router.get("/address", addressController.readFunc)
+  router.get("/order", orderController.readFunc)
+  router.get("/cart", cartController.readFunc)
 
   return app.use("/api", router);
 };

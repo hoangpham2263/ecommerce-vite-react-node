@@ -9,15 +9,15 @@ const readFunc = async (req, res) => {
       let { count, rows } = await db.Position_Role.findAndCountAll({
         offset: offset,
         limit: limit,
-        attributes: ["id", "position_id", "role_id","updatedAt","createdAt"],
-        order: [["position_id", "ASC"]],
+        attributes: ["id", "PositionId", "RoleId", "updatedAt", "createdAt"],
+        order: [["PositionId", "ASC"]],
       })
       const totalPages = Math.ceil(count / limit);
       data = { totalRows: count, totalPages: totalPages, positionRoles: rows, }
     } else {
-      data = await db.Position_Role.findAll({ attributes: ["id", "position_id", "role_id","updatedAt","createdAt"], order: [["position_id", "ASC"]] })
+      await db.Position_Role.findAll({ attributes: ["id", "PositionId", "RoleId", "updatedAt", "createdAt"], order: [["PositionId", "ASC"]] })
     }
-    return res.status(200).json({ message: "get position role success", code: 0, data: data, });
+    return res.status(200).json({ message: "get position role success", code: 0 });
   } catch (error) {
     return res.status(500).json({ message: "error from server", code: -1 });
   }
@@ -25,9 +25,9 @@ const readFunc = async (req, res) => {
 
 const createFunc = async (req, res) => {
   try {
-    const { position_id, role_id } = req.body.data;
-    if (!position_id || !role_id) return res.status(200).json({ message: "missing required parameters", code: 1});
-    let data = await db.Position_Role.create({ PositionId: position_id, RoleId: role_id });
+    const { PositionId, RoleId } = req.body.data;
+    if (!PositionId || !RoleId) return res.status(200).json({ message: "missing required parameters", code: 1 });
+    let data = await db.Position_Role.create({ PositionId: PositionId, RoleId: RoleId });
     return res.status(200).json({ message: "a position role is created successfully", code: 0, data: data });
   } catch (error) {
     return res.status(500).json({ message: "error from server", code: -1 });
@@ -39,7 +39,7 @@ const updateFunc = async (req, res) => {
     let data = req?.body?.data
     let positionRole = await db.Position_Role.findOne({ where: { id: data?.id, }, });
     if (positionRole) {
-      await positionRole.update({ PositionId: data.position_id, RoleId: data.role_id });
+      await positionRole.update({ PositionId: data.PositionId, RoleId: data.RoleId });
       return res.status(200).json({ message: "update position success", code: 0 });
     } else {
       return res.status(200).json({ message: "position role not exist", code: 1 });

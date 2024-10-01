@@ -16,9 +16,12 @@ module.exports = (sequelize, DataTypes) => {
       Sub_Product.belongsTo(models.Capacity, { foreignKey: 'capacity_id' });
       Sub_Product.belongsTo(models.Color, { foreignKey: 'color_id' });
       Sub_Product.belongsTo(models.Category, { foreignKey: 'category_id' });
-      Sub_Product.hasMany(models.Order_Item, { foreignKey: 'sub_product_id' });
-      Sub_Product.hasMany(models.Cart, { foreignKey: 'sub_product_id' });
       Sub_Product.hasMany(models.Assessment, { foreignKey: 'sub_product_id' });
+      Sub_Product.belongsToMany(models.Order, { through: 'Order_Item' });
+      Sub_Product.belongsToMany(models.User, { through: 'Cart' });
+
+      // Sub_Product.hasMany(models.Order_Item, { foreignKey: 'sub_product_id' });
+      // Sub_Product.hasMany(models.Cart, { foreignKey: 'sub_product_id' });
     }
   }
   Sub_Product.init(

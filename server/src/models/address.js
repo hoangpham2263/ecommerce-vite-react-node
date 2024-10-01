@@ -15,10 +15,14 @@ module.exports = (sequelize, DataTypes) => {
   Address.init(
     {
       user_id: DataTypes.INTEGER,
-      full_address: DataTypes.STRING,
-      province: DataTypes.STRING,
-      district: DataTypes.STRING,
-      country: DataTypes.STRING,
+      full_address: DataTypes.STRING,   // Địa chỉ đầy đủ
+      street_name: DataTypes.STRING,    // Tên đường
+      ward: DataTypes.STRING,           // Phường/xã
+      district: DataTypes.STRING,       // Quận/huyện
+      province: DataTypes.STRING,       // Tỉnh/thành phố
+      country: DataTypes.STRING,        // Quốc gia
+      phone_number: DataTypes.STRING,   //  Số điện thoại
+      notes: DataTypes.STRING,          // Ghi chú bổ sung
     },
     {
       sequelize,
