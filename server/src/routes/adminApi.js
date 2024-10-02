@@ -15,10 +15,25 @@ import addressController from "../controllers/addressController"
 import orderItemController from "../controllers/orderItemController"
 import orderController from "../controllers/orderController"
 import cartController from "../controllers/cartController"
+import assessmentController from "../controllers/assessmentController"
+import userController from "../controllers/userController"
+import subProductController from "../controllers/subProductController"
 
 const router = express.Router();
 
 const adminRoute = (app) => {
+
+  // user
+  router.get("/user", authCheckExistToken, authCheckUserPermission(), userController.readFunc)
+  router.post("/user", authCheckExistToken, authCheckUserPermission(), userController.createFunc)
+  router.put("/user", authCheckExistToken, authCheckUserPermission(), userController.updateFunc)
+  router.delete("/user", authCheckExistToken, authCheckUserPermission(), userController.deleteFunc)
+
+  // sub product
+  router.get("/sub-product", authCheckExistToken, authCheckUserPermission(), subProductController.readFunc)
+  router.post("/sub-product", authCheckExistToken, authCheckUserPermission(), subProductController.createFunc)
+  router.put("/sub-product", authCheckExistToken, authCheckUserPermission(), subProductController.updateFunc)
+  router.delete("/sub-product", authCheckExistToken, authCheckUserPermission(), subProductController.deleteFunc)
 
   // position
   router.get("/position", authCheckExistToken, authCheckUserPermission(), positionController.readFunc)
@@ -109,6 +124,12 @@ const adminRoute = (app) => {
   router.post("/cart", authCheckExistToken, authCheckUserPermission(), cartController.createFunc)
   router.put("/cart", authCheckExistToken, authCheckUserPermission(), cartController.updateFunc)
   router.delete("/cart", authCheckExistToken, authCheckUserPermission(), cartController.deleteFunc)
+
+  // assessment
+  router.get("/assessment", authCheckExistToken, authCheckUserPermission(), assessmentController.readFunc)
+  router.post("/assessment", authCheckExistToken, authCheckUserPermission(), assessmentController.createFunc)
+  router.put("/assessment", authCheckExistToken, authCheckUserPermission(), assessmentController.updateFunc)
+  router.delete("/assessment", authCheckExistToken, authCheckUserPermission(), assessmentController.deleteFunc)
 
   return app.use("/api/admin", router);
 };

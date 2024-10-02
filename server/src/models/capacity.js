@@ -15,7 +15,6 @@ module.exports = (sequelize, DataTypes) => {
   Capacity.init(
     {
       name: DataTypes.STRING,
-      desc: DataTypes.STRING,
     },
     {
       sequelize,

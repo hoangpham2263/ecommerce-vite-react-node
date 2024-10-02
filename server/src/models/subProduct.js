@@ -14,11 +14,12 @@ module.exports = (sequelize, DataTypes) => {
       Sub_Product.hasMany(models.Image, { foreignKey: 'sub_product_id' });
       Sub_Product.belongsTo(models.Product, { foreignKey: 'product_id' });
       Sub_Product.belongsTo(models.Capacity, { foreignKey: 'capacity_id' });
+      Sub_Product.belongsTo(models.Ram, { foreignKey: 'ram_id' });
       Sub_Product.belongsTo(models.Color, { foreignKey: 'color_id' });
       Sub_Product.belongsTo(models.Category, { foreignKey: 'category_id' });
-      Sub_Product.hasMany(models.Assessment, { foreignKey: 'sub_product_id' });
       Sub_Product.belongsToMany(models.Order, { through: 'Order_Item' });
       Sub_Product.belongsToMany(models.User, { through: 'Cart' });
+      Sub_Product.belongsToMany(models.User, { through: 'Assessment' });
 
       // Sub_Product.hasMany(models.Order_Item, { foreignKey: 'sub_product_id' });
       // Sub_Product.hasMany(models.Cart, { foreignKey: 'sub_product_id' });
@@ -26,8 +27,10 @@ module.exports = (sequelize, DataTypes) => {
   }
   Sub_Product.init(
     {
+      title: DataTypes.STRING,
       product_id: DataTypes.INTEGER,
       capacity_id:DataTypes.INTEGER,
+      ram_id:DataTypes.INTEGER,
       category_id:DataTypes.INTEGER,
       color_id:DataTypes.INTEGER,
       stock:DataTypes.INTEGER,
@@ -39,13 +42,13 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "Sub_Product",
-      hooks: {
-        beforeValidate: (subProduct, options) => {
-          if (subProduct.title) {
-            subProduct.slug = slugify(subProduct.title, { lower: true });
-          }
-        },
-      },
+      // hooks: {
+      //   beforeValidate: (subProduct, options) => {
+      //     if (subProduct.title) {
+      //       subProduct.slug = slugify(subProduct.title, { lower: true });
+      //     }
+      //   },
+      // },
     }
   );
   return Sub_Product;
