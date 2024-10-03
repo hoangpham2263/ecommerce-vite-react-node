@@ -13,7 +13,6 @@ import addressController from "../controllers/addressController"
 import orderController from "../controllers/orderController"
 import cartController from "../controllers/cartController"
 import assessmentController from "../controllers/assessmentController"
-import subProductController from "../controllers/subProductController"
 
 const router = express.Router();
 
@@ -25,7 +24,6 @@ const adminRoute = (app) => {
   router.get("/role", roleController.readFunc)
 
   // product
-  router.get("/sub-product", subProductController.readFunc)
   router.get("/product", productController.readFunc)
   router.get("/capacity", capacityController.readFunc)
   router.get("/color", colorController.readFunc)

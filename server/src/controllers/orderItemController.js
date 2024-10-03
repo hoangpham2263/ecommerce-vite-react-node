@@ -9,13 +9,13 @@ const readFunc = async (req, res) => {
       let { count, rows } = await db.Order_Item.findAndCountAll({
         offset: offset,
         limit: limit,
-        attributes: ["id", "OrderId", "SubProductId", "quantity", "price", "updatedAt", "createdAt"],
+        attributes: ["id", "OrderId", "ProductId", "quantity", "price", "updatedAt", "createdAt"],
         order: [["OrderId", "ASC"]],
       })
       const totalPages = Math.ceil(count / limit);
       data = { totalRows: count, totalPages: totalPages, orderItem: rows, }
     } else {
-      data = await db.Order_Item.findAll({ attributes: ["id", "OrderId", "SubProductId", "quantity", "price", "updatedAt", "createdAt"], order: [["OrderId", "ASC"]] })
+      data = await db.Order_Item.findAll({ attributes: ["id", "OrderId", "ProductId", "quantity", "price", "updatedAt", "createdAt"], order: [["OrderId", "ASC"]] })
     }
     return res.status(200).json({ message: "get order item success", code: 0, data: data, });
   } catch (error) {
@@ -25,9 +25,9 @@ const readFunc = async (req, res) => {
 
 const createFunc = async (req, res) => {
   try {
-    const { OrderId, SubProductId, quantity, price } = req.body.data;
-    if (!OrderId || !SubProductId || !quantity || !price) return res.status(200).json({ message: "missing required parameters", code: 1 });
-    let data = await db.Order_Item.create({ OrderId: OrderId, SubProductId: SubProductId, quantity: quantity, price: price });
+    const { OrderId, ProductId, quantity, price } = req.body.data;
+    if (!OrderId || !ProductId || !quantity || !price) return res.status(200).json({ message: "missing required parameters", code: 1 });
+    let data = await db.Order_Item.create({ OrderId: OrderId, ProductId: ProductId, quantity: quantity, price: price });
     return res.status(200).json({ message: "a order item is created successfully", code: 0, data: data });
   } catch (error) {
     console.log(error)
@@ -40,7 +40,7 @@ const updateFunc = async (req, res) => {
     let data = req?.body?.data
     let orderItem = await db.Order_Item.findOne({ where: { id: data?.id, }, });
     if (orderItem) {
-      const a = await orderItem.update({ OrderId: data.OrderId, SubProductId: data.SubProductId, quantity: data.quantity, price: data.price });
+      const a = await orderItem.update({ OrderId: data.OrderId, ProductId: data.ProductId, quantity: data.quantity, price: data.price });
       return res.status(200).json({ message: "update order item success", code: 0, data: a });
     } else {
       return res.status(200).json({ message: "order item not exist", code: 1 });

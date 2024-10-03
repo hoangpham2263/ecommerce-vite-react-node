@@ -18,6 +18,9 @@ module.exports = {
       user_id_receive: {
         type: Sequelize.INTEGER,
       },
+      message: {
+        type: Sequelize.STRING,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

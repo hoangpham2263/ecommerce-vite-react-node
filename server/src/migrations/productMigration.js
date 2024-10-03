@@ -12,10 +12,37 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      title: {
-        type: Sequelize.STRING,
+      title:{
+        type:Sequelize.STRING
+      },
+      product_id: {
+        type: Sequelize.INTEGER,
+      },
+      capacity_id: {
+        type: Sequelize.INTEGER,
+      },
+      ram_id: {
+        type: Sequelize.INTEGER,
+      },
+      category_id: {
+        type: Sequelize.INTEGER,
+      },
+      color_id: {
+        type: Sequelize.INTEGER,
+      },
+      stock: {
+        type: Sequelize.INTEGER,
+      },
+      discount: {
+        type: Sequelize.INTEGER,
+      },
+      price: {
+        type: Sequelize.FLOAT,
       },
       desc: {
+        type: Sequelize.STRING,
+      },
+      slug: {
         type: Sequelize.STRING,
       },
       createdAt: {

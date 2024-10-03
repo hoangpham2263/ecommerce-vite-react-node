@@ -9,13 +9,13 @@ const readFunc = async (req, res) => {
       let { count, rows } = await db.Cart.findAndCountAll({
         offset: offset,
         limit: limit,
-        attributes: ["id", "UserId", "SubProductId", "quantity", "total", "updatedAt", "createdAt"],
+        attributes: ["id", "UserId", "ProductId", "quantity", "total", "updatedAt", "createdAt"],
         order: [["UserId", "ASC"]],
       })
       const totalPages = Math.ceil(count / limit);
       data = { totalRows: count, totalPages: totalPages, cart: rows, }
     } else {
-      data = await db.Cart.findAll({ attributes: ["id", "UserId", "SubProductId", "quantity", "total", "updatedAt", "createdAt"], order: [["UserId", "ASC"]] })
+      data = await db.Cart.findAll({ attributes: ["id", "UserId", "ProductId", "quantity", "total", "updatedAt", "createdAt"], order: [["UserId", "ASC"]] })
     }
     return res.status(200).json({ message: "get cart success", code: 0, data: data, });
   } catch (error) {
@@ -26,9 +26,9 @@ const readFunc = async (req, res) => {
 
 const createFunc = async (req, res) => {
   try {
-    const { UserId, SubProductId, quantity, total } = req.body.data;
-    if (!UserId || !SubProductId || !quantity || !total) return res.status(200).json({ message: "missing required parameters", code: 1 });
-    let data = await db.Cart.create({ UserId: UserId, SubProductId: SubProductId, quantity: quantity, total: total });
+    const { UserId, ProductId, quantity, total } = req.body.data;
+    if (!UserId || !ProductId || !quantity || !total) return res.status(200).json({ message: "missing required parameters", code: 1 });
+    let data = await db.Cart.create({ UserId: UserId, ProductId: ProductId, quantity: quantity, total: total });
     return res.status(200).json({ message: "a cart is created successfully", code: 0, data: data });
   } catch (error) {
     console.log(error)
@@ -41,7 +41,7 @@ const updateFunc = async (req, res) => {
     let data = req?.body?.data
     let cart = await db.Cart.findOne({ where: { id: data?.id, }, });
     if (cart) {
-      const a = await cart.update({ UserId: data.UserId, SubProductId: data.SubProductId, quantity: data.quantity, total: data.total });
+      const a = await cart.update({ UserId: data.UserId, ProductId: data.ProductId, quantity: data.quantity, total: data.total });
       return res.status(200).json({ message: "update cart success", code: 0, data: a });
     } else {
       return res.status(200).json({ message: "cart not exist", code: 1 });

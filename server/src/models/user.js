@@ -15,8 +15,8 @@ module.exports = (sequelize, DataTypes) => {
       User.hasMany(models.Bank_Account, { foreignKey: 'user_id' });
       User.hasMany(models.Message, { foreignKey: 'user_id_send' });
       User.hasMany(models.Message, { foreignKey: 'user_id_receive' });
-      User.belongsToMany(models.Sub_Product, { through: 'Cart' });
-      User.belongsToMany(models.Sub_Product, { through: 'Assessment' });
+      User.belongsToMany(models.Product, { through: 'Cart' });
+      User.belongsToMany(models.Product, { through: 'Assessment' });
 
       // User.hasOne(models.Assessment, { foreignKey: 'user_id' });
       // User.hasOne(models.Cart, { foreignKey: 'user_id' });

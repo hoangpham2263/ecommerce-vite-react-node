@@ -9,13 +9,13 @@ const readFunc = async (req, res) => {
       let { count, rows } = await db.Assessment.findAndCountAll({
         offset: offset,
         limit: limit,
-        attributes: ["id", "UserId", "SubProductId", "rate", "comment", "updatedAt", "createdAt"],
+        attributes: ["id", "UserId", "ProductId", "rate", "comment", "updatedAt", "createdAt"],
         order: [["UserId", "ASC"]],
       })
       const totalPages = Math.ceil(count / limit);
       data = { totalRows: count, totalPages: totalPages, assessment: rows, }
     } else {
-      data = await db.Assessment.findAll({ attributes: ["id", "UserId", "SubProductId", "rate", "comment", "updatedAt", "createdAt"], order: [["UserId", "ASC"]] })
+      data = await db.Assessment.findAll({ attributes: ["id", "UserId", "ProductId", "rate", "comment", "updatedAt", "createdAt"], order: [["UserId", "ASC"]] })
     }
     return res.status(200).json({ message: "get assessment success", code: 0, data: data, });
   } catch (error) {
@@ -26,9 +26,9 @@ const readFunc = async (req, res) => {
 
 const createFunc = async (req, res) => {
   try {
-    const { UserId, SubProductId, rate, comment } = req.body.data;
-    if (!UserId || !SubProductId || !rate || !comment) return res.status(200).json({ message: "missing required parameters", code: 1 });
-    let data = await db.Assessment.create({ UserId: UserId, SubProductId: SubProductId, rate: rate, comment: comment });
+    const { UserId, ProductId, rate, comment } = req.body.data;
+    if (!UserId || !ProductId || !rate || !comment) return res.status(200).json({ message: "missing required parameters", code: 1 });
+    let data = await db.Assessment.create({ UserId: UserId, ProductId: ProductId, rate: rate, comment: comment });
     return res.status(200).json({ message: "a assessment is created successfully", code: 0, data: data });
   } catch (error) {
     console.log(error)
@@ -41,7 +41,7 @@ const updateFunc = async (req, res) => {
     let data = req?.body?.data
     let assessment = await db.Assessment.findOne({ where: { id: data?.id, }, });
     if (assessment) {
-      const a = await assessment.update({ UserId: data.UserId, SubProductId: data.SubProductId, rate: data.rate, total: data.total });
+      const a = await assessment.update({ UserId: data.UserId, ProductId: data.ProductId, rate: data.rate, total: data.total });
       return res.status(200).json({ message: "update assessment success", code: 0, data: a });
     } else {
       return res.status(200).json({ message: "assessment not exist", code: 1 });

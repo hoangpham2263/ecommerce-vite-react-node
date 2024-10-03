@@ -10,13 +10,13 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       // Assessment.belongsTo(models.User, { foreignKey: 'user_id' });
-      // Assessment.belongsTo(models.Sub_Product, { foreignKey: 'sub_product_id' });
+      // Assessment.belongsTo(models.Product, { foreignKey: 'product_id' });
     }
   }
   Assessment.init(
     {
       UserId: DataTypes.INTEGER,
-      SubProductId: DataTypes.INTEGER,
+      ProductId: DataTypes.INTEGER,
       rate: DataTypes.INTEGER,
       comment: DataTypes.STRING,
     },

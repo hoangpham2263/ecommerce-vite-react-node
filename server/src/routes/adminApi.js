@@ -17,7 +17,6 @@ import orderController from "../controllers/orderController"
 import cartController from "../controllers/cartController"
 import assessmentController from "../controllers/assessmentController"
 import userController from "../controllers/userController"
-import subProductController from "../controllers/subProductController"
 
 const router = express.Router();
 
@@ -29,11 +28,11 @@ const adminRoute = (app) => {
   router.put("/user", authCheckExistToken, authCheckUserPermission(), userController.updateFunc)
   router.delete("/user", authCheckExistToken, authCheckUserPermission(), userController.deleteFunc)
 
-  // sub product
-  router.get("/sub-product", authCheckExistToken, authCheckUserPermission(), subProductController.readFunc)
-  router.post("/sub-product", authCheckExistToken, authCheckUserPermission(), subProductController.createFunc)
-  router.put("/sub-product", authCheckExistToken, authCheckUserPermission(), subProductController.updateFunc)
-  router.delete("/sub-product", authCheckExistToken, authCheckUserPermission(), subProductController.deleteFunc)
+  // product
+  router.get("/product", authCheckExistToken, authCheckUserPermission(), productController.readFunc)
+  router.post("/product", authCheckExistToken, authCheckUserPermission(), productController.createFunc)
+  router.put("/product", authCheckExistToken, authCheckUserPermission(), productController.updateFunc)
+  router.delete("/product", authCheckExistToken, authCheckUserPermission(), productController.deleteFunc)
 
   // position
   router.get("/position", authCheckExistToken, authCheckUserPermission(), positionController.readFunc)
@@ -44,7 +43,7 @@ const adminRoute = (app) => {
   // position role
   router.get("/position-role", authCheckExistToken, authCheckUserPermission(), positionRoleController.readFunc)
   router.post("/position-role", authCheckExistToken, authCheckUserPermission(), positionRoleController.createFunc)
-  router.put("/position-role", authCheckExistToken, authCheckUserPermission(), positionRoleController.updateFunc)
+  // router.put("/position-role", authCheckExistToken, authCheckUserPermission(), positionRoleController.updateFunc)
   router.delete("/position-role", authCheckExistToken, authCheckUserPermission(), positionRoleController.deleteFunc)
 
   // role
@@ -52,12 +51,6 @@ const adminRoute = (app) => {
   router.post("/role", authCheckExistToken, authCheckUserPermission(), roleController.createFunc)
   router.put("/role", authCheckExistToken, authCheckUserPermission(), roleController.updateFunc)
   router.delete("/role", authCheckExistToken, authCheckUserPermission(), roleController.deleteFunc)
-
-  // product
-  router.get("/product", authCheckExistToken, authCheckUserPermission(), productController.readFunc)
-  router.post("/product", authCheckExistToken, authCheckUserPermission(), productController.createFunc)
-  router.put("/product", authCheckExistToken, authCheckUserPermission(), productController.updateFunc)
-  router.delete("/product", authCheckExistToken, authCheckUserPermission(), productController.deleteFunc)
 
   // capacity
   router.get("/capacity", authCheckExistToken, authCheckUserPermission(), capacityController.readFunc)
@@ -110,7 +103,7 @@ const adminRoute = (app) => {
   // orderItem
   router.get("/order-item", authCheckExistToken, authCheckUserPermission(), orderItemController.readFunc)
   router.post("/order-item", authCheckExistToken, authCheckUserPermission(), orderItemController.createFunc)
-  router.put("/order-item", authCheckExistToken, authCheckUserPermission(), orderItemController.updateFunc)
+  // router.put("/order-item", authCheckExistToken, authCheckUserPermission(), orderItemController.updateFunc)
   router.delete("/order-item", authCheckExistToken, authCheckUserPermission(), orderItemController.deleteFunc)
 
   // order
@@ -122,13 +115,13 @@ const adminRoute = (app) => {
   // cart
   router.get("/cart", authCheckExistToken, authCheckUserPermission(), cartController.readFunc)
   router.post("/cart", authCheckExistToken, authCheckUserPermission(), cartController.createFunc)
-  router.put("/cart", authCheckExistToken, authCheckUserPermission(), cartController.updateFunc)
+  // router.put("/cart", authCheckExistToken, authCheckUserPermission(), cartController.updateFunc)
   router.delete("/cart", authCheckExistToken, authCheckUserPermission(), cartController.deleteFunc)
 
   // assessment
-  router.get("/assessment", authCheckExistToken, authCheckUserPermission(), assessmentController.readFunc)
+  // router.get("/assessment", authCheckExistToken, authCheckUserPermission(), assessmentController.readFunc)
   router.post("/assessment", authCheckExistToken, authCheckUserPermission(), assessmentController.createFunc)
-  router.put("/assessment", authCheckExistToken, authCheckUserPermission(), assessmentController.updateFunc)
+  // router.put("/assessment", authCheckExistToken, authCheckUserPermission(), assessmentController.updateFunc)
   router.delete("/assessment", authCheckExistToken, authCheckUserPermission(), assessmentController.deleteFunc)
 
   return app.use("/api/admin", router);

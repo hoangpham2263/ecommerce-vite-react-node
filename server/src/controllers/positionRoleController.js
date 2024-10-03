@@ -15,9 +15,9 @@ const readFunc = async (req, res) => {
       const totalPages = Math.ceil(count / limit);
       data = { totalRows: count, totalPages: totalPages, positionRoles: rows, }
     } else {
-      await db.Position_Role.findAll({ attributes: ["id", "PositionId", "RoleId", "updatedAt", "createdAt"], order: [["PositionId", "ASC"]] })
+      data = await db.Position_Role.findAll({ attributes: ["id", "PositionId", "RoleId", "updatedAt", "createdAt"], order: [["PositionId", "ASC"]] })
     }
-    return res.status(200).json({ message: "get position role success", code: 0 });
+    return res.status(200).json({ message: "get position role success", code: 0, data: data });
   } catch (error) {
     return res.status(500).json({ message: "error from server", code: -1 });
   }
