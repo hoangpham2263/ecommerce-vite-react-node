@@ -10,10 +10,29 @@ import orderLineController from "../controllers/orderLineController"
 import categoryController from "../controllers/categoryController"
 import brandController from "../controllers/brandController"
 import versionController from "../controllers/versionController"
+import imageController from "../controllers/imageController"
+import addressController from "../controllers/addressController"
+import orderItemController from "../controllers/orderItemController"
+import orderController from "../controllers/orderController"
+import cartController from "../controllers/cartController"
+import assessmentController from "../controllers/assessmentController"
+import userController from "../controllers/userController"
 
 const router = express.Router();
 
 const adminRoute = (app) => {
+
+  // user
+  router.get("/user", authCheckExistToken, authCheckUserPermission(), userController.readFunc)
+  router.post("/user", authCheckExistToken, authCheckUserPermission(), userController.createFunc)
+  router.put("/user", authCheckExistToken, authCheckUserPermission(), userController.updateFunc)
+  router.delete("/user", authCheckExistToken, authCheckUserPermission(), userController.deleteFunc)
+
+  // product
+  router.get("/product", authCheckExistToken, authCheckUserPermission(), productController.readFunc)
+  router.post("/product", authCheckExistToken, authCheckUserPermission(), productController.createFunc)
+  router.put("/product", authCheckExistToken, authCheckUserPermission(), productController.updateFunc)
+  router.delete("/product", authCheckExistToken, authCheckUserPermission(), productController.deleteFunc)
 
   // position
   router.get("/position", authCheckExistToken, authCheckUserPermission(), positionController.readFunc)
@@ -24,7 +43,7 @@ const adminRoute = (app) => {
   // position role
   router.get("/position-role", authCheckExistToken, authCheckUserPermission(), positionRoleController.readFunc)
   router.post("/position-role", authCheckExistToken, authCheckUserPermission(), positionRoleController.createFunc)
-  router.put("/position-role", authCheckExistToken, authCheckUserPermission(), positionRoleController.updateFunc)
+  // router.put("/position-role", authCheckExistToken, authCheckUserPermission(), positionRoleController.updateFunc)
   router.delete("/position-role", authCheckExistToken, authCheckUserPermission(), positionRoleController.deleteFunc)
 
   // role
@@ -32,12 +51,6 @@ const adminRoute = (app) => {
   router.post("/role", authCheckExistToken, authCheckUserPermission(), roleController.createFunc)
   router.put("/role", authCheckExistToken, authCheckUserPermission(), roleController.updateFunc)
   router.delete("/role", authCheckExistToken, authCheckUserPermission(), roleController.deleteFunc)
-
-  // product
-  router.get("/product", authCheckExistToken, authCheckUserPermission(), productController.readFunc)
-  router.post("/product", authCheckExistToken, authCheckUserPermission(), productController.createFunc)
-  router.put("/product", authCheckExistToken, authCheckUserPermission(), productController.updateFunc)
-  router.delete("/product", authCheckExistToken, authCheckUserPermission(), productController.deleteFunc)
 
   // capacity
   router.get("/capacity", authCheckExistToken, authCheckUserPermission(), capacityController.readFunc)
@@ -74,6 +87,42 @@ const adminRoute = (app) => {
   router.post("/version", authCheckExistToken, authCheckUserPermission(), versionController.createFunc)
   router.put("/version", authCheckExistToken, authCheckUserPermission(), versionController.updateFunc)
   router.delete("/version", authCheckExistToken, authCheckUserPermission(), versionController.deleteFunc)
+
+  // image
+  router.get("/image", authCheckExistToken, authCheckUserPermission(), imageController.readFunc)
+  router.post("/image", authCheckExistToken, authCheckUserPermission(), imageController.createFunc)
+  router.put("/image", authCheckExistToken, authCheckUserPermission(), imageController.updateFunc)
+  router.delete("/image", authCheckExistToken, authCheckUserPermission(), imageController.deleteFunc)
+
+  // address
+  router.get("/address", authCheckExistToken, authCheckUserPermission(), addressController.readFunc)
+  router.post("/address", authCheckExistToken, authCheckUserPermission(), addressController.createFunc)
+  router.put("/address", authCheckExistToken, authCheckUserPermission(), addressController.updateFunc)
+  router.delete("/address", authCheckExistToken, authCheckUserPermission(), addressController.deleteFunc)
+
+  // orderItem
+  router.get("/order-item", authCheckExistToken, authCheckUserPermission(), orderItemController.readFunc)
+  router.post("/order-item", authCheckExistToken, authCheckUserPermission(), orderItemController.createFunc)
+  // router.put("/order-item", authCheckExistToken, authCheckUserPermission(), orderItemController.updateFunc)
+  router.delete("/order-item", authCheckExistToken, authCheckUserPermission(), orderItemController.deleteFunc)
+
+  // order
+  router.get("/order", authCheckExistToken, authCheckUserPermission(), orderController.readFunc)
+  router.post("/order", authCheckExistToken, authCheckUserPermission(), orderController.createFunc)
+  router.put("/order", authCheckExistToken, authCheckUserPermission(), orderController.updateFunc)
+  router.delete("/order", authCheckExistToken, authCheckUserPermission(), orderController.deleteFunc)
+
+  // cart
+  router.get("/cart", authCheckExistToken, authCheckUserPermission(), cartController.readFunc)
+  router.post("/cart", authCheckExistToken, authCheckUserPermission(), cartController.createFunc)
+  // router.put("/cart", authCheckExistToken, authCheckUserPermission(), cartController.updateFunc)
+  router.delete("/cart", authCheckExistToken, authCheckUserPermission(), cartController.deleteFunc)
+
+  // assessment
+  // router.get("/assessment", authCheckExistToken, authCheckUserPermission(), assessmentController.readFunc)
+  router.post("/assessment", authCheckExistToken, authCheckUserPermission(), assessmentController.createFunc)
+  // router.put("/assessment", authCheckExistToken, authCheckUserPermission(), assessmentController.updateFunc)
+  router.delete("/assessment", authCheckExistToken, authCheckUserPermission(), assessmentController.deleteFunc)
 
   return app.use("/api/admin", router);
 };

@@ -18,7 +18,7 @@ module.exports = {
       file_name: {
         type: Sequelize.STRING,
       },
-      sub_product_id: {
+      product_id: {
         type: Sequelize.INTEGER,
       },
       createdAt: {

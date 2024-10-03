@@ -9,24 +9,29 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      User.hasOne(models.Assessment, { foreignKey: 'user_id' });
-      User.hasOne(models.Cart, { foreignKey: 'user_id' });
       User.belongsTo(models.Position, { foreignKey: 'position_id' });
       User.hasMany(models.Address, { foreignKey: 'user_id' });
       User.hasMany(models.Order, { foreignKey: 'user_id' });
       User.hasMany(models.Bank_Account, { foreignKey: 'user_id' });
       User.hasMany(models.Message, { foreignKey: 'user_id_send' });
       User.hasMany(models.Message, { foreignKey: 'user_id_receive' });
+      User.belongsToMany(models.Product, { through: 'Cart' });
+      User.belongsToMany(models.Product, { through: 'Assessment' });
+
+      // User.hasOne(models.Assessment, { foreignKey: 'user_id' });
+      // User.hasOne(models.Cart, { foreignKey: 'user_id' });
     }
   }
   User.init(
     {
       full_name: DataTypes.STRING,
       avatar: DataTypes.STRING,
-      username: DataTypes.STRING,
+      username: {
+        type: DataTypes.STRING,
+        unique: true,
+      },
       password: DataTypes.STRING,
       email: DataTypes.STRING,
-      phone: DataTypes.STRING,
       gender: DataTypes.STRING,
       is_active: DataTypes.BOOLEAN,
       is_verified: DataTypes.BOOLEAN,

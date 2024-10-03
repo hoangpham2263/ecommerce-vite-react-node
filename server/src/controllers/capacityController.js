@@ -9,13 +9,13 @@ const readFunc = async (req, res) => {
       let { count, rows } = await db.Capacity.findAndCountAll({
         offset: offset,
         limit: limit,
-        attributes: ["id", "name", "desc","updatedAt","createdAt"],
-        order: [["name", "ASC"]],
+        attributes: ["id", "name", "updatedAt", "createdAt"],
+        order: [["id", "ASC"]],
       })
       const totalPages = Math.ceil(count / limit);
       data = { totalRows: count, totalPages: totalPages, capacity: rows, }
     } else {
-      data = await db.Capacity.findAll({ attributes: ["id", "name", "desc","updatedAt","createdAt"], order: [["name", "ASC"]] })
+      data = await db.Capacity.findAll({ attributes: ["id", "name", "updatedAt", "createdAt"], order: [["id", "ASC"]] })
     }
     return res.status(200).json({ message: "get capacity success", code: 0, data: data, });
   } catch (error) {
@@ -26,9 +26,9 @@ const readFunc = async (req, res) => {
 
 const createFunc = async (req, res) => {
   try {
-    const { name, desc } = req.body.data;
-    if (!name || !desc) return res.status(200).json({ message: "missing required parameters", code: 1 });
-    let data = await db.Capacity.create({ name: name, desc: desc });
+    const { name } = req.body.data;
+    if (!name) return res.status(200).json({ message: "missing required parameters", code: 1 });
+    let data = await db.Capacity.create({ name: name });
     return res.status(200).json({ message: "a capacity is created successfully", code: 0, data: data });
   } catch (error) {
     console.log(error)
@@ -41,7 +41,7 @@ const updateFunc = async (req, res) => {
     let data = req?.body?.data
     let capacity = await db.Capacity.findOne({ where: { id: data?.id, }, });
     if (capacity) {
-      await capacity.update({ name: data.name, desc: data.desc });
+      await capacity.update({ name: data.name });
       return res.status(200).json({ message: "update capacity success", code: 0 });
     } else {
       return res.status(200).json({ message: "capacity not exist", code: 1 });

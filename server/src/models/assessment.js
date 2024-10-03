@@ -9,14 +9,14 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Assessment.belongsTo(models.User, { foreignKey: 'user_id' });
-      Assessment.belongsTo(models.Sub_Product, { foreignKey: 'sub_product_id' });
+      // Assessment.belongsTo(models.User, { foreignKey: 'user_id' });
+      // Assessment.belongsTo(models.Product, { foreignKey: 'product_id' });
     }
   }
   Assessment.init(
     {
-      user_id: DataTypes.INTEGER,
-      sub_product_id: DataTypes.INTEGER,
+      UserId: DataTypes.INTEGER,
+      ProductId: DataTypes.INTEGER,
       rate: DataTypes.INTEGER,
       comment: DataTypes.STRING,
     },

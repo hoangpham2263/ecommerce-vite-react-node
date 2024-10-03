@@ -32,6 +32,7 @@ module.exports = (sequelize, DataTypes) => {
           model: "User",
           key: "id",
         },
+        content: DataTypes.STRING,
         onUpdate: "CASCADE",
         onDelete: "SET NULL",
       },
