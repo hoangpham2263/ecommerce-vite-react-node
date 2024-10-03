@@ -15,9 +15,6 @@ module.exports = {
       title:{
         type:Sequelize.STRING
       },
-      product_id: {
-        type: Sequelize.INTEGER,
-      },
       capacity_id: {
         type: Sequelize.INTEGER,
       },
