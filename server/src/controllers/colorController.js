@@ -9,13 +9,13 @@ const readFunc = async (req, res) => {
       let { count, rows } = await db.Color.findAndCountAll({
         offset: offset,
         limit: limit,
-        attributes: ["id", "name", "desc","updatedAt","createdAt"],
+        attributes: ["id", "name", "color_code","updatedAt","createdAt"],
         order: [["name", "ASC"]],
       })
       const totalPages = Math.ceil(count / limit);
       data = { totalRows: count, totalPages: totalPages, color: rows, }
     } else {
-      data = await db.Color.findAll({ attributes: ["id", "name", "desc","updatedAt","createdAt"], order: [["name", "ASC"]] })
+      data = await db.Color.findAll({ attributes: ["id", "name", "color_code","updatedAt","createdAt"], order: [["name", "ASC"]] })
     }
     return res.status(200).json({ message: "get color success", code: 0, data: data, });
   } catch (error) {
@@ -25,9 +25,9 @@ const readFunc = async (req, res) => {
 
 const createFunc = async (req, res) => {
   try {
-    const { name, desc } = req.body.data;
-    if (!name || !desc) return res.status(200).json({ message: "missing required parameters", code: 1 });
-    let data = await db.Color.create({ name: name, desc: desc });
+    const { name, color_code } = req.body.data;
+    if (!name || !color_code) return res.status(200).json({ message: "missing required parameters", code: 1 });
+    let data = await db.Color.create({ name: name, color_code: color_code });
     return res.status(200).json({ message: "a color is created successfully", code: 0, data: data });
   } catch (error) {
     console.log(error)
@@ -40,7 +40,7 @@ const updateFunc = async (req, res) => {
     let data = req?.body?.data
     let color = await db.Color.findOne({ where: { id: data?.id, }, });
     if (color) {
-      await color.update({ name: data.name, desc: data.desc });
+      await color.update({ name: data.name, color_code: data.color_code });
       return res.status(200).json({ message: "update color success", code: 0 });
     } else {
       return res.status(200).json({ message: "color not exist", code: 1 });

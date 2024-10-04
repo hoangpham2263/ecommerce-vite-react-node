@@ -25,6 +25,7 @@ const adminRoute = (app) => {
 
   // product
   router.get("/product", productController.readFunc)
+  router.get("/product/:slug",  productController.readFuncWithSlug)
   router.get("/capacity", capacityController.readFunc)
   router.get("/color", colorController.readFunc)
   router.get("/order-line", orderLineController.readFunc)
