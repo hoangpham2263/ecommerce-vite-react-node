@@ -34,17 +34,17 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    let response = await loginAccountBasic(data)
-    if (response?.data?.code === 0) {
+    let res = await loginAccountBasic(data)
+    if (res?.data?.code === 0) {
       const infoLoginJWT = await readProfileJWT()
       if (infoLoginJWT?.data?.code === 0) {
         const infoAccountLogin = jwtDecode(infoLoginJWT?.data?.data?.jwt)
         localStorage.setItem('infoAccountLogin', JSON.stringify(infoAccountLogin))
-        toast.success(response?.data?.message)
+        toast.success(res?.data?.message)
         navigate('/')
       }
     } else {
-      toast.error(response?.data?.message)
+      toast.error(res?.data?.message)
     }
   }
 

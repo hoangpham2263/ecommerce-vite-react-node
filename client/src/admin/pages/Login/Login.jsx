@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { FaFacebookF } from 'react-icons/fa'
@@ -10,7 +10,7 @@ import './Login.css'
 import config from '../../config'
 import classNames from 'classnames/bind'
 import styles from './Login.module.scss'
-import LoginWithGoogle from '../../../main/components/LoginWithGoogle'
+import LoginWithGoogleAdmin from '../../../main/components/LoginWithGoogleAdmin'
 import { loginAccountBasic, readProfileJWT } from '../../../main/services/sharedApi'
 
 const cx = classNames.bind(styles)
@@ -34,17 +34,21 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    let response = await loginAccountBasic(data)
-    if (response?.data?.code === 0) {
+    let res = await loginAccountBasic(data)
+    if (res?.data?.code === 0) {
       const infoLoginJWT = await readProfileJWT()
       if (infoLoginJWT?.data?.code === 0) {
         const infoAccountLogin = jwtDecode(infoLoginJWT?.data?.data?.jwt)
-        localStorage.setItem('infoAccountLogin', JSON.stringify(infoAccountLogin))
-        toast.success(response?.data?.message)
-        navigate('/')
+        if (infoAccountLogin?.userPresent?.position?.key_position === 1) {
+          localStorage.setItem('infoAccountLogin', JSON.stringify(infoAccountLogin))
+          toast.success(res?.data?.message)
+          navigate(config.routes.dashboard)
+        } else {
+          toast.error('account is not admin')
+        }
       }
     } else {
-      toast.error(response?.data?.message)
+      toast.error(res?.data?.message)
     }
   }
 
@@ -54,7 +58,7 @@ const Login = () => {
       <form className={cx('form-block', 'p-5')} >
         <div className='d-flex justify-content-between'>
           <h4 className='fw-semibold'>Login</h4>
-          <p><Link className="link-offset-2 link-underline link-underline-opacity-0 size-14" to={`${config.routes.register}`}>Don&apos;t have an account?</Link></p>
+          <p><Link className="link-offset-2 link-underline link-underline-opacity-0 size-14" to={`${config.routes.homeUser}`}>{'redirect home <-'}</Link></p>
         </div>
         <div className="mb-3 pt-4">
           <label htmlFor="username" className="form-label mb-1 fw-light size-14">Username</label>
@@ -83,7 +87,7 @@ const Login = () => {
           <hr className="flex-grow-1" />
         </div>
         <div className='d-flex justify-content-between py-4'>
-          <LoginWithGoogle />
+          <LoginWithGoogleAdmin />
           <button type="button" className="d-flex align-items-center btn btn-outline-secondary custom-hover">
             <FaFacebookF className='text-primary' /><span className='mx-1'>{''}</span><span className='size-14'>Facebook</span>
           </button>

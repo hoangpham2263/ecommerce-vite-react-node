@@ -1,14 +1,12 @@
-import { useEffect } from 'react';
-import { readProfileJWT } from '../../../main/services/sharedApi'
+import Carousel from '../components/Carousel'
+import HotSale from '../components/HotSale'
 
 const Home = () => {
-  useEffect(() => { fetchJWT()}, [])
-  const fetchJWT = async () => {
-    const resJWT = await readProfileJWT()
-  }
+
   return (
     <div>
-      Home
+      <Carousel />
+      <HotSale />
     </div>
   )
 }
