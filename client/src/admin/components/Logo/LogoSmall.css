@@ -1,0 +1,54 @@
+.cs-wrap-logo {
+    display        : flex;
+    align-items    : flex-end;
+    text-decoration: none;
+}
+
+/* left */
+.cs-border-rs {
+    position       : relative;
+    width          : 26px;
+    height         : 26px;
+    display        : flex;
+    align-items    : center;
+    justify-content: center;
+    margin-bottom  : 7px;
+}
+
+.cs-icon-outside {
+    display        : flex;
+    align-items    : center;
+    justify-content: center;
+    font-size      : 26px;
+    color          : white;
+}
+
+.cs-icon-inside {
+    position : absolute;
+    top      : 50%;
+    left     : 50%;
+    transform: translate(-50%, calc(-50% + 5px));
+    font-size: 20px;
+    color    : #141824 !important;
+}
+
+/* right */
+.cs-text-logo {
+    display     : flex;
+    align-items : flex-end;
+    line-height : 34px;
+    font-size   : 24px;
+    color       : var(--color-white);
+    font-family : Arial, Helvetica, sans-serif;
+    font-weight : 500;
+    margin-right: 3px;
+    user-select : none;
+}
+
+.ct-drop-avatar {
+    width           : 40px;
+    height          : 40px;
+    display         : block;
+    border-radius   : 999px;
+    background-color: red;
+}
