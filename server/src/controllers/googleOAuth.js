@@ -60,7 +60,7 @@ const saveAccountGoogleOAuth = async (req, res) => {
         is_active: true,
         is_verified: true,
         is_master: false,
-        position_id: 1
+        position_id: 3
       });
     }
 

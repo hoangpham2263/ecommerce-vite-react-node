@@ -15,7 +15,7 @@ module.exports = {
       name: {
         type: Sequelize.STRING,
       },
-      desc: {
+      color_code: {
         type: Sequelize.STRING,
       },
       createdAt: {

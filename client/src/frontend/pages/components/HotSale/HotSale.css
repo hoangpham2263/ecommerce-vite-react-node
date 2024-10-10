@@ -1,0 +1,330 @@
+.cs-hot-sale-bg {
+  background   : linear-gradient(rgb(248, 62, 96), rgb(254, 80, 72)) 0% 0% / cover;
+  border-radius: 10px;
+  overflow     : hidden;
+}
+
+.cs-hot-sale-img {
+  height: 60px;
+}
+
+.cs-border-6 {
+  border-radius: 6px;
+}
+
+.cs-box-shadow {
+  box-shadow: 0 1px 2px 0 rgba(60, 64, 67, .1), 0 2px 6px 2px rgba(60, 64, 67, .15);
+  overflow  : hidden;
+}
+
+.cs-btn-hot-sale {
+  display         : flex;
+  justify-content : center;
+  align-items     : center;
+  background-color: #FFF0BF;
+  color           : #000;
+  height          : 29px;
+  border-radius   : 7px;
+  font-size       : 14px;
+  cursor          : pointer;
+  padding         : 4px 10px;
+  font-weight     : 600;
+}
+
+
+/* product */
+
+.main-contain {
+  background     : rgba(0, 0, 0, .03);
+  display        : flex;
+  flex-wrap      : wrap;
+  justify-content: space-between;
+}
+
+.cs-list-item {
+  width        : 205.2px !important;
+  background   : #fff;
+  margin-bottom: 10px;
+  transition   : transform 0.3s ease;
+}
+
+.cs-list-item:hover {
+  transform: translateY(-2px);
+  cursor   : pointer;
+}
+
+.cs-item-link {
+  text-decoration: none;
+  color          : black;
+  font-size      : 12px;
+}
+
+.cs-item-block {
+  box-sizing: border-box;
+  height    : 100%;
+}
+
+.cs-item-pic-content {
+  width     : 100%;
+  object-fit: cover;
+}
+
+.cs-item-desc {
+  padding: 8px;
+}
+
+.cs-item-desc,
+.cs-item-desc-title {
+  display       : flex;
+  flex          : 1 0 auto;
+  flex-direction: column;
+}
+
+.cs-item-desc-content {
+  word-wrap         : break-word;
+  display           : -webkit-box;
+  overflow          : hidden;
+  text-overflow     : ellipsis;
+  white-space       : normal;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.cs-item-desc-voucher {
+  align-items: center;
+  display    : flex;
+  margin-top : .25rem;
+  overflow   : hidden;
+}
+
+.cs-voucher {
+  display         : inline-block;
+  color           : var(--primary);
+  border-radius   : .0625rem;
+  border          : .0625rem solid;
+  background-color: transparent;
+  padding         : 1px 2px;
+  font-size       : 10px;
+}
+
+.cs-item-desc-voucher>div:not(:last-child) {
+  margin-right: .25rem;
+}
+
+.cs-item-desc-price {
+
+  display    : flex;
+  align-items: center;
+  overflow   : hidden;
+  padding    : .5rem 0 0;
+}
+
+.cs-item-desc-price-sale {
+
+  margin-right: .3125rem;
+  max-width   : calc(100% - 32.35px);
+}
+
+.cs-unit {
+  font-size: .65rem !important;
+  color    : var(--primary);
+}
+
+
+.cs-item-desc-price-origin {
+  color          : rgba(0, 0, 0, .54);
+  text-decoration: line-through;
+}
+
+.cs-box-percent {
+  border-radius   : .125rem !important;
+  margin-left     : .125rem;
+  padding         : .125rem !important;
+  background-color: #feeeea;
+  display         : block;
+}
+
+.cs-content-percent {
+  font-size  : .625rem !important;
+  color      : var(--primary);
+  font-weight: 500;
+}
+
+.cs-item-rating {
+  margin-top: 12px;
+}
+
+.cs-item-located {
+  margin-top: 8px;
+}
+
+.cs-destination {
+  color     : rgba(0, 0, 0, .65);
+  flex      : 0 1 auto;
+  text-align: left;
+}
+
+.categories-list-sub-categories {
+  position    : relative;
+  padding-left: 20px;
+}
+
+.categories-list-sub-categories:before {
+  content   : '\203A';
+  position  : absolute;
+  left      : 0;
+  top       : 50%;
+  transform : translateY(-50%);
+  opacity   : 0;
+  transition: opacity 0.3s;
+}
+
+.categories-list-sub-categories.active {
+  color      : var(--primary);
+  font-weight: bold;
+}
+
+.categories-list-sub-categories.active:before {
+  opacity: 1;
+}
+
+.css-j204z7-MuiFormControlLabel-root .MuiFormControlLabel-label {
+  font-size: 14px;
+}
+
+.MuiRating-root.MuiRating-sizeSmall {
+  font-size: 0.725rem;
+}
+
+.cs-card {
+  overflow: hidden;
+  position: relative;
+}
+
+
+
+.cs-card-body {
+  width          : 100%;
+  height         : 206px;
+  top            : 0;
+  right          : 0;
+  right          : -100%;
+  position       : absolute;
+  background     : #1f3d4738;
+  backdrop-filter: blur(3px);
+  display        : flex;
+  justify-content: center;
+  right          : -100%;
+  transition     : 0.16s;
+  overflow       : hidden;
+}
+
+.cs-card:hover .cs-card-body {
+  right: 0;
+}
+
+
+.cs-custom-btn {
+  margin-top   : 80px;
+  width        : 80px;
+  height       : 40px;
+  color        : #fff;
+  border-radius: 5px;
+  padding      : 10px 25px;
+  font-weight  : 500;
+  background   : transparent;
+  cursor       : pointer;
+  transition   : all 0.3s ease;
+  position     : relative;
+  display      : inline-block;
+  box-shadow   : inset 2px 2px 2px 0 rgba(255, 255, 255, .5), 7px 7px 20px 0 rgba(0, 0, 0, .1), 4px 4px 5px 0 rgba(0, 0, 0, .1);
+  outline      : none;
+}
+
+.codepro-btn-3 {
+  background : var(--primary);
+  background : linear-gradient(30deg, var(--primary) 0%, rgb(236, 33, 60) 100%);
+  width      : 85px;
+  height     : 40px;
+  line-height: 42px;
+  padding    : 0;
+  border     : none;
+  position   : relative;
+  overflow   : hidden;
+}
+
+.codepro-btn-3 span {
+  position   : relative;
+  display    : block;
+  width      : 100%;
+  height     : 100%;
+  color      : #fff;
+  text-align : center;
+  line-height: 40px;
+  transition : color 0.3s ease;
+}
+
+.codepro-btn-3:before,
+.codepro-btn-3:after {
+  position  : absolute;
+  content   : "";
+  right     : 0;
+  top       : 0;
+  background: var(--primary);
+  transition: all 0.3s ease;
+}
+
+.codepro-btn-3:before {
+  height: 0%;
+  width : 2px;
+}
+
+.codepro-btn-3:after {
+  width : 0%;
+  height: 2px;
+}
+
+.codepro-btn-3:hover {
+  background: transparent;
+  box-shadow: none;
+}
+
+.codepro-btn-3:hover:before {
+  height: 100%;
+}
+
+.codepro-btn-3:hover:after {
+  width: 100%;
+}
+
+.codepro-btn-3 span:hover {
+  color: var(--primary);
+}
+
+.codepro-btn-3 span:before,
+.codepro-btn-3 span:after {
+  position  : absolute;
+  content   : "";
+  left      : 0;
+  bottom    : 0;
+  background: var(--primary);
+  transition: all 0.3s ease;
+}
+
+.codepro-btn-3 span:before {
+  width : 2px;
+  height: 0%;
+}
+
+.codepro-btn-3 span:after {
+  width : 0%;
+  height: 2px;
+}
+
+.codepro-btn-3 span:hover:before {
+  height: 100%;
+}
+
+.codepro-btn-3 span:hover:after {
+  width: 100%;
+}

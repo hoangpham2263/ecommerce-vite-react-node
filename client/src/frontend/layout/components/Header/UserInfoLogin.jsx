@@ -21,11 +21,9 @@ const UserInfoLogin = () => {
       toast.error(response?.data?.message)
     }
   }
-
   const handleRedirectAdmin = () => {
     navigate(config.routes.homeAdmin)
   }
-
   return (
     <div>
       {

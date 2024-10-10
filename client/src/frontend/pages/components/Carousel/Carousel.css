@@ -1,0 +1,32 @@
+.cs-border-7 {
+  border-radius: 7px;
+}
+
+.cs-box-shadow {
+  box-shadow: 0 1px 2px 0 rgba(60, 64, 67, .1), 0 2px 6px 2px rgba(60, 64, 67, .15);
+  overflow  : hidden;
+}
+
+/* time */
+.cs-hot-sale-time {
+  color          : #FFF0BF;
+  font-size      : 16px;
+  font-weight    : 500;
+  display        : flex;
+  justify-content: center;
+  align-items    : center;
+}
+
+.cs-circle-time {
+  color           : #000;
+  background-color: #FFF0BF;
+  border-radius   : 50%;
+  width           : 28px;
+  height          : 28px;
+  display         : flex;
+  justify-content : center;
+  align-items     : center;
+  margin          : 0 4px;
+  font-size       : 16px;
+  font-weight     : 600;
+}
