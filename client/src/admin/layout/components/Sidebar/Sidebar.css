@@ -1,0 +1,54 @@
+.accordion {
+  border: none;
+  /* Không có viền cho accordion */
+  width : 224px;
+  height: 32px;
+}
+
+.accordion-flush .accordion-item {
+  border: none;
+  /* Không có viền cho từng mục */
+  width : 224px;
+  height: 32px;
+}
+
+.accordion-flush .accordion-header {
+  padding    : 0;
+  /* Tùy chỉnh khoảng cách cho tiêu đề */
+  width      : 224px;
+  height     : 32px;
+  display    : flex;
+  align-items: center;
+}
+
+.accordion-flush .accordion-body {
+  padding    : 1rem;
+  /* Đặt padding cho nội dung */
+  width      : 224px;
+  height     : 32px;
+  display    : flex;
+  align-items: center;
+}
+
+/* Tùy chỉnh thêm nếu cần */
+.accordion-button {
+  background-color: transparent;
+  /* Nền trong suốt cho nút */
+  color           : #000;
+  /* Màu chữ */
+  width           : 224px;
+  height          : 32px;
+  display         : flex;
+  align-items     : center;
+}
+
+.accordion-button::after{
+  width: 10px;
+}
+
+.accordion-button:not(.collapsed) {
+  background-color: #e9ecef;
+  /* Màu nền khi mở */
+  color           : #000;
+  /* Màu chữ khi mở */
+}

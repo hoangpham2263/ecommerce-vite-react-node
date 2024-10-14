@@ -119,3 +119,9 @@
 .gl-mb-5{
   margin-bottom: 5px;
 }
+/* admin */
+.gl-gb-cl-admin{
+  color: #9fa6bc !important;
+  background-color: #141824 !important;
+  font-size: 12.8px;
+}
