@@ -1,18 +1,18 @@
-import './Account.css'
+import './Product.css'
 import classNames from 'classnames/bind'
-import styles from './Account.module.scss'
+import styles from './Product.module.scss'
 import { IoIosWarning } from 'react-icons/io'
 
 const cx = classNames.bind(styles)
 
-const Account = () => {
+const Product = () => {
   const listItem = [1, 1, 1, 1, 1]
   return (
     <div className={cx('wrapper')}>
       <div className={cx('row mb-3')}>
-        <h3 className={cx('col-3 fw-normal')}>Account</h3>
+        <h3 className={cx('col-3 fw-normal')}>Product</h3>
         <div className={cx('col-9 d-flex justify-content-end')}>
-          <button className="btn btn-info" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">+ Add Account</button>
+          <button className="btn btn-info" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">+ Add Product</button>
         </div>
       </div>
       <div className={cx('row')}>
@@ -21,14 +21,11 @@ const Account = () => {
             <tr>
               <th scope="col">#</th>
               <th scope="col"></th>
-              <th scope="col">FULL NAME</th>
-              <th scope="col">USERNAME</th>
-              <th scope="col">EMAIL</th>
-              <th scope="col">GENDER</th>
-              <th scope="col">POSITION</th>
-              <th scope="col">VERIFY</th>
-              <th scope="col">STATUS</th>
+              <th scope="col">PRODUCT NAME</th>
+              <th scope="col">PRICE</th>
+              <th scope="col">CATEGORY</th>
               <th scope="col">PUBLISHED ON</th>
+              <th scope="col">STATUS</th>
               <th scope="col"></th>
             </tr>
           </thead>
@@ -38,26 +35,17 @@ const Account = () => {
                 <tr key={index}>
                   <th scope="row">{index + 1}</th>
                   <td>image</td>
-                  <td>Phạm Quốc Hoàng</td>
-                  <td>QuocHoangDev</td>
-                  <td>user@example.com</td>
-                  <td>Male</td>
-                  <td>Admin</td>
-                  <td>
-                    <div className="form-check form-switch">
-                      <input className="form-check-input" type="checkbox" role="switch" id={`flexSwitchCheckDefault${index}-verify`} />
-                      <label className="form-check-label" htmlFor={`flexSwitchCheckDefault${index}-verify`}>On</label>
-                      {/* <label className="form-check-label" htmlFor={`flexSwitchCheckDefault${index}`}>Off</label> */}
-                    </div>
-                  </td>
-                  <td>
-                    <div className="form-check form-switch">
-                      <input className="form-check-input" type="checkbox" role="switch" id={`flexSwitchCheckDefault${index}-status`} />
-                      <label className="form-check-label" htmlFor={`flexSwitchCheckDefault${index}-status`}>On</label>
-                      {/* <label className="form-check-label" htmlFor={`flexSwitchCheckDefault${index}`}>Off</label> */}
-                    </div>
-                  </td>
+                  <td>Apple MacBook Pro 13 inch-M1-8/256GB-space</td>
+                  <td>10.000D</td>
+                  <td>SamSung</td>
                   <td>Dec 01, 12:00 PM</td>
+                  <td>
+                    <div className="form-check form-switch">
+                      <input className="form-check-input" type="checkbox" role="switch" id={`flexSwitchCheckDefault${index}`} />
+                      <label className="form-check-label" htmlFor={`flexSwitchCheckDefault${index}`}>On</label>
+                      {/* <label className="form-check-label" htmlFor={`flexSwitchCheckDefault${index}`}>Off</label> */}
+                    </div>
+                  </td>
                   <td className={cx('col-btn text-end pe-4')}>
                     <button className="btn btn-warning me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight-edit" aria-controls="offcanvasRight-edit">Edit</button>
                     <button type="button" className="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Delete</button>
@@ -67,17 +55,6 @@ const Account = () => {
             })}
           </tbody>
         </table>
-      </div>
-      <div className={cx('row')}>
-        <nav aria-label="Page navigation example">
-          <ul className="pagination  d-flex justify-content-end">
-            <li className="page-item"><a className="page-link" href="#">Previous</a></li>
-            <li className="page-item"><a className="page-link" href="#">1</a></li>
-            <li className="page-item"><a className="page-link" href="#">2</a></li>
-            <li className="page-item"><a className="page-link" href="#">3</a></li>
-            <li className="page-item"><a className="page-link" href="#">Next</a></li>
-          </ul>
-        </nav>
       </div>
 
       {/* <!-- Modal --> */}
@@ -123,4 +100,4 @@ const Account = () => {
   )
 }
 
-export default Account
+export default Product

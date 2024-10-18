@@ -3,6 +3,7 @@ import styles from './Sidebar.module.scss'
 import './Sidebar.css'
 import SidebarItem from './SidebarItem'
 const cx = classNames.bind(styles)
+import config from '../../../config'
 
 import { MdOutlineDashboardCustomize } from 'react-icons/md'
 import { CgProfile } from 'react-icons/cg'
@@ -16,38 +17,41 @@ const Sidebar = () => {
     <div className={cx('sidebar')}>
       <div className="accordion accordion-flush" id="outerAccordion">
 
-        <div className="sidebar-label ms-3 mt-0 pt-3">Admin</div>
+        <div className="sidebar-label ms-3 mt-0 pt-3">Dashboard</div>
         <SidebarItem
-          title='Home'
+          title='Overview'
+          toLink={config.routes.dashboard}
           rank={1}
           icon={<MdOutlineDashboardCustomize className="accordion-icon" />}
           items={[{ title: 'Read' }, { title: 'Create' }, { title: 'Dele' }]}
         />
+
+        <div className="sidebar-label ms-3 mt-0 pt-3">Account</div>
         <SidebarItem
           title='Profile'
-          rank={2}
+          toLink={config.routes.profile}
+          rank={11}
           icon={<CgProfile className="accordion-icon" />}
-          items={[{ title: 'Read' }, { title: 'Create' }, { title: 'Dele' }]}
         />
         <SidebarItem
           title='Account'
-          rank={3}
+          toLink={config.routes.account}
+          rank={12}
           icon={<MdOutlineManageAccounts className="accordion-icon" />}
-          items={[{ title: 'Read' }, { title: 'Create' }, { title: 'Dele' }]}
         />
 
         <div className="sidebar-label ms-3">Product</div>
         <SidebarItem
           title='Product'
-          rank={10}
+          toLink={config.routes.product}
+          rank={21}
           icon={<MdOutlineProductionQuantityLimits className="accordion-icon" />}
-          items={[{ title: 'Read' }, { title: 'Create' }, { title: 'Dele' }]}
         />
         <SidebarItem
           title='Color'
-          rank={11}
+          toLink={config.routes.color}
+          rank={22}
           icon={<IoColorPaletteOutline className="accordion-icon" />}
-          items={[{ title: 'Read' }, { title: 'Create' }, { title: 'Dele' }]}
         />
       </div>
     </div>

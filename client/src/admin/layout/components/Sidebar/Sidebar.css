@@ -69,6 +69,10 @@
   background-image: none !important;
 }
 
+.hide-icon-sidebar1::after{
+  background-image: none !important;
+}
+
 .accordion-button:not(.collapsed)::after {
   transform: rotate(180deg);
 }
