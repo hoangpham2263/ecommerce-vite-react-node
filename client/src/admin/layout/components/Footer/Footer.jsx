@@ -5,7 +5,7 @@ const cx = classNames.bind(styles)
 
 const Footer = () => {
   return (
-    <footer className={cx('wrapper')}>
+    <footer className={cx('footer')}>
       Footer
     </footer>
   )
