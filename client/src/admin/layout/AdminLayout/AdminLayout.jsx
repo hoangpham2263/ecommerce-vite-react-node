@@ -11,13 +11,13 @@ const AdminLayout = ({ children }) => {
   return (
     <div>
       <Header />
-      <div className='row'>
-        <div className={cx('sidebar', 'col-2')}>
+      <div className='d-flex'>
+        <div className={cx('sidebar')}>
           <Sidebar />
         </div>
-        <div className='col-10 d-flex flex-column'>
-          <div >{children}</div>
-          <Footer />
+        <div className='d-flex flex-column w-100'>
+          <div className='p-5 pt-4 h-100'>{children}</div>
+          <div className={cx('footer', 'p-4 pt-3')}><Footer /></div>
         </div>
       </div>
     </div>
