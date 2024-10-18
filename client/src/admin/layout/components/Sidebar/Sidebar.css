@@ -38,7 +38,7 @@
   display: flex;
   align-items: center;
   font-size: var(--fz-admin) !important;
-  outline: none; /* Loại bỏ viền mặc định khi focus */
+  outline: none; 
 }
 
 .accordion-button:hover {
@@ -47,7 +47,7 @@
 
 .accordion-button:focus {
   background-color: #EFF2F6 !important;
-  box-shadow: none !important; /* Loại bỏ bất kỳ hiệu ứng bóng nào */
+  box-shadow: none !important;
 }
 
 .accordion-button.active {
@@ -63,6 +63,10 @@
   transition: transform 0.3s ease;
   color: var(--color-admin) !important;
   font-size: var(--fz-admin) !important;
+}
+
+.text-decoration-none::after {
+  background-image: none !important;
 }
 
 .accordion-button:not(.collapsed)::after {

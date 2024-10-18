@@ -1,4 +1,6 @@
-const SidebarItem = ({ title, rank, icon }) => {
+import { Link } from 'react-router-dom'
+
+const SidebarItem = ({ title, rank, icon, items }) => {
   return (
     <div className="accordion accordion-flush" id="outerAccordion">
       <div className="accordion-item">
@@ -15,36 +17,29 @@ const SidebarItem = ({ title, rank, icon }) => {
           className={`accordion-collapse collapse ${rank}`}
           data-bs-parent="#outerAccordion">
           <div className="accordion accordion-flush" id={`${rank}Accordion`}>
-            <div className="accordion-item">
-              <h2 className="accordion-header">
-                <button className={`accordion-button collapsed ${rank}`} type="button" data-bs-toggle="collapse" data-bs-target={`#${rank}-one`} aria-expanded="false" aria-controls={`${rank}-one`}>
-                  {rank} Accordion Item #1
-                </button>
-              </h2>
-              <div id={`${rank}-one`} className={'accordion-collapse collapse ms-2'} data-bs-parent={`#${rank}Accordion`}>
-                <div className={`accordion-body ${rank}`}>{rank} Placeholder #1</div>
-              </div>
-            </div>
-            <div className="accordion-item">
-              <h2 className="accordion-header">
-                <button className={`accordion-button collapsed ${rank}`} type="button" data-bs-toggle="collapse" data-bs-target={`#${rank}-two`} aria-expanded="false" aria-controls={`${rank}-two`}>
-                  {rank} Accordion Item #2
-                </button>
-              </h2>
-              <div id={`${rank}-two`} className={'accordion-collapse collapse ms-2'} data-bs-parent={`#${rank}Accordion`}>
-                <div className={`accordion-body ${rank}`}>{rank} Placeholder #2</div>
-              </div>
-            </div>
-            <div className="accordion-item">
-              <h2 className="accordion-header">
-                <button className={`accordion-button collapsed ${rank}`} type="button" data-bs-toggle="collapse" data-bs-target={`#${rank}-three`} aria-expanded="false" aria-controls={`${rank}-three`}>
-                  {rank} Accordion Item #3
-                </button>
-              </h2>
-              <div id={`${rank}-three`} className={'accordion-collapse collapse ms-2'} data-bs-parent={`#${rank}Accordion`}>
-                <div className={`accordion-body ${rank}`}>{rank} Placeholder #3</div>
-              </div>
-            </div>
+            {
+              items && items.map((item, index) => {
+                return (
+                  <div key={index} className="accordion-item">
+                    <h2 className="accordion-header">
+                      <button className={`accordion-button collapsed fw-normal ${rank}`} type="button" data-bs-toggle="collapse" data-bs-target={`#${rank}-${index}`} aria-expanded="false" aria-controls={`${rank}-${index}`}>
+                        {item?.title}
+                      </button>
+                    </h2>
+                    <div id={`${rank}-${index}`} className={'accordion-collapse collapse ms-3'} data-bs-parent={`#${rank}Accordion`}>
+                      <div className={`accordion-body ${rank}`}>{rank} Placeholder #1</div>
+                    </div>
+                  </div>
+                  // <div key={index} className="accordion-item">
+                  //   <h2 className="accordion-header">
+                  //     <Link className={`accordion-button collapsed text-decoration-none fw-normal ${rank}`} type="button" data-bs-toggle="collapse" data-bs-target={`#${rank}-${index}`} aria-expanded="false" aria-controls={`${rank}-${index}`}>
+                  //       {item?.title}
+                  //     </Link>
+                  //   </h2>
+                  // </div>
+                )
+              })
+            }
           </div>
         </div>
       </div>

@@ -15,6 +15,7 @@ const Sidebar = () => {
         title='Home'
         rank={1}
         icon={<MdOutlineDashboardCustomize className="accordion-icon" />}
+        items={[{ title: 'Read' }, { title: 'Create' }, { title: 'Dele' }]}
       />
       <SidebarItem
         title='Profile'
