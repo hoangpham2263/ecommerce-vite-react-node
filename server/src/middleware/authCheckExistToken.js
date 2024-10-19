@@ -19,7 +19,7 @@ const authCheckExistToken = (req, res, next) => {
 const authCheckUserPermission = (key_role = null) => {
   return async (req, res, next) => {
     try {
-      if (key_role === null) return next()
+      // if (key_role === null) return next()
       if (req?.account?.position?.is_master) return next()
       if (req?.account) {
         let positionLogin = req.account.user.position_id;
@@ -37,7 +37,6 @@ const authCheckUserPermission = (key_role = null) => {
     }
   };
 };
-
 
 module.exports = {
   authCheckExistToken, authCheckUserPermission

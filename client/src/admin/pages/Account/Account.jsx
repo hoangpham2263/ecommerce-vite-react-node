@@ -1,12 +1,25 @@
-import './Account.css'
 import classNames from 'classnames/bind'
 import styles from './Account.module.scss'
-import { IoIosWarning } from 'react-icons/io'
+import './Account.css'
+import { useEffect, useState } from 'react'
+import { readUser } from '../../services/adminApi.jsx'
+import ModalCreate from './ModalCreate'
+import ModalDelete from './ModalDelete.jsx'
 
 const cx = classNames.bind(styles)
 
 const Account = () => {
-  const listItem = [1, 1, 1, 1, 1]
+  const [data, setData] = useState()
+
+  useEffect(() => {
+    fetchData()
+  }, [])
+
+  const fetchData = async () => {
+    let fetchData = await readUser()
+    setData(fetchData?.data)
+  }
+
   return (
     <div className={cx('wrapper')}>
       <div className={cx('row mb-3')}>
@@ -33,16 +46,16 @@ const Account = () => {
             </tr>
           </thead>
           <tbody>
-            {listItem.map((item, index) => {
+            {data?.data.map((item, index) => {
               return (
                 <tr key={index}>
-                  <th scope="row">{index + 1}</th>
+                  <th scope="row">{item?.id}</th>
                   <td>image</td>
-                  <td>Phạm Quốc Hoàng</td>
-                  <td>QuocHoangDev</td>
-                  <td>user@example.com</td>
-                  <td>Male</td>
-                  <td>Admin</td>
+                  <td>{item?.full_name}</td>
+                  <td>{item?.username}</td>
+                  <td>{item?.email}</td>
+                  <td>{item?.gender}</td>
+                  <td>{item?.Position?.name}</td>
                   <td>
                     <div className="form-check form-switch">
                       <input className="form-check-input" type="checkbox" role="switch" id={`flexSwitchCheckDefault${index}-verify`} />
@@ -60,7 +73,7 @@ const Account = () => {
                   <td>Dec 01, 12:00 PM</td>
                   <td className={cx('col-btn text-end pe-4')}>
                     <button className="btn btn-warning me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight-edit" aria-controls="offcanvasRight-edit">Edit</button>
-                    <button type="button" className="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Delete</button>
+                    <ModalDelete id={item?.id} index={`modal-del-${index}`} />
                   </td>
                 </tr>
               )
@@ -68,6 +81,8 @@ const Account = () => {
           </tbody>
         </table>
       </div>
+
+      {/* <!-- Pagination --> */}
       <div className={cx('row')}>
         <nav aria-label="Page navigation example">
           <ul className="pagination  d-flex justify-content-end">
@@ -80,18 +95,10 @@ const Account = () => {
         </nav>
       </div>
 
-      {/* <!-- Modal --> */}
-      <div className="offcanvas offcanvas-end" data-bs-keyboard="true" data-bs-backdrop="static" tabIndex={-1} id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-        <div className="offcanvas-header">
-          <h5 className="offcanvas-title" id="offcanvasRightLabel">Create Account</h5>
-          <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" />
-        </div>
-        <div className="offcanvas-body">
-          ...
-        </div>
-      </div>
+      {/* <!-- Modal Create --> */}
+      <ModalCreate />
 
-      {/* <!-- Modal --> */}
+      {/* <!-- Modal Edit --> */}
       <div className="offcanvas offcanvas-end" data-bs-keyboard="true" data-bs-backdrop="static" tabIndex={-1} id="offcanvasRight-edit" aria-labelledby="offcanvasRightLabel">
         <div className="offcanvas-header">
           <h5 className="offcanvas-title" id="offcanvasRightLabel">Edit Account</h5>
@@ -101,24 +108,7 @@ const Account = () => {
           ...
         </div>
       </div>
-      {/* <!-- Modal --> */}
-      <div className="modal fade" id="staticBackdrop" data-bs-keyboard="true" tabIndex={-1} aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div className="modal-dialog modal-dialog-centered">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h1 className="modal-title fs-5" id="staticBackdropLabel">Are you sure you want to delete?</h1>
-              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" />
-            </div>
-            <div className="modal-body d-flex justify-content-center">
-              <IoIosWarning className={cx('icon-warning')} />
-            </div>
-            <div className="modal-footer">
-              <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" className="btn btn-danger">Confirm</button>
-            </div>
-          </div>
-        </div>
-      </div>
+
     </div>
   )
 }
