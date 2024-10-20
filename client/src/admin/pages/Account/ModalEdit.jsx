@@ -47,6 +47,18 @@ const ModalEdit = ({ item, index }) => {
     const { checked } = e.target
     setData((prev) => ({ ...prev, is_active: checked }))
   }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    const res = await updateUser(data)
+    if (res?.data?.code === 0) {
+      toast.success('update user succuss')
+      setTimeout(() => { location.reload() }, 1000)
+    } else {
+      toast.error(res?.data?.message)
+    }
+  }
+
   return (
     <span>
       <button className="btn btn-warning me-2" type="button" data-bs-toggle="offcanvas" data-bs-target={`#offcanvasRight-edit-${index}`} aria-controls="offcanvasRight-edit">Edit</button>
@@ -169,9 +181,8 @@ const ModalEdit = ({ item, index }) => {
                 <button type="button" className="btn btn-outline-secondary" id="save-address">Save</button>
               </div>
             </div>
-
             <div className="col-12">
-              <button className="btn btn-primary" type="submit">Submit form</button>
+              <button className="btn btn-primary" type="submit" onClick={handleSubmit}>Submit form</button>
             </div>
           </form>
         </div>
