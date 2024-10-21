@@ -1,10 +1,14 @@
 import { useEffect, useState } from 'react'
-import { updateUser } from '../../services/adminApi'
+import { readAddress, updateUser } from '../../services/adminApi'
 import { toast } from 'react-toastify'
+import { ImageToBase64 } from '../../../main/utility/ImageToBase64'
+import { RxAvatar } from 'react-icons/rx'
 
 const ModalEdit = ({ item, index }) => {
+  const [addressByUser, setAddressByUser] = useState()
   const [data, setData] = useState({
     id: '',
+    avatar: '',
     fullName: '',
     username: '',
     email: '',
@@ -18,6 +22,7 @@ const ModalEdit = ({ item, index }) => {
     if (item) {
       setData({
         id: item.id,
+        avatar: item.avatar,
         fullName: item.full_name || '',
         username: item.username || '',
         email: item.email || '',
@@ -29,8 +34,18 @@ const ModalEdit = ({ item, index }) => {
     }
   }
 
+  const handleAddressByUser = async (item) => {
+    const res = await readAddress(item?.id)
+    if (res?.data?.code === 0) {
+      setAddressByUser(res?.data?.data)
+    } else {
+      toast.error(res?.data?.message)
+    }
+  }
+
   useEffect(() => {
     setDataDefault(item)
+    handleAddressByUser(item)
   }, [item])
 
   const handleOnChange = (e) => {
@@ -46,6 +61,14 @@ const ModalEdit = ({ item, index }) => {
   const handleStatusChange = (e) => {
     const { checked } = e.target
     setData((prev) => ({ ...prev, is_active: checked }))
+  }
+
+  const handleBaseImage = async (e) => {
+    const file = e.target.files[0]
+    if (file) {
+      const base64 = await ImageToBase64(file)
+      setData((prev) => ({ ...prev, avatar: base64 }))
+    }
   }
 
   const handleSubmit = async (e) => {
@@ -68,8 +91,16 @@ const ModalEdit = ({ item, index }) => {
           <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" />
         </div>
 
-        <div className="offcanvas-body">
+        <div className="offcanvas-body mb-6">
           <form className="row g-3 needs-validation" noValidate>
+            <div className="col-md-4">
+              {data?.avatar ? <img src={data?.avatar} className="img-thumbnail" alt="..." /> : <RxAvatar className='w-75 h-75' />}
+            </div>
+            <div className="col-md-8">
+              <label htmlFor="formFile" className="form-label">Change avatar</label>
+              <input className="form-control" type="file" id="formFile" onChange={handleBaseImage} />
+            </div>
+
             <div className="col-md-6">
               <label htmlFor="fullName" className="form-label">Full Name</label>
               <input
@@ -106,6 +137,7 @@ const ModalEdit = ({ item, index }) => {
                 value={data?.email}
                 onChange={handleOnChange}
                 required
+                disabled
               />
             </div>
 
@@ -175,14 +207,26 @@ const ModalEdit = ({ item, index }) => {
             </div>
             <div className="col-md-12">
               <label className="form-label">Address</label>
-              <div className="input-group mb-3">
-                <label htmlFor="address-1" className="input-group-text" id="basic-addon2">Address #1</label>
-                <input id="address-1" type="text" className="form-control" aria-describedby="basic-addon2" />
-                <button type="button" className="btn btn-outline-secondary" id="save-address">Save</button>
-              </div>
+              {addressByUser && addressByUser.map((item, index) => (
+                <div key={index} className="mb-3">
+                  <span className="input-group-text">
+                    <strong>Addr #{index + 1}:</strong>
+                    <span className="address-content">
+                      {item.name} - {item.house_address} - {item.ward} - {item.district} - {item.city}
+                    </span>
+                    <div>
+                      <strong>Số điện thoại:</strong> {item.phone_number}
+                    </div>
+                    <div>
+                      <strong>Trạng thái:</strong> {item.default ? 'Mặc định' : 'Không mặc định'}
+                    </div>
+                  </span>
+                </div>
+              ))}
+              {/* <button type="button" className="btn btn-outline-secondary" id="save-address">Save</button> */}
             </div>
             <div className="col-12">
-              <button className="btn btn-primary" type="submit" onClick={handleSubmit}>Submit form</button>
+              <button className="btn btn-primary" type="submit" onClick={handleSubmit}>Save Edit</button>
             </div>
           </form>
         </div>

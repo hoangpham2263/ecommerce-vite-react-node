@@ -9,23 +9,22 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Address.belongsTo(models.User, { foreignKey: 'user_id' });
+      // Address.belongsTo(models.User, { foreignKey: 'user_id' });
     }
   }
   Address.init(
     {
       user_id: DataTypes.INTEGER,
-      full_address: DataTypes.STRING,   // Địa chỉ đầy đủ
-      street_name: DataTypes.STRING,    // Tên đường
-      ward: DataTypes.STRING,           // Phường/xã
-      district: DataTypes.STRING,       // Quận/huyện
-      province: DataTypes.STRING,       // Tỉnh/thành phố
-      country: DataTypes.STRING,        // Quốc gia
-      phone_number: DataTypes.STRING,   //  Số điện thoại
-      notes: DataTypes.STRING,          // Ghi chú bổ sung
+      name:DataTypes.STRING,
+      house_address: DataTypes.STRING,  
+      ward: DataTypes.STRING,  
+      district: DataTypes.STRING,     
+      city: DataTypes.STRING,  
+      phone_number: DataTypes.STRING,  
+      default: DataTypes.BOOLEAN,   
     },
     {
-      sequelize,
+     sequelize,
       modelName: "Address",
     }
   );
