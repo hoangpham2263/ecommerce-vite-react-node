@@ -5,8 +5,10 @@ import { UploadCloud } from '../utility/UploadCloud'
 const readFunc = async (req, res) => {
   try {
     let data
-    if (req.query.page && req.query.limit) {
+    if (req?.query?.page && req?.query?.limit) {
       let { page, limit } = req.query;
+      page = parseInt(page, 10) || 1;
+      limit = parseInt(limit, 10) || 10;
       let offset = (page - 1) * limit;
       let { count, rows } = await db.User.findAndCountAll({
         offset: offset,
@@ -30,6 +32,7 @@ const readFunc = async (req, res) => {
     }
     return res.status(200).json({ message: "get user success", code: 0, data: data, });
   } catch (error) {
+    console.log(error)
     return res.status(500).json({ message: "error from server", code: -1 });
   }
 }

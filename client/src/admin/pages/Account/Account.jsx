@@ -13,14 +13,11 @@ const cx = classNames.bind(styles)
 const Account = () => {
   const [data, setData] = useState()
 
-  useEffect(() => {
-    fetchData()
-  }, [])
-
   const fetchData = async () => {
-    let fetchData = await readUser()
+    let fetchData = await readUser(0, 5)
     setData(fetchData?.data)
   }
+  useEffect(() => { fetchData() }, [])
 
   const handleVerifyChange = async (id, newVerifyStatus) => {
     const data = { id: id, is_verified: newVerifyStatus }
@@ -43,7 +40,6 @@ const Account = () => {
       toast.error(res?.data?.message)
     }
   }
-
 
   return (
     <div className={cx('wrapper')}>
@@ -71,7 +67,7 @@ const Account = () => {
             </tr>
           </thead>
           <tbody>
-            {data?.data.map((item, index) => {
+            {data?.data?.user.map((item, index) => {
               return (
                 <tr key={index}>
                   <th scope="row">{index + 1}</th>
@@ -127,6 +123,7 @@ const Account = () => {
           </ul>
         </nav>
       </div>
+
 
       {/* <!-- Modal Create --> */}
       <ModalCreate />
