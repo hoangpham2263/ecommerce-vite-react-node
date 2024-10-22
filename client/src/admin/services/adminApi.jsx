@@ -12,6 +12,7 @@ const deleteUser = (id) => { return axios.delete('/api/admin/user', { data: { id
 
 // CRUD Position
 const readPosition = (currentPage, currentLimit) => { return axios.get('/api/admin/position', { params: { page: currentPage, limit: currentLimit }, headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
+const readPositionIsMaster = (position_id) => { return axios.get('/api/admin/position-is-master', { params: { position_id: position_id }, headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
 const createPosition = (data) => { return axios.post('/api/admin/position', { data }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
 const updatePosition = (data) => { return axios.put('/api/admin/position', { data }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
 const deletePosition = (id) => { return axios.delete('/api/admin/position', { data: { id }, headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
@@ -33,7 +34,7 @@ const readAddress = (userId, currentPage, currentLimit) => { return axios.get('/
 
 export {
   createUser, readUser, updateUser, deleteUser,
-  createPosition, readPosition, updatePosition, deletePosition,
+  createPosition, readPosition, updatePosition, deletePosition, readPositionIsMaster,
   createPositionRole, readPositionRole, deletePositionRole, readPositionRoleReverse,
   createRole, readRole, updateRole, deleteRole,
   readAddress

@@ -30,6 +30,7 @@ const adminRoute = (app) => {
   
   // position
   router.get("/position", authCheckExistToken, authCheckUserPermission(), positionController.readFunc)
+  router.get("/position-is-master", authCheckExistToken, authCheckUserPermission(), positionController.readFuncIsMaster)
   router.post("/position", authCheckExistToken, authCheckUserPermission(), positionController.createFunc)
   router.put("/position", authCheckExistToken, authCheckUserPermission(), positionController.updateFunc)
   router.delete("/position", authCheckExistToken, authCheckUserPermission(), positionController.deleteFunc)
