@@ -29,7 +29,7 @@ const readFunc = async (req, res) => {
 const createFunc = async (req, res) => {
   try {
     const { key_position, name, desc } = req.body.data;
-    if (!key_position || !name || !desc) return res.status(200).json({ message: "missing required parameters", code: 1});
+    if (!key_position || !name) return res.status(200).json({ message: "missing required parameters", code: 1});
     let data = await db.Position.create({ key_position: key_position, name: name, desc: desc, is_active: true, is_master: false });
     return res.status(200).json({ message: "a position is created successfully", code: 0, data: data });
   } catch (error) {
