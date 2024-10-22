@@ -5,6 +5,8 @@ const readFunc = async (req, res) => {
     let data
     if (req.query.page && req.query.limit) {
       let { page, limit } = req.query;
+      page = parseInt(page, 10) || 1;
+      limit = parseInt(limit, 10) || 10;
       let offset = (page - 1) * limit;
       let { count, rows } = await db.Image.findAndCountAll({
         offset: offset,

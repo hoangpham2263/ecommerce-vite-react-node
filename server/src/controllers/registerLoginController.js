@@ -67,7 +67,7 @@ const loginAccount = async (req, res) => {
     const user = await db.User.findOne({
       where: { username: userName },
       attributes: ["id", "full_name", "avatar", "username", "password", "email", "gender", "is_active", "is_verified", "position_id", "updatedAt", "createdAt"],
-      include: { model: db.Position, attributes: ["id", "key_position", "name", 'desc', 'state', 'is_master', "updatedAt", "createdAt"] }
+      include: { model: db.Position, attributes: ["id", "key_position", "name", 'desc', 'is_active', 'is_master', "updatedAt", "createdAt"] }
     });
 
     if (!user || !await checkPassword(password, user.password)) {

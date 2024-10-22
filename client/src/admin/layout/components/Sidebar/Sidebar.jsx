@@ -10,7 +10,7 @@ import { CgProfile } from 'react-icons/cg'
 import { MdOutlineProductionQuantityLimits } from 'react-icons/md'
 import { MdOutlineManageAccounts } from 'react-icons/md'
 import { IoColorPaletteOutline } from 'react-icons/io5'
-
+import { VscUngroupByRefType } from 'react-icons/vsc'
 
 const Sidebar = () => {
   return (
@@ -38,6 +38,12 @@ const Sidebar = () => {
           toLink={config.routes.account}
           rank={12}
           icon={<MdOutlineManageAccounts className="accordion-icon" />}
+        />
+        <SidebarItem
+          title='Position'
+          toLink={config.routes.position}
+          rank={12}
+          icon={<VscUngroupByRefType className="accordion-icon" />}
         />
 
         <div className="sidebar-label ms-3">Product</div>

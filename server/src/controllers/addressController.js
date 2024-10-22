@@ -1,24 +1,33 @@
+import { where } from "sequelize";
 import db from "../models/index";
 
 const readFunc = async (req, res) => {
   try {
+    let { page, limit, user_id } = req.query
     let data
-    if (req.query.page && req.query.limit) {
+    if (page && limit) {
       let { page, limit } = req.query;
+      page = parseInt(page, 10) || 1;
+      limit = parseInt(limit, 10) || 10;
       let offset = (page - 1) * limit;
       let { count, rows } = await db.Address.findAndCountAll({
+        where: { user_id: user_id },
         offset: offset,
         limit: limit,
-        attributes: ["id", "user_id", "full_address", "street_name", "ward", "district", "province", "country", "phone_number", "notes", "updatedAt", "createdAt"],
+        attributes: ["id", "user_id", "name","house_address", "ward", "district", "city", "phone_number", "default", "updatedAt", "createdAt"],
         order: [["user_id", "ASC"]],
       })
       const totalPages = Math.ceil(count / limit);
       data = { totalRows: count, totalPages: totalPages, address: rows, }
     } else {
-      data = await db.Address.findAll({ attributes: ["id", "user_id", "full_address", "street_name", "ward", "district", "province", "country", "phone_number", "notes", "updatedAt", "createdAt"], order: [["user_id", "ASC"]] })
+      data = await db.Address.findAll({
+        where: { user_id: user_id },
+        attributes: ["id", "user_id", "name","house_address", "ward", "district", "city", "phone_number", "default", "updatedAt", "createdAt"],
+      })
     }
     return res.status(200).json({ message: "get address success", code: 0, data: data, });
   } catch (error) {
+    console.log(error)
     return res.status(500).json({ message: "error from server", code: -1 });
   }
 }

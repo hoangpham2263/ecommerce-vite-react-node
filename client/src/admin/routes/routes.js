@@ -4,6 +4,7 @@ import NoLayout from '../layout/NoLayout'
 import Login from '../pages/Login'
 import Dashboard from '../pages/Dashboard'
 import Account from '../pages/Account'
+import Position from '../pages/Position'
 import Product from '../pages/Product'
 import Profile from '../pages/Profile'
 import Color from '../pages/Color/Color'
@@ -21,6 +22,21 @@ const adminRoutes = [
   },
   {
     path: config.routes.account,
+    component: Account,
+    layout: AdminLayout
+  },
+  {
+    path: config.routes.position,
+    component: Position,
+    layout: AdminLayout
+  },
+  {
+    path: config.routes.positionRole,
+    component: Account,
+    layout: AdminLayout
+  },
+  {
+    path: config.routes.role,
     component: Account,
     layout: AdminLayout
   },

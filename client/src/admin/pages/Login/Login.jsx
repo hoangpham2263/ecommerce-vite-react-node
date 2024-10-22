@@ -39,7 +39,7 @@ const Login = () => {
       const infoLoginJWT = await readProfileJWT()
       if (infoLoginJWT?.data?.code === 0) {
         const infoAccountLogin = jwtDecode(infoLoginJWT?.data?.data?.jwt)
-        if (infoAccountLogin?.userPresent?.position?.key_position === 1) {
+        if (infoAccountLogin?.userPresent?.position?.is_master === true) {
           localStorage.setItem('infoAccountLogin', JSON.stringify(infoAccountLogin))
           toast.success(res?.data?.message)
           navigate(config.routes.dashboard)

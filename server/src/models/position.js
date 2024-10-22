@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
       key_position: DataTypes.INTEGER,
       name: DataTypes.STRING,
       desc: DataTypes.STRING,
-      state: DataTypes.BOOLEAN,
+      is_active: DataTypes.BOOLEAN,
       is_master: DataTypes.BOOLEAN,
     },
     {

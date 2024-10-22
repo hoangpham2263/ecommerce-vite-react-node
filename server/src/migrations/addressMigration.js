@@ -15,10 +15,10 @@ module.exports = {
       user_id: {
         type: Sequelize.INTEGER,
       },
-      full_address: {
+      name: {
         type: Sequelize.STRING,
-      },
-      street_name: {
+      }, 
+      house_address: {
         type: Sequelize.STRING,
       },
       ward: {
@@ -27,17 +27,14 @@ module.exports = {
       district: {
         type: Sequelize.STRING,
       },
-      province: {
-        type: Sequelize.STRING,
-      },
-      country: {
+      city: {
         type: Sequelize.STRING,
       },
       phone_number: {
         type: Sequelize.STRING,
       },
-      notes: {
-        type: Sequelize.STRING,
+      default: {
+        type: Sequelize.BOOLEAN,
       },
       createdAt: {
         allowNull: false,

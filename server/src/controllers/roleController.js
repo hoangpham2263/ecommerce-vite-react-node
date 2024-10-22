@@ -5,6 +5,8 @@ const readFunc = async (req, res) => {
     let data
     if (req.query.page && req.query.limit) {
       let { page, limit } = req.query;
+      page = parseInt(page, 10) || 1;
+      limit = parseInt(limit, 10) || 10;
       let offset = (page - 1) * limit;
       let { count, rows } = await db.Role.findAndCountAll({
         offset: offset,
@@ -13,7 +15,7 @@ const readFunc = async (req, res) => {
         order: [["key_role", "ASC"]],
       })
       const totalPages = Math.ceil(count / limit);
-      data = { totalRows: count, totalPages: totalPages, roles: rows, }
+      data = { totalRows: count, totalPages: totalPages, role: rows, }
     } else {
       data = await db.Role.findAll({ attributes: ["id", "key_role", "name","updatedAt","createdAt"], order: [["key_role", "ASC"]] })
     }
