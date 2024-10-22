@@ -21,7 +21,7 @@ module.exports = {
       desc: {
         type: Sequelize.STRING,
       },
-      state: {
+      is_active: {
         type: Sequelize.BOOLEAN,
       },
       is_master: {

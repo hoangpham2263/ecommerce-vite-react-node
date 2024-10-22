@@ -16,7 +16,7 @@ const readFunc = async (req, res) => {
         attributes: ["id", "full_name", "avatar", "username", "password", "email", "gender", "is_active", "is_verified", "position_id", "updatedAt", "createdAt"],
         order: [["full_name", "ASC"]],
         include: [
-          { model: db.Position, attributes: ["id", "key_position", "name", "desc", "state", "is_master", "updatedAt", "createdAt"] },
+          { model: db.Position, attributes: ["id", "key_position", "name", "desc", "is_active", "is_master", "updatedAt", "createdAt"] },
         ],
       })
       const totalPages = Math.ceil(count / limit);
@@ -26,7 +26,7 @@ const readFunc = async (req, res) => {
         attributes: ["id", "full_name", "avatar", "username", "password", "email", "gender", "is_active", "is_verified", "position_id", "updatedAt", "createdAt"],
         order: [["full_name", "ASC"]],
         include: [
-          { model: db.Position, attributes: ["id", "key_position", "name", "desc", "state", "is_master", "updatedAt", "createdAt"] },
+          { model: db.Position, attributes: ["id", "key_position", "name", "desc", "is_active", "is_master", "updatedAt", "createdAt"] },
         ],
       })
     }

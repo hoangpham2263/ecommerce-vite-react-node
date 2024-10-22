@@ -15,21 +15,21 @@ module.exports = {
           key_position: 1,
           name: "admin",
           desc: "Chủ cửa hàng",
-          state: true,
+          is_active: true,
           is_master: true
         },
         {
           key_position: 2,
           name: "staff",
           desc: "Nhân viên của cửa hàng",
-          state: true,
+          is_active: true,
           is_master: false
         },
         {
           key_position: 3,
           name: "customer",
           desc: "Khách hàng đăng ký tài khoản thành viên",
-          state: true,
+          is_active: true,
           is_master: false
         },
       ],

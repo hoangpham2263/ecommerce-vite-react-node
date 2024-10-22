@@ -39,6 +39,12 @@ const Sidebar = () => {
           rank={12}
           icon={<MdOutlineManageAccounts className="accordion-icon" />}
         />
+        <SidebarItem
+          title='Position'
+          toLink={config.routes.position}
+          rank={12}
+          icon={<MdOutlineManageAccounts className="accordion-icon" />}
+        />
 
         <div className="sidebar-label ms-3">Product</div>
         <SidebarItem

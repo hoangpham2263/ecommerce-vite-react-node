@@ -31,7 +31,7 @@ const LoginWithGoogle = () => {
           const infoLoginJWT = await readProfileJWT()
           if (infoLoginJWT?.data?.code === 0) {
             const infoAccountLogin = jwtDecode(infoLoginJWT?.data?.data?.jwt)
-            if (infoAccountLogin?.userPresent?.position?.key_position === 1) {
+            if (infoAccountLogin?.userPresent?.position?.is_master === true) {
               localStorage.setItem('infoAccountLogin', JSON.stringify(infoAccountLogin))
               toast.success(saveAccountGoogleOAuth?.data?.message)
               navigate(config.routes.dashboard)
@@ -42,9 +42,9 @@ const LoginWithGoogle = () => {
         } else {
           toast.error(saveAccountGoogleOAuth?.data?.message)
         }
-      } catch (error) {setError(error)}
+      } catch (error) { setError(error) }
     },
-    onError: (errorResponse) => {setError(errorResponse)}
+    onError: (errorResponse) => { setError(errorResponse) }
   })
   return (
     <button type="button" className="d-flex align-items-center btn btn-outline-secondary custom-hover" onClick={() => googleLogin()}>

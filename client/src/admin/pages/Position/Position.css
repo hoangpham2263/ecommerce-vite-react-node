@@ -1,0 +1,21 @@
+.table td,
+.table th {
+  vertical-align: middle;
+}
+
+.input-group-text {
+  display: inline-block !important;
+  white-space: normal !important;
+  overflow-wrap: break-word !important;
+  text-align: start !important;
+}
+
+strong {
+  color: #007bff !important;
+  margin-right: 5px !important;
+}
+
+.address-content {
+  color: #333 !important;
+  font-weight: normal !important;
+}

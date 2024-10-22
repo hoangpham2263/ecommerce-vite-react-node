@@ -7,6 +7,8 @@ const readFunc = async (req, res) => {
     let data
     if (page && limit) {
       let { page, limit } = req.query;
+      page = parseInt(page, 10) || 1;
+      limit = parseInt(limit, 10) || 10;
       let offset = (page - 1) * limit;
       let { count, rows } = await db.Address.findAndCountAll({
         where: { user_id: user_id },

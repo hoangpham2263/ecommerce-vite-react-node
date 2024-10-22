@@ -64,7 +64,7 @@ const saveAccountGoogleOAuth = async (req, res) => {
       });
     }
 
-    let user = await db.User.findOne({ where: { email: email }, include: { model: db.Position, attributes: ["id", "key_position", "name", 'desc', 'state', 'is_master',"updatedAt","createdAt"] } });
+    let user = await db.User.findOne({ where: { email: email }, include: { model: db.Position, attributes: ["id", "key_position", "name", 'desc', 'is_active', 'is_master',"updatedAt","createdAt"] } });
     if (user) {
       let { id, full_name, avatar, username, email, phone, gender, is_active, is_verified, position_id, createdAt, updatedAt } = user.dataValues;
       let userPosition = user?.dataValues?.Position?.dataValues
