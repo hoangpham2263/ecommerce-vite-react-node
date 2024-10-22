@@ -16,6 +16,11 @@ const createPosition = (data) => { return axios.post('/api/admin/position', { da
 const updatePosition = (data) => { return axios.put('/api/admin/position', { data }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
 const deletePosition = (id) => { return axios.delete('/api/admin/position', { data: { id }, headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
 
+// CRUD Role
+const readRole = (currentPage, currentLimit) => { return axios.get('/api/admin/role', { params: { page: currentPage, limit: currentLimit }, headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
+const createRole = (data) => { return axios.post('/api/admin/role', { data }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
+const updateRole = (data) => { return axios.put('/api/admin/role', { data }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
+const deleteRole = (id) => { return axios.delete('/api/admin/role', { data: { id }, headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
 
 // CRUD Address
 const readAddress = (userId, currentPage, currentLimit) => { return axios.get('/api/admin/address', { params: { page: currentPage, limit: currentLimit, user_id: userId }, headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
@@ -23,5 +28,6 @@ const readAddress = (userId, currentPage, currentLimit) => { return axios.get('/
 export {
   createUser, readUser, updateUser, deleteUser,
   createPosition, readPosition, updatePosition, deletePosition,
+  createRole, readRole, updateRole, deleteRole,
   readAddress
 }

@@ -1,29 +1,30 @@
 import classNames from 'classnames/bind'
-import styles from './Account.module.scss'
-import './Account.css'
+import styles from './Role.module.scss'
+import './Role.css'
 import { useEffect, useState } from 'react'
-import { readUser, updateUser } from '../../services/adminApi.jsx'
-import ModalCreate from './ModalCreate'
+import { readRole } from '../../services/adminApi.jsx'
+import ModalCreate from './ModalCreate.jsx'
 import ModalDelete from './ModalDelete.jsx'
-import { toast } from 'react-toastify'
 import ModalEdit from './ModalEdit.jsx'
 
 const cx = classNames.bind(styles)
 
-const Account = () => {
+const Role = () => {
   const [data, setData] = useState()
   const [currentPage, setCurrentPage] = useState(1)
+  // eslint-disable-next-line no-unused-vars
   const [limit, setLimit] = useState(12)
   const [totalPages, setTotalPages] = useState(0)
 
   const fetchData = async () => {
-    let fetchData = await readUser(currentPage, limit)
+    let fetchData = await readRole(currentPage, limit)
     setData(fetchData?.data)
     setTotalPages(fetchData?.data?.data?.totalPages)
   }
 
   useEffect(() => {
     fetchData()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage, limit])
 
   const handlePageChange = (page) => {
@@ -32,32 +33,10 @@ const Account = () => {
     }
   }
 
-  const handleVerifyChange = async (id, newVerifyStatus) => {
-    const data = { id: id, is_verified: newVerifyStatus }
-    const res = await updateUser(data)
-    if (res?.data?.code === 0) {
-      toast.success('Update verify success')
-      fetchData()
-    } else {
-      toast.error(res?.data?.message)
-    }
-  }
-
-  const handleStatusChange = async (id, newStatus) => {
-    const data = { id: id, is_active: newStatus }
-    const res = await updateUser(data)
-    if (res?.data?.code === 0) {
-      toast.success('Update status success')
-      fetchData()
-    } else {
-      toast.error(res?.data?.message)
-    }
-  }
-
   return (
     <div className={cx('wrapper')}>
       <div className={cx('row mb-3')}>
-        <h3 className={cx('col-3 fw-normal')}>Account</h3>
+        <h3 className={cx('col-3 fw-normal')}>Role</h3>
         <div className={cx('col-9 d-flex justify-content-end')}>
           <ModalCreate />
         </div>
@@ -68,40 +47,18 @@ const Account = () => {
           <thead>
             <tr>
               <th scope="col">#</th>
-              <th scope="col"></th>
-              <th scope="col">FULL NAME</th>
-              <th scope="col">USERNAME</th>
-              <th scope="col">EMAIL</th>
-              <th scope="col">GENDER</th>
-              <th scope="col">POSITION</th>
-              <th scope="col">VERIFY</th>
-              <th scope="col">STATUS</th>
+              <th scope="col">NAME</th>
+              <th scope="col">KEY ROLE</th>
               <th scope="col">PUBLISHED ON</th>
               <th scope="col"></th>
             </tr>
           </thead>
           <tbody>
-            {data?.data?.user.map((item, index) => (
+            {data?.data?.role.map((item, index) => (
               <tr key={index}>
                 <th scope="row">{(currentPage - 1) * limit + index + 1}</th>
-                <td>{item?.avatar ? <img className={cx('image-avatar')} src={item?.avatar} alt="..." /> : <p></p>}</td>
-                <td>{item?.full_name}</td>
-                <td>{item?.username}</td>
-                <td>{item?.email}</td>
-                <td>{item?.gender}</td>
-                <td>{item?.Position?.name}</td>
-                <td>
-                  <div className="form-check form-switch">
-                    <input className="form-check-input" type="checkbox" role="switch" id={`flexSwitchCheckDefault${index}-verify`} checked={item?.is_verified || false} onChange={(e) => handleVerifyChange(item.id, e.target.checked)} />
-                    {item?.is_verified ? <label className="form-check-label" htmlFor={`flexSwitchCheckDefault${index}-verify`}>On</label> : <label className="form-check-label" htmlFor={`flexSwitchCheckDefault${index}`} onClick={() => handleVerifyChange(item?.id, !item?.is_verified)} >Off</label>}
-                  </div>
-                </td>
-                <td>
-                  <div className="form-check form-switch">
-                    <input className="form-check-input" type="checkbox" role="switch" id={`flexSwitchCheckDefault${index}-status`} checked={item?.is_active || false} onChange={(e) => handleStatusChange(item.id, e.target.checked)} />
-                    {item.is_active ? <label className="form-check-label" htmlFor={`flexSwitchCheckDefault${index}-status`}>On</label> : <label className="form-check-label" htmlFor={`flexSwitchCheckDefault${index}`} onClick={() => handleStatusChange(item?.id, !item?.is_active)}>Off</label>}
-                  </div>
-                </td>
+                <td>{item?.name}</td>
+                <td>{item?.key_role}</td>
                 <td>{`${new Date(item?.createdAt).toLocaleTimeString('en-US', {
                   hour: '2-digit',
                   minute: '2-digit',
@@ -149,4 +106,4 @@ const Account = () => {
   )
 }
 
-export default Account
+export default Role

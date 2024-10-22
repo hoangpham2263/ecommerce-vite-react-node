@@ -14,7 +14,7 @@ const Position = () => {
   const [data, setData] = useState()
   const [currentPage, setCurrentPage] = useState(1)
   // eslint-disable-next-line no-unused-vars
-  const [limit, setLimit] = useState(10)
+  const [limit, setLimit] = useState(12)
   const [totalPages, setTotalPages] = useState(0)
 
   const fetchData = async () => {

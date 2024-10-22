@@ -5,6 +5,7 @@ import Login from '../pages/Login'
 import Dashboard from '../pages/Dashboard'
 import Account from '../pages/Account'
 import Position from '../pages/Position'
+import Role from '../pages/Role'
 import Product from '../pages/Product'
 import Profile from '../pages/Profile'
 import Color from '../pages/Color/Color'
@@ -37,7 +38,7 @@ const adminRoutes = [
   },
   {
     path: config.routes.role,
-    component: Account,
+    component: Role,
     layout: AdminLayout
   },
   {

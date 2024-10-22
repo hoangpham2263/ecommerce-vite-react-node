@@ -11,6 +11,7 @@ import { MdOutlineProductionQuantityLimits } from 'react-icons/md'
 import { MdOutlineManageAccounts } from 'react-icons/md'
 import { IoColorPaletteOutline } from 'react-icons/io5'
 import { VscUngroupByRefType } from 'react-icons/vsc'
+import { MdLinearScale } from 'react-icons/md'
 
 const Sidebar = () => {
   return (
@@ -44,6 +45,12 @@ const Sidebar = () => {
           toLink={config.routes.position}
           rank={12}
           icon={<VscUngroupByRefType className="accordion-icon" />}
+        />
+        <SidebarItem
+          title='Role'
+          toLink={config.routes.role}
+          rank={12}
+          icon={<MdLinearScale className="accordion-icon" />}
         />
 
         <div className="sidebar-label ms-3">Product</div>
