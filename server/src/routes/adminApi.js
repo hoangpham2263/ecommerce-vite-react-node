@@ -27,14 +27,7 @@ const adminRoute = (app) => {
   router.post("/user", authCheckExistToken, authCheckUserPermission(), userController.createFunc)
   router.put("/user", authCheckExistToken, authCheckUserPermission(), userController.updateFunc)
   router.delete("/user", authCheckExistToken, authCheckUserPermission(), userController.deleteFunc)
-
-  // product
-  router.get("/product", authCheckExistToken, authCheckUserPermission(), productController.readFunc)
-  router.get("/product/:slug", authCheckExistToken, authCheckUserPermission(), productController.readFuncWithSlug)
-  router.post("/product", authCheckExistToken, authCheckUserPermission(), productController.createFunc)
-  router.put("/product", authCheckExistToken, authCheckUserPermission(), productController.updateFunc)
-  router.delete("/product", authCheckExistToken, authCheckUserPermission(), productController.deleteFunc)
-
+  
   // position
   router.get("/position", authCheckExistToken, authCheckUserPermission(), positionController.readFunc)
   router.post("/position", authCheckExistToken, authCheckUserPermission(), positionController.createFunc)
@@ -43,8 +36,8 @@ const adminRoute = (app) => {
 
   // position role
   router.get("/position-role", authCheckExistToken, authCheckUserPermission(), positionRoleController.readFunc)
+  router.get("/position-role-reverse", authCheckExistToken, authCheckUserPermission(), positionRoleController.readFuncReverse)
   router.post("/position-role", authCheckExistToken, authCheckUserPermission(), positionRoleController.createFunc)
-  // router.put("/position-role", authCheckExistToken, authCheckUserPermission(), positionRoleController.updateFunc)
   router.delete("/position-role", authCheckExistToken, authCheckUserPermission(), positionRoleController.deleteFunc)
 
   // role
@@ -52,6 +45,13 @@ const adminRoute = (app) => {
   router.post("/role", authCheckExistToken, authCheckUserPermission(), roleController.createFunc)
   router.put("/role", authCheckExistToken, authCheckUserPermission(), roleController.updateFunc)
   router.delete("/role", authCheckExistToken, authCheckUserPermission(), roleController.deleteFunc)
+
+  // product
+  router.get("/product", authCheckExistToken, authCheckUserPermission(), productController.readFunc)
+  router.get("/product/:slug", authCheckExistToken, authCheckUserPermission(), productController.readFuncWithSlug)
+  router.post("/product", authCheckExistToken, authCheckUserPermission(), productController.createFunc)
+  router.put("/product", authCheckExistToken, authCheckUserPermission(), productController.updateFunc)
+  router.delete("/product", authCheckExistToken, authCheckUserPermission(), productController.deleteFunc)
 
   // capacity
   router.get("/capacity", authCheckExistToken, authCheckUserPermission(), capacityController.readFunc)
