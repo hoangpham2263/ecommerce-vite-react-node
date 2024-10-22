@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import { toast } from 'react-toastify'
-import { createUser } from '../../services/adminApi.jsx'
+import { createPosition } from '../../services/adminApi.jsx'
 
 const ModalCreate = () => {
   const [data, setData] = useState({
-    username: ''
+    key_position: '',
+    name: '',
+    desc: ''
   })
   const handleOnChange = (e) => {
     const { name, value } = e.target
@@ -13,7 +15,7 @@ const ModalCreate = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    let res = await createUser(data)
+    let res = await createPosition(data)
     if (res?.data?.code === 0) {
       toast.success(res?.data?.message)
       setTimeout(() => { location.reload() }, 1000)
@@ -32,9 +34,17 @@ const ModalCreate = () => {
         </div>
         <div className="offcanvas-body">
           <form className="row g-3 needs-validation" noValidate>
-            <div className="col-md-8">
-              <label htmlFor="username" className="form-label">Username</label>
-              <input type="text" className="form-control" id="username" name='username' required onChange={handleOnChange} />
+            <div className="col-md-6">
+              <label htmlFor="key_position" className="form-label">Key Position</label>
+              <input type="text" className="form-control" id="key_position" name='key_position' required onChange={handleOnChange} />
+            </div>
+            <div className="col-md-6">
+              <label htmlFor="name" className="form-label">Name</label>
+              <input type="text" className="form-control" id="name" name='name' required onChange={handleOnChange} />
+            </div>
+            <div className="col-md-12">
+              <label htmlFor="desc" className="form-label">Desc</label>
+              <input type="text" className="form-control" id="desc" name='desc' required onChange={handleOnChange} />
             </div>
             <div className="col-12">
               <button onClick={handleSubmit} className="btn btn-secondary" type="submit">Confirm</button>

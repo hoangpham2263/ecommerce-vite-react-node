@@ -2,7 +2,7 @@ import classNames from 'classnames/bind'
 import styles from './Position.module.scss'
 import './Position.css'
 import { IoIosWarning } from 'react-icons/io'
-import { deleteUser } from '../../services/adminApi'
+import { deletePosition } from '../../services/adminApi'
 import { toast } from 'react-toastify'
 
 const cx = classNames.bind(styles)
@@ -10,7 +10,7 @@ const cx = classNames.bind(styles)
 const ModalDelete = ({ id, index }) => {
   const handleConfirm = async (e) => {
     e.preventDefault()
-    let res = await deleteUser(id)
+    let res = await deletePosition(id)
     if (res?.data?.code === 0) {
       toast.success(res?.data?.message)
       setTimeout(() => { location.reload() }, 1000)

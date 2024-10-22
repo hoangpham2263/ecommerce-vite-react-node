@@ -2,7 +2,7 @@ import classNames from 'classnames/bind'
 import styles from './Position.module.scss'
 import './Position.css'
 import { useEffect, useState } from 'react'
-import { readPosition, readUser, updatePosition, updateUser } from '../../services/adminApi.jsx'
+import { readPosition, updatePosition } from '../../services/adminApi.jsx'
 import ModalCreate from './ModalCreate'
 import ModalDelete from './ModalDelete.jsx'
 import { toast } from 'react-toastify'
@@ -13,6 +13,7 @@ const cx = classNames.bind(styles)
 const Position = () => {
   const [data, setData] = useState()
   const [currentPage, setCurrentPage] = useState(1)
+  // eslint-disable-next-line no-unused-vars
   const [limit, setLimit] = useState(10)
   const [totalPages, setTotalPages] = useState(0)
 
@@ -24,6 +25,7 @@ const Position = () => {
 
   useEffect(() => {
     fetchData()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage, limit])
 
   const handlePageChange = (page) => {
