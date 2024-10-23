@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 
-const SidebarItem = ({ title, rank, icon, items }) => {
+const SidebarItemMultiple = ({ title, rank, icon, items }) => {
   return (
     <div className="accordion-item">
       <h2 className="accordion-header">
@@ -31,7 +31,7 @@ const SidebarItem = ({ title, rank, icon, items }) => {
                 // </div>
                 <div key={index} className="accordion-item">
                   <h2 className="accordion-header">
-                    <Link className={`accordion-button collapsed text-decoration-none fw-normal ps-5 ${rank}`} type="button" data-bs-toggle="collapse" data-bs-target={`#${rank}-${index}`} aria-expanded="false" aria-controls={`${rank}-${index}`}>
+                    <Link to={item?.toLink} className={`accordion-button collapsed text-decoration-none fw-normal ps-5 ${rank}`} >
                       {item?.title}
                     </Link>
                   </h2>
@@ -45,4 +45,4 @@ const SidebarItem = ({ title, rank, icon, items }) => {
   )
 }
 
-export default SidebarItem
+export default SidebarItemMultiple

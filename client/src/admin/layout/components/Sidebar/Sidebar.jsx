@@ -2,6 +2,7 @@ import classNames from 'classnames/bind'
 import styles from './Sidebar.module.scss'
 import './Sidebar.css'
 import SidebarItem from './SidebarItem'
+import SidebarItemMultiple from './SidebarItemMultiple'
 const cx = classNames.bind(styles)
 import config from '../../../config'
 
@@ -11,7 +12,6 @@ import { MdOutlineProductionQuantityLimits } from 'react-icons/md'
 import { MdOutlineManageAccounts } from 'react-icons/md'
 import { IoColorPaletteOutline } from 'react-icons/io5'
 import { VscUngroupByRefType } from 'react-icons/vsc'
-import { MdLinearScale, MdBlurLinear } from 'react-icons/md'
 
 const Sidebar = () => {
   return (
@@ -40,23 +40,11 @@ const Sidebar = () => {
           rank={12}
           icon={<MdOutlineManageAccounts className="accordion-icon" />}
         />
-        <SidebarItem
-          title='Position'
-          toLink={config.routes.position}
-          rank={12}
+        <SidebarItemMultiple
+          title='Permission'
+          rank={13}
           icon={<VscUngroupByRefType className="accordion-icon" />}
-        />
-        <SidebarItem
-          title='Role'
-          toLink={config.routes.role}
-          rank={12}
-          icon={<MdLinearScale className="accordion-icon" />}
-        />
-        <SidebarItem
-          title='Position Role'
-          toLink={config.routes.positionRole}
-          rank={12}
-          icon={<MdBlurLinear className="accordion-icon" />}
+          items={[{ title: 'Position Role', toLink: config?.routes?.positionRole }, { title: 'Position', toLink: config?.routes?.position }, { title: 'Role', toLink: config?.routes?.role }]}
         />
 
         <div className="sidebar-label ms-3">Product</div>
