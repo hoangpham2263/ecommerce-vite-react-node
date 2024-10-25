@@ -5,6 +5,7 @@ import positionRoleController from "../controllers/positionRoleController"
 import roleController from "../controllers/roleController"
 import productController from "../controllers/productController"
 import capacityController from "../controllers/capacityController"
+import ramController from "../controllers/ramController"
 import colorController from "../controllers/colorController"
 import orderLineController from "../controllers/orderLineController"
 import categoryController from "../controllers/categoryController"
@@ -27,7 +28,7 @@ const adminRoute = (app) => {
   router.post("/user", authCheckExistToken, authCheckUserPermission(), userController.createFunc)
   router.put("/user", authCheckExistToken, authCheckUserPermission(), userController.updateFunc)
   router.delete("/user", authCheckExistToken, authCheckUserPermission(), userController.deleteFunc)
-  
+
   // position
   router.get("/position", authCheckExistToken, authCheckUserPermission(), positionController.readFunc)
   router.get("/position-is-master", authCheckExistToken, authCheckUserPermission(), positionController.readFuncIsMaster)
@@ -77,6 +78,12 @@ const adminRoute = (app) => {
   router.post("/category", authCheckExistToken, authCheckUserPermission(), categoryController.createFunc)
   router.put("/category", authCheckExistToken, authCheckUserPermission(), categoryController.updateFunc)
   router.delete("/category", authCheckExistToken, authCheckUserPermission(), categoryController.deleteFunc)
+
+  // ram
+  router.get("/ram", authCheckExistToken, authCheckUserPermission(), ramController.readFunc)
+  router.post("/ram", authCheckExistToken, authCheckUserPermission(), ramController.createFunc)
+  router.put("/ram", authCheckExistToken, authCheckUserPermission(), ramController.updateFunc)
+  router.delete("/ram", authCheckExistToken, authCheckUserPermission(), ramController.deleteFunc)
 
   // brand
   router.get("/brand", authCheckExistToken, authCheckUserPermission(), brandController.readFunc)

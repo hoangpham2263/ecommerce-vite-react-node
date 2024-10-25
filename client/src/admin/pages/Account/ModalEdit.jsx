@@ -3,6 +3,7 @@ import { readAddress, updateUser } from '../../services/adminApi'
 import { toast } from 'react-toastify'
 import { ImageToBase64 } from '../../../main/utility/ImageToBase64'
 import { RxAvatar } from 'react-icons/rx'
+import SetTimeout from '../../../main/components/SetTimeoutMethod'
 
 const ModalEdit = ({ item, index }) => {
   const [addressByUser, setAddressByUser] = useState()
@@ -76,7 +77,7 @@ const ModalEdit = ({ item, index }) => {
     const res = await updateUser(data)
     if (res?.data?.code === 0) {
       toast.success('update user succuss')
-      setTimeout(() => { location.reload() }, 1000)
+      SetTimeout()
     } else {
       toast.error(res?.data?.message)
     }

@@ -21,7 +21,7 @@ function App() {
             return <Route key={index} path={route.path} element={<Layout><Page /></Layout>} />
           })}
         </Routes>
-        <ToastContainer autoClose={1000} position="top-center" />
+        <ToastContainer autoClose={800} position="top-center" />
       </div>
     </BrowserRouter>
   )

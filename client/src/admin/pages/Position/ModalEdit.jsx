@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { updatePosition } from '../../services/adminApi'
 import { toast } from 'react-toastify'
+import SetTimeout from '../../../main/components/SetTimeoutMethod'
 
 const ModalEdit = ({ item, index }) => {
   const [data, setData] = useState({
@@ -50,7 +51,7 @@ const ModalEdit = ({ item, index }) => {
     const res = await updatePosition(data)
     if (res?.data?.code === 0) {
       toast.success('update user succuss')
-      setTimeout(() => { location.reload() }, 1000)
+      SetTimeout()
     } else {
       toast.error(res?.data?.message)
     }

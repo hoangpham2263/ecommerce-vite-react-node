@@ -32,7 +32,6 @@ const createFunc = async (req, res) => {
     let data = await db.Order_Line.create({ name: name});
     return res.status(200).json({ message: "a order line is created successfully", code: 0, data: data });
   } catch (error) {
-    console.log(error)
     return res.status(500).json({ message: "error from server", code: -1 });
   }
 }

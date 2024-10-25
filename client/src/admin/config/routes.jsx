@@ -8,7 +8,8 @@ const routes = {
   role: '/admin/role',
   product: '/admin/product',
   profile: '/admin/profile',
-  color: '/admin/color'
+  productAttribute: '/admin/product-attribute',
+  categories: '/admin/categories'
 }
 
 export default routes

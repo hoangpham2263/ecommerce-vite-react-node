@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { toast } from 'react-toastify'
 import { createPosition } from '../../services/adminApi.jsx'
+import SetTimeout from '../../../main/components/SetTimeoutMethod.jsx'
 
 const ModalCreate = () => {
   const [data, setData] = useState({
@@ -18,7 +19,7 @@ const ModalCreate = () => {
     let res = await createPosition(data)
     if (res?.data?.code === 0) {
       toast.success(res?.data?.message)
-      setTimeout(() => { location.reload() }, 1000)
+      SetTimeout()
     } else {
       toast.error(res?.data?.message)
     }

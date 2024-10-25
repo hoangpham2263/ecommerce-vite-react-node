@@ -4,6 +4,7 @@ import './Role.css'
 import { IoIosWarning } from 'react-icons/io'
 import { deleteRole } from '../../services/adminApi'
 import { toast } from 'react-toastify'
+import SetTimeout from '../../../main/components/SetTimeoutMethod'
 
 const cx = classNames.bind(styles)
 
@@ -13,7 +14,7 @@ const ModalDelete = ({ id, index }) => {
     let res = await deleteRole(id)
     if (res?.data?.code === 0) {
       toast.success(res?.data?.message)
-      setTimeout(() => { location.reload() }, 1000)
+      SetTimeout()
     } else {
       toast.error(res?.data?.message)
     }

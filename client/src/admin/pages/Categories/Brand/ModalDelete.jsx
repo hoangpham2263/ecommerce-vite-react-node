@@ -1,31 +1,42 @@
 import classNames from 'classnames/bind'
-import styles from './PositionRole.module.scss'
-import './PositionRole.css'
+import styles from '../Categories.module.scss'
+import '../Categories.css'
 import { IoIosWarning } from 'react-icons/io'
-import { deletePosition } from '../../services/adminApi'
+import { deleteBrand } from '../../../services/adminApi'
 import { toast } from 'react-toastify'
 
 const cx = classNames.bind(styles)
 
-const ModalDelete = ({ id, index }) => {
+const ModalDelete = ({ id, index, categoryId, fetchBrandData }) => {
   const handleConfirm = async (e) => {
     e.preventDefault()
-    let res = await deletePosition(id)
+    let res = await deleteBrand(id)
+
     if (res?.data?.code === 0) {
+      // close modal
+      const modalElement = document.getElementById(`staticBackdropBrand-${index}`)
+      modalElement.classList.remove('show')
+      document.body.classList.remove('modal-open')
+      document.body.style.paddingRight = ''
+      // Xóa backdrop
+      const backdropElement = document.querySelector('.modal-backdrop')
+      if (backdropElement) { backdropElement.remove() }
+
       toast.success(res?.data?.message)
-      setTimeout(() => { location.reload() }, 1000)
+      fetchBrandData(categoryId)
     } else {
       toast.error(res?.data?.message)
     }
   }
+
   return (
     <span>
-      <button type="button" className="btn btn-danger" data-bs-toggle="modal" data-bs-target={`#staticBackdrop-${index}`}>Delete</button>
-      <div className="modal fade" id={`staticBackdrop-${index}`} data-bs-keyboard="true" tabIndex={-1} aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <button type="button" className="btn btn-danger" data-bs-toggle="modal" data-bs-target={`#staticBackdropBrand-${index}`}>Delete</button>
+      <div className="modal fade" id={`staticBackdropBrand-${index}`} data-bs-keyboard="true" tabIndex={-1} aria-labelledby="staticBackdropLabelBrand" aria-hidden="true">
         <div className="modal-dialog modal-dialog-centered">
           <div className="modal-content">
             <div className="modal-header">
-              <h1 className="modal-title fs-5" id="staticBackdropLabel">Are you sure you want to delete?</h1>
+              <h1 className="modal-title fs-5" id="staticBackdropLabelBrand">Are you sure you want to delete?</h1>
               <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" />
             </div>
             <div className="modal-body d-flex justify-content-center">

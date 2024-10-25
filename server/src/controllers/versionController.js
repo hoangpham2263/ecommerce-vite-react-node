@@ -1,14 +1,17 @@
+import { where } from "sequelize";
 import db from "../models/index";
 
 const readFunc = async (req, res) => {
   try {
     let data
-    if (req.query.page && req.query.limit) {
-      let { page, limit } = req.query;
+    let { page, limit, brand_id } = req?.query
+    if (page && limit) {
+      let { page, limit, brand_id } = req?.query
       page = parseInt(page, 10) || 1;
       limit = parseInt(limit, 10) || 10;
       let offset = (page - 1) * limit;
       let { count, rows } = await db.Version.findAndCountAll({
+        where: { brand_id: brand_id },
         offset: offset,
         limit: limit,
         attributes: ["id", "name", "updatedAt", "createdAt"],

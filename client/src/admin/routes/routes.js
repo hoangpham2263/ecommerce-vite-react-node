@@ -9,7 +9,8 @@ import PositionRole from '../pages/PositionRole'
 import Role from '../pages/Role'
 import Product from '../pages/Product'
 import Profile from '../pages/Profile'
-import Color from '../pages/Color/Color'
+import ProductAttribute from '../pages/ProductAttribute'
+import Categories from '../pages/Categories'
 
 const adminRoutes = [
   {
@@ -53,8 +54,13 @@ const adminRoutes = [
     layout: AdminLayout
   },
   {
-    path: config.routes.color,
-    component: Color,
+    path: config.routes.productAttribute,
+    component: ProductAttribute,
+    layout: AdminLayout
+  },
+  {
+    path: config.routes.categories,
+    component: Categories,
     layout: AdminLayout
   }
 ]
