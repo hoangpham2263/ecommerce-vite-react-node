@@ -34,12 +34,12 @@ const Sidebar = () => {
 
         {/* 3. Products */}
         <div className="sidebar-label ms-3 mt-0 pt-3">Products</div>
-        {/* <SidebarItem
+        <SidebarItem
           title='Product'
           toLink={config.routes.product}
           rank={31}
           icon={<MdOutlineProductionQuantityLimits className="accordion-icon" />}
-        /> */}
+        />
         <SidebarItem
           title='Product Attributes'
           toLink={config.routes.productAttribute}

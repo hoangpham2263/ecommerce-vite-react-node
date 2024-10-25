@@ -32,6 +32,17 @@ const deleteRole = (id) => { return axios.delete('/api/admin/role', { data: { id
 // CRUD Address
 const readAddress = (userId, currentPage, currentLimit) => { return axios.get('/api/admin/address', { params: { page: currentPage, limit: currentLimit, user_id: userId }, headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
 
+// CRUD Product
+const readProduct = (currentPage, currentLimit) => { return axios.get('/api/admin/product', { params: { page: currentPage, limit: currentLimit }, headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
+const createProduct = (data) => { return axios.post('/api/admin/product', { data }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
+const updateProduct = (data) => { return axios.put('/api/admin/product', { data }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
+const deleteProduct = (id) => { return axios.delete('/api/admin/product', { data: { id }, headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
+
+// CRUD Image
+const readImage = (currentPage, currentLimit) => { return axios.get('/api/admin/image', { params: { page: currentPage, limit: currentLimit }, headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
+const createImage = (data) => { return axios.post('/api/admin/image', { data }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
+const updateImage = (data) => { return axios.put('/api/admin/image', { data }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
+const deleteImage = (id) => { return axios.delete('/api/admin/image', { data: { id }, headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
 
 // CRUD Color
 const readColor = (currentPage, currentLimit) => { return axios.get('/api/admin/color', { params: { page: currentPage, limit: currentLimit }, headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
@@ -77,6 +88,8 @@ export {
   createPosition, readPosition, updatePosition, deletePosition, readPositionIsMaster,
   createPositionRole, readPositionRole, deletePositionRole, readPositionRoleReverse,
   createRole, readRole, updateRole, deleteRole,
+  createProduct, readProduct, updateProduct, deleteProduct,
+  createImage, readImage, updateImage, deleteImage,
   createColor, readColor, updateColor, deleteColor,
   createCapacity, readCapacity, updateCapacity, deleteCapacity,
   createRam, readRam, updateRam, deleteRam,
