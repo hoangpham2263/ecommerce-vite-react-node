@@ -59,7 +59,7 @@ const Account = () => {
       <div className={cx('row mb-3')}>
         <h3 className={cx('col-3 fw-normal')}>Account</h3>
         <div className={cx('col-9 d-flex justify-content-end')}>
-          <ModalCreate />
+          <ModalCreate fetchData={fetchData} />
         </div>
       </div>
 
@@ -116,8 +116,8 @@ const Account = () => {
                   })}`}
                 </td>
                 <td className={cx(' pe-4', 'col-btn')}>
-                  <ModalEdit item={item} index={`modal-del-${index}`} />
-                  <ModalDelete id={item?.id} index={`modal-del-${index}`} />
+                  <ModalEdit item={item} index={`modal-del-${index}`} fetchData={fetchData} />
+                  <ModalDelete id={item?.id} index={`modal-del-${index}`} fetchData={fetchData} />
                 </td>
               </tr>
             ))}

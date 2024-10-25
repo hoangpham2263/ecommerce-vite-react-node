@@ -1,14 +1,15 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { toast } from 'react-toastify'
 import { updateColor } from '../../../services/adminApi'
-import SetTimeout from '../../../../main/components/SetTimeoutMethod'
 
-const ModalEdit = ({ item, index }) => {
+const ModalEdit = ({ item, index, fetchDataColor }) => {
   const [data, setData] = useState({
     id: '',
     name: '',
     color_code: ''
   })
+
+  const closeButtonRef = useRef(null)
 
   const setDataDefault = (item) => {
     if (item) {
@@ -34,7 +35,8 @@ const ModalEdit = ({ item, index }) => {
     const res = await updateColor(data)
     if (res?.data?.code === 0) {
       toast.success(res?.data?.message)
-      SetTimeout()
+      fetchDataColor()
+      if (closeButtonRef.current) closeButtonRef.current.click()
     } else {
       toast.error(res?.data?.message)
     }
@@ -46,7 +48,7 @@ const ModalEdit = ({ item, index }) => {
       <div className="offcanvas offcanvas-end" data-bs-keyboard="true" data-bs-backdrop="static" tabIndex={-1} id={`offcanvasRight-edit-${index}`} aria-labelledby="offcanvasRightLabelColor">
         <div className="offcanvas-header">
           <h5 className="offcanvas-title" id="offcanvasRightLabelColor">Edit Color</h5>
-          <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" />
+          <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" ref={closeButtonRef} />
         </div>
 
         <div className="offcanvas-body mb-6">

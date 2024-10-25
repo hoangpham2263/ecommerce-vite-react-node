@@ -144,15 +144,15 @@ const ProductAttribute = () => {
                     <th scope="row">{(currentPageCapacity - 1) * limitCapacity + index + 1}</th>
                     <td>{item?.name}</td>
                     <td className='text-end'>
-                      <ModalEditCapacity item={item} index={`modal-del-${index}`} />
-                      <ModalDeleteCapacity id={item?.id} index={`modal-del-${index}`} />
+                      <ModalEditCapacity item={item} index={`modal-del-${index}`} fetchDataCapacity={fetchDataCapacity}/>
+                      <ModalDeleteCapacity id={item?.id} index={`modal-del-${index}`} fetchDataCapacity={fetchDataCapacity}/>
                     </td>
                   </tr>
                 ))
               }
             </tbody>
           </table>
-          <ModalCreateCapacity />
+          <ModalCreateCapacity fetchDataCapacity={fetchDataCapacity}/>
           {/* Pagination */}
           {totalPagesCapacity > 0 && (
             <div className={cx('row')}>
@@ -192,14 +192,14 @@ const ProductAttribute = () => {
                   <th scope="row">{(currentPageRam - 1) * limitRam + index + 1}</th>
                   <td>{item?.name}</td>
                   <td className='text-end'>
-                    <ModalEditRam item={item} index={`modal-del-${index}`} />
-                    <ModalDeleteRam id={item?.id} index={`modal-del-${index}`} />
+                    <ModalEditRam item={item} index={`modal-del-${index}`} fetchDataRam={fetchDataRam}/>
+                    <ModalDeleteRam id={item?.id} index={`modal-del-${index}`} fetchDataRam={fetchDataRam}/>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
-          <ModalCreateRam />
+          <ModalCreateRam fetchDataRam={fetchDataRam}/>
           {/* Pagination */}
           {totalPagesRam > 0 && (
             <div className={cx('row')}>

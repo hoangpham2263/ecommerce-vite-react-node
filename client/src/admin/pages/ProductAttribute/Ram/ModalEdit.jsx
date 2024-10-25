@@ -1,13 +1,14 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { toast } from 'react-toastify'
 import { updateRam } from '../../../services/adminApi'
-import SetTimeout from '../../../../main/components/SetTimeoutMethod'
 
-const ModalEdit = ({ item, index }) => {
+const ModalEdit = ({ item, index, fetchDataRam }) => {
   const [data, setData] = useState({
     id: '',
     name: ''
   })
+
+  const closeButtonRef = useRef(null)
 
   const setDataDefault = (item) => {
     if (item) {
@@ -32,7 +33,8 @@ const ModalEdit = ({ item, index }) => {
     const res = await updateRam(data)
     if (res?.data?.code === 0) {
       toast.success(res?.data?.message)
-      SetTimeout()
+      fetchDataRam()
+      if (closeButtonRef.current) closeButtonRef.current.click()
     } else {
       toast.error(res?.data?.message)
     }
@@ -44,7 +46,7 @@ const ModalEdit = ({ item, index }) => {
       <div className="offcanvas offcanvas-end" data-bs-keyboard="true" data-bs-backdrop="static" tabIndex={-1} id={`offcanvasRam-edit-${index}`} aria-labelledby="offcanvasRightLabelRam">
         <div className="offcanvas-header">
           <h5 className="offcanvas-title" id="offcanvasRightLabelRam">Edit Ram</h5>
-          <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" />
+          <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" ref={closeButtonRef} />
         </div>
 
         <div className="offcanvas-body mb-6">

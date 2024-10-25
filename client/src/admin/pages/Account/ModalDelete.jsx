@@ -4,21 +4,25 @@ import './Account.css'
 import { IoIosWarning } from 'react-icons/io'
 import { deleteUser } from '../../services/adminApi'
 import { toast } from 'react-toastify'
-import SetTimeout from '../../../main/components/SetTimeoutMethod'
+import { useRef } from 'react'
 
 const cx = classNames.bind(styles)
 
-const ModalDelete = ({ id, index }) => {
+const ModalDelete = ({ id, index, fetchData }) => {
+  const closeButtonRef = useRef(null)
+
   const handleConfirm = async (e) => {
     e.preventDefault()
     let res = await deleteUser(id)
     if (res?.data?.code === 0) {
       toast.success(res?.data?.message)
-      SetTimeout()
+      fetchData()
+      closeButtonRef.current.click()
     } else {
       toast.error(res?.data?.message)
     }
   }
+
   return (
     <span>
       <button type="button" className="btn btn-danger" data-bs-toggle="modal" data-bs-target={`#staticBackdrop-${index}`}>Delete</button>
@@ -27,7 +31,7 @@ const ModalDelete = ({ id, index }) => {
           <div className="modal-content">
             <div className="modal-header">
               <h1 className="modal-title fs-5" id="staticBackdropLabel">Are you sure you want to delete?</h1>
-              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" />
+              <button ref={closeButtonRef} type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" />
             </div>
             <div className="modal-body d-flex justify-content-center">
               <IoIosWarning className={cx('icon-warning')} />

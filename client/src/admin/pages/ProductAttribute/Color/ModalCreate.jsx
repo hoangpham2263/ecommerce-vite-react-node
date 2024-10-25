@@ -1,16 +1,17 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { toast } from 'react-toastify'
 import { createColor } from '../../../services/adminApi.jsx'
-import SetTimeout from '../../../../main/components/SetTimeoutMethod.jsx'
 
-const ModalCreate = () => {
+const ModalCreate = ({ fetchDataColor }) => {
   const [data, setData] = useState({
     name: '',
     color_code: ''
   })
+  const closeButtonRef = useRef(null)
+
   const handleOnChange = (e) => {
     const { name, value } = e.target
-    setData((prev) => { return { ...prev, [name]: value } })
+    setData((prev) => ({ ...prev, [name]: value }))
   }
 
   const handleSubmit = async (e) => {
@@ -18,7 +19,8 @@ const ModalCreate = () => {
     let res = await createColor(data)
     if (res?.data?.code === 0) {
       toast.success(res?.data?.message)
-      SetTimeout()
+      fetchDataColor()
+      closeButtonRef.current.click()
     } else {
       toast.error(res?.data?.message)
     }
@@ -30,7 +32,7 @@ const ModalCreate = () => {
       <div className="offcanvas offcanvas-end" data-bs-keyboard="true" data-bs-backdrop="static" tabIndex={-1} id="offcanvasRight" aria-labelledby="offcanvasRightLabelColor">
         <div className="offcanvas-header">
           <h5 className="offcanvas-title" id="offcanvasRightLabelColor">Create Color</h5>
-          <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" />
+          <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" ref={closeButtonRef} />
         </div>
         <div className="offcanvas-body">
           <form className="row g-3 needs-validation" noValidate>

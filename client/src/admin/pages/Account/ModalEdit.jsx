@@ -3,9 +3,9 @@ import { readAddress, updateUser } from '../../services/adminApi'
 import { toast } from 'react-toastify'
 import { ImageToBase64 } from '../../../main/utility/ImageToBase64'
 import { RxAvatar } from 'react-icons/rx'
-import SetTimeout from '../../../main/components/SetTimeoutMethod'
+import { useRef } from 'react'
 
-const ModalEdit = ({ item, index }) => {
+const ModalEdit = ({ item, index, fetchData }) => {
   const [addressByUser, setAddressByUser] = useState()
   const [data, setData] = useState({
     id: '',
@@ -18,6 +18,7 @@ const ModalEdit = ({ item, index }) => {
     is_verified: false,
     is_active: false
   })
+  const closeButtonRef = useRef(null)
 
   const setDataDefault = (item) => {
     if (item) {
@@ -76,8 +77,9 @@ const ModalEdit = ({ item, index }) => {
     e.preventDefault()
     const res = await updateUser(data)
     if (res?.data?.code === 0) {
-      toast.success('update user succuss')
-      SetTimeout()
+      toast.success('update user success')
+      fetchData()
+      closeButtonRef.current.click()
     } else {
       toast.error(res?.data?.message)
     }
@@ -89,9 +91,8 @@ const ModalEdit = ({ item, index }) => {
       <div className="offcanvas offcanvas-end" data-bs-keyboard="true" data-bs-backdrop="static" tabIndex={-1} id={`offcanvasRight-edit-${index}`} aria-labelledby="offcanvasRightLabel">
         <div className="offcanvas-header">
           <h5 className="offcanvas-title" id="offcanvasRightLabel">Edit Account</h5>
-          <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" />
+          <button ref={closeButtonRef} type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" />
         </div>
-
         <div className="offcanvas-body mb-6">
           <form className="row g-3 needs-validation" noValidate>
             <div className="col-md-4">
@@ -101,7 +102,6 @@ const ModalEdit = ({ item, index }) => {
               <label htmlFor="formFile" className="form-label">Change avatar</label>
               <input className="form-control" type="file" id="formFile" onChange={handleBaseImage} />
             </div>
-
             <div className="col-md-6">
               <label htmlFor="fullName" className="form-label">Full Name</label>
               <input
@@ -114,7 +114,6 @@ const ModalEdit = ({ item, index }) => {
                 required
               />
             </div>
-
             <div className="col-md-6">
               <label htmlFor="username" className="form-label">Username</label>
               <input
@@ -127,7 +126,6 @@ const ModalEdit = ({ item, index }) => {
                 required
               />
             </div>
-
             <div className="col-md-12">
               <label htmlFor="email" className="form-label">Email</label>
               <input
@@ -141,7 +139,6 @@ const ModalEdit = ({ item, index }) => {
                 disabled
               />
             </div>
-
             <div className="col-md-6">
               <label htmlFor="position" className="form-label">Position</label>
               <select
@@ -156,7 +153,6 @@ const ModalEdit = ({ item, index }) => {
                 <option value="3">Customer</option>
               </select>
             </div>
-
             <div className="col-md-6">
               <label htmlFor="gender" className="form-label">Gender</label>
               <select
@@ -172,7 +168,6 @@ const ModalEdit = ({ item, index }) => {
                 <option value="other">Other</option>
               </select>
             </div>
-
             <div className="col-md-6">
               <label htmlFor={`flexSwitchCheckDefaultEdit${index}-verify`} className="form-label">Verify</label>
               <div className="form-check form-switch">
@@ -189,7 +184,6 @@ const ModalEdit = ({ item, index }) => {
                 </label>
               </div>
             </div>
-
             <div className="col-md-6">
               <label htmlFor={`flexSwitchCheckDefault${index}-status`} className="form-label">Status</label>
               <div className="form-check form-switch">
@@ -216,15 +210,14 @@ const ModalEdit = ({ item, index }) => {
                       {item.name} - {item.house_address} - {item.ward} - {item.district} - {item.city}
                     </span>
                     <div>
-                      <strong>Số điện thoại:</strong> {item.phone_number}
+                      <strong>Phone:</strong> {item.phone_number}
                     </div>
                     <div>
-                      <strong>Trạng thái:</strong> {item.default ? 'Mặc định' : 'Không mặc định'}
+                      <strong>Status:</strong> {item.default ? 'Default' : 'Not default'}
                     </div>
                   </span>
                 </div>
               ))}
-              {/* <button type="button" className="btn btn-outline-secondary" id="save-address">Save</button> */}
             </div>
             <div className="col-12">
               <button className="btn btn-primary" type="submit" onClick={handleSubmit}>Save Edit</button>

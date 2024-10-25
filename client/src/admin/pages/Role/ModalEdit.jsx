@@ -1,14 +1,15 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { updateRole } from '../../services/adminApi'
 import { toast } from 'react-toastify'
-import SetTimeout from '../../../main/components/SetTimeoutMethod'
 
-const ModalEdit = ({ item, index }) => {
+const ModalEdit = ({ item, index, fetchData }) => {
   const [data, setData] = useState({
     id: '',
     key_role: '',
     name: ''
   })
+
+  const closeButtonRef = useRef(null)
 
   const setDataDefault = (item) => {
     if (item) {
@@ -33,8 +34,9 @@ const ModalEdit = ({ item, index }) => {
     e.preventDefault()
     const res = await updateRole(data)
     if (res?.data?.code === 0) {
-      toast.success('update user succuss')
-      SetTimeout()
+      toast.success('Update role successful')
+      fetchData()
+      closeButtonRef.current.click()
     } else {
       toast.error(res?.data?.message)
     }
@@ -46,13 +48,13 @@ const ModalEdit = ({ item, index }) => {
       <div className="offcanvas offcanvas-end" data-bs-keyboard="true" data-bs-backdrop="static" tabIndex={-1} id={`offcanvasRight-edit-${index}`} aria-labelledby="offcanvasRightLabel">
         <div className="offcanvas-header">
           <h5 className="offcanvas-title" id="offcanvasRightLabel">Edit Role</h5>
-          <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" />
+          <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" ref={closeButtonRef} />
         </div>
 
         <div className="offcanvas-body mb-6">
           <form className="row g-3 needs-validation" noValidate>
             <div className="col-md-6">
-              <label htmlFor="key_role" className="form-label">Key Position</label>
+              <label htmlFor="key_role" className="form-label">Key Role</label>
               <input
                 type="text"
                 className="form-control"

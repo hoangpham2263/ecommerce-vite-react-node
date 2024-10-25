@@ -1,25 +1,28 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { toast } from 'react-toastify'
 import { createPosition } from '../../services/adminApi.jsx'
-import SetTimeout from '../../../main/components/SetTimeoutMethod.jsx'
 
-const ModalCreate = () => {
+const ModalCreate = ({ fetchData }) => {
   const [data, setData] = useState({
     key_position: '',
     name: '',
     desc: ''
   })
+
+  const closeButtonRef = useRef(null)
+
   const handleOnChange = (e) => {
     const { name, value } = e.target
-    setData((prev) => { return { ...prev, [name]: value } })
+    setData((prev) => ({ ...prev, [name]: value }))
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    let res = await createPosition(data)
+    const res = await createPosition(data)
     if (res?.data?.code === 0) {
       toast.success(res?.data?.message)
-      SetTimeout()
+      fetchData()
+      closeButtonRef.current.click()
     } else {
       toast.error(res?.data?.message)
     }
@@ -31,7 +34,7 @@ const ModalCreate = () => {
       <div className="offcanvas offcanvas-end" data-bs-keyboard="true" data-bs-backdrop="static" tabIndex={-1} id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
         <div className="offcanvas-header">
           <h5 className="offcanvas-title" id="offcanvasRightLabel">Create Account</h5>
-          <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" />
+          <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" ref={closeButtonRef} />
         </div>
         <div className="offcanvas-body">
           <form className="row g-3 needs-validation" noValidate>

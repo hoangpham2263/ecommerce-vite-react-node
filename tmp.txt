@@ -40,3 +40,8 @@ Cài đặt hệ thống: Quản lý các thiết lập về bảo mật, quản
 11. Support (Hỗ trợ khách hàng)
 Tin nhắn & phản hồi: Hỗ trợ khách hàng, xử lý khiếu nại.
 Hướng dẫn sử dụng: Hướng dẫn khách hàng về sản phẩm, dịch vụ.
+
+
+
+
+tôi muốn tận dụng nút này  <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" /> khi thành công sẽ trỏ tới click nút này tự động được không
