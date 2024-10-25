@@ -1,3 +1,4 @@
+import './Product.css'
 import { useEffect, useState, useRef } from 'react'
 import { toast } from 'react-toastify'
 import { createProduct, readCapacity, readCategory, readColor, readRam } from '../../services/adminApi.jsx'
@@ -13,8 +14,10 @@ const ModalCreate = ({ fetchProductData }) => {
     category_id: '',
     discount: '',
     stock: '',
-    is_active: ''
+    is_active: true,
+    buttonColor: '#000'
   })
+
   const [colors, setColors] = useState()
   const [rams, setRams] = useState()
   const [capacities, setCapacities] = useState()
@@ -24,7 +27,7 @@ const ModalCreate = ({ fetchProductData }) => {
 
   const handleOnChange = (e) => {
     const { name, value } = e.target
-    setData((prev) => { return { ...prev, [name]: value } })
+    setData((prev) => ({ ...prev, [name]: value }))
   }
 
   const handleStatusChange = (e) => {
@@ -79,15 +82,40 @@ const ModalCreate = ({ fetchProductData }) => {
             </div>
             <div className="col-md-6">
               <label htmlFor="color_id" className="form-label">Color</label>
-              <select
-                className="form-select"
-                id="color_id"
-                name="color_id"
-                onChange={handleOnChange}
-              >
-                <option value={0}>select</option>
-                {colors && colors.map((item, index) => (<option key={`color-${index}`} value={item?.id}>{item?.name}</option>))}
-              </select>
+              <div className="dropdown">
+                <button
+                  className="btn btn-secondary dropdown-toggle cs-btn-color"
+                  type="button"
+                  id="colorDropdown"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                  style={{ backgroundColor: data.buttonColor }}
+                >
+                  {data.color_id ? colors.find(c => c.id === data.color_id)?.name : 'Select Color'}
+                </button>
+                <ul className="dropdown-menu" aria-labelledby="colorDropdown">
+                  {colors && colors.map((item, index) => (
+                    <li key={`color-${index}`}>
+                      <a
+                        className="dropdown-item"
+                        href="#"
+                        onClick={() => {
+                          setData({
+                            ...data,
+                            color_id: item.id,
+                            buttonColor: item.color_code
+                          })
+                          const selectedColor = colors.find(c => c.id === item.id)?.name
+                          if (selectedColor) { document.getElementById('colorDropdown').textContent = selectedColor }
+                        }}
+                      >
+                        <div className='cs-color-option' style={{ backgroundColor: item.color_code, display: 'inline-block', width: '20px', height: '20px', borderRadius: '50%', marginRight: '10px' }} />
+                        {item?.name}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
             <div className="col-md-6">
               <label htmlFor="ram_id" className="form-label">Ram</label>
