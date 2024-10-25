@@ -1,11 +1,12 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { toast } from 'react-toastify'
 import { createBrand } from '../../../services/adminApi.jsx'
 
-const ModalCreate = ({ categoryId,fetchBrandData }) => {
+const ModalCreate = ({ categoryId, fetchBrandData }) => {
   const [data, setData] = useState({
     name: ''
   })
+  const closeButtonRef = useRef(null)
 
   const handleOnChange = (e) => {
     const { name, value } = e.target
@@ -17,21 +18,13 @@ const ModalCreate = ({ categoryId,fetchBrandData }) => {
     let newData = { ...data, category_id: categoryId }
     let res = await createBrand(newData)
     if (res?.data?.code === 0) {
-      // close modal
-      const offcanvasElement = document.getElementById('offcanvasBrand')
-      offcanvasElement.classList.remove('show')
-      document.body.classList.remove('modal-open')
-      document.body.style.paddingRight = ''
-      // del backdrop
-      const backdropElement = document.querySelector('.offcanvas-backdrop')
-      if (backdropElement) {backdropElement.remove()}
       toast.success(res?.data?.message)
       fetchBrandData(categoryId)
+      if (closeButtonRef.current) closeButtonRef.current.click()
     } else {
       toast.error(res?.data?.message)
     }
   }
-
 
   return (
     <span>
@@ -39,7 +32,7 @@ const ModalCreate = ({ categoryId,fetchBrandData }) => {
       <div className="offcanvas offcanvas-end" data-bs-keyboard="true" data-bs-backdrop="static" tabIndex={-1} id="offcanvasBrand" aria-labelledby="offcanvasRightLabelBrand">
         <div className="offcanvas-header">
           <h5 className="offcanvas-title" id="offcanvasRightLabelBrand">Create Brand</h5>
-          <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" />
+          <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" ref={closeButtonRef} />
         </div>
         <div className="offcanvas-body">
           <form className="row g-3 needs-validation" noValidate onSubmit={handleSubmit}>
