@@ -1,22 +1,24 @@
 import classNames from 'classnames/bind'
-import styles from '../Categories.module.scss'
-import '../Categories.css'
+import styles from '../ProductCategories.module.scss'
+import '../ProductCategories.css'
 import { IoIosWarning } from 'react-icons/io'
-import { deleteCategory } from '../../../services/adminApi'
+import { deleteVersion } from '../../../services/adminApi'
 import { toast } from 'react-toastify'
 import { useRef } from 'react'
 
 const cx = classNames.bind(styles)
 
-const ModalDelete = ({ id, index, fetchCategoryData }) => {
+const ModalDelete = ({ id, index, selectedBrandId, fetchVersionData }) => {
   const closeButtonRef = useRef(null)
 
   const handleConfirm = async (e) => {
     e.preventDefault()
-    let res = await deleteCategory(id)
+    let res = await deleteVersion(id)
+
     if (res?.data?.code === 0) {
       toast.success(res?.data?.message)
-      fetchCategoryData()
+      fetchVersionData(selectedBrandId)
+
       if (closeButtonRef.current) closeButtonRef.current.click()
     } else {
       toast.error(res?.data?.message)
@@ -25,12 +27,12 @@ const ModalDelete = ({ id, index, fetchCategoryData }) => {
 
   return (
     <span>
-      <button type="button" className="btn btn-danger" data-bs-toggle="modal" data-bs-target={`#staticBackdropCategory-${index}`}>Delete</button>
-      <div className="modal fade" id={`staticBackdropCategory-${index}`} data-bs-keyboard="true" tabIndex={-1} aria-labelledby="staticBackdropLabelCategory" aria-hidden="true">
+      <button type="button" className="btn btn-danger" data-bs-toggle="modal" data-bs-target={`#staticBackdropVersion-${index}`}>Delete</button>
+      <div className="modal fade" id={`staticBackdropVersion-${index}`} data-bs-keyboard="true" tabIndex={-1} aria-labelledby="staticBackdropLabelVersion" aria-hidden="true">
         <div className="modal-dialog modal-dialog-centered">
           <div className="modal-content">
             <div className="modal-header">
-              <h1 className="modal-title fs-5" id="staticBackdropLabelCategory">Are you sure you want to delete?</h1>
+              <h1 className="modal-title fs-5" id="staticBackdropLabelVersion">Are you sure you want to delete?</h1>
               <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" ref={closeButtonRef} />
             </div>
             <div className="modal-body d-flex justify-content-center">

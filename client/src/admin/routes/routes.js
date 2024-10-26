@@ -10,7 +10,7 @@ import Role from '../pages/Role'
 import Product from '../pages/Product'
 import Profile from '../pages/Profile'
 import ProductAttribute from '../pages/ProductAttribute'
-import Categories from '../pages/Categories'
+import ProductCategories from '../pages/ProductCategories'
 
 const adminRoutes = [
   {
@@ -60,7 +60,7 @@ const adminRoutes = [
   },
   {
     path: config.routes.categories,
-    component: Categories,
+    component: ProductCategories,
     layout: AdminLayout
   }
 ]

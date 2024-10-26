@@ -1,8 +1,8 @@
 import { useEffect, useState, useRef } from 'react'
 import { toast } from 'react-toastify'
-import { updateBrand } from '../../../services/adminApi'
+import { updateVersion } from '../../../services/adminApi'
 
-const ModalEdit = ({ item, index, categoryId, fetchBrandData }) => {
+const ModalEdit = ({ item, index, selectedBrandId, fetchVersionData }) => {
   const [data, setData] = useState({
     id: '',
     name: ''
@@ -30,10 +30,10 @@ const ModalEdit = ({ item, index, categoryId, fetchBrandData }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const res = await updateBrand(data)
+    const res = await updateVersion(data)
     if (res?.data?.code === 0) {
       toast.success(res?.data?.message)
-      fetchBrandData(categoryId)
+      fetchVersionData(selectedBrandId)
 
       if (closeButtonRef.current) closeButtonRef.current.click()
     } else {
@@ -43,10 +43,10 @@ const ModalEdit = ({ item, index, categoryId, fetchBrandData }) => {
 
   return (
     <span>
-      <button className="btn btn-warning me-2" type="button" data-bs-toggle="offcanvas" data-bs-target={`#offcanvasBrand-edit-${index}`} aria-controls="offcanvasBrand-edit">Edit</button>
-      <div className="offcanvas offcanvas-end" data-bs-keyboard="true" data-bs-backdrop="static" tabIndex={-1} id={`offcanvasBrand-edit-${index}`} aria-labelledby="offcanvasRightLabelBrand">
+      <button className="btn btn-warning me-2" type="button" data-bs-toggle="offcanvas" data-bs-target={`#offcanvasVersion-edit-${index}`} aria-controls="offcanvasVersion-edit">Edit</button>
+      <div className="offcanvas offcanvas-end" data-bs-keyboard="true" data-bs-backdrop="static" tabIndex={-1} id={`offcanvasVersion-edit-${index}`} aria-labelledby="offcanvasRightLabelVersion">
         <div className="offcanvas-header">
-          <h5 className="offcanvas-title" id="offcanvasRightLabelBrand">Edit Brand</h5>
+          <h5 className="offcanvas-title" id="offcanvasRightLabelVersion">Edit Version</h5>
           <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" ref={closeButtonRef} />
         </div>
 

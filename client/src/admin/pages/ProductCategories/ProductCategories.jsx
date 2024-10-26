@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind'
-import styles from './Categories.module.scss'
-import './Categories.css'
+import styles from './ProductCategories.module.scss'
+import './ProductCategories.css'
 import { useEffect, useState } from 'react'
 import { readBrand, readCategory, readVersion } from '../../services/adminApi.jsx'
 import ModalCreateCategory from './Category/ModalCreate.jsx'
@@ -9,10 +9,13 @@ import ModalDeleteCategory from './Category/ModalDelete.jsx'
 import ModalCreateBrand from './Brand/ModalCreate.jsx'
 import ModalEditBrand from './Brand/ModalEdit.jsx'
 import ModalDeleteBrand from './Brand/ModalDelete.jsx'
+import ModalCreateVersion from './Version/ModalCreate.jsx'
+import ModalEditVersion from './Version/ModalEdit.jsx'
+import ModalDeleteVersion from './Version/ModalDelete.jsx'
 
 const cx = classNames.bind(styles)
 
-const Categories = () => {
+const ProductCategories = () => {
   const [selectedCategoryId, setSelectedCategoryId] = useState(null)
   const [selectedBrandId, setSelectedBrandId] = useState(null)
 
@@ -79,18 +82,13 @@ const Categories = () => {
     }
   }, [selectedCategoryId, currentBrandPage])
 
-  // useEffect(() => {
-  //   if (brands?.data?.brand.length) {
-  //     fetchVersionData(brands.data.brand[0]?.id)
-  //   }
-  // }, [brands])
-
   useEffect(() => {
     if (selectedBrandId) {
       fetchVersionData(selectedBrandId)
     }
   }, [selectedBrandId, currentVersionPage])
-
+  console.log(selectedCategoryId)
+  console.log(selectedBrandId)
   return (
     <div className={cx('wrapper')}>
       <div className={cx('row mb-3')}>
@@ -118,14 +116,14 @@ const Categories = () => {
                   <th scope="row">{(currentCategoryPage - 1) * limitPage.category + index + 1}</th>
                   <td>{item?.name}</td>
                   <td className='text-end'>
-                    <ModalEditCategory item={item} index={`modal-del-${index}`} fetchCategoryData={fetchCategoryData}/>
-                    <ModalDeleteCategory id={item?.id} index={`modal-del-${index}`} fetchCategoryData={fetchCategoryData}/>
+                    <ModalEditCategory item={item} index={`modal-del-${index}`} fetchCategoryData={fetchCategoryData} />
+                    <ModalDeleteCategory id={item?.id} index={`modal-del-${index}`} fetchCategoryData={fetchCategoryData} />
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
-          <ModalCreateCategory fetchCategoryData={fetchCategoryData}/>
+          <ModalCreateCategory fetchCategoryData={fetchCategoryData} />
           {totalCategoryPages > 0 && (
             <div className={cx('row')}>
               <nav aria-label="Page navigation for categories">
@@ -223,8 +221,8 @@ const Categories = () => {
                     <th scope="row">{(currentVersionPage - 1) * limitPage.version + index + 1}</th>
                     <td>{item?.name}</td>
                     <td className='text-end'>
-                      <ModalEditCategory item={item} index={`modal-del-${index}`} />
-                      <ModalDeleteCategory id={item?.id} index={`modal-del-${index}`} />
+                      <ModalEditVersion item={item} index={`modal-del-${index}`} fetchVersionData={fetchVersionData} selectedBrandId={selectedBrandId} />
+                      <ModalDeleteVersion id={item?.id} index={`modal-del-${index}`} fetchVersionData={fetchVersionData} selectedBrandId={selectedBrandId} />
                     </td>
                   </tr>
                 ))
@@ -235,7 +233,7 @@ const Categories = () => {
               )}
             </tbody>
           </table>
-          <ModalCreateCategory />
+          <ModalCreateVersion selectedBrandId={selectedBrandId} fetchVersionData={fetchVersionData} />
           {totalVersionPages > 0 && (
             <div className={cx('row')}>
               <nav aria-label="Page navigation for versions">
@@ -263,4 +261,4 @@ const Categories = () => {
   )
 }
 
-export default Categories
+export default ProductCategories

@@ -1,4 +1,3 @@
-import { where } from "sequelize";
 import db from "../models/index";
 
 const readFunc = async (req, res) => {
@@ -6,7 +5,6 @@ const readFunc = async (req, res) => {
     let data
     let { page, limit, brand_id } = req?.query
     if (page && limit) {
-      let { page, limit, brand_id } = req?.query
       page = parseInt(page, 10) || 1;
       limit = parseInt(limit, 10) || 10;
       let offset = (page - 1) * limit;
