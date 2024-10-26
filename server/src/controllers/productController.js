@@ -124,6 +124,7 @@ const createFunc = async (req, res) => {
     return res.status(500).json({ message: error.message || "error from server", code: -1 });
   }
 };
+
 const updateFunc = async (req, res) => {
   try {
     const data = req?.body?.data;
@@ -154,20 +155,22 @@ const updateFunc = async (req, res) => {
 
     const { title, capacity_id, ram_id, color_id, stock, discount, price, desc, category_id, is_active, images } = data;
 
-    // Retrieve current images for the product
-    const currentImages = await db.Image.findAll({ where: { product_id: data.id } });
-    const currentImageUrls = currentImages.map(image => image.url);
+    if (Array.isArray(images)) {
+      // Retrieve current images for the product
+      const currentImages = await db.Image.findAll({ where: { product_id: data.id } });
+      const currentImageUrls = currentImages.map(image => image.url);
 
-    // Check if there is any change in the images
-    const newImageUrls = images.map(image => image.url);
-    const isImageChanged = JSON.stringify(currentImageUrls) !== JSON.stringify(newImageUrls);
+      // Check if there is any change in the images
+      const newImageUrls = images.map(image => image.url);
+      const isImageChanged = JSON.stringify(currentImageUrls) !== JSON.stringify(newImageUrls);
 
-    // If images have changed, delete old images and upload new ones
-    if (isImageChanged) {
-      // Delete old images if there are changes
-      await db.Image.destroy({ where: { product_id: data.id } });
-      // Create new images
-      await handleCreateImageByProduct(images, data.id);
+      // If images have changed, delete old images and upload new ones
+      if (isImageChanged) {
+        // Delete old images if there are changes
+        await db.Image.destroy({ where: { product_id: data.id } });
+        // Create new images
+        await handleCreateImageByProduct(images, data.id);
+      }
     }
 
     // Update product details in the database
@@ -176,6 +179,7 @@ const updateFunc = async (req, res) => {
     return res.status(200).json({ message: "Product updated successfully", code: 0 });
 
   } catch (error) {
+    console.log(error);
     return res.status(500).json({ message: "Server error", code: -1 });
   }
 };

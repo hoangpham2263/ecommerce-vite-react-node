@@ -18,6 +18,7 @@ const ModalCreate = ({ fetchVersionData, selectedBrandId }) => {
     let newData = { ...data, brand_id: selectedBrandId }
     let res = await createVersion(newData)
     if (res?.data?.code === 0) {
+      setData({ name: '' })
       toast.success(res?.data?.message)
       fetchVersionData(selectedBrandId)
       if (closeButtonRef.current) closeButtonRef.current.click()
@@ -38,7 +39,7 @@ const ModalCreate = ({ fetchVersionData, selectedBrandId }) => {
           <form className="row g-3 needs-validation" noValidate onSubmit={handleSubmit}>
             <div className="col-md-6">
               <label htmlFor="name" className="form-label">Name</label>
-              <input type="text" className="form-control" id="name" name='name' required onChange={handleOnChange} />
+              <input type="text" className="form-control" id="name" name='name' value={data?.name} required onChange={handleOnChange} />
             </div>
             <div className="col-12">
               <button className="btn btn-secondary" type="submit">Confirm</button>

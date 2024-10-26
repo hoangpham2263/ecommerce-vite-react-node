@@ -18,6 +18,7 @@ const ModalCreate = ({ fetchData }) => {
     e.preventDefault()
     let res = await createUser(data)
     if (res?.data?.code === 0) {
+      setData({ username: '' })
       toast.success(res?.data?.message)
       fetchData()
       closeButtonRef.current.click()
@@ -38,7 +39,7 @@ const ModalCreate = ({ fetchData }) => {
           <form className="row g-3 needs-validation" noValidate>
             <div className="col-md-8">
               <label htmlFor="username" className="form-label">Username</label>
-              <input type="text" className="form-control" id="username" name='username' required onChange={handleOnChange} />
+              <input type="text" className="form-control" id="username" name='username' value={data?.username} required onChange={handleOnChange} />
             </div>
             <div className="col-12">
               <button onClick={handleSubmit} className="btn btn-secondary" type="submit">Confirm</button>

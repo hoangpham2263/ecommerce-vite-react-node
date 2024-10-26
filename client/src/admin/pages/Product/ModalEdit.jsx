@@ -73,7 +73,7 @@ const ModalEdit = ({ item, index, fetchProductData }) => {
         setData((prev) => ({ ...prev, buttonColor: result?.data?.data?.color_code || '#000' }))
       })
     }
-  }, [data.color_id])
+  }, [data.color_id, fetchProductData])
 
   const handleOnChange = (e) => {
     const { name, value } = e.target
@@ -153,10 +153,40 @@ const ModalEdit = ({ item, index, fetchProductData }) => {
             </div>
             <div className="col-md-6 text-start">
               <label htmlFor="color_id" className="form-label">Color</label>
-              <select className="form-select" name="color_id" onChange={handleOnChange} value={data.color_id} style={{ backgroundColor: data.buttonColor }}>
-                <option value="">Select Color</option>
-                {colors.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
-              </select>
+              <div className="dropdown">
+                <button
+                  className="btn btn-secondary dropdown-toggle cs-btn-color"
+                  type="button"
+                  id="colorDropdown"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                  style={{ backgroundColor: data.buttonColor }}
+                >
+                  {data.color_id ? colors.find(c => c.id === data.color_id)?.name : 'Select Color'}
+                </button>
+                <ul className="dropdown-menu" aria-labelledby="colorDropdown">
+                  {colors && colors.map((item, index) => (
+                    <li key={`color-${index}`}>
+                      <a
+                        className="dropdown-item"
+                        href="#"
+                        onClick={() => {
+                          setData({
+                            ...data,
+                            color_id: item.id,
+                            buttonColor: item.color_code
+                          })
+                          const selectedColor = colors.find(c => c.id === item.id)?.name
+                          if (selectedColor) { document.getElementById('colorDropdown').textContent = selectedColor }
+                        }}
+                      >
+                        <div className='cs-color-option' style={{ backgroundColor: item.color_code, display: 'inline-block', width: '20px', height: '20px', borderRadius: '50%', marginRight: '10px' }} />
+                        {item?.name}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
             <div className="col-md-6 text-start">
               <label htmlFor="ram_id" className="form-label">Ram</label>

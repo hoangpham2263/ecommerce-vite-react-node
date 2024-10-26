@@ -29,6 +29,12 @@ const createFunc = async (req, res) => {
   try {
     const { key_role, name } = req.body.data;
     if (!key_role || !name) return res.status(200).json({ message: "missing required parameters", code: 1 });
+
+    const existingRole = await db.Role.findOne({ where: { key_role } });
+    if (existingRole) {
+      return res.status(200).json({ message: "key_role already exists", code: 2 });
+    }
+
     let data = await db.Role.create({ key_role: key_role, name: name });
     return res.status(200).json({ message: "a role is created successfully", code: 0, data: data });
   } catch (error) {
@@ -40,7 +46,15 @@ const updateFunc = async (req, res) => {
   try {
     let data = req?.body?.data
     let role = await db.Role.findOne({ where: { id: data?.id, }, });
+
     if (role) {
+      if (data.key_role) {
+        let existingRole = await db.Role.findOne({ where: { key_role: data.key_role, id: { [db.Sequelize.Op.ne]: data.id } } });
+        if (existingRole) {
+          return res.status(200).json({ message: "key_role must be unique", code: 2 });
+        }
+      }
+
       await role.update({ key_role: data.key_role, name: data.name });
       return res.status(200).json({ message: "update role success", code: 0 });
     } else {

@@ -87,12 +87,11 @@ const ProductCategories = () => {
       fetchVersionData(selectedBrandId)
     }
   }, [selectedBrandId, currentVersionPage])
-  console.log(selectedCategoryId)
-  console.log(selectedBrandId)
+
   return (
     <div className={cx('wrapper')}>
       <div className={cx('row mb-3')}>
-        <h3 className={cx('col-md-12 fw-normal mb-3')}>Product Attributes</h3>
+        <h3 className={cx('col-md-12 fw-normal mb-3')}>Product Categories</h3>
       </div>
 
       <div className={cx('row')}>

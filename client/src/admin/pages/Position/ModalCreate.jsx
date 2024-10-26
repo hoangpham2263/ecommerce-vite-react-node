@@ -20,6 +20,11 @@ const ModalCreate = ({ fetchData }) => {
     e.preventDefault()
     const res = await createPosition(data)
     if (res?.data?.code === 0) {
+      setData({
+        key_position: '',
+        name: '',
+        desc: ''
+      })
       toast.success(res?.data?.message)
       fetchData()
       closeButtonRef.current.click()
@@ -40,15 +45,15 @@ const ModalCreate = ({ fetchData }) => {
           <form className="row g-3 needs-validation" noValidate>
             <div className="col-md-6">
               <label htmlFor="key_position" className="form-label">Key Position</label>
-              <input type="text" className="form-control" id="key_position" name='key_position' required onChange={handleOnChange} />
+              <input type="text" className="form-control" id="key_position" name='key_position' value={data?.key_position} required onChange={handleOnChange} />
             </div>
             <div className="col-md-6">
               <label htmlFor="name" className="form-label">Name</label>
-              <input type="text" className="form-control" id="name" name='name' required onChange={handleOnChange} />
+              <input type="text" className="form-control" id="name" name='name' value={data?.name} required onChange={handleOnChange} />
             </div>
             <div className="col-md-12">
               <label htmlFor="desc" className="form-label">Desc</label>
-              <input type="text" className="form-control" id="desc" name='desc' required onChange={handleOnChange} />
+              <input type="text" className="form-control" id="desc" name='desc' value={data?.desc} required onChange={handleOnChange} />
             </div>
             <div className="col-12">
               <button onClick={handleSubmit} className="btn btn-secondary" type="submit">Confirm</button>
