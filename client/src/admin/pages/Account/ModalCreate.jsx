@@ -1,11 +1,14 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { toast } from 'react-toastify'
 import { createUser } from '../../services/adminApi.jsx'
 
-const ModalCreate = () => {
+const ModalCreate = ({ fetchData }) => {
   const [data, setData] = useState({
     username: ''
   })
+
+  const closeButtonRef = useRef(null)
+
   const handleOnChange = (e) => {
     const { name, value } = e.target
     setData((prev) => { return { ...prev, [name]: value } })
@@ -16,7 +19,8 @@ const ModalCreate = () => {
     let res = await createUser(data)
     if (res?.data?.code === 0) {
       toast.success(res?.data?.message)
-      setTimeout(() => { location.reload() }, 1000)
+      fetchData()
+      closeButtonRef.current.click()
     } else {
       toast.error(res?.data?.message)
     }
@@ -28,7 +32,7 @@ const ModalCreate = () => {
       <div className="offcanvas offcanvas-end" data-bs-keyboard="true" data-bs-backdrop="static" tabIndex={-1} id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
         <div className="offcanvas-header">
           <h5 className="offcanvas-title" id="offcanvasRightLabel">Create Account</h5>
-          <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" />
+          <button ref={closeButtonRef} type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" />
         </div>
         <div className="offcanvas-body">
           <form className="row g-3 needs-validation" noValidate>

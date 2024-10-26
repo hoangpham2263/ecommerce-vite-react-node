@@ -33,7 +33,6 @@ const createJWT = (payload) => {
   try {
     token = jwt.sign(payload, key);
   } catch (error) {
-    console.log(error);
   }
   return token;
 };
@@ -85,7 +84,6 @@ const saveAccountGoogleOAuth = async (req, res) => {
     }
     return res.status(200).json({ message: "system error", code: 1, data: [] });
   } catch (error) {
-    console.log(error)
     return res.status(500).json({ message: "error from server", code: -1, data: [] });
   }
 }

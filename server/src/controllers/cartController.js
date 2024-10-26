@@ -21,7 +21,6 @@ const readFunc = async (req, res) => {
     }
     return res.status(200).json({ message: "get cart success", code: 0, data: data, });
   } catch (error) {
-    console.log(error)
     return res.status(500).json({ message: "error from server", code: -1 });
   }
 }
@@ -33,7 +32,6 @@ const createFunc = async (req, res) => {
     let data = await db.Cart.create({ UserId: UserId, ProductId: ProductId, quantity: quantity, total: total });
     return res.status(200).json({ message: "a cart is created successfully", code: 0, data: data });
   } catch (error) {
-    console.log(error)
     return res.status(500).json({ message: "error from server", code: -1 });
   }
 }
@@ -49,7 +47,6 @@ const updateFunc = async (req, res) => {
       return res.status(200).json({ message: "cart not exist", code: 1 });
     }
   } catch (error) {
-    console.log(error)
     return res.status(500).json({ message: "error from server", code: -1 });
   }
 }

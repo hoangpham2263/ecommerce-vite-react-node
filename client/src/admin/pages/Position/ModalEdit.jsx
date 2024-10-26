@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { updatePosition } from '../../services/adminApi'
 import { toast } from 'react-toastify'
 
-const ModalEdit = ({ item, index }) => {
+const ModalEdit = ({ item, index, fetchData }) => {
   const [data, setData] = useState({
     id: '',
     key_position: '',
@@ -11,6 +11,7 @@ const ModalEdit = ({ item, index }) => {
     is_active: false,
     is_master: false
   })
+  const closeButtonRef = useRef(null)
 
   const setDataDefault = (item) => {
     if (item) {
@@ -44,13 +45,13 @@ const ModalEdit = ({ item, index }) => {
     setData((prev) => ({ ...prev, is_active: checked }))
   }
 
-
   const handleSubmit = async (e) => {
     e.preventDefault()
     const res = await updatePosition(data)
     if (res?.data?.code === 0) {
-      toast.success('update user succuss')
-      setTimeout(() => { location.reload() }, 1000)
+      toast.success('update user success')
+      fetchData()
+      closeButtonRef.current.click()
     } else {
       toast.error(res?.data?.message)
     }
@@ -61,8 +62,8 @@ const ModalEdit = ({ item, index }) => {
       <button className="btn btn-warning me-2" type="button" data-bs-toggle="offcanvas" data-bs-target={`#offcanvasRight-edit-${index}`} aria-controls="offcanvasRight-edit">Edit</button>
       <div className="offcanvas offcanvas-end" data-bs-keyboard="true" data-bs-backdrop="static" tabIndex={-1} id={`offcanvasRight-edit-${index}`} aria-labelledby="offcanvasRightLabel">
         <div className="offcanvas-header">
-          <h5 className="offcanvas-title" id="offcanvasRightLabel">Edit Account</h5>
-          <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" />
+          <h5 className="offcanvas-title" id="offcanvasRightLabel">Edit Position</h5>
+          <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" ref={closeButtonRef} />
         </div>
 
         <div className="offcanvas-body mb-6">

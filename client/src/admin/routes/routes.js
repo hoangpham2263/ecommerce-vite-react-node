@@ -5,9 +5,12 @@ import Login from '../pages/Login'
 import Dashboard from '../pages/Dashboard'
 import Account from '../pages/Account'
 import Position from '../pages/Position'
+import PositionRole from '../pages/PositionRole'
+import Role from '../pages/Role'
 import Product from '../pages/Product'
 import Profile from '../pages/Profile'
-import Color from '../pages/Color/Color'
+import ProductAttribute from '../pages/ProductAttribute'
+import ProductCategories from '../pages/ProductCategories'
 
 const adminRoutes = [
   {
@@ -32,12 +35,12 @@ const adminRoutes = [
   },
   {
     path: config.routes.positionRole,
-    component: Account,
+    component: PositionRole,
     layout: AdminLayout
   },
   {
     path: config.routes.role,
-    component: Account,
+    component: Role,
     layout: AdminLayout
   },
   {
@@ -51,8 +54,13 @@ const adminRoutes = [
     layout: AdminLayout
   },
   {
-    path: config.routes.color,
-    component: Color,
+    path: config.routes.productAttribute,
+    component: ProductAttribute,
+    layout: AdminLayout
+  },
+  {
+    path: config.routes.categories,
+    component: ProductCategories,
     layout: AdminLayout
   }
 ]

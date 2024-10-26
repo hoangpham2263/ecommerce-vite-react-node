@@ -11,30 +11,18 @@ module.exports = {
     await queryInterface.bulkInsert(
       "Ram",
       [
-        {
-          name: "2GB",
-        },
-        {
-          name: "3GB",
-        },
-        {
-          name: "4GB",
-        },
-        {
-          name: "6GB",
-        },
-        {
-          name: "8GB",
-        },
-        {
-          name: "12GB",
-        },
-        {
-          name: "16GB",
-        },
-        {
-          name: "18GB",
-        },
+        { name: "1GB" },
+        { name: "2GB" },
+        { name: "3GB" },
+        { name: "4GB" },
+        { name: "6GB" },
+        { name: "8GB" },
+        { name: "12GB" },
+        { name: "16GB" },
+        { name: "18GB" },
+        { name: "24GB" },
+        { name: "32GB" },
+        { name: "64GB" },
       ],
       {}
     );

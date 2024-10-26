@@ -32,7 +32,6 @@ const createFunc = async (req, res) => {
     let data = await db.Order_Item.create({ OrderId: OrderId, ProductId: ProductId, quantity: quantity, price: price });
     return res.status(200).json({ message: "a order item is created successfully", code: 0, data: data });
   } catch (error) {
-    console.log(error)
     return res.status(500).json({ message: "error from server", code: -1 });
   }
 }
@@ -48,7 +47,6 @@ const updateFunc = async (req, res) => {
       return res.status(200).json({ message: "order item not exist", code: 1 });
     }
   } catch (error) {
-    console.log(error)
     return res.status(500).json({ message: "error from server", code: -1 });
   }
 }

@@ -21,7 +21,6 @@ const readFunc = async (req, res) => {
     }
     return res.status(200).json({ message: "get category success", code: 0, data: data, });
   } catch (error) {
-    console.log(error)
     return res.status(500).json({ message: "error from server", code: -1 });
   }
 }
@@ -33,7 +32,6 @@ const createFunc = async (req, res) => {
     let data = await db.Category.create({ name: name});
     return res.status(200).json({ message: "a category is created successfully", code: 0, data: data });
   } catch (error) {
-    console.log(error)
     return res.status(500).json({ message: "error from server", code: -1 });
   }
 }

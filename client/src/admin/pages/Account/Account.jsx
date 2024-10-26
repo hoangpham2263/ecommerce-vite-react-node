@@ -13,7 +13,7 @@ const cx = classNames.bind(styles)
 const Account = () => {
   const [data, setData] = useState()
   const [currentPage, setCurrentPage] = useState(1)
-  const [limit, setLimit] = useState(10)
+  const [limit, setLimit] = useState(12)
   const [totalPages, setTotalPages] = useState(0)
 
   const fetchData = async () => {
@@ -59,7 +59,7 @@ const Account = () => {
       <div className={cx('row mb-3')}>
         <h3 className={cx('col-3 fw-normal')}>Account</h3>
         <div className={cx('col-9 d-flex justify-content-end')}>
-          <ModalCreate />
+          <ModalCreate fetchData={fetchData} />
         </div>
       </div>
 
@@ -102,20 +102,22 @@ const Account = () => {
                     {item.is_active ? <label className="form-check-label" htmlFor={`flexSwitchCheckDefault${index}-status`}>On</label> : <label className="form-check-label" htmlFor={`flexSwitchCheckDefault${index}`} onClick={() => handleStatusChange(item?.id, !item?.is_active)}>Off</label>}
                   </div>
                 </td>
-                <td>{`${new Date(item?.createdAt).toLocaleTimeString('en-US', {
-                  hour: '2-digit',
-                  minute: '2-digit',
-                  second: '2-digit',
-                  hour12: false
-                })} ${new Date(item?.createdAt).toLocaleDateString('en-US', {
-                  weekday: 'long',
-                  year: 'numeric',
-                  month: '2-digit',
-                  day: '2-digit'
-                })}`}</td>
+                <td>
+                  {`${new Date(item?.createdAt).toLocaleTimeString('en-US', {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit',
+                    hour12: false
+                  })} ${new Date(item?.createdAt).toLocaleDateString('en-US', {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit'
+                  })}`}
+                </td>
                 <td className={cx(' pe-4', 'col-btn')}>
-                  <ModalEdit item={item} index={`modal-del-${index}`} />
-                  <ModalDelete id={item?.id} index={`modal-del-${index}`} />
+                  <ModalEdit item={item} index={`modal-del-${index}`} fetchData={fetchData} />
+                  <ModalDelete id={item?.id} index={`modal-del-${index}`} fetchData={fetchData} />
                 </td>
               </tr>
             ))}

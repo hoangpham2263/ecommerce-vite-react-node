@@ -34,7 +34,7 @@ const LoginWithGoogle = () => {
             if (infoAccountLogin?.userPresent?.position?.is_master === true) {
               localStorage.setItem('infoAccountLogin', JSON.stringify(infoAccountLogin))
               toast.success(saveAccountGoogleOAuth?.data?.message)
-              navigate(config.routes.dashboard)
+              navigate(config.routes.account)
             } else {
               toast.error('account is not admin')
             }

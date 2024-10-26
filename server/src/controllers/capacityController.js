@@ -21,7 +21,6 @@ const readFunc = async (req, res) => {
     }
     return res.status(200).json({ message: "get capacity success", code: 0, data: data, });
   } catch (error) {
-    console.log(error)
     return res.status(500).json({ message: "error from server", code: -1 });
   }
 }
@@ -33,7 +32,6 @@ const createFunc = async (req, res) => {
     let data = await db.Capacity.create({ name: name });
     return res.status(200).json({ message: "a capacity is created successfully", code: 0, data: data });
   } catch (error) {
-    console.log(error)
     return res.status(500).json({ message: "error from server", code: -1 });
   }
 }

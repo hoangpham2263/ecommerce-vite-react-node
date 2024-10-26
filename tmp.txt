@@ -1,2 +1,58 @@
-  const { id, full_name, avatar, username, email, phone, gender, is_active, is_verified, position_id, createdAt, updatedAt } = LocalStorageGetInfo().user
-  const { key_position, name, desc, state, is_master } = LocalStorageGetInfo().position
+
+1. Dashboard (Bảng điều khiển)
+Tổng quan về các chỉ số quan trọng: Doanh thu, số đơn hàng, người dùng, sản phẩm bán chạy.
+Báo cáo nhanh về hiệu suất cửa hàng.
+2. Orders (Đơn hàng)
+Tất cả đơn hàng: Hiển thị danh sách các đơn hàng.
+Đơn hàng đang xử lý: Các đơn hàng chưa hoàn tất, đang chờ xử lý.
+Đơn hàng đã giao: Các đơn hàng đã hoàn tất.
+Đơn hàng hủy: Những đơn hàng bị hủy.
+3. Products (Sản phẩm)
+Danh sách sản phẩm: Quản lý tất cả các sản phẩm (thêm, sửa, xóa).
+Thêm sản phẩm mới: Tạo sản phẩm mới.
+Danh mục sản phẩm: Quản lý các loại sản phẩm (điện tử, thời trang, v.v.).
+Quản lý tồn kho: Kiểm tra và quản lý số lượng hàng hóa.
+4. Customers (Khách hàng)
+Danh sách khách hàng: Hiển thị thông tin khách hàng đăng ký tài khoản.
+Quản lý khách hàng: Xem và chỉnh sửa thông tin khách hàng.
+Phân loại khách hàng: Theo nhóm khách hàng VIP, thường xuyên, mới.
+5. Marketing
+Mã giảm giá (Coupons): Tạo và quản lý mã khuyến mãi.
+Khuyến mãi: Quản lý các chương trình khuyến mãi, giảm giá.
+Email marketing: Gửi email quảng cáo hoặc thông báo.
+SEO: Quản lý các chiến lược SEO (title, meta description, từ khóa).
+6. Shipping (Vận chuyển)
+Cài đặt phương thức vận chuyển: Quản lý các phương thức giao hàng.
+Theo dõi đơn hàng: Theo dõi trạng thái vận chuyển của đơn hàng.
+7. Payments (Thanh toán)
+Phương thức thanh toán: Cài đặt và quản lý các phương thức thanh toán (thẻ tín dụng, ví điện tử, COD).
+Giao dịch: Theo dõi các giao dịch thanh toán.
+8. Reports (Báo cáo)
+Báo cáo doanh thu: Tổng kết doanh thu theo ngày, tháng, năm.
+Báo cáo sản phẩm bán chạy: Thống kê các sản phẩm bán chạy nhất.
+Báo cáo khách hàng: Thống kê hành vi và doanh số từ khách hàng.
+9. User Management (Quản lý người dùng)
+Quản lý tài khoản admin: Phân quyền và quản lý các tài khoản admin.
+Roles & Permissions (Vai trò & quyền hạn): Quản lý quyền truy cập của các vị trí (admin, nhân viên bán hàng, quản lý kho, v.v.).
+10. Settings (Cài đặt)
+Cài đặt chung: Thông tin cửa hàng, ngôn ngữ, múi giờ.
+Cài đặt hệ thống: Quản lý các thiết lập về bảo mật, quản lý file.
+11. Support (Hỗ trợ khách hàng)
+Tin nhắn & phản hồi: Hỗ trợ khách hàng, xử lý khiếu nại.
+Hướng dẫn sử dụng: Hướng dẫn khách hàng về sản phẩm, dịch vụ.
+
+
+
+
+tôi muốn tận dụng nút này  <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" /> khi thành công sẽ trỏ tới click nút này tự động được không
+
+const getImages = async () => {
+  const images = await db.Image.findAll();
+  const parsedImages = images.map(image => {
+    return {
+      ...image.toJSON(),
+      url: JSON.parse(image.url), // Phân tích chuỗi JSON
+    };
+  });
+  return parsedImages;
+};

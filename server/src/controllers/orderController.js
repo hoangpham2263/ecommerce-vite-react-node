@@ -47,7 +47,6 @@ const updateFunc = async (req, res) => {
       return res.status(200).json({ message: "order not exist", code: 1 });
     }
   } catch (error) {
-    console.log(error)
     return res.status(500).json({ message: "error from server", code: -1 });
   }
 }

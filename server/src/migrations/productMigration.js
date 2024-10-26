@@ -39,6 +39,9 @@ module.exports = {
       desc: {
         type: Sequelize.STRING,
       },
+      is_active: {
+        type: Sequelize.BOOLEAN,
+      },
       slug: {
         type: Sequelize.STRING,
       },
