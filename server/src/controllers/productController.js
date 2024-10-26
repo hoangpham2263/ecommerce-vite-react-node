@@ -1,5 +1,6 @@
 import slugify from "slugify";
 import db from "../models/index";
+import { UploadCloudList } from "../utility/UploadCloudList";
 
 const readFunc = async (req, res) => {
   try {
@@ -64,48 +65,72 @@ const readFuncWithSlug = async (req, res) => {
     return res.status(500).json({ message: "error from server", code: -1 });
   }
 };
+const createProductSlug = async (category_id, ram_id, capacity_id, color_id) => {
+  const [category, ram, capacity, color] = await Promise.all([
+    db.Category.findOne({ where: { id: category_id } }),
+    db.Ram.findOne({ where: { id: ram_id } }),
+    db.Capacity.findOne({ where: { id: capacity_id } }),
+    db.Color.findOne({ where: { id: color_id } })
+  ]);
+
+  const combinedString = `${category?.dataValues?.name}-${ram?.dataValues?.name}-${capacity?.dataValues?.name}-${color?.dataValues?.name}`;
+  return slugify(combinedString, { lower: true, strict: true, replacement: '-' });
+};
+
+// create product
+const handleCreateImageByProduct = async (images, product_id) => {
+  if (!Array.isArray(images) || images.length === 0) throw new Error("missing required parameters");
+
+  const imageUrls = images.map(({ url }) => url);
+  
+  const uploadedImageUrls = await UploadCloudList(imageUrls, "imageAvatar");
+
+  const imageData = images.map(({ file_name }, index) => {
+    if (!file_name) throw new Error("missing required parameters");
+    return {
+      url: uploadedImageUrls[index] || null,
+      file_name,
+      product_id,
+    };
+  });
+
+  return db.Image.bulkCreate(imageData);
+};
 
 const createFunc = async (req, res) => {
+  const { title, capacity_id, ram_id, color_id, stock, discount, price, desc, category_id, is_active, images } = req.body.data;
+
+  if (!title || !capacity_id || !ram_id || !color_id || !stock || !discount || !price || !category_id) {
+    return res.status(400).json({ message: "missing required parameters", code: 1 });
+  }
+
+  const t = await db.sequelize.transaction();
+
   try {
-    const { title, capacity_id, ram_id, color_id, stock, discount, price, desc, category_id, is_active } = req.body.data;
+    const slug = await createProductSlug(category_id, ram_id, capacity_id, color_id);
 
-    const query_category = await db.Category.findOne({ where: { id: category_id } });
-    const query_ram = await db.Ram.findOne({ where: { id: ram_id } });
-    const query_capacity = await db.Capacity.findOne({ where: { id: capacity_id } });
-    const query_color = await db.Color.findOne({ where: { id: color_id } });
+    const productData = { title, ram_id, capacity_id, color_id, stock, discount, price, desc, category_id, is_active: is_active ?? true, slug };
 
-    let combinedString = `${query_category?.dataValues?.name}-${query_ram?.dataValues?.name}-${query_capacity?.dataValues?.name}-${query_color?.dataValues?.name}`;
-    let slug = slugify(combinedString, { lower: true, strict: true, replacement: '-' });
+    const data = await db.Product.create(productData, { transaction: t });
 
-    if (!title || !capacity_id || !ram_id || !color_id || !stock || !discount || !price || !category_id) {
-      return res.status(200).json({ message: "missing required parameters", code: 1 });
-    }
+    await handleCreateImageByProduct(images, data.id);
 
-    let data = await db.Product.create({
-      title: title,
-      ram_id: ram_id,
-      capacity_id: capacity_id,
-      color_id: color_id,
-      stock: stock,
-      discount: discount,
-      price: price,
-      desc: desc,
-      category_id: category_id,
-      is_active: is_active ?? true,
-      slug: slug
-    });
+    await t.commit();
 
-    return res.status(200).json({ message: "a product is created successfully", code: 0, data: data });
+    return res.status(200).json({ message: "A product is created successfully with images", code: 0, data });
   } catch (error) {
-    return res.status(500).json({ message: "error from server", code: -1 });
+    await t.rollback();
+    console.error("Error:", error.message);
+    return res.status(500).json({ message: error.message || "error from server", code: -1 });
   }
 };
+
 
 
 const updateFunc = async (req, res) => {
   try {
     const data = req?.body?.data;
-    if (!data || !data.id) { 
+    if (!data || !data.id) {
       return res.status(200).json({ message: "Missing required parameters", code: 1 });
     }
 
@@ -114,7 +139,7 @@ const updateFunc = async (req, res) => {
       attributes: ["id", "title", "capacity_id", "ram_id", "color_id", "stock", "discount", "price", "desc", "is_active", "slug", "category_id", "updatedAt", "createdAt"],
     });
 
-    if (!product) { 
+    if (!product) {
       return res.status(200).json({ message: "Product does not exist", code: 1 });
     }
 

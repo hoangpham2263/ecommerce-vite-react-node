@@ -45,3 +45,14 @@ Hướng dẫn sử dụng: Hướng dẫn khách hàng về sản phẩm, dịc
 
 
 tôi muốn tận dụng nút này  <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" /> khi thành công sẽ trỏ tới click nút này tự động được không
+
+const getImages = async () => {
+  const images = await db.Image.findAll();
+  const parsedImages = images.map(image => {
+    return {
+      ...image.toJSON(),
+      url: JSON.parse(image.url), // Phân tích chuỗi JSON
+    };
+  });
+  return parsedImages;
+};

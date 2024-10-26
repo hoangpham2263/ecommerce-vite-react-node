@@ -43,16 +43,53 @@ const readFunc = async (req, res) => {
 };
 
 
+// const createFunc = async (req, res) => {
+//   try {
+//     const { url, file_name, product_id } = req.body.data;
+//     if (!url || !file_name || !product_id) return res.status(200).json({ message: "missing required parameters", code: 1 });
+//     let data = await db.Image.create({ url: url, file_name: file_name, product_id: product_id });
+//     return res.status(200).json({ message: "a image is created successfully", code: 0, data: data });
+//   } catch (error) {
+//     return res.status(500).json({ message: "error from server", code: -1 });
+//   }
+// }
+
 const createFunc = async (req, res) => {
   try {
-    const { url, file_name, product_id } = req.body.data;
-    if (!url || !file_name || !product_id) return res.status(200).json({ message: "missing required parameters", code: 1 });
-    let data = await db.Image.create({ url: url, file_name: file_name, product_id: product_id });
-    return res.status(200).json({ message: "a image is created successfully", code: 0, data: data });
+    const images = req.body.data;
+
+    if (!Array.isArray(images) || images.length === 0) {
+      return res.status(200).json({
+        message: "missing required parameters",
+        code: 1
+      });
+    }
+
+    const createdImages = await Promise.all(
+      images.map(async (image) => {
+        const { url, file_name, product_id } = image;
+
+        if (!url || !file_name || !product_id) {
+          throw new Error("missing required parameters");
+        }
+
+        return await db.Image.create({ url, file_name, product_id });
+      })
+    );
+
+    return res.status(200).json({
+      message: "images created successfully",
+      code: 0,
+      data: createdImages,
+    });
   } catch (error) {
-    return res.status(500).json({ message: "error from server", code: -1 });
+    return res.status(500).json({
+      message: error.message || "error from server",
+      code: -1
+    });
   }
-}
+};
+
 
 const updateFunc = async (req, res) => {
   try {

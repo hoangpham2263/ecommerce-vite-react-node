@@ -2,6 +2,7 @@ import './Product.css'
 import { useEffect, useState, useRef } from 'react'
 import { toast } from 'react-toastify'
 import { createProduct, readCapacity, readCategory, readColor, readRam } from '../../services/adminApi.jsx'
+import { ImageToBase64 } from '../../../main/utility/ImageToBase64.jsx'
 
 const ModalCreate = ({ fetchProductData }) => {
   const [data, setData] = useState({
@@ -15,6 +16,7 @@ const ModalCreate = ({ fetchProductData }) => {
     discount: '',
     stock: '',
     is_active: true,
+    images: [],
     buttonColor: '#000'
   })
 
@@ -50,6 +52,23 @@ const ModalCreate = ({ fetchProductData }) => {
     handleGetDataAttribute()
   }, [])
 
+  const handleBaseImages = async (e) => {
+    const files = Array.from(e.target.files)
+
+    const base64Images = await Promise.all(
+      files.map(async (file) => {
+        const base64 = await ImageToBase64(file)
+        return {
+          file_name: file.name,
+          url: base64
+        }
+      })
+    )
+
+    setData((prev) => ({ ...prev, images: base64Images }))
+  }
+
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     let res = await createProduct(data)
@@ -72,9 +91,13 @@ const ModalCreate = ({ fetchProductData }) => {
         </div>
         <div className="offcanvas-body">
           <form className="row g-3 needs-validation" noValidate>
-            <div className="col-md-12">
+            <div className="col-md-6">
               <label htmlFor="title" className="form-label">Title</label>
               <input type="text" className="form-control" id="title" name='title' required onChange={handleOnChange} />
+            </div>
+            <div className="col-md-6">
+              <label htmlFor="price" className="form-label">Price</label>
+              <input type="text" className="form-control" id="price" name='price' required onChange={handleOnChange} />
             </div>
             <div className="col-md-12">
               <label htmlFor="desc" className="form-label">Description</label>
@@ -158,14 +181,29 @@ const ModalCreate = ({ fetchProductData }) => {
               <input type="text" className="form-control" id="discount" name='discount' required onChange={handleOnChange} />
             </div>
             <div className="col-md-6">
-              <label htmlFor="price" className="form-label">Price</label>
-              <input type="text" className="form-control" id="price" name='price' required onChange={handleOnChange} />
-            </div>
-            <div className="col-md-6">
               <label htmlFor="stock" className="form-label">Stock</label>
               <input type="text" className="form-control" id="stock" name='stock' required onChange={handleOnChange} />
             </div>
-            <div className="col-md-6">
+            <div className="col-md-8">
+              <label htmlFor="formFileMultiple" className="form-label">Images</label>
+              <input className="form-control form-control-sm" type="file" id="formFileMultiple" multiple onChange={handleBaseImages} />
+            </div>
+            {data.images.length > 0 && (
+              <div className="col-12 mt-3">
+                <h6>Selected Images:</h6>
+                <div className="image-preview-container">
+                  {data.images.map((image, index) => (
+                    <img
+                      key={index}
+                      src={image.url}
+                      alt={image.file_name}
+                      style={{ width: '82px', height: '82px', objectFit: 'cover', marginRight: '10px', marginBottom: '10px' }}
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
+            <div className="col-md-4">
               <label htmlFor={'flexSwitchCheckDefault-status'} className="form-label">Status</label>
               <div className="form-check form-switch">
                 <input
