@@ -188,21 +188,6 @@ const ModalCreate = ({ fetchProductData }) => {
               <label htmlFor="formFileMultiple" className="form-label">Images</label>
               <input className="form-control form-control-sm" type="file" id="formFileMultiple" multiple onChange={handleBaseImages} />
             </div>
-            {data.images.length > 0 && (
-              <div className="col-12 mt-3">
-                <h6>Selected Images:</h6>
-                <div className="image-preview-container">
-                  {data.images.map((image, index) => (
-                    <img
-                      key={index}
-                      src={image.url}
-                      alt={image.file_name}
-                      style={{ width: '82px', height: '82px', objectFit: 'cover', marginRight: '10px', marginBottom: '10px' }}
-                    />
-                  ))}
-                </div>
-              </div>
-            )}
             <div className="col-md-4">
               <label htmlFor={'flexSwitchCheckDefault-status'} className="form-label">Status</label>
               <div className="form-check form-switch">
@@ -219,6 +204,21 @@ const ModalCreate = ({ fetchProductData }) => {
                 </label>
               </div>
             </div>
+            {data.images.length > 0 && (
+              <div className="col-12 mt-3">
+                <h6>Selected Images:</h6>
+                <div className="image-preview-container">
+                  {data.images.map((image, index) => (
+                    <img
+                      key={index}
+                      src={image.url}
+                      alt={image.file_name}
+                      style={{ width: '82px', height: '82px', objectFit: 'cover', marginRight: '10px', marginBottom: '10px' }}
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
             <div className="col-12">
               <button onClick={handleSubmit} className="btn btn-secondary" type="submit">Confirm</button>
             </div>

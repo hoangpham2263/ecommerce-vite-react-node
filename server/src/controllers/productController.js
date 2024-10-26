@@ -82,8 +82,8 @@ const handleCreateImageByProduct = async (images, product_id) => {
   if (!Array.isArray(images) || images.length === 0) throw new Error("missing required parameters");
 
   const imageUrls = images.map(({ url }) => url);
-  
-  const uploadedImageUrls = await UploadCloudList(imageUrls, "imageAvatar");
+
+  const uploadedImageUrls = await UploadCloudList(imageUrls, "imageWebList");
 
   const imageData = images.map(({ file_name }, index) => {
     if (!file_name) throw new Error("missing required parameters");
@@ -124,9 +124,6 @@ const createFunc = async (req, res) => {
     return res.status(500).json({ message: error.message || "error from server", code: -1 });
   }
 };
-
-
-
 const updateFunc = async (req, res) => {
   try {
     const data = req?.body?.data;
@@ -136,7 +133,11 @@ const updateFunc = async (req, res) => {
 
     const product = await db.Product.findOne({
       where: { id: data.id },
-      attributes: ["id", "title", "capacity_id", "ram_id", "color_id", "stock", "discount", "price", "desc", "is_active", "slug", "category_id", "updatedAt", "createdAt"],
+      attributes: [
+        "id", "title", "capacity_id", "ram_id", "color_id",
+        "stock", "discount", "price", "desc", "is_active",
+        "slug", "category_id", "updatedAt", "createdAt"
+      ],
     });
 
     if (!product) {
@@ -151,21 +152,26 @@ const updateFunc = async (req, res) => {
     let combinedString = `${query_category?.dataValues?.name}-${query_ram?.dataValues?.name}-${query_capacity?.dataValues?.name}-${query_color?.dataValues?.name}`;
     const slug = slugify(combinedString, { lower: true, strict: true, replacement: '-' });
 
-    const { title, capacity_id, ram_id, color_id, stock, discount, price, desc, category_id, is_active } = data;
+    const { title, capacity_id, ram_id, color_id, stock, discount, price, desc, category_id, is_active, images } = data;
 
-    await product.update({
-      title,
-      capacity_id,
-      ram_id,
-      color_id,
-      stock,
-      discount,
-      price,
-      desc,
-      category_id,
-      slug,
-      is_active: is_active ?? product.is_active,
-    });
+    // Retrieve current images for the product
+    const currentImages = await db.Image.findAll({ where: { product_id: data.id } });
+    const currentImageUrls = currentImages.map(image => image.url);
+
+    // Check if there is any change in the images
+    const newImageUrls = images.map(image => image.url);
+    const isImageChanged = JSON.stringify(currentImageUrls) !== JSON.stringify(newImageUrls);
+
+    // If images have changed, delete old images and upload new ones
+    if (isImageChanged) {
+      // Delete old images if there are changes
+      await db.Image.destroy({ where: { product_id: data.id } });
+      // Create new images
+      await handleCreateImageByProduct(images, data.id);
+    }
+
+    // Update product details in the database
+    await product.update({ title, capacity_id, ram_id, color_id, stock, discount, price, desc, category_id, slug, is_active: is_active ?? product.is_active });
 
     return res.status(200).json({ message: "Product updated successfully", code: 0 });
 
@@ -173,7 +179,6 @@ const updateFunc = async (req, res) => {
     return res.status(500).json({ message: "Server error", code: -1 });
   }
 };
-
 
 const deleteFunc = async (req, res) => {
   try {

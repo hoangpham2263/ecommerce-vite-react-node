@@ -45,6 +45,7 @@ const updateImage = (data) => { return axios.put('/api/admin/image', { data }, {
 const deleteImage = (id) => { return axios.delete('/api/admin/image', { data: { id }, headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
 
 // CRUD Color
+const readColorDetail = (id) => { return axios.get(`/api/admin/color/${id}`, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
 const readColor = (currentPage, currentLimit) => { return axios.get('/api/admin/color', { params: { page: currentPage, limit: currentLimit }, headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
 const createColor = (data) => { return axios.post('/api/admin/color', { data }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
 const updateColor = (data) => { return axios.put('/api/admin/color', { data }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
@@ -88,7 +89,7 @@ export {
   createPosition, readPosition, updatePosition, deletePosition, readPositionIsMaster,
   createPositionRole, readPositionRole, deletePositionRole, readPositionRoleReverse,
   createRole, readRole, updateRole, deleteRole,
-  createProduct, readProduct, updateProduct, deleteProduct,
+  createProduct, readProduct, updateProduct, deleteProduct, readColorDetail,
   createImage, readImage, updateImage, deleteImage,
   createColor, readColor, updateColor, deleteColor,
   createCapacity, readCapacity, updateCapacity, deleteCapacity,
