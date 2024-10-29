@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react'
 import { toast } from 'react-toastify'
-import { updateColor } from '../../../services/adminApi'
+import { updateColor } from '../../../services/privateApi'
 
 const ModalEdit = ({ item, index, fetchDataColor }) => {
   const [data, setData] = useState({

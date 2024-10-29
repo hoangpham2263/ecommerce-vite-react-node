@@ -30,14 +30,14 @@ const readFuncIsMaster = async (req, res) => {
   try {
     const { position_id } = req.query;
 
-    if (!position_id) { return res.status(400).json({ message: "position_id is required", code: -2 }); }
+    if (!position_id) { return res.status(200).json({ message: "position_id is required", code: -2 }); }
 
     const position = await db.Position.findOne({
       where: { key_position: position_id },
       attributes: ["id", "key_position", "name", "desc", "is_active", "is_master", "updatedAt", "createdAt"],
     });
 
-    if (!position) { return res.status(404).json({ message: "Position not found", code: -3 }); }
+    if (!position) { return res.status(200).json({ message: "Position not found", code: -3 }); }
 
     return res.status(200).json({ message: "Get check is master success", code: 0, data: position.is_master, });
   } catch (error) {
@@ -50,6 +50,12 @@ const createFunc = async (req, res) => {
   try {
     const { key_position, name, desc } = req.body.data;
     if (!key_position || !name) return res.status(200).json({ message: "missing required parameters", code: 1 });
+
+    const existingPosition = await db.Position.findOne({ where: { key_position } });
+    if (existingPosition) {
+      return res.status(200).json({ message: "key_position already exists", code: 2 });
+    }
+
     let data = await db.Position.create({ key_position: key_position, name: name, desc: desc, is_active: true, is_master: false });
     return res.status(200).json({ message: "a position is created successfully", code: 0, data: data });
   } catch (error) {
@@ -59,10 +65,25 @@ const createFunc = async (req, res) => {
 
 const updateFunc = async (req, res) => {
   try {
-    let data = req?.body?.data
-    let position = await db.Position.findOne({ where: { id: data?.id, }, });
+    let data = req?.body?.data;
+    let position = await db.Position.findOne({ where: { id: data?.id } });
+
     if (position) {
-      await position.update({ key_position: data.key_position, name: data.name, desc: data.desc, is_active: data.is_active, is_master: data.is_master });
+      if (data.key_position) {
+        let existingPosition = await db.Position.findOne({ where: { key_position: data.key_position, id: { [db.Sequelize.Op.ne]: data.id } } });
+        if (existingPosition) {
+          return res.status(200).json({ message: "key_position must be unique", code: 2 });
+        }
+      }
+
+      await position.update({
+        key_position: data.key_position !== undefined ? data.key_position : position.key_position,
+        name: data.name !== undefined ? data.name : position.name,
+        desc: data.desc !== undefined ? data.desc : position.desc,
+        is_active: data.is_active !== undefined ? data.is_active : position.is_active,
+        is_master: data.is_master !== undefined ? data.is_master : position.is_master
+      });
+
       return res.status(200).json({ message: "update position success", code: 0 });
     } else {
       return res.status(200).json({ message: "position not exist", code: 1 });
@@ -71,6 +92,7 @@ const updateFunc = async (req, res) => {
     return res.status(500).json({ message: "error from server", code: -1 });
   }
 }
+
 
 const deleteFunc = async (req, res) => {
   try {

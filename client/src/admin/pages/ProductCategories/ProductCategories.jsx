@@ -2,7 +2,7 @@ import classNames from 'classnames/bind'
 import styles from './ProductCategories.module.scss'
 import './ProductCategories.css'
 import { useEffect, useState } from 'react'
-import { readBrand, readCategory, readVersion } from '../../services/adminApi.jsx'
+import { readBrand, readCategory, readVersion } from '../../services/privateApi.jsx'
 import ModalCreateCategory from './Category/ModalCreate.jsx'
 import ModalEditCategory from './Category/ModalEdit.jsx'
 import ModalDeleteCategory from './Category/ModalDelete.jsx'
@@ -87,12 +87,11 @@ const ProductCategories = () => {
       fetchVersionData(selectedBrandId)
     }
   }, [selectedBrandId, currentVersionPage])
-  console.log(selectedCategoryId)
-  console.log(selectedBrandId)
+
   return (
     <div className={cx('wrapper')}>
       <div className={cx('row mb-3')}>
-        <h3 className={cx('col-md-12 fw-normal mb-3')}>Product Attributes</h3>
+        <h3 className={cx('col-md-12 fw-normal mb-3')}>Product Categories</h3>
       </div>
 
       <div className={cx('row')}>

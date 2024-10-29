@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react'
 import { toast } from 'react-toastify'
-import { updateRam } from '../../../services/adminApi'
+import { updateRam } from '../../../services/privateApi'
 
 const ModalEdit = ({ item, index, fetchDataRam }) => {
   const [data, setData] = useState({

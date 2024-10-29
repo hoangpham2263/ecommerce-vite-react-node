@@ -1,7 +1,7 @@
 import './Product.css'
 import { useEffect, useState, useRef } from 'react'
 import { toast } from 'react-toastify'
-import { createProduct, readCapacity, readCategory, readColor, readRam } from '../../services/adminApi.jsx'
+import { createProduct, readCapacity, readCategory, readColor, readRam } from '../../services/privateApi.jsx'
 import { ImageToBase64 } from '../../../main/utility/ImageToBase64.jsx'
 
 const ModalCreate = ({ fetchProductData }) => {
@@ -64,15 +64,15 @@ const ModalCreate = ({ fetchProductData }) => {
         }
       })
     )
-
     setData((prev) => ({ ...prev, images: base64Images }))
   }
-
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     let res = await createProduct(data)
+
     if (res?.data?.code === 0) {
+      setData({ title: '', price: '', desc: '', color_id: '', ram_id: '', capacity_id: '', category_id: '', discount: '', stock: '', is_active: true, images: [], buttonColor: '#000' })
       closeButtonRef.current.click()
       toast.success(res?.data?.message)
       fetchProductData()
@@ -80,6 +80,7 @@ const ModalCreate = ({ fetchProductData }) => {
       toast.error(res?.data?.message)
     }
   }
+
 
   return (
     <span>
@@ -93,15 +94,15 @@ const ModalCreate = ({ fetchProductData }) => {
           <form className="row g-3 needs-validation" noValidate>
             <div className="col-md-6">
               <label htmlFor="title" className="form-label">Title</label>
-              <input type="text" className="form-control" id="title" name='title' required onChange={handleOnChange} />
+              <input type="text" value={data?.title} className="form-control" id="title" name='title' required onChange={handleOnChange} />
             </div>
             <div className="col-md-6">
               <label htmlFor="price" className="form-label">Price</label>
-              <input type="text" className="form-control" id="price" name='price' required onChange={handleOnChange} />
+              <input type="text" value={data?.price} className="form-control" id="price" name='price' required onChange={handleOnChange} />
             </div>
             <div className="col-md-12">
               <label htmlFor="desc" className="form-label">Description</label>
-              <input type="text" className="form-control" id="desc" name='desc' required onChange={handleOnChange} />
+              <input type="text" value={data?.desc} className="form-control" id="desc" name='desc' required onChange={handleOnChange} />
             </div>
             <div className="col-md-6">
               <label htmlFor="color_id" className="form-label">Color</label>
@@ -146,6 +147,7 @@ const ModalCreate = ({ fetchProductData }) => {
                 className="form-select"
                 id="ram_id"
                 name="ram_id"
+                value={data?.ram_id}
                 onChange={handleOnChange}
               >
                 <option value={0}>select</option>
@@ -158,6 +160,7 @@ const ModalCreate = ({ fetchProductData }) => {
                 className="form-select"
                 id="capacity_id"
                 name="capacity_id"
+                value={data?.capacity_id}
                 onChange={handleOnChange}
               >
                 <option value={0}>select</option>
@@ -170,6 +173,7 @@ const ModalCreate = ({ fetchProductData }) => {
                 className="form-select"
                 id="category_id"
                 name="category_id"
+                value={data?.category_id}
                 onChange={handleOnChange}
               >
                 <option value={0}>select</option>
@@ -178,31 +182,16 @@ const ModalCreate = ({ fetchProductData }) => {
             </div>
             <div className="col-md-6">
               <label htmlFor="discount" className="form-label">Discount</label>
-              <input type="text" className="form-control" id="discount" name='discount' required onChange={handleOnChange} />
+              <input type="text" value={data?.discount} className="form-control" id="discount" name='discount' required onChange={handleOnChange} />
             </div>
             <div className="col-md-6">
               <label htmlFor="stock" className="form-label">Stock</label>
-              <input type="text" className="form-control" id="stock" name='stock' required onChange={handleOnChange} />
+              <input type="text" value={data?.stock} className="form-control" id="stock" name='stock' required onChange={handleOnChange} />
             </div>
             <div className="col-md-8">
               <label htmlFor="formFileMultiple" className="form-label">Images</label>
               <input className="form-control form-control-sm" type="file" id="formFileMultiple" multiple onChange={handleBaseImages} />
             </div>
-            {data.images.length > 0 && (
-              <div className="col-12 mt-3">
-                <h6>Selected Images:</h6>
-                <div className="image-preview-container">
-                  {data.images.map((image, index) => (
-                    <img
-                      key={index}
-                      src={image.url}
-                      alt={image.file_name}
-                      style={{ width: '82px', height: '82px', objectFit: 'cover', marginRight: '10px', marginBottom: '10px' }}
-                    />
-                  ))}
-                </div>
-              </div>
-            )}
             <div className="col-md-4">
               <label htmlFor={'flexSwitchCheckDefault-status'} className="form-label">Status</label>
               <div className="form-check form-switch">
@@ -219,6 +208,21 @@ const ModalCreate = ({ fetchProductData }) => {
                 </label>
               </div>
             </div>
+            {data.images.length > 0 && (
+              <div className="col-12 mt-3">
+                <h6>Selected Images:</h6>
+                <div className="image-preview-container">
+                  {data.images.map((image, index) => (
+                    <img
+                      key={index}
+                      src={image.url}
+                      alt={image.file_name}
+                      style={{ width: '82px', height: '82px', objectFit: 'cover', marginRight: '10px', marginBottom: '10px' }}
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
             <div className="col-12">
               <button onClick={handleSubmit} className="btn btn-secondary" type="submit">Confirm</button>
             </div>

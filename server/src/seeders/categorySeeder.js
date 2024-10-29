@@ -11,16 +11,10 @@ module.exports = {
     await queryInterface.bulkInsert(
       "Category",
       [
-        { name: "Smartphones" },
-        { name: "Tablets" },
-        { name: "Smartwatches" },
-        { name: "Accessories" },
-        { name: "Chargers" },
-        { name: "Earbuds" },
-        { name: "Phone Cases" },
-        { name: "Screen Protectors" },
-        { name: "Power Banks" },
-        { name: "Gaming Phones" },
+        { name: "Smartphone" },
+        { name: "Tablet" },
+        { name: "Laptop" },
+        { name: "Watch" },
       ],
       {}
     );

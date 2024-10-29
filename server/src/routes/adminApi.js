@@ -63,6 +63,7 @@ const adminRoute = (app) => {
 
   // color
   router.get("/color", authCheckExistToken, authCheckUserPermission(), colorController.readFunc)
+  router.get("/color/:id", authCheckExistToken, authCheckUserPermission(), colorController.readFuncDetail)
   router.post("/color", authCheckExistToken, authCheckUserPermission(), colorController.createFunc)
   router.put("/color", authCheckExistToken, authCheckUserPermission(), colorController.updateFunc)
   router.delete("/color", authCheckExistToken, authCheckUserPermission(), colorController.deleteFunc)

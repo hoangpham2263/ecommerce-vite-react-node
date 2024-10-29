@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react'
 import { toast } from 'react-toastify'
-import { createCapacity } from '../../../services/adminApi.jsx'
+import { createCapacity } from '../../../services/privateApi.jsx'
 
 const ModalCreate = ({ fetchDataCapacity }) => {
   const [data, setData] = useState({
@@ -17,6 +17,9 @@ const ModalCreate = ({ fetchDataCapacity }) => {
     e.preventDefault()
     let res = await createCapacity(data)
     if (res?.data?.code === 0) {
+      setData({
+        name:''
+      })
       toast.success(res?.data?.message)
       fetchDataCapacity()
       if (closeButtonRef.current) closeButtonRef.current.click()
@@ -37,7 +40,7 @@ const ModalCreate = ({ fetchDataCapacity }) => {
           <form className="row g-3 needs-validation" noValidate>
             <div className="col-md-6">
               <label htmlFor="name" className="form-label">Name</label>
-              <input type="text" className="form-control" id="name" name='name' required onChange={handleOnChange} />
+              <input type="text" className="form-control" id="name" name='name' value={data?.name} required onChange={handleOnChange} />
             </div>
             <div className="col-12">
               <button onClick={handleSubmit} className="btn btn-secondary" type="submit">Confirm</button>

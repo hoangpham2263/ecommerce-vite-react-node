@@ -1,3 +1,4 @@
+import { where } from "sequelize";
 import db from "../models/index";
 
 const readFunc = async (req, res) => {
@@ -24,6 +25,30 @@ const readFunc = async (req, res) => {
     return res.status(500).json({ message: "error from server", code: -1 });
   }
 }
+
+const readFuncDetail = async (req, res) => {
+  try {
+    let { id } = req.params;
+    if (id) {
+      let data = await db.Color.findOne({
+        where: { id: id },
+        attributes: ["id", "name", "color_code", "updatedAt", "createdAt"],
+        order: [["name", "ASC"]],
+      });
+
+      if (!data) {
+        return res.status(404).json({ message: "Color not found", code: -1 });
+      }
+
+      return res.status(200).json({ message: "Get color success", code: 0, data: data });
+    } else {
+      return res.status(400).json({ message: "ID is required", code: -1 });
+    }
+  } catch (error) {
+    return res.status(500).json({ message: "Error from server", code: -1 });
+  }
+}
+
 
 const createFunc = async (req, res) => {
   try {
@@ -66,4 +91,4 @@ const deleteFunc = async (req, res) => {
   }
 }
 
-module.exports = { readFunc, createFunc, updateFunc, deleteFunc };
+module.exports = { readFunc, createFunc, updateFunc, deleteFunc,readFuncDetail };
