@@ -5,98 +5,105 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.bulkInsert("Image", [
       {
-        url: JSON.stringify([
-          "https://res.cloudinary.com/dqhj1sukr/image/upload/v1716210378/ecommerce/kyrk8t71xebb8a44d3em.jpg",
-          "https://res.cloudinary.com/dqhj1sukr/image/upload/v1716210377/ecommerce/oeha7pqq02baj4ga89wp.jpg",
-        ]),
-        file_name: "iphone-14-pro-blue.jpg",
+        id: 1,
+        url: JSON.stringify(['https://res.cloudinary.com/dqhj1sukr/image/upload/v1730218086/imageWebList/iphone%2011%20black%201.jpg.webp']),
+        file_name: 'iphone 11 black 1.jpg',
         product_id: 1,
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
-        url: JSON.stringify([
-          "https://res.cloudinary.com/dqhj1sukr/image/upload/v1716210377/ecommerce/g3asbhmxzwnjjl6hlaoz.jpg",
-          "https://res.cloudinary.com/dqhj1sukr/image/upload/v1716210378/ecommerce/gonfymd56fmizztgamux.jpg",
-        ]),
-        file_name: "samsung-galaxy-s23-grey.jpg",
+        id: 2,
+        url: JSON.stringify(['https://res.cloudinary.com/dqhj1sukr/image/upload/v1730218088/imageWebList/iphone%2011%20black%202.jpg.webp']),
+        file_name: 'iphone 11 black 2.jpg',
+        product_id: 1,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: 3,
+        url: JSON.stringify(['https://res.cloudinary.com/dqhj1sukr/image/upload/v1730218086/imageWebList/iphone%2011%20black%203.jpg.webp']),
+        file_name: 'iphone 11 black 3.jpg',
+        product_id: 1,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: 4,
+        url: JSON.stringify(['https://res.cloudinary.com/dqhj1sukr/image/upload/v1730218120/imageWebList/iphone%2011%20green%201.webp.webp']),
+        file_name: 'iphone 11 green 1.webp',
         product_id: 2,
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
-        url: JSON.stringify([
-          "https://res.cloudinary.com/dqhj1sukr/image/upload/v1716210378/ecommerce/q9sxwzuabw73pnsjltco.jpg",
-          "https://res.cloudinary.com/dqhj1sukr/image/upload/v1716210378/ecommerce/inifphjmkgfnbjo7dq31.jpg",
-        ]),
-        file_name: "google-pixel-7-silver.jpg",
+        id: 5,
+        url: JSON.stringify(['https://res.cloudinary.com/dqhj1sukr/image/upload/v1730218163/imageWebList/iphone%2011%20purple%201.webp.webp']),
+        file_name: 'iphone 11 purple 1.webp',
         product_id: 3,
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
-        url: JSON.stringify([
-          "https://res.cloudinary.com/dqhj1sukr/image/upload/v1716210227/ecommerce/zx3gw6uinvnkc7zrd3j5.jpg",
-          "https://res.cloudinary.com/dqhj1sukr/image/upload/v1716210228/ecommerce/xbmcqdh6b8p7sizkkima.jpg",
-        ]),
-        file_name: "oneplus-11.jpg",
+        id: 6,
+        url: JSON.stringify(['https://res.cloudinary.com/dqhj1sukr/image/upload/v1730218219/imageWebList/iphone%2011%20red%201.png.png']),
+        file_name: 'iphone 11 red 1.png',
         product_id: 4,
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
-        url: JSON.stringify([
-          "https://res.cloudinary.com/dqhj1sukr/image/upload/v1716210229/ecommerce/qtmxxrnkrt16g084pzks.jpg",
-          "https://res.cloudinary.com/dqhj1sukr/image/upload/v1716210228/ecommerce/ppmqgmf5a4pxyjc4zkjo.jpg",
-        ]),
-        file_name: "xiaomi-12.jpg",
+        id: 7,
+        url: JSON.stringify(['https://res.cloudinary.com/dqhj1sukr/image/upload/v1730218214/imageWebList/iphone%2011%20red%202.webp.webp']),
+        file_name: 'iphone 11 red 2.webp',
+        product_id: 4,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: 8,
+        url: JSON.stringify(['https://res.cloudinary.com/dqhj1sukr/image/upload/v1730218214/imageWebList/iphone%2011%20red%203.jpg.jpg']),
+        file_name: 'iphone 11 red 3.jpg',
+        product_id: 4,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: 9,
+        url: JSON.stringify(['https://res.cloudinary.com/dqhj1sukr/image/upload/v1730218265/imageWebList/iphone%2011%20white%201.jpg.webp']),
+        file_name: 'iphone 11 white 1.jpg',
         product_id: 5,
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
-        url: JSON.stringify([
-          "https://res.cloudinary.com/dqhj1sukr/image/upload/v1716210228/ecommerce/fuzhmda3ivbwhfzdvkbg.jpg",
-        ]),
-        file_name: "sony-xperia-1-iv.jpg",
+        id: 10,
+        url: JSON.stringify(['https://res.cloudinary.com/dqhj1sukr/image/upload/v1730218265/imageWebList/iphone%2011%20white%202.jpg.webp']),
+        file_name: 'iphone 11 white 2.jpg',
+        product_id: 5,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: 11,
+        url: JSON.stringify(['https://res.cloudinary.com/dqhj1sukr/image/upload/v1730218266/imageWebList/iphone%2011%20white%203.jpg.webp']),
+        file_name: 'iphone 11 white 3.jpg',
+        product_id: 5,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: 12,
+        url: JSON.stringify(['https://res.cloudinary.com/dqhj1sukr/image/upload/v1730218317/imageWebList/iphone%2011%20yellow%201.webp.webp']),
+        file_name: 'iphone 11 yellow 1.webp',
         product_id: 6,
-      },
-      {
-        url: JSON.stringify([
-          "https://res.cloudinary.com/dqhj1sukr/image/upload/v1716210229/ecommerce/rhwz8gyb8s1ztilytmb5.jpg",
-        ]),
-        file_name: "oppo-find-x5-pro.jpg",
-        product_id: 7,
-      },
-      {
-        url: JSON.stringify([
-          "https://res.cloudinary.com/dqhj1sukr/image/upload/v1716210229/ecommerce/smwmyvln5nmunan5iwwz.jpg",
-        ]),
-        file_name: "realme-gt-2-pro.jpg",
-        product_id: 8,
-      },
-      {
-        url: JSON.stringify([
-          "https://res.cloudinary.com/dqhj1sukr/image/upload/v1716210227/ecommerce/lyol4lmz8kzow2qimtuu.jpg",
-        ]),
-        file_name: "honor-x40.jpg",
-        product_id: 9,
-      },
-      {
-        url: JSON.stringify([
-          "https://res.cloudinary.com/dqhj1sukr/image/upload/v1716210228/ecommerce/nmglotwhaxfy9mhcqijz.jpg",
-        ]),
-        file_name: "lenovo-legion.jpg",
-        product_id: 10,
-      },
-      {
-        url: JSON.stringify([
-          "https://res.cloudinary.com/dqhj1sukr/image/upload/v1716210229/ecommerce/uazsfm53x46edvjnzias.jpg",
-        ]),
-        file_name: "zte-axon.jpg",
-        product_id: 11,
-      },
-      {
-        url: JSON.stringify([
-          "https://res.cloudinary.com/dqhj1sukr/image/upload/v1716210228/ecommerce/qve7flrvhwvvq9xlczna.jpg",
-        ]),
-        file_name: "google-pixel-5.jpg",
-        product_id: 12,
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
     ], {});
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.bulkDelete("Image", null, {});
+    await queryInterface.bulkDelete("Images", null, {});
   },
 };

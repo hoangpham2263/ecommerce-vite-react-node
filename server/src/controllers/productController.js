@@ -65,7 +65,7 @@ const readFuncWithSlug = async (req, res) => {
     return res.status(500).json({ message: "error from server", code: -1 });
   }
 };
-const createProductSlug = async (category_id, ram_id, capacity_id, color_id) => {
+const createProductSlug = async (title, category_id, ram_id, capacity_id, color_id) => {
   const [category, ram, capacity, color] = await Promise.all([
     db.Category.findOne({ where: { id: category_id } }),
     db.Ram.findOne({ where: { id: ram_id } }),
@@ -73,7 +73,7 @@ const createProductSlug = async (category_id, ram_id, capacity_id, color_id) => 
     db.Color.findOne({ where: { id: color_id } })
   ]);
 
-  const combinedString = `${category?.dataValues?.name}-${ram?.dataValues?.name}-${capacity?.dataValues?.name}-${color?.dataValues?.name}`;
+  const combinedString = `${title}-${category?.dataValues?.name}-${ram?.dataValues?.name}-${capacity?.dataValues?.name}-${color?.dataValues?.name}`;
   return slugify(combinedString, { lower: true, strict: true, replacement: '-' });
 };
 
@@ -82,8 +82,9 @@ const handleCreateImageByProduct = async (images, product_id) => {
   if (!Array.isArray(images) || images.length === 0) throw new Error("missing required parameters");
 
   const imageUrls = images.map(({ url }) => url);
+  const imageFileName = images.map(({ file_name }) => file_name);
 
-  const uploadedImageUrls = await UploadCloudList(imageUrls, "imageWebList");
+  const uploadedImageUrls = await UploadCloudList(imageFileName, imageUrls, "imageWebList");
 
   const imageData = images.map(({ file_name }, index) => {
     if (!file_name) throw new Error("missing required parameters");
@@ -98,6 +99,7 @@ const handleCreateImageByProduct = async (images, product_id) => {
 };
 
 const createFunc = async (req, res) => {
+  console.log(req.body.data)
   const { title, capacity_id, ram_id, color_id, stock, discount, price, desc, category_id, is_active, images } = req.body.data;
 
   if (!title || !capacity_id || !ram_id || !color_id || !stock || !discount || !price || !category_id) {
@@ -107,7 +109,7 @@ const createFunc = async (req, res) => {
   const t = await db.sequelize.transaction();
 
   try {
-    const slug = await createProductSlug(category_id, ram_id, capacity_id, color_id);
+    const slug = await createProductSlug(title, category_id, ram_id, capacity_id, color_id);
 
     const productData = { title, ram_id, capacity_id, color_id, stock, discount, price, desc, category_id, is_active: is_active ?? true, slug };
 
