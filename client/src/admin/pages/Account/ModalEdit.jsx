@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { readAddress, updateUser } from '../../services/adminApi'
+import { readAddress, updateUser } from '../../services/privateApi'
 import { toast } from 'react-toastify'
 import { ImageToBase64 } from '../../../main/utility/ImageToBase64'
 import { RxAvatar } from 'react-icons/rx'

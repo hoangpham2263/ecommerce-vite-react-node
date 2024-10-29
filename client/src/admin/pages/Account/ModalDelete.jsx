@@ -2,7 +2,7 @@ import classNames from 'classnames/bind'
 import styles from './Account.module.scss'
 import './Account.css'
 import { IoIosWarning } from 'react-icons/io'
-import { deleteUser } from '../../services/adminApi'
+import { deleteUser } from '../../services/privateApi'
 import { toast } from 'react-toastify'
 import { useRef } from 'react'
 

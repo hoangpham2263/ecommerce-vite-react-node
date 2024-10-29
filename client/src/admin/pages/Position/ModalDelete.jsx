@@ -3,7 +3,7 @@ import classNames from 'classnames/bind'
 import styles from './Position.module.scss'
 import './Position.css'
 import { IoIosWarning } from 'react-icons/io'
-import { deletePosition } from '../../services/adminApi'
+import { deletePosition } from '../../services/privateApi'
 import { toast } from 'react-toastify'
 
 const cx = classNames.bind(styles)

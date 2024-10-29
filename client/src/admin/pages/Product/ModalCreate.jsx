@@ -1,7 +1,7 @@
 import './Product.css'
 import { useEffect, useState, useRef } from 'react'
 import { toast } from 'react-toastify'
-import { createProduct, readCapacity, readCategory, readColor, readRam } from '../../services/adminApi.jsx'
+import { createProduct, readCapacity, readCategory, readColor, readRam } from '../../services/privateApi.jsx'
 import { ImageToBase64 } from '../../../main/utility/ImageToBase64.jsx'
 
 const ModalCreate = ({ fetchProductData }) => {

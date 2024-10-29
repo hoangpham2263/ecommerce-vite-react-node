@@ -2,7 +2,7 @@ import classNames from 'classnames/bind'
 import styles from './Product.module.scss'
 import './Product.css'
 import { IoIosWarning } from 'react-icons/io'
-import { deleteProduct } from '../../services/adminApi'
+import { deleteProduct } from '../../services/privateApi'
 import { toast } from 'react-toastify'
 import { useRef } from 'react'
 

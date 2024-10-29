@@ -2,7 +2,7 @@ import classNames from 'classnames/bind'
 import styles from '../ProductAttribute.module.scss'
 import '../ProductAttribute.css'
 import { IoIosWarning } from 'react-icons/io'
-import { deleteColor } from '../../../services/adminApi'
+import { deleteColor } from '../../../services/privateApi'
 import { toast } from 'react-toastify'
 import { useRef } from 'react'
 

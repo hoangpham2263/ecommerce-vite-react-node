@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react'
 import { toast } from 'react-toastify'
-import { updateCategory } from '../../../services/adminApi'
+import { updateCategory } from '../../../services/privateApi'
 
 const ModalEdit = ({ item, index, fetchCategoryData }) => {
   const [data, setData] = useState({

@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react'
 import { toast } from 'react-toastify'
-import { updateBrand } from '../../../services/adminApi'
+import { updateBrand } from '../../../services/privateApi'
 
 const ModalEdit = ({ item, index, categoryId, fetchBrandData }) => {
   const [data, setData] = useState({

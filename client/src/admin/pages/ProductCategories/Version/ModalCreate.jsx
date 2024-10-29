@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react'
 import { toast } from 'react-toastify'
-import { createVersion } from '../../../services/adminApi.jsx'
+import { createVersion } from '../../../services/privateApi.jsx'
 
 const ModalCreate = ({ fetchVersionData, selectedBrandId }) => {
   const [data, setData] = useState({

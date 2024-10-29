@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react'
-import { updatePosition } from '../../services/adminApi'
+import { updatePosition } from '../../services/privateApi'
 import { toast } from 'react-toastify'
 
 const ModalEdit = ({ item, index, fetchData }) => {

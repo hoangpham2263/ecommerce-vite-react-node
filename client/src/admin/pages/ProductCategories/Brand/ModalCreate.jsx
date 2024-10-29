@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react'
 import { toast } from 'react-toastify'
-import { createBrand } from '../../../services/adminApi.jsx'
+import { createBrand } from '../../../services/privateApi.jsx'
 
 const ModalCreate = ({ categoryId, fetchBrandData }) => {
   const [data, setData] = useState({

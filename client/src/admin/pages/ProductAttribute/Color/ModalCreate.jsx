@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react'
 import { toast } from 'react-toastify'
-import { createColor } from '../../../services/adminApi.jsx'
+import { createColor } from '../../../services/privateApi.jsx'
 
 const ModalCreate = ({ fetchDataColor }) => {
   const [data, setData] = useState({

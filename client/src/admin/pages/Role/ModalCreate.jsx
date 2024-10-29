@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react'
 import { toast } from 'react-toastify'
-import { createRole } from '../../services/adminApi.jsx'
+import { createRole } from '../../services/privateApi.jsx'
 
 const ModalCreate = ({ fetchData }) => {
   const [data, setData] = useState({

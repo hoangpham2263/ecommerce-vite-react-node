@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react'
 import { toast } from 'react-toastify'
-import { createCategory } from '../../../services/adminApi.jsx'
+import { createCategory } from '../../../services/privateApi.jsx'
 
 const ModalCreate = ({ fetchCategoryData }) => {
   const [data, setData] = useState({

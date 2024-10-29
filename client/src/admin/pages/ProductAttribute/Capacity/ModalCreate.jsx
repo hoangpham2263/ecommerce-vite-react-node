@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react'
 import { toast } from 'react-toastify'
-import { createCapacity } from '../../../services/adminApi.jsx'
+import { createCapacity } from '../../../services/privateApi.jsx'
 
 const ModalCreate = ({ fetchDataCapacity }) => {
   const [data, setData] = useState({

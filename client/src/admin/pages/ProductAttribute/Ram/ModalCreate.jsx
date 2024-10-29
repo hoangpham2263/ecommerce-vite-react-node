@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react'
 import { toast } from 'react-toastify'
-import { createRam } from '../../../services/adminApi.jsx'
+import { createRam } from '../../../services/privateApi.jsx'
 
 const ModalCreate = ({ fetchDataRam }) => {
   const [data, setData] = useState({

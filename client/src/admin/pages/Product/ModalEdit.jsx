@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef, useCallback } from 'react'
 import { toast } from 'react-toastify'
-import { readCapacity, readCategory, readColor, readColorDetail, readRam, updateProduct } from '../../services/adminApi'
+import { readCapacity, readCategory, readColor, readColorDetail, readRam, updateProduct } from '../../services/privateApi'
 import { ImageToBase64 } from '../../../main/utility/ImageToBase64'
 
 const ModalEdit = ({ item, index, fetchProductData }) => {

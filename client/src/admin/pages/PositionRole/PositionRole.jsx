@@ -9,7 +9,7 @@ import {
   readPositionIsMaster,
   readPositionRole,
   readPositionRoleReverse
-} from '../../services/adminApi.jsx'
+} from '../../services/privateApi.jsx'
 import { toast } from 'react-toastify'
 
 const cx = classNames.bind(styles)

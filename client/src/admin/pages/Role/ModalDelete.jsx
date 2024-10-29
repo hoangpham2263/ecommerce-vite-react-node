@@ -2,7 +2,7 @@ import classNames from 'classnames/bind'
 import styles from './Role.module.scss'
 import './Role.css'
 import { IoIosWarning } from 'react-icons/io'
-import { deleteRole } from '../../services/adminApi'
+import { deleteRole } from '../../services/privateApi'
 import { toast } from 'react-toastify'
 import { useRef } from 'react'
 
