@@ -59,7 +59,7 @@ const ItemProductDisplay = () => {
   useEffect(() => {
     fetchProductData()
   }, [currentProductPage])
-
+console.log(products)
   return (
     <span>
       <div onClick={(event) => { event.stopPropagation(); navigate(config.routes.login) }} className={cx('row d-flex flex-wrap grid gap-5 justify-content-center pb-3')}>
@@ -93,7 +93,7 @@ const ItemProductDisplay = () => {
               </div>
               <div className={cx('cs-item-desc')}>
                 <div className={cx('cs-item-desc-title')}>
-                  <div className={cx('cs-item-desc-content')}>⚡️ Giá Sốc ⚡️ {item?.title} {item?.Category?.name}</div>
+                  <div className={cx('cs-item-desc-content')}>⚡️ Giá Sốc ⚡️ {item?.Brand?.name} {item?.Version?.name} {item?.Capacity?.name} {item?.Color?.name}</div>
                 </div>
                 <div className={cx('cs-item-desc-voucher', 'd-flex')}>
                   <div className={cx('cs-voucher')}>Rẻ Vô Địch</div>

@@ -97,7 +97,7 @@ const ModalCreate = ({ fetchProductData }) => {
     let res = await createProduct(data)
 
     if (res?.data?.code === 0) {
-      setData({ title: '', price: '', desc: '', color_id: '', ram_id: '', capacity_id: '', category_id: '', discount: '', stock: '', is_active: true, images: [], buttonColor: '#000' })
+      setData({ title: '', price: '', desc: '', color_id: '', ram_id: '', capacity_id: '', category_id: '', brand_id: '', version_id: '', discount: '', stock: '', is_active: true, images: [], buttonColor: '#000' })
       closeButtonRef.current.click()
       toast.success(res?.data?.message)
       fetchProductData()
