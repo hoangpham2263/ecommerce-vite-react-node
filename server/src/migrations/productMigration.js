@@ -24,6 +24,12 @@ module.exports = {
       category_id: {
         type: Sequelize.INTEGER,
       },
+      brand_id: {
+        type: Sequelize.INTEGER,
+      },
+      version_id: {
+        type: Sequelize.INTEGER,
+      },
       color_id: {
         type: Sequelize.INTEGER,
       },

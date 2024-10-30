@@ -16,6 +16,8 @@ module.exports = (sequelize, DataTypes) => {
       Product.belongsTo(models.Ram, { foreignKey: 'ram_id' });
       Product.belongsTo(models.Color, { foreignKey: 'color_id' });
       Product.belongsTo(models.Category, { foreignKey: 'category_id' });
+      Product.belongsTo(models.Brand, { foreignKey: 'brand_id' });
+      Product.belongsTo(models.Version, { foreignKey: 'version_id' });
       Product.belongsToMany(models.Order, { through: 'Order_Item' });
       Product.belongsToMany(models.User, { through: 'Cart' });
       Product.belongsToMany(models.User, { through: 'Assessment' });
@@ -26,16 +28,18 @@ module.exports = (sequelize, DataTypes) => {
   }
   Product.init(
     {
-      title: DataTypes.STRING,
-      capacity_id:DataTypes.INTEGER,
-      ram_id:DataTypes.INTEGER,
-      category_id:DataTypes.INTEGER,
-      color_id:DataTypes.INTEGER,
-      stock:DataTypes.INTEGER,
-      discount:DataTypes.INTEGER,
-      price:DataTypes.FLOAT,
+          title: DataTypes.STRING, 
+          capacity_id:DataTypes.INTEGER,
+          ram_id:DataTypes.INTEGER,
+          category_id:DataTypes.INTEGER,
+      brand_id:DataTypes.INTEGER,
+      version_id:DataTypes.INTEGER,
+          color_id:DataTypes.INTEGER,
+          stock:DataTypes.INTEGER,
+          discount:DataTypes.INTEGER,
+          price:DataTypes.FLOAT,
       desc:DataTypes.STRING,
-      is_active:DataTypes.BOOLEAN,
+          is_active:DataTypes.BOOLEAN,
       slug:DataTypes.STRING,
     },
     {

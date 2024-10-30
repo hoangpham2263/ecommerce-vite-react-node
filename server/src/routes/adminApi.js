@@ -53,6 +53,7 @@ const adminRoute = (app) => {
   router.get("/product/:slug", authCheckExistToken, authCheckUserPermission(), productController.readFuncWithSlug)
   router.post("/product", authCheckExistToken, authCheckUserPermission(), productController.createFunc)
   router.put("/product", authCheckExistToken, authCheckUserPermission(), productController.updateFunc)
+  router.put("/product-status", authCheckExistToken, authCheckUserPermission(), productController.updateFuncStatus)
   router.delete("/product", authCheckExistToken, authCheckUserPermission(), productController.deleteFunc)
 
   // capacity

@@ -13,11 +13,12 @@ module.exports = {
       [
         // ----------- smartphone -----------
         // Apple
-        { name: "iPhone 13", brand_id: 1 },
-        { name: "iPhone 14", brand_id: 1 },
-        { name: "iPhone 15", brand_id: 1 },
-        { name: "iPhone SE (2022)", brand_id: 1 },
-        { name: "iPhone 12", brand_id: 1 },
+        { name: "11", brand_id: 1 },
+        { name: "12", brand_id: 1 },
+        { name: "13", brand_id: 1 },
+        { name: "14", brand_id: 1 },
+        { name: "15", brand_id: 1 },
+        { name: "SE (2022)", brand_id: 1 },
 
         // Samsung
         { name: "Galaxy S22", brand_id: 2 },
