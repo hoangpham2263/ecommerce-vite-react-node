@@ -5,7 +5,7 @@ const cx = classNames.bind(styles)
 
 const HotSale = () => {
   return (
-    <div className={cx('container')}>
+    <div className={cx('container mb-3')}>
       <div className={cx('cs-hot-sale-bg', 'p-2')}>
         <div className={cx('row', 'd-flex', 'align-items-center', 'justify-content-between', 'mt-2')}>
           <div className={cx('col-4')}>

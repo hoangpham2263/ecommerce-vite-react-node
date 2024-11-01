@@ -81,4 +81,53 @@ module.exports = [
   { url: JSON.stringify(["https://res.cloudinary.com/dqhj1sukr/image/upload/v1730295133/imageWebList/iphone%2012%20white%201.jpg.jpg"]), file_name: 'iphone 12 white 1.jpg', product_id: 35 },
   { url: JSON.stringify(["https://res.cloudinary.com/dqhj1sukr/image/upload/v1730295133/imageWebList/iphone%2012%20white%202.jpg.jpg"]), file_name: 'iphone 12 white 2.jpg', product_id: 35 },
 
+  // iphone 12 pro 128GB
+  { url: JSON.stringify(["https://res.cloudinary.com/dqhj1sukr/image/upload/v1730369016/imageWebList/iphone%2012%20blue%201%20pro.jpg.jpg"]), file_name: 'iphone 12 blue 1 pro.jpg', product_id: 36 },
+  { url: JSON.stringify(["https://res.cloudinary.com/dqhj1sukr/image/upload/v1730369153/imageWebList/iphone%2012%20grey%201%20pro.webp.webp"]), file_name: 'iphone 12 grey 1 pro.web', product_id: 37 },
+  { url: JSON.stringify(["https://res.cloudinary.com/dqhj1sukr/image/upload/v1730369485/imageWebList/iphone%2012%20white%201%20pro.jpg.jpg"]), file_name: 'iphone 12 white 1 pro.jpg', product_id: 38 },
+  { url: JSON.stringify(["https://res.cloudinary.com/dqhj1sukr/image/upload/v1730369527/imageWebList/iphone%2012%20yellow%201%20pro.webp.webp"]), file_name: 'iphone 12 yellow 1 pro.webp', product_id: 39 },
+  // iphone 12 pro 256GB
+  { url: JSON.stringify(["https://res.cloudinary.com/dqhj1sukr/image/upload/v1730369016/imageWebList/iphone%2012%20blue%201%20pro.jpg.jpg"]), file_name: 'iphone 12 blue 1 pro.jpg', product_id: 40 },
+  { url: JSON.stringify(["https://res.cloudinary.com/dqhj1sukr/image/upload/v1730369153/imageWebList/iphone%2012%20grey%201%20pro.webp.webp"]), file_name: 'iphone 12 grey 1 pro.web', product_id: 41 },
+  { url: JSON.stringify(["https://res.cloudinary.com/dqhj1sukr/image/upload/v1730369485/imageWebList/iphone%2012%20white%201%20pro.jpg.jpg"]), file_name: 'iphone 12 white 1 pro.jpg', product_id: 42 },
+  { url: JSON.stringify(["https://res.cloudinary.com/dqhj1sukr/image/upload/v1730369527/imageWebList/iphone%2012%20yellow%201%20pro.webp.webp"]), file_name: 'iphone 12 yellow 1 pro.webp', product_id: 43 },
+  // iphone 12 pro 512GB
+  { url: JSON.stringify(["https://res.cloudinary.com/dqhj1sukr/image/upload/v1730369403/imageWebList/iphone%2012%20blue%201%20pro.webp.webp"]), file_name: 'iphone 12 blue 1 pro.webp', product_id: 44 },
+  { url: JSON.stringify(["https://res.cloudinary.com/dqhj1sukr/image/upload/v1730369403/imageWebList/iphone%2012%20blue%202%20pro.jpg.jpg"]), file_name: 'iphone 12 blue 2 pro.jpg', product_id: 44 },
+  { url: JSON.stringify(["https://res.cloudinary.com/dqhj1sukr/image/upload/v1730369442/imageWebList/iphone%2012%20grey%201%20pro.jpg.jpg"]), file_name: 'imageWebList/iphone 12 grey 1 pro.jpg', product_id: 45 },
+  { url: JSON.stringify(["https://res.cloudinary.com/dqhj1sukr/image/upload/v1730369442/imageWebList/iphone%2012%20grey%202%20pro.jpg.jpg"]), file_name: 'iphone 12 grey 2 pro.jpg', product_id: 45 },
+  { url: JSON.stringify(["https://res.cloudinary.com/dqhj1sukr/image/upload/v1730369527/imageWebList/iphone%2012%20yellow%201%20pro.webp.webp"]), file_name: 'iphone 12 yellow 1 pro.webp', product_id: 46 },
+  { url: JSON.stringify(["https://res.cloudinary.com/dqhj1sukr/image/upload/v1730369485/imageWebList/iphone%2012%20white%202%20pro.jpg.jpg"]), file_name: 'iphone 12 white 2 pro.jpg', product_id: 46 },
+  { url: JSON.stringify(["https://res.cloudinary.com/dqhj1sukr/image/upload/v1730369527/imageWebList/iphone%2012%20yellow%201%20pro.webp.webp"]), file_name: 'iphone 12 yellow 1 pro.webp', product_id: 47 },
+  { url: JSON.stringify(["https://res.cloudinary.com/dqhj1sukr/image/upload/v1730369527/imageWebList/iphone%2012%20yellow%202%20pro.jpg.jpg"]), file_name: 'iphone 12 yellow 2 pro.jpg', product_id: 47 },
+
+  // iphone 12 pro max 128GB
+  { url: JSON.stringify(["https://res.cloudinary.com/dqhj1sukr/image/upload/v1730372559/imageWebList/iphone%2012%20blue%201%20pro%20max.webp.webp"]), file_name: 'iphone 12 blue 1 pro max.webp', product_id: 48 },
+  { url: JSON.stringify(["https://res.cloudinary.com/dqhj1sukr/image/upload/v1730372559/imageWebList/iphone%2012%20blue%202%20pro%20max.jpg.jpg"]), file_name: 'iphone 12 blue 2 pro max.jpg', product_id: 48 },
+  { url: JSON.stringify(["https://res.cloudinary.com/dqhj1sukr/image/upload/v1730372688/imageWebList/iphone%2012%20grey%201%20pro%20max.webp.webp"]), file_name: 'iphone 12 grey 1 pro max.webp', product_id: 49 },
+  { url: JSON.stringify(["https://res.cloudinary.com/dqhj1sukr/image/upload/v1730372688/imageWebList/iphone%2012%20grey%202%20pro%20max.jpg.jpg"]), file_name: 'iphone 12 grey 2 pro max.jpg', product_id: 49 },
+  { url: JSON.stringify(["https://res.cloudinary.com/dqhj1sukr/image/upload/v1730372759/imageWebList/iphone%2012%20white%201%20pro%20max.webp.webp"]), file_name: 'iphone 12 white 1 pro max.webp', product_id: 50 },
+  { url: JSON.stringify(["https://res.cloudinary.com/dqhj1sukr/image/upload/v1730372760/imageWebList/iphone%2012%20white%202%20pro%20max.jpg.jpg"]), file_name: 'iphone 12 white 2 pro max.jpg', product_id: 50 },
+  { url: JSON.stringify(["https://res.cloudinary.com/dqhj1sukr/image/upload/v1730372849/imageWebList/iphone%2012%20yellow%201%20pro%20max.jpg.jpg"]), file_name: 'iphone 12 yellow 1 pro max.jpg', product_id: 51 },
+  { url: JSON.stringify(["https://res.cloudinary.com/dqhj1sukr/image/upload/v1730372849/imageWebList/iphone%2012%20yellow%202%20pro%20max.jpg.jpg"]), file_name: 'iphone 12 yellow 2 pro max.jpg', product_id: 51 },
+  // iphone 12 pro max 256GB
+  { url: JSON.stringify(["https://res.cloudinary.com/dqhj1sukr/image/upload/v1730372559/imageWebList/iphone%2012%20blue%201%20pro%20max.webp.webp"]), file_name: 'iphone 12 blue 1 pro max.webp', product_id: 52 },
+  { url: JSON.stringify(["https://res.cloudinary.com/dqhj1sukr/image/upload/v1730372559/imageWebList/iphone%2012%20blue%202%20pro%20max.jpg.jpg"]), file_name: 'iphone 12 blue 2 pro max.jpg', product_id: 52 },
+  { url: JSON.stringify(["https://res.cloudinary.com/dqhj1sukr/image/upload/v1730372688/imageWebList/iphone%2012%20grey%201%20pro%20max.webp.webp"]), file_name: 'iphone 12 grey 1 pro max.webp', product_id: 53 },
+  { url: JSON.stringify(["https://res.cloudinary.com/dqhj1sukr/image/upload/v1730372688/imageWebList/iphone%2012%20grey%202%20pro%20max.jpg.jpg"]), file_name: 'iphone 12 grey 2 pro max.jpg', product_id: 53 },
+  { url: JSON.stringify(["https://res.cloudinary.com/dqhj1sukr/image/upload/v1730372759/imageWebList/iphone%2012%20white%201%20pro%20max.webp.webp"]), file_name: 'iphone 12 white 1 pro max.webp', product_id: 54 },
+  { url: JSON.stringify(["https://res.cloudinary.com/dqhj1sukr/image/upload/v1730372760/imageWebList/iphone%2012%20white%202%20pro%20max.jpg.jpg"]), file_name: 'iphone 12 white 2 pro max.jpg', product_id: 54 },
+  { url: JSON.stringify(["https://res.cloudinary.com/dqhj1sukr/image/upload/v1730372849/imageWebList/iphone%2012%20yellow%201%20pro%20max.jpg.jpg"]), file_name: 'iphone 12 yellow 1 pro max.jpg', product_id: 55 },
+  { url: JSON.stringify(["https://res.cloudinary.com/dqhj1sukr/image/upload/v1730372849/imageWebList/iphone%2012%20yellow%202%20pro%20max.jpg.jpg"]), file_name: 'iphone 12 yellow 2 pro max.jpg', product_id: 55 },
+  // iphone 12 pro max 512GB
+  { url: JSON.stringify(["https://res.cloudinary.com/dqhj1sukr/image/upload/v1730372559/imageWebList/iphone%2012%20blue%201%20pro%20max.webp.webp"]), file_name: 'iphone 12 blue 1 pro max.webp', product_id: 56 },
+  { url: JSON.stringify(["https://res.cloudinary.com/dqhj1sukr/image/upload/v1730372559/imageWebList/iphone%2012%20blue%202%20pro%20max.jpg.jpg"]), file_name: 'iphone 12 blue 2 pro max.jpg', product_id: 56 },
+  { url: JSON.stringify(["https://res.cloudinary.com/dqhj1sukr/image/upload/v1730372688/imageWebList/iphone%2012%20grey%201%20pro%20max.webp.webp"]), file_name: 'iphone 12 grey 1 pro max.webp', product_id: 57 },
+  { url: JSON.stringify(["https://res.cloudinary.com/dqhj1sukr/image/upload/v1730372688/imageWebList/iphone%2012%20grey%202%20pro%20max.jpg.jpg"]), file_name: 'iphone 12 grey 2 pro max.jpg', product_id: 57 },
+  { url: JSON.stringify(["https://res.cloudinary.com/dqhj1sukr/image/upload/v1730372759/imageWebList/iphone%2012%20white%201%20pro%20max.webp.webp"]), file_name: 'iphone 12 white 1 pro max.webp', product_id: 58 },
+  { url: JSON.stringify(["https://res.cloudinary.com/dqhj1sukr/image/upload/v1730372760/imageWebList/iphone%2012%20white%202%20pro%20max.jpg.jpg"]), file_name: 'iphone 12 white 2 pro max.jpg', product_id: 58 },
+  { url: JSON.stringify(["https://res.cloudinary.com/dqhj1sukr/image/upload/v1730372849/imageWebList/iphone%2012%20yellow%201%20pro%20max.jpg.jpg"]), file_name: 'iphone 12 yellow 1 pro max.jpg', product_id: 59 },
+  { url: JSON.stringify(["https://res.cloudinary.com/dqhj1sukr/image/upload/v1730372849/imageWebList/iphone%2012%20yellow%202%20pro%20max.jpg.jpg"]), file_name: 'iphone 12 yellow 2 pro max.jpg', product_id: 59 },
+
+
 ]

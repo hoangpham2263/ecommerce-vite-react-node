@@ -12,14 +12,11 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      title:{
-        type:Sequelize.STRING
+      title: {
+        type: Sequelize.STRING
       },
-      capacity_id: {
-        type: Sequelize.INTEGER,
-      },
-      ram_id: {
-        type: Sequelize.INTEGER,
+      desc: {
+        type: Sequelize.STRING,
       },
       category_id: {
         type: Sequelize.INTEGER,
@@ -28,6 +25,12 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       version_id: {
+        type: Sequelize.INTEGER,
+      },
+      ram_id: {
+        type: Sequelize.INTEGER,
+      },
+      capacity_id: {
         type: Sequelize.INTEGER,
       },
       color_id: {
@@ -41,9 +44,6 @@ module.exports = {
       },
       price: {
         type: Sequelize.FLOAT,
-      },
-      desc: {
-        type: Sequelize.STRING,
       },
       is_active: {
         type: Sequelize.BOOLEAN,

@@ -21,9 +21,8 @@ const Products = () => {
     brand: 12,
     version: 12
   }
-
   const fetchProductData = async () => {
-    const fetchDataImage = await readImage(1, 100)
+    const fetchDataImage = await readImage(1, 10000)
     const fetchDataProduct = await readProduct(currentProductPage, limitPage.product)
     const imageData = fetchDataImage?.data?.data?.image
     const productData = fetchDataProduct?.data?.data?.product
