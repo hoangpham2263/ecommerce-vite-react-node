@@ -5,12 +5,12 @@ import Rating from '@mui/material/Rating'
 import Checkbox from '@mui/material/Checkbox'
 import config from '../../../config'
 import classNames from 'classnames/bind'
-import styles from './ItemProductDisplay.module.scss'
+import styles from './HotSaleItem.module.scss'
 import { readImage, readProduct } from '../../../services/publicApi'
 import { useEffect, useState } from 'react'
 const cx = classNames.bind(styles)
 
-const ItemProductDisplay = () => {
+const HotSaleItem = () => {
   const navigate = useNavigate()
 
   const listItem = [1, 2, 3, 4, 5]
@@ -59,7 +59,7 @@ const ItemProductDisplay = () => {
   useEffect(() => {
     fetchProductData()
   }, [currentProductPage])
-console.log(products)
+
   return (
     <span>
       <div onClick={(event) => { event.stopPropagation(); navigate(config.routes.login) }} className={cx('row d-flex flex-wrap grid gap-5 justify-content-center pb-3')}>
@@ -123,6 +123,12 @@ console.log(products)
                   </div>
                 </div>
               </div>
+              <div className={cx('product__price--percent')}>
+                <img className={cx('product__price--percent')} src='https://res.cloudinary.com/dqhj1sukr/image/upload/v1730468046/uploadLocal_ecommerce/azxoe0ipn6yl0hifhdhz.png' />
+                <p className={cx('product__price--percent-detail')}>
+                  Giảm&nbsp;{item?.discount}%
+                </p>
+              </div>
             </div>
           </div>
         ))}
@@ -131,4 +137,4 @@ console.log(products)
   )
 }
 
-export default ItemProductDisplay
+export default HotSaleItem

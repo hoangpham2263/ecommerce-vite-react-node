@@ -5,12 +5,12 @@ import Rating from '@mui/material/Rating'
 import Checkbox from '@mui/material/Checkbox'
 import config from '../../../config'
 import classNames from 'classnames/bind'
-import styles from './ItemProduct.module.scss'
+import styles from './ProductItem.module.scss'
 import { readImage, readProduct } from '../../../services/publicApi'
 import { useEffect, useState } from 'react'
 const cx = classNames.bind(styles)
 
-const ItemProduct = () => {
+const ProductItem = () => {
   const navigate = useNavigate()
 
   const listItem = [1, 2, 3, 4, 5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
@@ -61,20 +61,28 @@ const ItemProduct = () => {
   }, [currentProductPage])
 
   return (
-    <div className='container'>
-      <div className='row'>
-        <h3 className='col-4 mb-4'>ĐIỆN THOẠI NỔI BẬT NHẤT</h3>
-        <div className='col-8 mb-4'>
-          <button type="button" className="btn btn-secondary">Second1</button>
-          <button type="button" className="btn btn-secondary">Second2</button>
-          <button type="button" className="btn btn-secondary">Second3</button>
+    <div className={cx('container')}>
+      <div className={cx('row ', 'mb-3', 'd-flex align-items-center')}>
+        <h3 className={cx('col-4', 'm-0')}>ĐIỆN THOẠI NỔI BẬT NHẤT</h3>
+        <div className={cx('col-8', 'text-end')}>
+          <button type="button" className={cx('btn', 'cs-brand-item', 'me-2')}>Second1</button>
+          <button type="button" className={cx('btn', 'cs-brand-item', 'me-2')}>Second2</button>
+          <button type="button" className={cx('btn', 'cs-brand-item', 'me-2')}>Second3</button>
+          <button type="button" className={cx('btn', 'cs-brand-item', 'me-2')}>Second3</button>
+          <button type="button" className={cx('btn', 'cs-brand-item', 'me-2')}>Second3</button>
+          <button type="button" className={cx('btn', 'cs-brand-item', 'me-2')}>Second3</button>
+          <button type="button" className={cx('btn', 'cs-brand-item', 'me-2')}>Second3</button>
+          <button type="button" className={cx('btn', 'cs-brand-item', 'me-2')}>Second3</button>
+          <button type="button" className={cx('btn', 'cs-brand-item', 'me-2')}>Second3</button>
         </div>
-        <div className='col-2 w-100 text-dark'>
+      </div>
+      <div className='row'>
+        <div className={cx('col-2', 'w-100', 'text-dark')}>
           <span>
-            <div onClick={(event) => { event.stopPropagation(); navigate(config.routes.login) }} className={cx('row d-flex flex-wrap grid pb-3')}>
+            <div onClick={(event) => { event.stopPropagation(); navigate(config.routes.login) }} className={cx('row', 'd-flex', 'flex-wrap', 'grid', 'pb-3')}>
               {products && products.map((item, index) => (
-                <div key={index} className='col-2 pt-0 pb-2 px-1'>
-                  <div className={cx('cs-list-item', 'bg-white text-decoration-none text-dark')}>
+                <div key={index} className={cx('col-2', 'pt-0', 'pb-2', 'px-1')}>
+                  <div className={cx('cs-list-item', 'bg-white', 'text-decoration-none', 'text-dark')}>
                     <div className={cx('cs-item-block')}>
                       <div className={cx('cs-card')}>
                         <div className={cx('cs-item-pic')}>
@@ -86,7 +94,7 @@ const ItemProduct = () => {
                               event.stopPropagation()
                               navigate(config.routes.homeAdmin)
                             }}
-                            className={cx('cs-custom-btn', 'codepro-custom-btn', 'codepro-btn-3', 'me-2', 'text-decoration-none text-white text-center')}
+                            className={cx('cs-custom-btn', 'codepro-custom-btn', 'codepro-btn-3', 'me-2', 'text-decoration-none', 'text-white', 'text-center')}
                           >
                             ADD TO CART
                           </button>
@@ -95,7 +103,7 @@ const ItemProduct = () => {
                               event.stopPropagation()
                               navigate(config.routes.homeAdmin)
                             }}
-                            className={cx('cs-custom-btn', 'codepro-custom-btn', 'codepro-btn-3', 'text-decoration-none text-white text-center')}
+                            className={cx('cs-custom-btn', 'codepro-custom-btn', 'codepro-btn-3', 'text-decoration-none', 'text-white', 'text-center')}
                           >
                             QUICK VIEW
                           </button>
@@ -134,6 +142,12 @@ const ItemProduct = () => {
                         </div>
                       </div>
                     </div>
+                    <div className={cx('product__price--percent')}>
+                      <img className={cx('product__price--percent')} src='https://res.cloudinary.com/dqhj1sukr/image/upload/v1730468046/uploadLocal_ecommerce/azxoe0ipn6yl0hifhdhz.png' />
+                      <p className={cx('product__price--percent-detail')}>
+                        Giảm&nbsp;{item?.discount}%
+                      </p>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -142,8 +156,7 @@ const ItemProduct = () => {
         </div>
       </div>
     </div>
-
   )
 }
 
-export default ItemProduct
+export default ProductItem

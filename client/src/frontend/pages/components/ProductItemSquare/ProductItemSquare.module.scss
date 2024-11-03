@@ -1,0 +1,49 @@
+.square-block {
+  box-shadow     : 0 1px 2px 0 rgba(60, 64, 67, .1), 0 2px 6px 2px rgba(60, 64, 67, .15);
+  height         : 125px;
+  width          : 118px;
+  text-decoration: none;
+  border-radius  : 10px;
+  display        : block;
+  overflow       : hidden;
+  position       : relative;
+
+  .title {
+    position   : absolute;
+    top        : 0;
+    left       : 0;
+    color      : #fff;
+    display    : block;
+    font-size  : 14px;
+    font-weight: 500;
+    margin-top : 5px;
+    max-width  : 114px;
+    padding    : 0 5px;
+    width      : 100%;
+    word-break : break-word;
+  }
+
+  .img {
+    display          : block;
+    height           : 100%;
+    width            : 100%;
+    background-repeat: no-repeat;
+    background-size  : cover;
+  }
+}
+
+.cs-size-bl {
+  display        : flex !important;
+  justify-content: center !important;
+  align-items    : flex-end !important;
+
+  .cs-size {
+    height: 70% !important;
+  }
+}
+
+.cs-brand-item {
+  &:hover {
+    text-decoration:underline;
+  }
+}
