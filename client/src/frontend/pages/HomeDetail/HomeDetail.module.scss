@@ -1,0 +1,19 @@
+.cs-line {
+  border-top   : 1.8px solid #d3d3d3 !important;
+  margin-bottom: 15px !important;
+}
+
+
+.cs-img-bl {
+  text-align   : center;
+  height       : 398px;
+  border-radius: 14px !important;
+  overflow     : hidden !important; 
+
+  .cs-img {
+    max-width: 100%;
+    height   : 100%;
+    margin   : auto;
+    display  : block;
+  }
+}

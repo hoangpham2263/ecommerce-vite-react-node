@@ -59,7 +59,7 @@ const ProductItem = () => {
   useEffect(() => {
     fetchProductData()
   }, [currentProductPage])
-
+console.log(products)
   return (
     <div className={cx('container')}>
       <div className={cx('row ', 'mb-3', 'd-flex align-items-center')}>
