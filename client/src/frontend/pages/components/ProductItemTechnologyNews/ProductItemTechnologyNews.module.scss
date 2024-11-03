@@ -9,6 +9,7 @@
   color          : #000;
   overflow       : hidden;
   transition     : scale .5s ease;
+  cursor         : pointer;
 
   .img {
     display                : block;
@@ -48,6 +49,6 @@
 
 .cs-brand-item {
   &:hover {
-    text-decoration:underline;
+    text-decoration: underline;
   }
 }

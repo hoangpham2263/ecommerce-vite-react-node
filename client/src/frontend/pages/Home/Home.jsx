@@ -53,17 +53,31 @@ const Home = () => {
     { title: 'Pin dự phòng cũ', img: 'https://res.cloudinary.com/dqhj1sukr/image/upload/v1730614398/uploadLocal_ecommerce/Pin%20d%E1%BB%B1%20ph%C3%B2ng%20c%C5%A9.png', bgColor: '#D64044', csSize: true }
   ]
   const dataUuDaiSV = [
-    { img: 'https://cdn2.cellphones.com.vn/insecure/rs:fill:690:300/q:90/plain/https://dashboard.cellphones.com.vn/storage/udsv-sliding-Mac.jpg' },
-    { img: 'https://cdn2.cellphones.com.vn/insecure/rs:fill:690:300/q:90/plain/https://dashboard.cellphones.com.vn/storage/udsv-sliding-Mac.jpg' },
-    { img: 'https://cdn2.cellphones.com.vn/insecure/rs:fill:690:300/q:90/plain/https://dashboard.cellphones.com.vn/storage/udsv-sliding-Mac.jpg' },
-    { img: 'https://cdn2.cellphones.com.vn/insecure/rs:fill:690:300/q:90/plain/https://dashboard.cellphones.com.vn/storage/udsv-sliding-Mac.jpg' },
-    { img: 'https://cdn2.cellphones.com.vn/insecure/rs:fill:690:300/q:90/plain/https://dashboard.cellphones.com.vn/storage/udsv-sliding-Mac.jpg' },
+    { img: 'https://res.cloudinary.com/dqhj1sukr/image/upload/v1730626209/uploadLocal_ecommerce/u%CC%9Bu%20%C4%91a%CC%83i%20sv%201.webp' },
+    { img: 'https://res.cloudinary.com/dqhj1sukr/image/upload/v1730626209/uploadLocal_ecommerce/u%CC%9Bu%20%C4%91a%CC%83i%20sv%202.webp' },
+    { img: 'https://res.cloudinary.com/dqhj1sukr/image/upload/v1730626209/uploadLocal_ecommerce/u%CC%9Bu%20%C4%91a%CC%83i%20sv%203.webp' },
+    { img: 'https://res.cloudinary.com/dqhj1sukr/image/upload/v1730626209/uploadLocal_ecommerce/u%CC%9Bu%20%C4%91a%CC%83i%20sv%204.webp' },
+    { img: 'https://res.cloudinary.com/dqhj1sukr/image/upload/v1730626209/uploadLocal_ecommerce/u%CC%9Bu%20%C4%91a%CC%83i%20sv%205.webp' }
+  ]
+  const dataUuDaiThanhToan = [
+    { img: 'https://res.cloudinary.com/dqhj1sukr/image/upload/v1730626605/uploadLocal_ecommerce/u%CC%9Bu%20%C4%91a%CC%83i%20thanh%20toa%CC%81n%201.webp' },
+    { img: 'https://res.cloudinary.com/dqhj1sukr/image/upload/v1730626605/uploadLocal_ecommerce/u%CC%9Bu%20%C4%91a%CC%83i%20thanh%20toa%CC%81n%202.webp' },
+    { img: 'https://res.cloudinary.com/dqhj1sukr/image/upload/v1730626605/uploadLocal_ecommerce/u%CC%9Bu%20%C4%91a%CC%83i%20thanh%20toa%CC%81n%203.webp' },
+    { img: 'https://res.cloudinary.com/dqhj1sukr/image/upload/v1730626605/uploadLocal_ecommerce/u%CC%9Bu%20%C4%91a%CC%83i%20thanh%20toa%CC%81n%204.webp' },
+    { img: 'https://res.cloudinary.com/dqhj1sukr/image/upload/v1730626605/uploadLocal_ecommerce/u%CC%9Bu%20%C4%91a%CC%83i%20thanh%20toa%CC%81n%203.webp' }
+  ]
+  const dataChuyenTrangThuongHieu = [
+    { img: 'https://res.cloudinary.com/dqhj1sukr/image/upload/v1730626976/uploadLocal_ecommerce/chuye%CC%82n%20trang%20thu%CC%9Bo%CC%9Bng%20hie%CC%A3%CC%82u%201.webp' },
+    { img: 'https://res.cloudinary.com/dqhj1sukr/image/upload/v1730626976/uploadLocal_ecommerce/chuye%CC%82n%20trang%20thu%CC%9Bo%CC%9Bng%20hie%CC%A3%CC%82u%202.webp' },
+    { img: 'https://res.cloudinary.com/dqhj1sukr/image/upload/v1730626976/uploadLocal_ecommerce/chuye%CC%82n%20trang%20thu%CC%9Bo%CC%9Bng%20hie%CC%A3%CC%82u%203.webp' },
+    { img: 'https://res.cloudinary.com/dqhj1sukr/image/upload/v1730626976/uploadLocal_ecommerce/chuye%CC%82n%20trang%20thu%CC%9Bo%CC%9Bng%20hie%CC%A3%CC%82u%204.webp' },
+    { img: 'https://res.cloudinary.com/dqhj1sukr/image/upload/v1730626976/uploadLocal_ecommerce/chuye%CC%82n%20trang%20thu%CC%9Bo%CC%9Bng%20hie%CC%A3%CC%82u%202.webp' }
   ]
   const dataTechnologyNews = [
-    { img: 'https://cdn2.cellphones.com.vn/insecure/rs:fill:690:300/q:90/plain/https://dashboard.cellphones.com.vn/storage/udsv-sliding-Mac.jpg' },
-    { img: 'https://cdn2.cellphones.com.vn/insecure/rs:fill:690:300/q:90/plain/https://dashboard.cellphones.com.vn/storage/udsv-sliding-Mac.jpg' },
-    { img: 'https://cdn2.cellphones.com.vn/insecure/rs:fill:690:300/q:90/plain/https://dashboard.cellphones.com.vn/storage/udsv-sliding-Mac.jpg' },
-    { img: 'https://cdn2.cellphones.com.vn/insecure/rs:fill:690:300/q:90/plain/https://dashboard.cellphones.com.vn/storage/udsv-sliding-Mac.jpg' },
+    { title: 'Hotsale cuối tuần: Robot hút bụi chỉ hơn 2 triệu, nồi điện đa năng chỉ 299 nghìn', img: 'https://res.cloudinary.com/dqhj1sukr/image/upload/v1730630574/uploadLocal_ecommerce/tin%20co%CC%82ng%20nghe%CC%A3%CC%82%201.jpg' },
+    { title: 'Đây là chi phí sửa chữa của Xiaomi 15 và Xiaomi 15 Pro', img: 'https://res.cloudinary.com/dqhj1sukr/image/upload/v1730630574/uploadLocal_ecommerce/tin%20co%CC%82ng%20nghe%CC%A3%CC%82%202.jpg' },
+    { title: 'realme G7 Pro sẽ hỗ trợ chụp ảnh dưới nước, zoom quang học 3x và zoom kỹ thuật số 120x', img: 'https://res.cloudinary.com/dqhj1sukr/image/upload/v1730630574/uploadLocal_ecommerce/tin%20co%CC%82ng%20nghe%CC%A3%CC%82%203.jpg' },
+    { title: 'Chi phí sửa chữa của OnePlus 13 được tiết lộ, cao nhất lên tới 12.6 triệu đồng', img: 'https://res.cloudinary.com/dqhj1sukr/image/upload/v1730630574/uploadLocal_ecommerce/tin%20co%CC%82ng%20nghe%CC%A3%CC%82%204.jpg' }
   ]
 
   return (
@@ -75,8 +89,8 @@ const Home = () => {
       <ProductItemSquare title={'LINH KIỆN MÁY TÍNH'} data={dataLinhKien} />
       <ProductItemSquare title={'HÀNG CŨ'} data={dataHangCu} />
       <ProductItemRectangle title={'ƯU ĐÃI SINH VIÊN'} data={dataUuDaiSV} />
-      <ProductItemRectangle title={'ƯU ĐÃI THANH TOÁN'} data={dataUuDaiSV} />
-      <ProductItemRectangle title={'CHUYÊN TRANG THƯƠNG HIỆU'} data={dataUuDaiSV} />
+      <ProductItemRectangle title={'ƯU ĐÃI THANH TOÁN'} data={dataUuDaiThanhToan} />
+      <ProductItemRectangle title={'CHUYÊN TRANG THƯƠNG HIỆU'} data={dataChuyenTrangThuongHieu} />
       <ProductItemTechnologyNews title={'TIN CÔNG NGHỆ'} data={dataTechnologyNews} />
     </div>
   )

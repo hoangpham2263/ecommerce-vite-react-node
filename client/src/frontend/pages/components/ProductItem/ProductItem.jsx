@@ -79,9 +79,9 @@ const ProductItem = () => {
       <div className='row'>
         <div className={cx('col-2', 'w-100', 'text-dark')}>
           <span>
-            <div onClick={(event) => { event.stopPropagation(); navigate(config.routes.login) }} className={cx('row', 'd-flex', 'flex-wrap', 'grid', 'pb-3')}>
+            <div className={cx('row', 'd-flex', 'flex-wrap', 'grid', 'pb-3')}>
               {products && products.map((item, index) => (
-                <div key={index} className={cx('col-2', 'pt-0', 'pb-2', 'px-1')}>
+                <div key={index} onClick={(event) => { event.stopPropagation(); navigate(`/${item?.slug}`) }} className={cx('col-2', 'pt-0', 'pb-2', 'px-1')}>
                   <div className={cx('cs-list-item', 'bg-white', 'text-decoration-none', 'text-dark')}>
                     <div className={cx('cs-item-block')}>
                       <div className={cx('cs-card')}>
