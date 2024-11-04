@@ -13,7 +13,7 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       url: {
-        type: Sequelize.JSON,
+        type: Sequelize.STRING,
       },
       file_name: {
         type: Sequelize.STRING,
