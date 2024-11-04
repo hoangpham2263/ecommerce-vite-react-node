@@ -3,7 +3,7 @@ import styles from './Product.module.scss'
 import './Product.css'
 import { toast } from 'react-toastify'
 import { useEffect, useState } from 'react'
-import { readImage, readProduct, updateProduct } from '../../services/privateApi.jsx'
+import { readImage, readProduct, updateProductStatus } from '../../services/privateApi.jsx'
 import ModalCreateProduct from './ModalCreate.jsx'
 import ModalEditProduct from './ModalEdit.jsx'
 import ModalDeleteProduct from './ModalDelete.jsx'
@@ -21,9 +21,8 @@ const Products = () => {
     brand: 12,
     version: 12
   }
-
   const fetchProductData = async () => {
-    const fetchDataImage = await readImage(1, 100)
+    const fetchDataImage = await readImage(1, 10000)
     const fetchDataProduct = await readProduct(currentProductPage, limitPage.product)
     const imageData = fetchDataImage?.data?.data?.image
     const productData = fetchDataProduct?.data?.data?.product
@@ -62,7 +61,7 @@ const Products = () => {
 
   const handleStatusChange = async (id, newStatus) => {
     const data = { id: id, is_active: newStatus }
-    const res = await updateProduct(data)
+    const res = await updateProductStatus(data)
     if (res?.data?.code === 0) {
       toast.success('Update status success')
       fetchProductData()
@@ -93,8 +92,9 @@ const Products = () => {
                 <th scope="col">COLOR</th>
                 <th scope="col">Capacity</th>
                 <th scope="col">RAM</th>
+                <th scope="col">DISCOUNT</th>
+                <th scope="col">STOCK</th>
                 <th scope="col">STATUS</th>
-                <th scope="col">PUBLISHED ON</th>
                 <th scope="col"></th>
               </tr>
             </thead>
@@ -108,7 +108,7 @@ const Products = () => {
                   >
                     <th scope="row">{(currentProductPage - 1) * limitPage.product + index + 1}</th>
                     <td>
-                      <img src={item?.images[0]?.url || ''} className={cx('rounded float-start','image-product')} alt={item?.title}/>
+                      <img src={item?.images[0]?.url || ''} className={cx('rounded float-start', 'image-product')} alt={item?.title} />
                     </td>
                     <td>{item?.title}</td>
                     <td>{item?.price}đ</td>
@@ -116,6 +116,8 @@ const Products = () => {
                     <td>{item?.Color?.name}</td>
                     <td>{item?.Capacity?.name}</td>
                     <td>{item?.Ram?.name}</td>
+                    <td>{item?.discount}</td>
+                    <td>{item?.stock}</td>
                     <td>
                       <div className="form-check form-switch">
                         <input
@@ -132,19 +134,6 @@ const Products = () => {
                           <label className="form-check-label" htmlFor={`flexSwitchCheckDefault${index}`} onClick={() => handleStatusChange(item?.id, !item?.is_active)}>Off</label>
                         )}
                       </div>
-                    </td>
-                    <td>
-                      {`${new Date(item?.createdAt).toLocaleTimeString('en-US', {
-                        hour: '2-digit',
-                        minute: '2-digit',
-                        second: '2-digit',
-                        hour12: false
-                      })} ${new Date(item?.createdAt).toLocaleDateString('en-US', {
-                        weekday: 'long',
-                        year: 'numeric',
-                        month: '2-digit',
-                        day: '2-digit'
-                      })}`}
                     </td>
                     <td className={cx('text-end', 'col-btn')}>
                       <ModalEditProduct item={item} index={`modal-edit-${index}`} fetchProductData={fetchProductData} />

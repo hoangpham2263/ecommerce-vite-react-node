@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Image.init(
     {
-      url: DataTypes.JSON,
+      url: DataTypes.STRING,
       file_name: DataTypes.STRING,
       product_id: DataTypes.INTEGER,
     },

@@ -63,7 +63,7 @@ const updateFunc = async (req, res) => {
     const user = await db.User.findOne({ where: { id: data?.id } });
     if (user) {
       let hashPassword = data?.password && data.password.length > 0 ? await hashAccountPassword(data.password) : undefined;
-      let avatarAfterUploadCloud = data?.avatar ? await UploadCloud(data.avatar, "imageAvatar") : undefined;
+      let avatarAfterUploadCloud = data?.avatar ? await UploadCloud(data.avatar, "imageWebAvatar") : undefined;
       await user.update({ full_name: data.fullName, avatar: avatarAfterUploadCloud || user.avatar, username: data.username, password: hashPassword || user.password, email: data.email, gender: data.gender, is_active: data.is_active, is_verified: data.is_verified, position_id: data.position });
       return res.status(200).json({ message: "Update user success", code: 0 });
     } else {

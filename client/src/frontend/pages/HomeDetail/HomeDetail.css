@@ -1,0 +1,45 @@
+#carouselExample {
+  /* width        : 706px !important; */
+  overflow     : hidden;
+  position     : relative !important;
+  border       : solid 1px #D1D5DA !important;
+  border-radius: 14px !important;
+}
+
+.carousel-inner {
+  border-radius: 14px !important;
+}
+
+.carousel-item._cs-img-bl_xtbvu_6 {
+  border-radius: 14px !important;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  opacity   : 0 !important;
+  visibility: hidden !important;
+  transition: visibility 0.5s ease !important;
+}
+
+#carouselExample:hover .carousel-control-prev,
+#carouselExample:hover .carousel-control-next {
+  opacity   : 1 !important;
+  visibility: visible !important;
+  transition: opacity 0.6s ease !important;
+}
+
+span.carousel-control-prev-icon {
+  background-color: #B2B2B2 !important;
+  height          : 60px !important;
+  width           : 30px !important;
+  box-shadow      : 0 0 4px 0 rgba(0, 0, 0, .2) !important;
+  border-radius   : 0 100px 100px 0 !important;
+}
+
+span.carousel-control-next-icon {
+  background-color: #B2B2B2 !important;
+  height          : 60px !important;
+  width           : 30px !important;
+  box-shadow      : 0 0 4px 0 rgba(0, 0, 0, .2) !important;
+  border-radius   : 100px 0 0 100px !important;
+}

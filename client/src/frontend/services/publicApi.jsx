@@ -12,6 +12,7 @@ const readAddress = (userId, currentPage, currentLimit) => { return axios.get('/
 
 // CRUD Product
 const readProduct = (currentPage, currentLimit) => { return axios.get('/api/product', { params: { page: currentPage, limit: currentLimit } }) }
+const readProductDetail = (slug) => { return axios.get(`/api/product/${slug}`) }
 
 // CRUD Image
 const readImage = (currentPage, currentLimit) => { return axios.get('/api/image', { params: { page: currentPage, limit: currentLimit } }) }
@@ -39,5 +40,5 @@ const readBrand = (currentPage, currentLimit, categoryId) => { return axios.get(
 const readVersion = (currentPage, currentLimit, brandId) => { return axios.get('/api/version', { params: { page: currentPage, limit: currentLimit, brand_id: brandId } }) }
 
 export {
-  readUser, readProduct, readColorDetail, createImage, readImage, updateImage, deleteImage, readColor, readCapacity, readRam, readCategory, readBrand, readVersion, readAddress
+  readUser, readProduct, readProductDetail, readColorDetail, createImage, readImage, updateImage, deleteImage, readColor, readCapacity, readRam, readCategory, readBrand, readVersion, readAddress
 }

@@ -1,0 +1,141 @@
+.wrapper{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  box-shadow: 0 1px 2px 0 rgba(60, 64, 67, .1), 0 2px 6px 2px rgba(60, 64, 67, .15);
+  z-index: 9999;
+}
+
+.cs-header {
+  height         : var(--height-header-default);
+  display        : flex;
+  align-items    : center;
+  justify-content: space-between;
+}
+
+.cs-nav-item {
+  font-size      : 12px;
+  display        : flex;
+  justify-content: center;
+  align-items    : center;
+  border-radius  : 10px;
+  cursor         : pointer;
+  height         : 42px;
+  padding        : 3px 8px;
+  color          : var(--color-white);
+  text-decoration: none;
+  border         : none;
+}
+
+.cs-nav-item:hover {
+  background: hsla(0, 0%, 100%, .2);
+}
+
+.cs-nav-item-bg {
+  background: hsla(0, 0%, 100%, .2);
+}
+
+.cs-nav-item-icon {
+  font-size   : 28px;
+  margin-right: 2px;
+}
+
+.cs-btn-register {
+  -webkit-text-fill-color: transparent;
+  background             : linear-gradient(90deg, #ff512f, #dd2440 51%, #ff512f);
+  -webkit-background-clip: text;
+  border                 : 2px solid #dd2440 !important;
+  border-radius          : 8px;
+  box-shadow             : 0 0 20px #eee;
+  cursor                 : pointer;
+  display                : flex;
+  flex                   : 1;
+  font-weight            : 600;
+  justify-content        : center;
+  padding                : 10px;
+  transition             : .5s;
+  user-select            : none;
+}
+
+.cs-btn-register:hover {
+  background-position: 100%;
+  transform          : scale(1.02);
+}
+
+.cs-btn-login {
+  align-items     : center;
+  background-image: linear-gradient(90deg, #ff512f, #dd2440 51%, #ff512f);
+  background-size : 200% auto;
+  border-radius   : 8px;
+  box-shadow      : 0 0 20px #eee;
+  color           : #fff !important;
+  cursor          : pointer;
+  display         : flex;
+  flex            : 1;
+  font-weight     : 600;
+  justify-content : center;
+  padding         : 10px;
+  text-align      : center;
+  transition      : .5s;
+}
+
+.cs-btn-login:hover {
+  background-position    : 100%;
+  color                  : #fff;
+  -webkit-text-decoration: none;
+  text-decoration        : none;
+  transform              : scale(1.02);
+}
+
+.icon-cart {
+  color    : var(--color-white);
+  font-size: 36px;
+}
+
+.cs-badges {
+  top: 24% !important;
+}
+
+.link-social-left {
+  color          : var(--color-white);
+  font-size      : 13px;
+  text-decoration: none;
+}
+
+.link-social-right {
+  color          : var(--color-white);
+  font-size      : 13px;
+  text-decoration: none;
+  margin-left    : 13px;
+}
+
+.wall-center-link {
+  width           : 1px;
+  height          : 13px;
+  background-color: var(--primary);
+  margin          : 0 6px;
+  opacity         : 0.4;
+}
+
+.link-categories {
+  margin-top     : -6px;
+  color          : var(--color-white);
+  font-size      : 12px;
+  text-decoration: none;
+  margin-right   : 13px;
+}
+
+/* user */
+.cs-nav-item-login{
+  padding: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 100%;
+}
+.img-avatar{
+  display: block;
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+}

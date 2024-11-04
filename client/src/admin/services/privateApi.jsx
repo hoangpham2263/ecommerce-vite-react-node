@@ -36,6 +36,7 @@ const readAddress = (userId, currentPage, currentLimit) => { return axios.get('/
 const readProduct = (currentPage, currentLimit) => { return axios.get('/api/admin/product', { params: { page: currentPage, limit: currentLimit }, headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
 const createProduct = (data) => { return axios.post('/api/admin/product', { data }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
 const updateProduct = (data) => { return axios.put('/api/admin/product', { data }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
+const updateProductStatus = (data) => { return axios.put('/api/admin/product-status', { data }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
 const deleteProduct = (id) => { return axios.delete('/api/admin/product', { data: { id }, headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
 
 // CRUD Image
@@ -89,7 +90,7 @@ export {
   createPosition, readPosition, updatePosition, deletePosition, readPositionIsMaster,
   createPositionRole, readPositionRole, deletePositionRole, readPositionRoleReverse,
   createRole, readRole, updateRole, deleteRole,
-  createProduct, readProduct, updateProduct, deleteProduct, readColorDetail,
+  createProduct, readProduct, updateProduct, deleteProduct, updateProductStatus, readColorDetail,
   createImage, readImage, updateImage, deleteImage,
   createColor, readColor, updateColor, deleteColor,
   createCapacity, readCapacity, updateCapacity, deleteCapacity,

@@ -3,55 +3,31 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    /**
-     * Add seed commands here.
-     *
-     * Example:
-     */
     await queryInterface.bulkInsert(
       "Brand",
       [
-        // smartphone
-        { name: "Apple", category_id: 1 },
-        { name: "Samsung", category_id: 1 },
-        { name: "Huawei", category_id: 1 },
-        { name: "Xiaomi", category_id: 1 },
-        { name: "Oppo", category_id: 1 },
-        { name: "Vivo", category_id: 1 },
+        // ----- smartphone -----
+        { id: 1, name: "iPhone", category_id: 1 },
+        { id: 2, name: "Samsung", category_id: 1 },
 
-        // tablet
-        { name: "Dell", category_id: 2 },
-        { name: "Lenovo", category_id: 2 },
-        { name: "Asus", category_id: 2 },
-        { name: "Apple", category_id: 2 },
-        { name: "Samsung", category_id: 2 },
-        { name: "Huawei", category_id: 2 },
+        // ----- tablet -----
+        { id: 3, name: "iPad", category_id: 2 },
+        { id: 4, name: "Lenovo", category_id: 2 },
+        { id: 5, name: "Samsung", category_id: 2 },
 
-        // laptop
-        { name: "Dell", category_id: 3 },
-        { name: "Lenovo", category_id: 3 },
-        { name: "MacBook", category_id: 3 },
-        { name: "HP", category_id: 3 },
-        { name: "Acer", category_id: 3 },
-        { name: "MSI", category_id: 3 },
+        // ----- laptop -----
+        { id: 6, name: "MacBook", category_id: 3 },
+        { id: 7, name: "Lenovo", category_id: 3 },
 
-        // watch
-        { name: "Apple", category_id: 4 },
-        { name: "Lenovo", category_id: 4 },
-        { name: "Garmin", category_id: 4 },
-        { name: "Fossil", category_id: 4 },
-        { name: "Casio", category_id: 4 },
+        // ----- watch -----
+        { id: 8, name: "Apple", category_id: 4 },
+        { id: 9, name: "Lenovo", category_id: 4 },
       ],
       {}
     );
   },
 
   async down(queryInterface, Sequelize) {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
+    await queryInterface.bulkDelete("Brand", null, {});
   },
 };

@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef, useCallback } from 'react'
 import { toast } from 'react-toastify'
-import { readCapacity, readCategory, readColor, readColorDetail, readRam, updateProduct } from '../../services/privateApi'
+import { readBrand, readCapacity, readCategory, readColor, readColorDetail, readRam, readVersion, updateProduct } from '../../services/privateApi'
 import { ImageToBase64 } from '../../../main/utility/ImageToBase64'
 
 const ModalEdit = ({ item, index, fetchProductData }) => {
@@ -12,6 +12,8 @@ const ModalEdit = ({ item, index, fetchProductData }) => {
     ram_id: '',
     capacity_id: '',
     category_id: '',
+    brand_id: '',
+    version_id: '',
     discount: '',
     stock: '',
     is_active: true,
@@ -22,25 +24,32 @@ const ModalEdit = ({ item, index, fetchProductData }) => {
   const [rams, setRams] = useState([])
   const [capacities, setCapacities] = useState([])
   const [categories, setCategories] = useState([])
+  const [brands, setBrands] = useState()
+  const [versions, setVersions] = useState()
   const closeButtonRef = useRef(null)
 
   const handleGetDataAttribute = useCallback(async () => {
     try {
-      const [fetchColor, fetchRam, fetchCapacity, fetchCategory] = await Promise.all([
+      const [fetchColor, fetchRam, fetchCapacity, fetchCategory, fetchBrand, fetchVersion] = await Promise.all([
         readColor(1, 100),
         readRam(1, 100),
         readCapacity(1, 100),
-        readCategory(1, 100)
+        readCategory(1, 100),
+        readBrand(1, 100, data?.category_id),
+        readVersion(1, 100, data?.brand_id)
       ])
       setColors(fetchColor?.data?.data?.color || [])
       setRams(fetchRam?.data?.data?.ram || [])
       setCapacities(fetchCapacity?.data?.data?.capacity || [])
       setCategories(fetchCategory?.data?.data?.category || [])
+      setBrands(fetchBrand?.data?.data?.brand || [])
+      setVersions(fetchVersion?.data?.data?.version || [])
     } catch {
       toast.error('Failed to fetch product attributes')
     }
-  }, [])
-
+  }, [data.brand_id, data.category_id])
+// console.log(brands)
+// console.log(versions)
   useEffect(() => {
     handleGetDataAttribute()
   }, [handleGetDataAttribute])
@@ -55,6 +64,8 @@ const ModalEdit = ({ item, index, fetchProductData }) => {
       ram_id: item?.ram_id || '',
       capacity_id: item?.capacity_id || '',
       category_id: item?.category_id || '',
+      brand_id: item?.brand_id || '',
+      version_id: item?.version_id || '',
       discount: item?.discount || '',
       stock: item?.stock || '',
       images: item?.images || [],
@@ -97,6 +108,27 @@ const ModalEdit = ({ item, index, fetchProductData }) => {
     setData((prev) => ({ ...prev, images: base64Images }))
   }
 
+  useEffect(() => {
+    const fetchData = async () => {
+      if (data?.category_id && data.category_id.length > 0) {
+        const result = await readBrand(1, 100, data?.category_id)
+        setBrands(result?.data?.data?.brand)
+        setVersions('')
+      }
+    }
+    fetchData()
+  }, [data?.category_id])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (data?.brand_id && data.brand_id.length > 0) {
+        const result = await readVersion(1, 100, data?.brand_id)
+        setVersions(result?.data?.data?.version)
+      }
+    }
+    fetchData()
+  }, [data?.brand_id])
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
@@ -112,7 +144,6 @@ const ModalEdit = ({ item, index, fetchProductData }) => {
       toast.error('An error occurred while updating the product')
     }
   }
-
   return (
     <span>
       <button
@@ -136,22 +167,40 @@ const ModalEdit = ({ item, index, fetchProductData }) => {
           <h5 className="offcanvas-title" id="offcanvasRightLabelProduct">Edit Product</h5>
           <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" ref={closeButtonRef} />
         </div>
-
         <div className="offcanvas-body mb-6">
           <form className="row g-3 needs-validation" noValidate onSubmit={handleSubmit}>
-            <div className="col-md-6 text-start">
-              <label htmlFor="title" className="form-label">Title</label>
-              <input type="text" className="form-control" id="title" name="title" required onChange={handleOnChange} value={data.title} />
-            </div>
-            <div className="col-md-6 text-start">
-              <label htmlFor="price" className="form-label">Price</label>
-              <input type="text" className="form-control" id="price" name="price" required onChange={handleOnChange} value={data.price} />
-            </div>
             <div className="col-md-12 text-start">
-              <label htmlFor="desc" className="form-label">Description</label>
-              <input type="text" className="form-control" id="desc" name="desc" required onChange={handleOnChange} value={data.desc} />
+              <label htmlFor="title" className="form-label">Title</label>
+              <input type="text" className="form-control" disabled id="title" name="title" required onChange={handleOnChange} value={data.title} />
             </div>
-            <div className="col-md-6 text-start">
+            <div className="col-md-4 text-start">
+              <label htmlFor="category_id" className="form-label">Category</label>
+              <select className="form-select" name="category_id" onChange={handleOnChange} value={data.category_id}>
+                <option value="">Select</option>
+                {categories && categories.map((cat) => <option key={cat.id} value={cat.id}>{cat.name}</option>)}
+              </select>
+            </div>
+            <div className="col-md-4 text-start">
+              <label htmlFor="brand_id" className="form-label">Brand</label>
+              <select className="form-select" id="brand_id" name="brand_id" value={data?.brand_id} onChange={handleOnChange}>
+                <option value={0}>select</option>
+                {brands && brands.map((item, index) => (<option key={`brand-${index}`} value={item?.id}>{item?.name}</option>))}
+              </select>
+            </div>
+            <div className="col-md-4 text-start">
+              <label htmlFor="version_id" className="form-label">Version</label>
+              <select
+                className="form-select"
+                id="version_id"
+                name="version_id"
+                value={data?.version_id}
+                onChange={handleOnChange}
+              >
+                <option value={0}>select</option>
+                {versions && versions.map((item, index) => (<option key={`version-${index}`} value={item?.id}>{item?.name}</option>))}
+              </select>
+            </div>
+            <div className="col-md-4 text-start">
               <label htmlFor="color_id" className="form-label">Color</label>
               <div className="dropdown">
                 <button
@@ -188,34 +237,35 @@ const ModalEdit = ({ item, index, fetchProductData }) => {
                 </ul>
               </div>
             </div>
-            <div className="col-md-6 text-start">
+            <div className="col-md-4 text-start">
               <label htmlFor="ram_id" className="form-label">Ram</label>
               <select className="form-select" name="ram_id" onChange={handleOnChange} value={data.ram_id}>
                 <option value="">Select</option>
-                {rams.map((r) => <option key={r.id} value={r.id}>{r.name}</option>)}
+                {rams && rams.map((r) => <option key={r.id} value={r.id}>{r.name}</option>)}
               </select>
             </div>
-            <div className="col-md-6 text-start">
+            <div className="col-md-4 text-start">
               <label htmlFor="capacity_id" className="form-label">Capacity</label>
               <select className="form-select" name="capacity_id" onChange={handleOnChange} value={data.capacity_id}>
                 <option value="">Select</option>
-                {capacities.map((cap) => <option key={cap.id} value={cap.id}>{cap.name}</option>)}
+                {capacities && capacities.map((cap) => <option key={cap.id} value={cap.id}>{cap.name}</option>)}
               </select>
             </div>
-            <div className="col-md-6 text-start">
-              <label htmlFor="category_id" className="form-label">Category</label>
-              <select className="form-select" name="category_id" onChange={handleOnChange} value={data.category_id}>
-                <option value="">Select</option>
-                {categories.map((cat) => <option key={cat.id} value={cat.id}>{cat.name}</option>)}
-              </select>
+            <div className="col-md-4 text-start">
+              <label htmlFor="price" className="form-label">Price</label>
+              <input type="text" className="form-control" id="price" name="price" required onChange={handleOnChange} value={data.price} />
             </div>
-            <div className="col-md-6 text-start">
+            <div className="col-md-4 text-start">
               <label htmlFor="discount" className="form-label">Discount</label>
               <input type="text" className="form-control" name="discount" onChange={handleOnChange} value={data.discount} />
             </div>
-            <div className="col-md-6 text-start">
+            <div className="col-md-4 text-start">
               <label htmlFor="stock" className="form-label">Stock</label>
               <input type="number" className="form-control" name="stock" onChange={handleOnChange} value={data.stock} />
+            </div>
+            <div className="col-md-12">
+              <label htmlFor="desc" className="form-label">Description</label>
+              <textarea value={data?.desc} className="form-control" id="desc" name="desc" required onChange={handleOnChange} rows="4"></textarea>
             </div>
             <div className="col-md-8 text-start">
               <label htmlFor="formFileMultiple" className="form-label">Images</label>

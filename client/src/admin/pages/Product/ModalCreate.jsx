@@ -1,7 +1,7 @@
 import './Product.css'
 import { useEffect, useState, useRef } from 'react'
 import { toast } from 'react-toastify'
-import { createProduct, readCapacity, readCategory, readColor, readRam } from '../../services/privateApi.jsx'
+import { createProduct, readBrand, readCapacity, readCategory, readColor, readRam, readVersion } from '../../services/privateApi.jsx'
 import { ImageToBase64 } from '../../../main/utility/ImageToBase64.jsx'
 
 const ModalCreate = ({ fetchProductData }) => {
@@ -13,17 +13,21 @@ const ModalCreate = ({ fetchProductData }) => {
     ram_id: '',
     capacity_id: '',
     category_id: '',
+    brand_id: '',
+    version_id: '',
     discount: '',
     stock: '',
     is_active: true,
     images: [],
-    buttonColor: '#000'
+    buttonColor: '#999'
   })
 
   const [colors, setColors] = useState()
   const [rams, setRams] = useState()
   const [capacities, setCapacities] = useState()
   const [categories, setCategories] = useState()
+  const [brands, setBrands] = useState()
+  const [versions, setVersions] = useState()
 
   const closeButtonRef = useRef(null)
 
@@ -67,12 +71,33 @@ const ModalCreate = ({ fetchProductData }) => {
     setData((prev) => ({ ...prev, images: base64Images }))
   }
 
+  useEffect(() => {
+    const fetchData = async () => {
+      if (data?.category_id && data.category_id.length > 0) {
+        const result = await readBrand(1, 100, data?.category_id)
+        setBrands(result?.data?.data?.brand)
+        setVersions('')
+      }
+    }
+    fetchData()
+  }, [data?.category_id])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (data?.brand_id && data.brand_id.length > 0) {
+        const result = await readVersion(1, 100, data?.brand_id)
+        setVersions(result?.data?.data?.version)
+      }
+    }
+    fetchData()
+  }, [data?.brand_id])
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     let res = await createProduct(data)
 
     if (res?.data?.code === 0) {
-      setData({ title: '', price: '', desc: '', color_id: '', ram_id: '', capacity_id: '', category_id: '', discount: '', stock: '', is_active: true, images: [], buttonColor: '#000' })
+      setData({ title: '', price: '', desc: '', color_id: '', ram_id: '', capacity_id: '', category_id: '', brand_id: '', version_id: '', discount: '', stock: '', is_active: true, images: [], buttonColor: '#000' })
       closeButtonRef.current.click()
       toast.success(res?.data?.message)
       fetchProductData()
@@ -92,19 +117,50 @@ const ModalCreate = ({ fetchProductData }) => {
         </div>
         <div className="offcanvas-body">
           <form className="row g-3 needs-validation" noValidate>
-            <div className="col-md-6">
+            {/* <div className="col-md-6">
               <label htmlFor="title" className="form-label">Title</label>
               <input type="text" value={data?.title} className="form-control" id="title" name='title' required onChange={handleOnChange} />
+            </div> */}
+            <div className="col-md-4">
+              <label htmlFor="category_id" className="form-label">Category</label>
+              <select
+                className="form-select"
+                id="category_id"
+                name="category_id"
+                value={data?.category_id}
+                onChange={handleOnChange}
+              >
+                <option value={0}>select</option>
+                {categories && categories.map((item, index) => (<option key={`category-${index}`} value={item?.id}>{item?.name}</option>))}
+              </select>
             </div>
-            <div className="col-md-6">
-              <label htmlFor="price" className="form-label">Price</label>
-              <input type="text" value={data?.price} className="form-control" id="price" name='price' required onChange={handleOnChange} />
+            <div className="col-md-4">
+              <label htmlFor="brand_id" className="form-label">Brand</label>
+              <select
+                className="form-select"
+                id="brand_id"
+                name="brand_id"
+                value={data?.brand_id}
+                onChange={handleOnChange}
+              >
+                <option value={0}>select</option>
+                {brands && brands.map((item, index) => (<option key={`brand-${index}`} value={item?.id}>{item?.name}</option>))}
+              </select>
             </div>
-            <div className="col-md-12">
-              <label htmlFor="desc" className="form-label">Description</label>
-              <input type="text" value={data?.desc} className="form-control" id="desc" name='desc' required onChange={handleOnChange} />
+            <div className="col-md-4">
+              <label htmlFor="version_id" className="form-label">Version</label>
+              <select
+                className="form-select"
+                id="version_id"
+                name="version_id"
+                value={data?.version_id}
+                onChange={handleOnChange}
+              >
+                <option value={0}>select</option>
+                {versions && versions.map((item, index) => (<option key={`version-${index}`} value={item?.id}>{item?.name}</option>))}
+              </select>
             </div>
-            <div className="col-md-6">
+            <div className="col-md-4">
               <label htmlFor="color_id" className="form-label">Color</label>
               <div className="dropdown">
                 <button
@@ -141,7 +197,7 @@ const ModalCreate = ({ fetchProductData }) => {
                 </ul>
               </div>
             </div>
-            <div className="col-md-6">
+            <div className="col-md-4">
               <label htmlFor="ram_id" className="form-label">Ram</label>
               <select
                 className="form-select"
@@ -154,7 +210,7 @@ const ModalCreate = ({ fetchProductData }) => {
                 {rams && rams.map((item, index) => (<option key={`ram-${index}`} value={item?.id}>{item?.name}</option>))}
               </select>
             </div>
-            <div className="col-md-6">
+            <div className="col-md-4">
               <label htmlFor="capacity_id" className="form-label">Capacity</label>
               <select
                 className="form-select"
@@ -167,26 +223,21 @@ const ModalCreate = ({ fetchProductData }) => {
                 {capacities && capacities.map((item, index) => (<option key={`capacity-${index}`} value={item?.id}>{item?.name}</option>))}
               </select>
             </div>
-            <div className="col-md-6">
-              <label htmlFor="category_id" className="form-label">Category</label>
-              <select
-                className="form-select"
-                id="category_id"
-                name="category_id"
-                value={data?.category_id}
-                onChange={handleOnChange}
-              >
-                <option value={0}>select</option>
-                {categories && categories.map((item, index) => (<option key={`category-${index}`} value={item?.id}>{item?.name}</option>))}
-              </select>
+            <div className="col-md-4">
+              <label htmlFor="price" className="form-label">Price</label>
+              <input type="text" value={data?.price} className="form-control" id="price" name='price' required onChange={handleOnChange} />
             </div>
-            <div className="col-md-6">
+            <div className="col-md-4">
               <label htmlFor="discount" className="form-label">Discount</label>
               <input type="text" value={data?.discount} className="form-control" id="discount" name='discount' required onChange={handleOnChange} />
             </div>
-            <div className="col-md-6">
+            <div className="col-md-4">
               <label htmlFor="stock" className="form-label">Stock</label>
               <input type="text" value={data?.stock} className="form-control" id="stock" name='stock' required onChange={handleOnChange} />
+            </div>
+            <div className="col-md-12">
+              <label htmlFor="desc" className="form-label">Description</label>
+              <textarea value={data?.desc} className="form-control" id="desc" name="desc" required onChange={handleOnChange} rows="4"></textarea>
             </div>
             <div className="col-md-8">
               <label htmlFor="formFileMultiple" className="form-label">Images</label>
