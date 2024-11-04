@@ -201,26 +201,26 @@ const HomeDetail = () => {
           </div>
         </div>
         <div className={cx('col-md-5')}>
-          <div className={cx('row', 'mb-1')}>
-            <div className={cx('col-md-3', 'px-2')}>
+          <div className={cx('row', 'mb-1', 'pe-1')}>
+            <div className={cx('col-md-3', 'pe-1')}>
               <div className={cx('cs-cursor-link', 'cs-prod-capacity', 'text-center', 'py-1', 'mb-3')}>
                 <p className={cx('my-0', 'd-flex', 'justify-content-center', 'fw-medium', 'cs-text-capacity')}>12GB 1TB</p>
                 <p className={cx('my-0', 'd-flex', 'justify-content-center', 'fw-lighter', 'cs-text-capacity')}>33.490.000 đ</p>
               </div>
             </div>
-            <div className={cx('col-md-3', 'px-2')}>
+            <div className={cx('col-md-3', 'pe-1')}>
               <div className={cx('cs-cursor-link', 'cs-prod-capacity', 'text-center', 'py-1', 'mb-3')}>
                 <p className={cx('my-0', 'd-flex', 'justify-content-center', 'fw-medium', 'cs-text-capacity')}>12GB 1TB</p>
                 <p className={cx('my-0', 'd-flex', 'justify-content-center', 'fw-lighter', 'cs-text-capacity')}>33.490.000 đ</p>
               </div>
             </div>
-            <div className={cx('col-md-3', 'px-2')}>
+            <div className={cx('col-md-3', 'pe-1')}>
               <div className={cx('cs-cursor-link', 'cs-prod-capacity', 'text-center', 'py-1', 'mb-3')}>
                 <p className={cx('my-0', 'd-flex', 'justify-content-center', 'fw-medium', 'cs-text-capacity')}>12GB 1TB</p>
                 <p className={cx('my-0', 'd-flex', 'justify-content-center', 'fw-lighter', 'cs-text-capacity')}>33.490.000 đ</p>
               </div>
             </div>
-            <div className={cx('col-md-3', 'px-2')}>
+            <div className={cx('col-md-3', 'pe-1')}>
               <div className={cx('cs-cursor-link', 'cs-prod-capacity', 'text-center', 'py-1', 'mb-3')}>
                 <p className={cx('my-0', 'd-flex', 'justify-content-center', 'fw-medium', 'cs-text-capacity')}>12GB 1TB</p>
                 <p className={cx('my-0', 'd-flex', 'justify-content-center', 'fw-lighter', 'cs-text-capacity')}>33.490.000 đ</p>
@@ -228,8 +228,8 @@ const HomeDetail = () => {
             </div>
           </div>
           <p className={cx('mb-2', 'd-flex', 'align-items-center', 'fw-medium')}>Chọn màu để xem giá và chi nhánh có hàng</p>
-          <div className={cx('row', 'mb-1')}>
-            <div className={cx('col-md-3', 'px-2')}>
+          <div className={cx('row', 'mb-1', 'pe-1')}>
+            <div className={cx('col-md-3', 'pe-1')}>
               <div className={cx('cs-cursor-link', 'cs-prod-capacity', 'text-center', 'py-1', 'mb-3', 'd-flex', 'align-items-center', 'justify-content-center')}>
                 <img src={product && product?.imagesDetail && product?.imagesDetail[0]?.url} className={cx('cs-img-capacity')} alt="..." />
                 <div >
@@ -238,7 +238,7 @@ const HomeDetail = () => {
                 </div>
               </div>
             </div>
-            <div className={cx('col-md-3', 'px-2')}>
+            <div className={cx('col-md-3', 'pe-1')}>
               <div className={cx('cs-cursor-link', 'cs-prod-capacity', 'text-center', 'py-1', 'mb-3', 'd-flex', 'align-items-center', 'justify-content-center')}>
                 <img src={product && product?.imagesDetail && product?.imagesDetail[0]?.url} className={cx('cs-img-capacity')} alt="..." />
                 <div >
@@ -247,7 +247,7 @@ const HomeDetail = () => {
                 </div>
               </div>
             </div>
-            <div className={cx('col-md-3', 'px-2')}>
+            <div className={cx('col-md-3', 'pe-1')}>
               <div className={cx('cs-cursor-link', 'cs-prod-capacity', 'text-center', 'py-1', 'mb-3', 'd-flex', 'align-items-center', 'justify-content-center')}>
                 <img src={product && product?.imagesDetail && product?.imagesDetail[0]?.url} className={cx('cs-img-capacity')} alt="..." />
                 <div >
@@ -256,7 +256,7 @@ const HomeDetail = () => {
                 </div>
               </div>
             </div>
-            <div className={cx('col-md-3', 'px-2')}>
+            <div className={cx('col-md-3', 'pe-1')}>
               <div className={cx('cs-cursor-link', 'cs-prod-capacity', 'text-center', 'py-1', 'mb-3', 'd-flex', 'align-items-center', 'justify-content-center')}>
                 <img src={product && product?.imagesDetail && product?.imagesDetail[0]?.url} className={cx('cs-img-capacity')} alt="..." />
                 <div >
@@ -265,7 +265,7 @@ const HomeDetail = () => {
                 </div>
               </div>
             </div>
-            <div className={cx('col-md-3', 'px-2')}>
+            <div className={cx('col-md-3', 'pe-1')}>
               <div className={cx('cs-cursor-link', 'cs-prod-capacity', 'text-center', 'py-1', 'mb-3', 'd-flex', 'align-items-center', 'justify-content-center')}>
                 <img src={product && product?.imagesDetail && product?.imagesDetail[0]?.url} className={cx('cs-img-capacity')} alt="..." />
                 <div >
@@ -275,8 +275,8 @@ const HomeDetail = () => {
               </div>
             </div>
           </div>
-          <div className={cx('row', 'mb-3', 'cs-old-new', 'px-0', 'mx-0')}>
-            <div className={cx('col-md-6', 'ps-0')}>
+          <div className={cx('row', 'mb-3', 'cs-old-new', 'px-0', 'py-2', 'mx-0')}>
+            <div className={cx('col-md-6', 'ps-2')}>
               <div className={cx('px-2', 'd-lex', 'align-items-center')}>
                 <div className={cx('cs-cursor-link', 'text-center', 'py-1', 'd-flex', 'align-items-center', 'justify-content-center')}>
                   <FiRefreshCw className={cx('fs-3', 'me-3')} />
@@ -287,7 +287,7 @@ const HomeDetail = () => {
                 </div>
               </div>
             </div>
-            <div className={cx('col-md-6', 'pe-0')}>
+            <div className={cx('col-md-6', 'pe-2')}>
               <div className={cx('d-lex', 'align-items-center', 'cs-old-new-btn')}>
                 <div className={cx('cs-cursor-link', 'text-center', 'py-1')}>
                   <p className={cx('my-0', 'd-flex', 'justify-content-center', 'fw-medium', 'text-danger', 'cs-old-new-top')}>27.990.000đ</p>
