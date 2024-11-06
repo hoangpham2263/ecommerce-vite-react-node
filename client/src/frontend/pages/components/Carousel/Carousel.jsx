@@ -1,5 +1,6 @@
 import styles from './Carousel.module.scss'
 import classNames from 'classnames/bind'
+import './Carousel.css'
 const cx = classNames.bind(styles)
 
 const Carousel = () => {
@@ -28,12 +29,12 @@ const Carousel = () => {
                 </div>
               ))}
             </div>
-            <button className={cx('carousel-control-prev')} type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
-              <span className={cx('carousel-control-prev-icon')} aria-hidden="true"></span>
+            <button className={cx('carousel-control-prev', 'cs-btn-prev')} type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+              <span className={cx('carousel-control-prev-icon', 'cs-bg-btn')} aria-hidden="true"></span>
               <span className={cx('visually-hidden')}>Previous</span>
             </button>
-            <button className={cx('carousel-control-next')} type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
-              <span className={cx('carousel-control-next-icon')} aria-hidden="true"></span>
+            <button className={cx('carousel-control-next', 'cs-btn-next')} type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+              <span className={cx('carousel-control-next-icon', 'cs-bg-btn')} aria-hidden="true"></span>
               <span className={cx('visually-hidden')}>Next</span>
             </button>
           </div>

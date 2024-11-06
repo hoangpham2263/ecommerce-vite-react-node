@@ -3,7 +3,6 @@ import { FaFacebookF } from 'react-icons/fa'
 import { FaTwitter } from 'react-icons/fa'
 import { BiShow, BiHide } from 'react-icons/bi'
 import { toast } from 'react-toastify'
-import { useNavigate, Link } from 'react-router-dom'
 
 import './Register.css'
 import classNames from 'classnames/bind'
@@ -16,7 +15,6 @@ import { registerAccountBasic } from '../../../main/services/sharedApi'
 const cx = classNames.bind(styles)
 
 const Register = () => {
-  const navigate = useNavigate()
 
   const [showPassword, setShowPassword] = useState([false])
   const [showConfirmPassword, setShowConfirmPassword] = useState([false])
@@ -46,7 +44,7 @@ const Register = () => {
     let response = await registerAccountBasic(data)
     if (response?.data?.code === 0) {
       toast.success(response?.data?.message)
-      navigate(config.routes.login)
+      window.location.href = config.routes.login
     } else {
       toast.error(response?.data?.message)
     }
@@ -57,7 +55,7 @@ const Register = () => {
       <form className={cx('row', 'form-block', 'p-5')}>
         <div className='d-flex justify-content-between'>
           <h4 className='fw-semibold'>Register</h4>
-          <p><Link className="link-offset-2 link-underline link-underline-opacity-0 size-14" to={`${config.routes.login}`}>Already have an account?</Link></p>
+          <p><a className="link-offset-2 link-underline link-underline-opacity-0 size-14" href={`${config.routes.login}`}>Already have an account?</a></p>
         </div>
         <div className="mb-3 pt-2">
           <label htmlFor="fullName" className="form-label mb-1 fw-light size-14">Full Name</label>
@@ -104,7 +102,7 @@ const Register = () => {
           <div className='valid-feedback'>Looks good!</div>
         </div>
         <div className=''>
-          <p className={cx('text-12', 'mt-2', 'mb-0')}>By Signing up, you agree to our  <Link className='link-underline link-underline-opacity-0'>Terms of Service</Link>  and  <Link className='link-underline link-underline-opacity-0'>Privacy Policy</Link></p>
+          <p className={cx('text-12', 'mt-2', 'mb-0')}>By Signing up, you agree to our  <a className='link-underline link-underline-opacity-0'>Terms of Service</a>  and  <a className='link-underline link-underline-opacity-0'>Privacy Policy</a></p>
         </div>
         <button type="submit" className="btn btn-primary w-100 mt-4" onClick={handleSubmit}>Create Account</button>
         <div className="d-flex align-items-center pt-4">

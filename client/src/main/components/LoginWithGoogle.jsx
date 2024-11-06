@@ -1,14 +1,12 @@
 import { useState } from 'react'
 import { FcGoogle } from 'react-icons/fc'
 import { useGoogleLogin } from '@react-oauth/google'
-import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { jwtDecode } from 'jwt-decode'
 
 import { confirmGetToken, getInfoAccountUseAccessToke, readProfileJWT, saveAccountToServer } from '../../main/services/sharedApi'
 
 const LoginWithGoogle = () => {
-  const navigate = useNavigate()
 
   // eslint-disable-next-line no-unused-vars
   const [userInfo, setUserInfo] = useState(null)
@@ -31,15 +29,14 @@ const LoginWithGoogle = () => {
           if (infoLoginJWT?.data?.code === 0) {
             const infoAccountLogin = jwtDecode(infoLoginJWT?.data?.data?.jwt)
             localStorage.setItem('infoAccountLogin', JSON.stringify(infoAccountLogin))
-            toast.success(saveAccountGoogleOAuth?.data?.message)
-            navigate('/')
+            window.location.href = '/'
           }
         } else {
           toast.error(saveAccountGoogleOAuth?.data?.message)
         }
-      } catch (error) {setError(error)}
+      } catch (error) { setError(error) }
     },
-    onError: (errorResponse) => {setError(errorResponse)}
+    onError: (errorResponse) => { setError(errorResponse) }
   })
   return (
     <button type="button" className="d-flex align-items-center btn btn-outline-secondary custom-hover" onClick={() => googleLogin()}>

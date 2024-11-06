@@ -1,6 +1,5 @@
 import classNames from 'classnames/bind'
 import styles from './HomeDetail.module.scss'
-import { Link } from 'react-router-dom'
 import { FaGift } from 'react-icons/fa'
 
 const cx = classNames.bind(styles)

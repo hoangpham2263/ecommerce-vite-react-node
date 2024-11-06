@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom'
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder'
 import Favorite from '@mui/icons-material/Favorite'
 import Rating from '@mui/material/Rating'
@@ -11,7 +10,6 @@ import { useEffect, useState } from 'react'
 const cx = classNames.bind(styles)
 
 const ProductItemRandom = () => {
-  const navigate = useNavigate()
 
   const label = { inputProps: { 'aria-label': 'Checkbox demo' } }
   const [products, setProducts] = useState(null)
@@ -82,7 +80,7 @@ const ProductItemRandom = () => {
                           <button
                             onClick={(event) => {
                               event.stopPropagation()
-                              navigate(config.routes.homeAdmin)
+                              window.location.href = config.routes.homeAdmin
                             }}
                             className={cx('cs-custom-btn', 'codepro-custom-btn', 'codepro-btn-3', 'me-2', 'text-decoration-none', 'text-white', 'text-center')}
                           >
@@ -91,7 +89,7 @@ const ProductItemRandom = () => {
                           <button
                             onClick={(event) => {
                               event.stopPropagation()
-                              navigate(config.routes.homeAdmin)
+                              window.location.href = config.routes.homeAdmin
                             }}
                             className={cx('cs-custom-btn', 'codepro-custom-btn', 'codepro-btn-3', 'text-decoration-none', 'text-white', 'text-center')}
                           >
