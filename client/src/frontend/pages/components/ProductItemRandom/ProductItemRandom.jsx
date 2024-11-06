@@ -5,15 +5,14 @@ import Rating from '@mui/material/Rating'
 import Checkbox from '@mui/material/Checkbox'
 import config from '../../../config'
 import classNames from 'classnames/bind'
-import styles from './ProductItem.module.scss'
+import styles from './ProductItemRandom.module.scss'
 import { readImage, readProduct } from '../../../services/publicApi'
 import { useEffect, useState } from 'react'
 const cx = classNames.bind(styles)
 
-const ProductItem = () => {
+const ProductItemRandom = () => {
   const navigate = useNavigate()
 
-  const listItem = [1, 2, 3, 4, 5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
   const label = { inputProps: { 'aria-label': 'Checkbox demo' } }
   const [products, setProducts] = useState(null)
   const [currentProductPage, setCurrentProductPage] = useState(1)
@@ -63,17 +62,8 @@ const ProductItem = () => {
   return (
     <div className={cx('container')}>
       <div className={cx('row ', 'mb-3', 'd-flex align-items-center')}>
-        <h3 className={cx('col-4', 'm-0')}>ĐIỆN THOẠI NỔI BẬT NHẤT</h3>
+        <h3 className={cx('col-4', 'm-0')}>Tham Khảo Thêm</h3>
         <div className={cx('col-8', 'text-end')}>
-          <button type="button" className={cx('btn', 'cs-brand-item', 'me-2')}>Second1</button>
-          <button type="button" className={cx('btn', 'cs-brand-item', 'me-2')}>Second2</button>
-          <button type="button" className={cx('btn', 'cs-brand-item', 'me-2')}>Second3</button>
-          <button type="button" className={cx('btn', 'cs-brand-item', 'me-2')}>Second3</button>
-          <button type="button" className={cx('btn', 'cs-brand-item', 'me-2')}>Second3</button>
-          <button type="button" className={cx('btn', 'cs-brand-item', 'me-2')}>Second3</button>
-          <button type="button" className={cx('btn', 'cs-brand-item', 'me-2')}>Second3</button>
-          <button type="button" className={cx('btn', 'cs-brand-item', 'me-2')}>Second3</button>
-          <button type="button" className={cx('btn', 'cs-brand-item', 'me-2')}>Second3</button>
         </div>
       </div>
       <div className='row'>
@@ -159,4 +149,4 @@ const ProductItem = () => {
   )
 }
 
-export default ProductItem
+export default ProductItemRandom

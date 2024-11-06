@@ -64,7 +64,7 @@ const HotSaleItem = () => {
     <span>
       <div className={cx('row d-flex flex-wrap grid gap-5 justify-content-center pb-3')}>
         {products && products.map((item, index) => (
-          <div key={index} onClick={(event) => { event.stopPropagation(); navigate(`/${item?.slug}`) }} className={cx('cs-list-item', 'p-0 col-2 bg-white text-decoration-none text-dark')}>
+          <div key={index} onClick={(event) => { event.stopPropagation(); window.location.href = `/${item?.slug}` }} className={cx('cs-list-item', 'p-0 col-2 bg-white text-decoration-none text-dark')}>
             <div className={cx('cs-item-block')}>
               <div className={cx('cs-card')}>
                 <div className={cx('cs-item-pic')}>
