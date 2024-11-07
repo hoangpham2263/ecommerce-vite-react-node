@@ -1,4 +1,5 @@
 import express from "express";
+import { authCheckExistToken, authCheckUserPermission } from "../middleware/authCheckExistToken";
 import positionController from "../controllers/positionController"
 import positionRoleController from "../controllers/positionRoleController"
 import roleController from "../controllers/roleController"
@@ -23,9 +24,15 @@ const adminRoute = (app) => {
   router.get("/position-role", positionRoleController.readFunc)
   router.get("/role", roleController.readFunc)
 
+  // cart
+  router.get("/cart", authCheckExistToken, authCheckUserPermission(), cartController.readFunc)
+  router.get("/cart-amount", authCheckExistToken, authCheckUserPermission(), cartController.readFuncAmount)
+  router.post("/cart", authCheckExistToken, authCheckUserPermission(), cartController.createFunc)
+  router.delete("/cart", authCheckExistToken, authCheckUserPermission(), cartController.deleteFunc)
+
   // product
   router.get("/product", productController.readFunc)
-  router.get("/product/:slug",  productController.readFuncWithSlug)
+  router.get("/product/:slug", productController.readFuncWithSlug)
   router.get("/capacity", capacityController.readFunc)
   router.get("/color", colorController.readFunc)
   router.get("/order-line", orderLineController.readFunc)
@@ -34,7 +41,6 @@ const adminRoute = (app) => {
   router.get("/image", imageController.readFunc)
   router.get("/address", addressController.readFunc)
   router.get("/order", orderController.readFunc)
-  router.get("/cart", cartController.readFunc)
   router.get("/assessment", assessmentController.readFunc)
 
   return app.use("/api", router);

@@ -10,7 +10,7 @@
   display        : flex;
   justify-content: center;
   align-items    : center;
-  z-index        : 9999;
+  z-index        : 1000;
 }
 
 /* Animation for loading items */
@@ -49,8 +49,8 @@
 
 /* Page content khi render */
 .page-content {
-  opacity        : 0;
-  animation      : fadeIn 1s ease-out forwards;
+  opacity  : 0;
+  animation: fadeIn 1s ease-out forwards;
 }
 
 /* Hiệu ứng fade-in cho trang content */

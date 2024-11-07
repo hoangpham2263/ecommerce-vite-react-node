@@ -126,7 +126,6 @@ const adminRoute = (app) => {
   // cart
   router.get("/cart", authCheckExistToken, authCheckUserPermission(), cartController.readFunc)
   router.post("/cart", authCheckExistToken, authCheckUserPermission(), cartController.createFunc)
-  // router.put("/cart", authCheckExistToken, authCheckUserPermission(), cartController.updateFunc)
   router.delete("/cart", authCheckExistToken, authCheckUserPermission(), cartController.deleteFunc)
 
   // assessment

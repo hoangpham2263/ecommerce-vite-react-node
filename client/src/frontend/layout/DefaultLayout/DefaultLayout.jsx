@@ -14,6 +14,8 @@ const DefaultLayout = ({ children }) => {
         <div className={cx('container-default')}>{children}</div>
         <Footer />
       </PageReload>
+      <div>
+      </div>
     </div>
   )
 }

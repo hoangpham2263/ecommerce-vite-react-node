@@ -1,10 +1,10 @@
-.wrapper{
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
+.wrapper {
+  position  : fixed;
+  top       : 0;
+  left      : 0;
+  right     : 0;
   box-shadow: 0 1px 2px 0 rgba(60, 64, 67, .1), 0 2px 6px 2px rgba(60, 64, 67, .15);
-  z-index: 9999;
+  z-index   : 9999;
 }
 
 .cs-header {
@@ -127,15 +127,31 @@
 }
 
 /* user */
-.cs-nav-item-login{
-  padding: 0;
-  width: 48px;
-  height: 48px;
+.cs-nav-item-login {
+  padding      : 0;
+  width        : 48px;
+  height       : 48px;
   border-radius: 100%;
 }
-.img-avatar{
-  display: block;
-  width: 40px;
-  height: 40px;
+
+.img-avatar {
+  display      : block;
+  width        : 40px;
+  height       : 40px;
   border-radius: 100%;
+}
+
+// cart
+.cs-amount-cart-bl {
+  position: relative;
+
+  .cs-icon-cart {
+    font-size: 30px;
+  }
+
+  .cs-amount-cart {
+    position: absolute;
+    top     : 10px;
+    left    : 11px;
+  }
 }

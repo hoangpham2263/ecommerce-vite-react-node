@@ -12,10 +12,14 @@ import UserInfoLogin from './UserInfoLogin'
 import classNames from 'classnames/bind'
 import styles from './Header.module.scss'
 import './Header.css'
+import { useContext } from 'react'
+import { CountCartContext } from '../../../hooks/useContext'
 
 const cx = classNames.bind(styles)
 
 const Header = () => {
+  const { countCart } = useContext(CountCartContext)
+
   return (
     <header className={cx('gl-bg-primary', 'w-100', 'wrapper')}>
       <BannerTopHead />
@@ -47,7 +51,11 @@ const Header = () => {
             <p className={cx('gl-fz-11', 'm-0')}>đơn hàng</p>
           </div>
         </div>
-        <div onClick={() => window.location.href = config.routes.cart} className={cx('cs-nav-item')}><HiOutlineShoppingBag className={cx('cs-nav-item-icon')} />
+        <div onClick={() => window.location.href = config.routes.cart} className={cx('cs-nav-item')}>
+          <span className={cx('cs-amount-cart-bl')}>
+            <HiOutlineShoppingBag className={cx('cs-icon-cart')} />
+            <span className={cx('cs-amount-cart')}>{countCart}</span>
+          </span>
           <div className={cx('d-flex', 'flex-column')}>
             <p className={cx('gl-fz-11', 'm-0', 'd-flex', 'justify-content-between')}>Giỏ</p>
             <p className={cx('gl-fz-11', 'm-0')}>hàng</p>
