@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom'
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder'
 import Favorite from '@mui/icons-material/Favorite'
 import Rating from '@mui/material/Rating'
@@ -11,9 +10,7 @@ import { useEffect, useState } from 'react'
 const cx = classNames.bind(styles)
 
 const HotSaleItem = () => {
-  const navigate = useNavigate()
 
-  const listItem = [1, 2, 3, 4, 5]
   const label = { inputProps: { 'aria-label': 'Checkbox demo' } }
   const [products, setProducts] = useState(null)
   const [currentProductPage, setCurrentProductPage] = useState(1)
@@ -64,7 +61,7 @@ const HotSaleItem = () => {
     <span>
       <div className={cx('row d-flex flex-wrap grid gap-5 justify-content-center pb-3')}>
         {products && products.map((item, index) => (
-          <div key={index} onClick={(event) => { event.stopPropagation(); navigate(`/${item?.slug}`) }} className={cx('cs-list-item', 'p-0 col-2 bg-white text-decoration-none text-dark')}>
+          <div key={index} onClick={(event) => { event.stopPropagation(); window.location.href = `/${item?.slug}` }} className={cx('cs-list-item', 'p-0 col-2 bg-white text-decoration-none text-dark')}>
             <div className={cx('cs-item-block')}>
               <div className={cx('cs-card')}>
                 <div className={cx('cs-item-pic')}>
@@ -74,7 +71,7 @@ const HotSaleItem = () => {
                   <button
                     onClick={(event) => {
                       event.stopPropagation()
-                      navigate(config.routes.homeAdmin)
+                      window.location.href = config.routes.homeAdmin
                     }}
                     className={cx('cs-custom-btn', 'codepro-custom-btn', 'codepro-btn-3', 'me-2', 'text-decoration-none text-white text-center')}
                   >
@@ -83,7 +80,7 @@ const HotSaleItem = () => {
                   <button
                     onClick={(event) => {
                       event.stopPropagation()
-                      navigate(config.routes.homeAdmin)
+                      window.location.href = config.routes.homeAdmin
                     }}
                     className={cx('cs-custom-btn', 'codepro-custom-btn', 'codepro-btn-3', 'text-decoration-none text-white text-center')}
                   >

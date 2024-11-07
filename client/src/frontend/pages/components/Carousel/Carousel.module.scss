@@ -30,3 +30,21 @@
   font-size       : 16px;
   font-weight     : 600;
 }
+
+.cs-btn-prev {
+  display        : flex !important;
+  justify-content: flex-start !important;
+
+  .cs-bg-btn {
+    background-color: rgba(0, 0, 0, 0.4) !important;
+  }
+}
+
+.cs-btn-next {
+  display        : flex !important;
+  justify-content: flex-end !important;
+
+  .cs-bg-btn {
+    background-color: rgba(0, 0, 0, 0.4) !important;
+  }
+}

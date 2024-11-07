@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { FaFacebookF } from 'react-icons/fa'
 import { FaTwitter } from 'react-icons/fa'
@@ -16,7 +15,6 @@ import { loginAccountBasic, readProfileJWT } from '../../../main/services/shared
 const cx = classNames.bind(styles)
 
 const Login = () => {
-  const navigate = useNavigate()
   const [showPassword, setShowPassword] = useState([false])
   const [data, setData] = useState({
     userName: '',
@@ -42,7 +40,7 @@ const Login = () => {
         if (infoAccountLogin?.userPresent?.position?.is_master === true) {
           localStorage.setItem('infoAccountLogin', JSON.stringify(infoAccountLogin))
           toast.success(res?.data?.message)
-          navigate(config.routes.account)
+          window.location.href = config.routes.account
         } else {
           toast.error('account is not admin')
         }
@@ -58,7 +56,7 @@ const Login = () => {
       <form className={cx('form-block', 'p-5')} >
         <div className='d-flex justify-content-between'>
           <h4 className='fw-semibold'>Login</h4>
-          <p><Link className="link-offset-2 link-underline link-underline-opacity-0 size-14" to={`${config.routes.homeUser}`}>{'redirect home <-'}</Link></p>
+          <p><a className="link-offset-2 link-underline link-underline-opacity-0 size-14" href={`${config.routes.homeUser}`}>{'redirect home <-'}</a></p>
         </div>
         <div className="mb-3 pt-4">
           <label htmlFor="username" className="form-label mb-1 fw-light size-14">Username</label>
@@ -78,7 +76,7 @@ const Login = () => {
             <input type="checkbox" className="form-check-input" id="check1" />
             <label className="form-check-label size-14" htmlFor="check1">Keep me sign in</label>
           </div>
-          <p><Link to={'#'} className="link-dark link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover size-14">Forgot Password?</Link></p>
+          <p><a href={'#'} className="link-dark link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover size-14">Forgot Password?</a></p>
         </div>
         <button type="submit" className="btn btn-primary w-100 mt-4" onClick={handleSubmit}>Login</button>
         <div className="d-flex align-items-center pt-4">

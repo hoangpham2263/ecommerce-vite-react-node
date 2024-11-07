@@ -1,5 +1,4 @@
 #carouselExample {
-  /* width        : 706px !important; */
   overflow     : hidden;
   position     : relative !important;
   border       : solid 1px #D1D5DA !important;
@@ -41,5 +40,44 @@ span.carousel-control-next-icon {
   height          : 60px !important;
   width           : 30px !important;
   box-shadow      : 0 0 4px 0 rgba(0, 0, 0, .2) !important;
+  border-radius   : 100px 0 0 100px !important;
+}
+
+/*  */
+
+.cs-slide-right {
+  height: 64px !important;
+}
+
+#carouselExampleSlidesOnly {
+  overflow     : hidden;
+  position     : relative !important;
+  border-radius: 5px !important;
+}
+
+#carouselExampleSlidesOnly:hover .carousel-control-prev,
+#carouselExampleSlidesOnly:hover .carousel-control-next {
+  opacity   : 1 !important;
+  visibility: visible !important;
+  transition: opacity 0.6s ease !important;
+}
+
+.carousel-inner-right {
+  border-radius: 5px !important;
+}
+
+span.carousel-control-prev-icon-right {
+  height          : 40px !important;
+  width           : 20px !important;
+  background-color: rgba(0, 0, 0, 0.4) !important;
+  box-shadow      : 0 0 4px 0 rgba(0, 0, 0, .1) !important;
+  border-radius   : 0 100px 100px 0 !important;
+}
+
+span.carousel-control-next-icon-right {
+  height          : 40px !important;
+  width           : 20px !important;
+  background-color: rgba(0, 0, 0, 0.4) !important;
+  box-shadow      : 0 0 4px 0 rgba(0, 0, 0, .1) !important;
   border-radius   : 100px 0 0 100px !important;
 }

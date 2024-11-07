@@ -3,7 +3,6 @@
   margin-bottom: 15px !important;
 }
 
-
 .cs-img-bl {
   text-align   : center;
   height       : 398px;
@@ -16,6 +15,24 @@
     margin   : auto;
     display  : block;
   }
+
+}
+
+.cs-img-bl-right {
+  text-align   : center;
+  height       : 64px;
+  border-radius: 5px !important;
+  overflow     : hidden !important;
+
+  .cs-img-right {
+    width        : 100%;
+    height       : 100%;
+    margin       : auto;
+    object-fit   : fill;
+    display      : block;
+    border-radius: 5px !important;
+  }
+
 }
 
 .cs-img-des {
@@ -76,6 +93,28 @@
   }
 }
 
+// technique
+.cs-technique {
+  border       : 1px solid #d3d3d3 !important;
+  border-radius: 10px !important;
+  padding      : 0 !important;
+  overflow     : hidden;
+  box-shadow   : 0 1px 2px 0 rgba(60, 64, 67, .1);
+
+  .tr {
+    border-color: none;
+    border-style: none;
+  }
+
+  .cs-tech-size-14 {
+    font-size  : 15px !important;
+    font-weight: 500 !important;
+  }
+}
+
+
+// ----- right -----
+
 // capacity
 .cs-cursor-link {
   cursor         : pointer;
@@ -112,6 +151,16 @@
     font-size: 13px !important;
   }
 
+  .cs-old-new-btn-hover {
+    transition: background-color 0.3s ease, border-radius 0.3s ease !important;
+
+    &:hover {
+      background-color: #fff !important;
+      border-radius   : 8px !important;
+    }
+  }
+
+
   .cs-old-new-btn {
     border          : solid 1px red !important;
     box-shadow      : 0 4px 4px rgba(255, 0, 0, .15), 0 -1px 1px rgba(255, 0, 0, .15);
@@ -119,4 +168,291 @@
     border-radius   : 8px !important;
   }
 
+}
+
+// sale
+.cs-sale-size {
+  font-size: 16px !important;
+}
+
+.cs-prod-sale {
+  border       : 1px solid #FDE2E1 !important;
+  border-radius: 10px !important;
+  padding      : 0 !important;
+  overflow     : hidden;
+
+  .cs-sale-title {
+    background-color: #FDE2E1 !important;
+  }
+
+  .cs-text-danger {
+    color: #d70018;
+  }
+
+  .cs-sale-stt {
+    width           : 15px !important;
+    height          : 15px !important;
+    border-radius   : 999px;
+    background-color: #d70018 !important;
+    color           : white !important;
+    display         : flex !important;
+    align-items     : center !important;
+    justify-content : center !important;
+  }
+
+  .cs-size-desc {
+    flex       : 1;
+    font-size  : 14px !important;
+    font-weight: 400 !important;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+// btn
+.cs-hight-60 {
+  height         : 60px !important;
+  display        : flex !important;
+  flex-direction : column;
+  align-items    : center;
+  justify-content: center;
+}
+
+.cs-btn-size-16 {
+  color    : #fff !important;
+  font-size: 16px !important;
+}
+
+.cs-btn-size-14 {
+  color    : #fff !important;
+  font-size: 14px !important;
+}
+
+.cs-btn-size-12 {
+  color    : #fff !important;
+  font-size: 12px !important;
+}
+
+.cs-btn-warning {
+  background-color: #EC8006 !important;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.cs-btn-cart {
+  border          : 2px solid #e04040 !important;
+  background-color: #fff !important;
+
+  .cs-icon-cart {
+    color    : #d70018 !important;
+    font-size: 26px !important;
+  }
+
+  .cs-btn-text-cart {
+    font-size: 7.5px !important;
+    color    : #d70018 !important;
+  }
+
+  &:hover {
+    background-color: rgba(215, 0, 24, 0.1) !important;
+  }
+}
+
+// Uu Dai
+.bl-UuDai {
+
+  .cs-sale-size {
+    font-size: 14px !important;
+  }
+
+  .cs-prod-sale {
+    border       : 1px solid #d1d5db !important;
+    border-radius: 10px !important;
+    padding      : 0 !important;
+    overflow     : hidden;
+
+    .cs-sale-title {
+      background-color: #d1d5db !important;
+    }
+
+    .cs-text-danger {
+      color: #000 !important;
+    }
+
+    .cs-sale-stt {
+      width           : 15px !important;
+      height          : 15px !important;
+      border-radius   : 999px;
+      background-color: green !important;
+      color           : white !important;
+      display         : flex !important;
+      align-items     : center !important;
+      justify-content : center !important;
+    }
+
+    .cs-size-desc {
+      flex       : 1;
+      font-size  : 12px !important;
+      font-weight: 400 !important;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+// security
+.cs-security {
+  border       : 1px solid #d1d5db !important;
+  border-radius: 10px !important;
+  padding      : 0 !important;
+  overflow     : hidden;
+
+  .cs-desc-size-16 {
+    font-size: 16px !important;
+  }
+
+  .cs-desc-size-14 {
+    font-size: 14px !important;
+  }
+
+  .cs-desc-size-12 {
+    font-size: 12px !important;
+  }
+
+  .bl-1 {
+    display: flex;
+    cursor : pointer;
+
+    .cs-icon {
+      font-size   : 24px !important;
+      margin-right: 4px !important;
+      cursor      : pointer;
+    }
+
+    .cs-desc {
+      flex: 1;
+    }
+  }
+
+  .bl-2 {
+    display       : flex;
+    flex-direction: column;
+
+    .cs-border {
+      border       : 1px solid #e7e7e7 !important;
+      border-radius: 10px !important;
+    }
+
+    .cs-desc {
+      flex  : 1;
+      cursor: pointer;
+    }
+
+    .cs-cursor {
+      cursor: pointer !important;
+    }
+
+    .cs-text-decoration {
+      text-decoration: none !important;
+
+      &:hover {
+        text-decoration: underline !important;
+      }
+    }
+  }
+}
+
+// assessment
+.cs-assessment {
+  border       : 1px solid #d3d3d3 !important;
+  border-radius: 10px !important;
+  padding      : 0 !important;
+  overflow     : hidden;
+  box-shadow   : 0 1px 2px 0 rgba(60, 64, 67, .1);
+
+  .cs-tech-size-14 {
+    font-size  : 15px !important;
+    font-weight: 500 !important;
+  }
+
+  .cs-tech-size-15 {
+    font-size: 15px !important;
+  }
+
+  .cs-border-right {
+    border-right: 1px solid #e5e7eb !important;
+  }
+
+  .cs-border-bottom {
+    border-bottom: 1px solid #e5e7eb !important;
+  }
+
+  .cs-progresbar {
+    flex  : 1;
+    height: 8px !important;
+  }
+
+  .cs-star {
+    display        : flex;
+    align-items    : center !important;
+    justify-content: space-between !important;
+    width          : 66px !important;
+  }
+
+  .cs-height {
+    height: 26px !important;
+  }
+
+  // filter
+  .cs-filter {
+    display         : flex !important;
+    align-items     : center !important;
+    background-color: #fff !important;
+    border          : 1px solid #637381 !important;
+    border-radius   : 15px !important;
+    color           : #637381 !important;
+    cursor          : pointer !important;
+    font-size       : 14px !important;
+    padding         : 3px 12px !important;
+    white-space     : nowrap !important;
+    margin-right    : 8px !important;
+  }
+
+  .cs-filter-active {
+    background-color: #d70018 !important;
+    border          : none !important;
+    color           : #fff !important;
+  }
+
+  // user assessment
+  .cs-user-assess {
+    display: flex;
+
+    .img {
+      width           : 32px !important;
+      height          : 32px !important;
+      border-radius   : 999px !important;
+      background-color: green !important;
+      display         : flex !important;
+      align-items     : center !important;
+      justify-content : center !important;
+      color           : #fff !important;
+      font-weight     : 600 !important;
+    }
+
+    .cs-option {
+      box-shadow: 0 0 0 .5px rgba(145, 158, 171, .239);
+      color     : #637381;
+      padding   : 3px 10px;
+    }
+    .cs-tech-size-12 {
+      font-size: 12px !important;
+    }
+  }
 }

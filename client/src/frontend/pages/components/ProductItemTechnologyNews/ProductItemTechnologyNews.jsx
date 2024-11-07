@@ -1,6 +1,5 @@
 import classNames from 'classnames/bind'
 import styles from './ProductItemTechnologyNews.module.scss'
-import { Link } from 'react-router-dom'
 
 const cx = classNames.bind(styles)
 
@@ -10,7 +9,7 @@ const ProductItemTechnologyNews = ({ title, data }) => {
       <div className={cx('row ', 'mb-1', 'd-flex align-items-center')}>
         <h3 className={cx('col-4', 'm-0')}>{title}</h3>
         <div className={cx('col-8', 'text-end')}>
-          <Link className={cx('btn', 'cs-brand-item', 'me-2')}>Xem tất cả</Link>
+          <a className={cx('btn', 'cs-brand-item', 'me-2')}>Xem tất cả</a>
         </div>
       </div>
       <div className={cx('d-flex', 'flex-wrap', 'gap-3')}>

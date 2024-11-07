@@ -1,6 +1,5 @@
 import { PiUserCircleThin } from 'react-icons/pi'
 import { logoutAccount } from '../../../../main/services/sharedApi'
-import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { LocalStorageGetInfo } from '../../../../main/components/LocalStorageMethod'
 import config from '../../../config'
@@ -11,21 +10,20 @@ const cx = classNames.bind(styles)
 
 const UserInfoLogin = () => {
   const LocalStorageGetInfos = LocalStorageGetInfo() || {}
-  const navigate = useNavigate()
 
   const handleLogout = async () => {
     let response = await logoutAccount()
     if (response?.data?.code === 0) {
       localStorage.removeItem('infoAccountLogin')
       toast.success(response?.data?.message)
-      navigate('/')
+      window.location.href = '/'
     } else {
       toast.error(response?.data?.message)
     }
   }
 
   const handleRedirectAdmin = () => {
-    navigate(config.routes.homeAdmin)
+    window.location.href = config.routes.homeAdmin
   }
 
   return (
@@ -41,11 +39,11 @@ const UserInfoLogin = () => {
               )}
             </div>
             <ul className="dropdown-menu dropdown-menu-end">
-              <li><Link className="dropdown-item">{LocalStorageGetInfos?.user?.full_name}</Link></li>
-              <li><Link className="dropdown-item">Role: {LocalStorageGetInfos?.position?.name}</Link></li>
+              <li><a className="dropdown-item">{LocalStorageGetInfos?.user?.full_name}</a></li>
+              <li><a className="dropdown-item">Role: {LocalStorageGetInfos?.position?.name}</a></li>
 
               {LocalStorageGetInfos?.position?.key_position === 1 && (
-                <li><Link className="dropdown-item" onClick={handleRedirectAdmin}>Website Management</Link></li>
+                <li><a className="dropdown-item" onClick={handleRedirectAdmin}>Website Management</a></li>
               )}
               <li><hr className="dropdown-divider" /></li>
               <li><div className="dropdown-item" onClick={handleLogout}>Logout</div></li>
