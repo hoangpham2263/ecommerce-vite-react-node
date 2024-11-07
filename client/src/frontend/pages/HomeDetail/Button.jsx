@@ -1,6 +1,7 @@
 import classNames from 'classnames/bind'
 import styles from './HomeDetail.module.scss'
 import { MdAddShoppingCart } from 'react-icons/md'
+import config from '../../config'
 
 
 const cx = classNames.bind(styles)
@@ -15,7 +16,7 @@ const Button = () => {
         </button>
       </div>
       <div className={cx('col-md-2', 'ps-1', 'mb-2')}>
-        <button type="button" className={cx('btn btn-danger w-100', 'cs-hight-60', 'cs-btn-cart')}>
+        <button onClick={() => window.location.href = config.routes.cart} type="button" className={cx('btn btn-danger w-100', 'cs-hight-60', 'cs-btn-cart')}>
           <MdAddShoppingCart className={cx('cs-icon-cart')} />
           <p className={cx('m-0', 'cs-btn-text-cart')}>Thêm vào giỏ</p>
         </button>

@@ -47,7 +47,7 @@ const Header = () => {
             <p className={cx('gl-fz-11', 'm-0')}>đơn hàng</p>
           </div>
         </div>
-        <div className={cx('cs-nav-item')}><HiOutlineShoppingBag className={cx('cs-nav-item-icon')} />
+        <div onClick={() => window.location.href = config.routes.cart} className={cx('cs-nav-item')}><HiOutlineShoppingBag className={cx('cs-nav-item-icon')} />
           <div className={cx('d-flex', 'flex-column')}>
             <p className={cx('gl-fz-11', 'm-0', 'd-flex', 'justify-content-between')}>Giỏ</p>
             <p className={cx('gl-fz-11', 'm-0')}>hàng</p>
