@@ -1,11 +1,15 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { Fragment } from 'react'
+import { Fragment, useEffect } from 'react'
 import { arrayRoutes } from './main/routes/routes'
 import DefaultLayout from './frontend/layout/DefaultLayout'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import useFetchAmountCart from './frontend/hooks/useFetchAmountCart'
 
 function App() {
+  const fetchAmountCart = useFetchAmountCart()
+  useEffect(() => { fetchAmountCart() }, [])
+
   return (
     <BrowserRouter>
       <div className="App">

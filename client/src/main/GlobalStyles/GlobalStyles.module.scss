@@ -34,22 +34,3 @@ body {
 body {
     font-family: "Roboto", sans-serif;
 }
-
-html::-webkit-scrollbar {
-    width          : 10px;
-    scrollbar-width: thin;
-}
-
-html::-webkit-scrollbar-thumb {
-    border-radius   : 10px;
-    background-color: rgba(22, 24, 35, 0.1);
-    cursor          : pointer;
-}
-
-html::-webkit-scrollbar-track {
-    background-color: rgba(0, 0, 0, 0);
-}
-
-html::-webkit-scrollbar-thumb:hover {
-    background-color: rgba(22, 24, 35, 0.3);
-}

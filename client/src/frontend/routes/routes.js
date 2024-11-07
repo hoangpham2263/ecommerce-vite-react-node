@@ -4,8 +4,14 @@ import Home from '../pages/Home'
 import HomeDetail from '../pages/HomeDetail'
 import Register from '../pages/Register'
 import Login from '../pages/Login'
+import Cart from '../pages/Cart'
 
 const frontendRoutes = [
+  {
+    path: config.routes.login,
+    component: Login,
+    layout: DefaultLayout
+  },
   {
     path: config.routes.home,
     component: Home,
@@ -22,8 +28,8 @@ const frontendRoutes = [
     layout: DefaultLayout
   },
   {
-    path: config.routes.login,
-    component: Login,
+    path: config.routes.cart,
+    component: Cart,
     layout: DefaultLayout
   }
 ]

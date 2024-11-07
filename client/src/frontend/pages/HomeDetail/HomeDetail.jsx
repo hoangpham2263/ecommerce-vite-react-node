@@ -27,27 +27,22 @@ const HomeDetail = () => {
   const { slug } = useParams()
 
   const fetchProductData = async () => {
-    try {
-      const fetchDataImage = await readImage(1, 100)
-      const fetchDataProduct = await readProductDetail(slug)
+    const fetchDataImage = await readImage(1, 100)
+    const fetchDataProduct = await readProductDetail(slug)
 
-      const imageData = fetchDataImage?.data?.data?.image
-      const productData = fetchDataProduct?.data?.data
+    const imageData = fetchDataImage?.data?.data?.image
+    const productData = fetchDataProduct?.data?.data
 
-      const filteredImages = await imageData.filter(prod => prod?.product_id === productData.id)
-      const imagesDetail = [...filteredImages]
-      const groupedProducts = {
-        ...productData,
-        images: filteredImages,
-        imagesDetail: imagesDetail
-      }
-
-      setProduct(groupedProducts)
-    } catch (error) {
-      console.error('Error fetching product data:', error)
+    const filteredImages = await imageData.filter(prod => prod?.product_id === productData.id)
+    const imagesDetail = [...filteredImages]
+    const groupedProducts = {
+      ...productData,
+      images: filteredImages,
+      imagesDetail: imagesDetail
     }
+    setProduct(groupedProducts)
   }
-
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => { fetchProductData() }, [slug])
 
   return (
@@ -59,6 +54,7 @@ const HomeDetail = () => {
           <li className="breadcrumb-item active" aria-current="page">{product?.title}</li>
         </ol>
       </nav> */}
+
       <h5 className={cx('pt-4', 'm-0')}>{product?.title}</h5>
       <hr className={cx('cs-line')} />
       <div className={cx('row', 'mb-2')}>
@@ -77,7 +73,7 @@ const HomeDetail = () => {
           <SlideRight />
           <Sale />
           <p className={cx('my-0', 'ps-1', 'fw-light', 'cs-sale-size', 'fst-italic', 'mb-2')}>Sản phẩm đang tạm hết hàng tại khu vực bạn đang chọn, vui lòng chuyển về <span className={cx('fw-medium', 'cs-sale-size')}>Bình Dương, Đồng Nai, Tiền Giang, Tây Ninh,</span> ... để đặt hàng online</p>
-          <Button />
+          <Button product={product}/>
           <UuDai />
           <Security />
           <Assessment product={product} />

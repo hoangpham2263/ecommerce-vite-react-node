@@ -81,3 +81,8 @@ span.carousel-control-next-icon-right {
   box-shadow      : 0 0 4px 0 rgba(0, 0, 0, .1) !important;
   border-radius   : 100px 0 0 100px !important;
 }
+
+/* modal */
+div#cartModal {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+}

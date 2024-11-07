@@ -1,4 +1,5 @@
 import db from "../models/index";
+const { Op, where } = require('sequelize');
 
 const readFunc = async (req, res) => {
   try {
@@ -25,28 +26,32 @@ const readFunc = async (req, res) => {
   }
 }
 
-const createFunc = async (req, res) => {
+const readFuncAmount = async (req, res) => {
   try {
-    const { UserId, ProductId, quantity, total } = req.body.data;
-    if (!UserId || !ProductId || !quantity || !total) return res.status(200).json({ message: "missing required parameters", code: 1 });
-    let data = await db.Cart.create({ UserId: UserId, ProductId: ProductId, quantity: quantity, total: total });
-    return res.status(200).json({ message: "a cart is created successfully", code: 0, data: data });
+    if (req.query.userId) {
+      const { count, rows } = await db.Cart.findAndCountAll({ where: { UserId: req.query.userId }, attributes: ["id", "UserId", "ProductId", "quantity", "total", "updatedAt", "createdAt"], order: [["UserId", "ASC"]] })
+      return res.status(200).json({ message: "get cart success", code: 0, data: count, });
+    }
   } catch (error) {
+    console.log(error)
     return res.status(500).json({ message: "error from server", code: -1 });
   }
 }
 
-const updateFunc = async (req, res) => {
+const createFunc = async (req, res) => {
   try {
-    let data = req?.body?.data
-    let cart = await db.Cart.findOne({ where: { id: data?.id, }, });
-    if (cart) {
-      const a = await cart.update({ UserId: data.UserId, ProductId: data.ProductId, quantity: data.quantity, total: data.total });
-      return res.status(200).json({ message: "update cart success", code: 0, data: a });
+    const { UserId, ProductId, quantity, total } = req.body.data;
+    if (!UserId || !ProductId || !quantity || !total) return res.status(200).json({ message: "missing required parameters", code: 1 });
+    let cart = await db.Cart.findOne({ where: { [Op.and]: [{ UserId: UserId }, { ProductId: ProductId }] } });
+    if (!cart) {
+      let data = await db.Cart.create({ UserId: UserId, ProductId: ProductId, quantity: quantity, total: total });
+      return res.status(200).json({ message: "a cart is created successfully", code: 0, data: data });
     } else {
-      return res.status(200).json({ message: "cart not exist", code: 1 });
+      const a = await cart.update({ quantity: quantity, total: total });
+      return res.status(200).json({ message: "update cart success", code: 0, data: a });
     }
   } catch (error) {
+    console.log(error)
     return res.status(500).json({ message: "error from server", code: -1 });
   }
 }
@@ -66,4 +71,4 @@ const deleteFunc = async (req, res) => {
   }
 }
 
-module.exports = { readFunc, createFunc, updateFunc, deleteFunc };
+module.exports = { readFunc, createFunc, deleteFunc, readFuncAmount };
