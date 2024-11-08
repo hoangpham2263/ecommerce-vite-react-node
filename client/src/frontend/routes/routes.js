@@ -5,6 +5,7 @@ import HomeDetail from '../pages/HomeDetail'
 import Register from '../pages/Register'
 import Login from '../pages/Login'
 import Cart from '../pages/Cart'
+import Checkout from '../pages/Checkout'
 
 const frontendRoutes = [
   {
@@ -30,6 +31,11 @@ const frontendRoutes = [
   {
     path: config.routes.cart,
     component: Cart,
+    layout: DefaultLayout
+  },
+  {
+    path: config.routes.checkout,
+    component: Checkout,
     layout: DefaultLayout
   }
 ]

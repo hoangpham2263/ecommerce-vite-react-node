@@ -5,16 +5,63 @@ import Checkbox from '@mui/material/Checkbox'
 import config from '../../../config'
 import classNames from 'classnames/bind'
 import styles from './HotSaleItem.module.scss'
-import { readImage, readProduct } from '../../../services/publicApi'
-import { useEffect, useState } from 'react'
+import { addCart, readImage, readProduct } from '../../../services/publicApi'
+import { useEffect, useRef, useState } from 'react'
+import { LocalStorageGetInfo } from '../../../../main/components/LocalStorageMethod'
+import useFetchAmountCart from '../../../hooks/useFetchAmountCart'
+import { toast } from 'react-toastify'
+import './HotSaleItem.css'
 const cx = classNames.bind(styles)
 
 const HotSaleItem = () => {
 
   const label = { inputProps: { 'aria-label': 'Checkbox demo' } }
   const [products, setProducts] = useState(null)
+  const [product, setProduct] = useState()
   const [currentProductPage, setCurrentProductPage] = useState(1)
   const [totalProductPages, setTotalProductPages] = useState(0)
+
+  // add cart
+  const closeButtonRef = useRef(null)
+  const LocalStorageGetInfos = LocalStorageGetInfo() || {}
+  const [quantity, setQuantity] = useState(1)
+
+  const fetchAmountCart = useFetchAmountCart()
+  useEffect(() => { fetchAmountCart() }, [])
+
+  const handleRemoveBackdrop = (item, e) => {
+    const modalBackdrops = document.querySelectorAll('.modal-backdrop.fade.show')
+    modalBackdrops.forEach((backdrop) => { backdrop.style.display = 'none' })
+    setProduct(item)
+  }
+
+  const handleIncreaseQuantity = () => {
+    setQuantity(quantity + 1)
+  }
+  const handleDecreaseQuantity = () => {
+    if (quantity > 1) {
+      setQuantity(quantity - 1)
+    }
+  }
+  const handleAddProductToCart = async (e) => {
+    e.preventDefault()
+    const data = {
+      UserId: LocalStorageGetInfos?.user?.id,
+      ProductId: product?.id,
+      quantity: quantity,
+      total: product?.price * quantity
+    }
+
+    const fetchData = await addCart(data)
+    if (fetchData?.data?.code === 0) {
+      toast.success('Thêm vào giỏ hàng thành công')
+      fetchAmountCart()
+      closeButtonRef.current.click()
+      setQuantity(1)
+    }
+  }
+  // end add cart
+
 
   const limitPage = {
     product: 5
@@ -61,7 +108,7 @@ const HotSaleItem = () => {
     <span>
       <div className={cx('row d-flex flex-wrap grid gap-5 justify-content-center pb-3')}>
         {products && products.map((item, index) => (
-          <div key={index} onClick={(event) => { event.stopPropagation(); window.location.href = `/${item?.slug}` }} className={cx('cs-list-item', 'p-0 col-2 bg-white text-decoration-none text-dark')}>
+          <div key={index} className={cx('cs-list-item', 'p-0 col-2 bg-white text-decoration-none text-dark')}>
             <div className={cx('cs-item-block')}>
               <div className={cx('cs-card')}>
                 <div className={cx('cs-item-pic')}>
@@ -69,10 +116,8 @@ const HotSaleItem = () => {
                 </div>
                 <div className={cx('cs-card-body')}>
                   <button
-                    onClick={(event) => {
-                      event.stopPropagation()
-                      window.location.href = config.routes.homeAdmin
-                    }}
+                    type="button"
+                    data-bs-toggle="modal" data-bs-target="#cartModalSale" onClick={() => handleRemoveBackdrop(item)}
                     className={cx('cs-custom-btn', 'codepro-custom-btn', 'codepro-btn-3', 'me-2', 'text-decoration-none text-white text-center')}
                   >
                     ADD TO CART
@@ -88,7 +133,7 @@ const HotSaleItem = () => {
                   </button>
                 </div>
               </div>
-              <div className={cx('cs-item-desc')}>
+              <a className={cx('text-decoration-none text-dark', 'cs-item-desc')} href={`/${item?.slug}`} >
                 <div className={cx('cs-item-desc-title')}>
                   <div className={cx('cs-item-desc-content')}>⚡️ Giá Sốc ⚡️ {item?.Brand?.name} {item?.Version?.name} {item?.Capacity?.name} {item?.Color?.name}</div>
                 </div>
@@ -119,7 +164,7 @@ const HotSaleItem = () => {
                     <Checkbox {...label} onClick={handleFavoriteClick} icon={<FavoriteBorder />} checkedIcon={<Favorite />} sx={{ '& .MuiSvgIcon-root': { fontSize: 14 } }} />
                   </div>
                 </div>
-              </div>
+              </a>
               <div className={cx('product__price--percent')}>
                 <img className={cx('product__price--percent')} src='https://res.cloudinary.com/dqhj1sukr/image/upload/v1730468046/uploadLocal_ecommerce/azxoe0ipn6yl0hifhdhz.png' />
                 <p className={cx('product__price--percent-detail')}>
@@ -129,6 +174,30 @@ const HotSaleItem = () => {
             </div>
           </div>
         ))}
+      </div>
+      {/* Modal */}
+      <div>
+        <div className="modal fade" id={cx('cartModalSale')} tabIndex={-1} aria-labelledby="cartModalSaleLabel" aria-hidden="true">
+          <div className="modal-dialog modal-dialog-centered">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h1 className="modal-title fs-5" id="cartModalSaleLabel">Số lượng</h1>
+                <button ref={closeButtonRef} type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" />
+              </div>
+              <div className="modal-body text-center">
+                <div className="btn-group btn-group-lg" role="group" aria-label="Large button group">
+                  <button type="button" className="btn btn-outline-secondary" onClick={handleDecreaseQuantity}>-</button>
+                  <button disabled type="button" className="btn btn-outline-secondary text-dark">{quantity}</button>
+                  <button type="button" className="btn btn-outline-secondary" onClick={handleIncreaseQuantity}>+</button>
+                </div>
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Thoát</button>
+                <button type="button" className="btn btn-primary" onClick={handleAddProductToCart}>Thêm vào giỏ hàng</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </span>
   )

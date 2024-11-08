@@ -84,8 +84,8 @@ const Home = () => {
     <div>
       <Carousel />
       <HotSale />
-      <ProductItem />
-      <ProductItem />
+      <ProductItem stt={1}/>
+      <ProductItem stt={2}/>
       <ProductItemSquare title={'PHỤ KIỆN'} data={dataPhuKien} />
       <ProductItemSquare title={'LINH KIỆN MÁY TÍNH'} data={dataLinhKien} />
       <ProductItemSquare title={'HÀNG CŨ'} data={dataHangCu} />
