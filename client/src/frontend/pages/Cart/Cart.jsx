@@ -6,6 +6,7 @@ import { addCart, deleteCart, readCart } from '../../services/publicApi'
 import { LocalStorageGetInfo } from '../../../main/components/LocalStorageMethod'
 import { useNavigate } from 'react-router-dom'
 import config from '../../config'
+import useFetchAmountCart from '../../hooks/useFetchAmountCart'
 
 const cx = classNames.bind(styles)
 const Cart = () => {
@@ -21,6 +22,9 @@ const Cart = () => {
     setCarts(fetchData?.data?.data)
   }
   useEffect(() => { handleFetchCarts() }, [])
+
+  const fetchAmountCart = useFetchAmountCart()
+  useEffect(() => { fetchAmountCart() }, [])
 
   // ---------- quantity ----------
   const handleDecreaseQuantityCart = async (item) => {
@@ -68,6 +72,7 @@ const Cart = () => {
     const fetchCart = await deleteCart([item?.id])
     if (fetchCart?.data?.code === 0) {
       handleFetchCarts()
+      fetchAmountCart()
       toast.success('Đã xóa sản phẩm thành công')
     }
   }
@@ -77,6 +82,7 @@ const Cart = () => {
       const fetchCart = await deleteCart(selectedItems)
       if (fetchCart?.data?.code === 0) {
         handleFetchCarts()
+        fetchAmountCart()
         toast.success('Đã xóa sản phẩm thành công')
       }
     } else {

@@ -1,5 +1,5 @@
 import db from "../models/index";
-const { Op, where } = require('sequelize');
+const { Op } = require('sequelize');
 
 const readFunc = async (req, res) => {
   try {
@@ -68,6 +68,36 @@ const readFuncAmount = async (req, res) => {
   }
 }
 
+const readFuncByIds = async (req, res) => {
+  try {
+    let { ids } = req.query;
+    ids = typeof (ids) === 'string' ? JSON.parse(ids) : ids
+    const data = await db.Cart.findAll({
+      where: { id: { [Op.in]: ids } },
+      attributes: ["id", "UserId", "ProductId", "quantity", "total", "updatedAt", "createdAt"],
+      order: [["UserId", "ASC"]],
+      include: [
+        {
+          model: db.Product, attributes: ["id", "title", "capacity_id", "ram_id", "color_id", "stock", "discount", "price", "desc", "is_active", "slug", "category_id", "brand_id", "version_id", "updatedAt", "createdAt"],
+          include: [
+            { model: db.Capacity, attributes: ["id", "name"] },
+            { model: db.Color, attributes: ["id", "name", 'color_code'] },
+            { model: db.Ram, attributes: ["id", "name"] },
+            { model: db.Category, attributes: ["id", "name"] },
+            { model: db.Brand, attributes: ["id", "name"] },
+            { model: db.Version, attributes: ["id", "name"] },
+          ]
+        }
+      ],
+    })
+
+    return res.status(200).json({ message: "get cart success", code: 0, data: data, });
+  } catch (error) {
+    console.log(error)
+    return res.status(500).json({ message: "error from server", code: -1 });
+  }
+}
+
 const createFunc = async (req, res) => {
   try {
     const { UserId, ProductId, quantity, total } = req.body.data;
@@ -100,4 +130,4 @@ const deleteFunc = async (req, res) => {
   }
 }
 
-module.exports = { readFunc, createFunc, deleteFunc, readFuncAmount };
+module.exports = { readFunc, createFunc, deleteFunc, readFuncAmount, readFuncByIds };
