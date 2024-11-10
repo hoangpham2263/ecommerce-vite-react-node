@@ -6,6 +6,9 @@ import { toast } from 'react-toastify'
 import { useEffect, useState } from 'react'
 import { LocalStorageGetInfo } from '../../../main/components/LocalStorageMethod'
 import { readImage, readCartByIds, readProductByIds } from '../../services/publicApi'
+import { BsCashCoin } from 'react-icons/bs'
+import { FaCcPaypal } from 'react-icons/fa6'
+import { BsPaypal } from 'react-icons/bs'
 
 const cx = classNames.bind(styles)
 const Checkout = () => {
@@ -83,46 +86,45 @@ const Checkout = () => {
   }
 
   const createOrder = (data, actions) => {
-    // return actions.order.create({
-    //   purchase_units: [{
-    //     amount: {
-    //       value: (+totalPrice() + +dataPayment.ship) / 10000
-    //     }
-    //   }]
-    // })
+    return actions.order.create({
+      purchase_units: [{
+        amount: {
+          value: (+totalPrice + +dataPayment.ship) / 100000
+        }
+      }]
+    })
   }
 
   const onApprove = (data, actions) => {
-    // return actions.order.capture().then(async (details) => {
-    //   if (details.status === 'COMPLETED') {
-    //     let fetchOrder = await createOrderWithUser(userLogin?.id)
-    //     if (fetchOrder) {
-    //       await dataCheckout.map(async (cart, index) => {
-    //         if (!cart.id) {
-    //           let currentCart = { ...cart, idOrder: fetchOrder?.DT?.id }
-    //           await createCart(currentCart)
-    //           await fetchJWT()
-    //         } else {
-    //           await updateCart(cart.id, fetchOrder?.DT?.id)
-    //           await fetchJWT()
-    //         }
-    //       })
-    //     }
-    //     toast.success('Đặt hàng thành công')
-    //     navigate(`/${config.routes.order}`)
-    //   } else {
-    //     toast.warning('Số dư không đủ')
-    //   }
-    // }).catch((error) => {
-    //   console.error('Transaction failed: ', error)
-    //   toast.warning('Đã xảy ra lỗi trong quá trình giao dịch.')
-    // })
+    return actions.order.capture().then(async (details) => {
+      console.log(details)
+      if (details.status === 'COMPLETED') {
+        // let fetchOrder = await createOrderWithUser(userLogin?.id)
+        // if (fetchOrder) {
+        //   await dataCheckout.map(async (cart, index) => {
+        //     if (!cart.id) {
+        //       let currentCart = { ...cart, idOrder: fetchOrder?.DT?.id }
+        //       await createCart(currentCart)
+        //       await fetchJWT()
+        //     } else {
+        //       await updateCart(cart.id, fetchOrder?.DT?.id)
+        //       await fetchJWT()
+        //     }
+        //   })
+        // }
+        toast.success('Đặt hàng thành công')
+        // navigate(`/${config.routes.order}`)
+      } else {
+        toast.warning('Số dư không đủ')
+      }
+    }).catch((error) => {
+      toast.warning('Đã xảy ra lỗi trong quá trình giao dịch.')
+    })
   }
   const onError = (err) => {
-    console.error('PayPal Checkout onError', err)
     toast.error('Đã xảy ra lỗi trong quá trình giao dịch.')
   }
-  console.log(carts)
+
   return (
     <>
       <div className={cx('bl-logo-checkout')} >
@@ -159,29 +161,31 @@ const Checkout = () => {
           <h4 className="rounded p-4 bg-white w-100 mb-1">Sản phẩm</h4>
           <table className="table table-hover mb-4">
             <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Hình ảnh</th>
-                <th scope="col">Tên sản phẩm</th>
-                <th scope="col">Giá</th>
-                <th scope="col">Màu</th>
-                <th scope="col">Dung lượng</th>
-                <th scope="col">Số lượng</th>
-                <th scope="col">Tổng tiền</th>
+              <tr className={cx('cursor-text')}>
+                <th className={cx('cursor-text')} scope="col">#</th>
+                <th className={cx('cursor-text')} scope="col">Hình ảnh</th>
+                <th className={cx('cursor-text')} scope="col">Tên sản phẩm</th>
+                <th className={cx('cursor-text')} scope="col">Giá</th>
+                <th className={cx('cursor-text')} scope="col">Màu</th>
+                <th className={cx('cursor-text')} scope="col">Dung lượng</th>
+                <th className={cx('cursor-text')} scope="col">Số lượng</th>
+                <th className={cx('cursor-text')} scope="col">Tổng tiền</th>
               </tr>
             </thead>
             <tbody>
               {carts && carts.map((cart, index) => {
-                return (<tr key={`${index}-product`}>
-                  <th scope="row">{index + 1}</th>
-                  <td><img className={cx('img-avatar')} src={cart?.images[0]?.url || ''} alt="" /></td>
-                  <td >{cart?.Product?.title}</td>
-                  <td>{cart && formatNumber(cart?.Product?.price)}₫</td>
-                  <td>{cart?.Product?.Color?.name}</td>
-                  <td>{cart?.Product?.Capacity?.name}</td>
-                  <td>{cart?.quantity}</td>
-                  <td>{cart && formatNumber(cart?.total)}₫</td>
-                </tr>)
+                return (
+                  <tr key={`${index}-product`} className={cx('cursor-text')}>
+                    <th className={cx('cursor-text')} scope="row">{index + 1}</th>
+                    <td><img className={cx('img-avatar', 'cursor-text')} src={cart?.images[0]?.url || ''} alt="" /></td>
+                    <td className={cx('cursor-text')} >{cart?.Product?.title}</td>
+                    <td className={cx('cursor-text')}>{cart && formatNumber(cart?.Product?.price)}₫</td>
+                    <td className={cx('cursor-text')}>{cart?.Product?.Color?.name}</td>
+                    <td className={cx('cursor-text')}>{cart?.Product?.Capacity?.name}</td>
+                    <td className={cx('cursor-text')}>{cart?.quantity}</td>
+                    <td className={cx('cursor-text')}>{cart && formatNumber(cart?.total)}₫</td>
+                  </tr>
+                )
               })}
             </tbody>
           </table>
@@ -193,14 +197,14 @@ const Checkout = () => {
                   <h5 className="fw-bold mb-3">Chọn phương thức giao hàng</h5>
                   <div className="border border-primary-subtle rounded w-50 bg-primary bg-opacity-10 p-4">
                     <div className="form-check mb-2">
-                      <input defaultChecked className="form-check-input" value={20000} type="radio" name="ship" id="ship1" onChange={handlePayment} />
-                      <label className="form-check-label" htmlFor="ship1">
+                      <input defaultChecked className={cx('form-check-input', 'cursor-pointer', 'cs-input-option')} value={20000} type="radio" name="ship" id="ship1" onChange={handlePayment} />
+                      <label className={cx('form-check-label', 'cursor-pointer')} htmlFor="ship1">
                         Giao hàng tiết kiệm
                       </label>
                     </div>
                     <div className="form-check">
-                      <input className="form-check-input" value={30000} type="radio" name="ship" id="ship2" onChange={handlePayment} />
-                      <label className="form-check-label" htmlFor="ship2">
+                      <input className={cx('form-check-input', 'cursor-pointer', 'cs-input-option')} value={30000} type="radio" name="ship" id="ship2" onChange={handlePayment} />
+                      <label className={cx('form-check-label', 'cursor-pointer')} htmlFor="ship2">
                         Giao hàng nhanh
                       </label>
                     </div>
@@ -209,15 +213,17 @@ const Checkout = () => {
                 <div className="rounded p-4 bg-white w-100">
                   <h5 className="fw-bold mb-3">Chọn phương thức thanh toán</h5>
                   <div className="border border-primary-subtle rounded w-50 bg-primary bg-opacity-10 p-4">
-                    <div className="form-check">
-                      <input defaultChecked className="form-check-input" value={'payment-on-delivery'} type="radio" name="payment" id="payment1" onChange={handlePayment} />
-                      <label className="form-check-label mb-2" htmlFor="payment1">
+                    <div className="form-check mb-2">
+                      <input defaultChecked className={cx('form-check-input', 'cursor-pointer', 'cs-input-option')} value={'payment-on-delivery'} type="radio" name="payment" id="payment1" onChange={handlePayment} />
+                      <label className={cx('form-check-label', 'cursor-pointer', 'd-flex', 'align-items-center')} htmlFor="payment1">
+                        <BsCashCoin className={cx('me-2', 'fs-4', 'text-secondary')} />
                         Thanh toán tiền mặt khi nhận hàng
                       </label>
                     </div>
                     <div className="form-check">
-                      <input className="form-check-input" value={'payment-paypal'} type="radio" name="payment" id="payment2" onChange={handlePayment} />
-                      <label className="form-check-label" htmlFor="payment2">
+                      <input className={cx('form-check-input', 'cursor-pointer', 'cs-input-option')} value={'payment-paypal'} type="radio" name="payment" id="payment2" onChange={handlePayment} />
+                      <label className={cx('form-check-label', 'cursor-pointer', 'd-flex', 'align-items-center')} htmlFor="payment2">
+                        <BsPaypal className={cx('me-2', 'fs-4', 'text-primary')} />
                         Thanh toán tiền bằng paypal
                       </label>
                     </div>

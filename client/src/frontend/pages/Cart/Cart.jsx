@@ -114,7 +114,7 @@ const Cart = () => {
               <tr className=''>
                 <th className={cx('fw-normal')} scope="col">
                   <label htmlFor='checkboxNoLabelTitle' className={cx('w-100', 'cs-cursor')}>
-                    <input className="form-check-input" type="checkbox" id="checkboxNoLabelTitle" aria-label="..." onChange={handleSelectAll} checked={selectedItems.length === carts.length && carts.length > 0} />
+                    <input className={cx('form-check-input', 'cs-cursor')} type="checkbox" id="checkboxNoLabelTitle" aria-label="..." onChange={handleSelectAll} checked={selectedItems.length === carts.length && carts.length > 0} />
                   </label>
                 </th>
                 <th className={cx('fw-normal', 'cs-cursor-text')} scope="col">STT</th>

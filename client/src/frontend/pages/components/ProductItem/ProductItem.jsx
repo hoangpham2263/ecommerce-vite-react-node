@@ -8,7 +8,6 @@ import Checkbox from '@mui/material/Checkbox'
 
 import styles from './ProductItem.module.scss'
 import config from '../../../config'
-import './ProductItem.css'
 import { addCart, readImage, readProduct } from '../../../services/publicApi'
 import { LocalStorageGetInfo } from '../../../../main/components/LocalStorageMethod'
 import useFetchAmountCart from '../../../hooks/useFetchAmountCart'
@@ -196,7 +195,7 @@ const ProductItem = ({ stt }) => {
       </div>
       {/* Modal */}
       <div>
-        <div className="modal fade" id={`cartModalProd-${stt}`} tabIndex={-1} aria-labelledby={`cartModalProdLabel-${stt}`} aria-hidden="true">
+        <div className={cx('modal fade', 'cs-cartModalProd')} id={`cartModalProd-${stt}`} tabIndex={-1} aria-labelledby={`cartModalProdLabel-${stt}`} aria-hidden="true">
           <div className="modal-dialog modal-dialog-centered">
             <div className="modal-content">
               <div className="modal-header">
