@@ -3,10 +3,12 @@ import styles from './Product.module.scss'
 import './Product.css'
 import { toast } from 'react-toastify'
 import { useEffect, useState } from 'react'
-import { readImage, readProduct, updateProductStatus } from '../../services/privateApi.jsx'
+import { readProduct, updateProductStatus } from '../../services/privateApi.jsx'
 import ModalCreateProduct from './ModalCreate.jsx'
 import ModalEditProduct from './ModalEdit.jsx'
 import ModalDeleteProduct from './ModalDelete.jsx'
+import ModalCreateConfig from './ModalCreateConfig.jsx'
+import ReadConfig from './ReadConfig.jsx'
 
 const cx = classNames.bind(styles)
 
@@ -17,30 +19,11 @@ const Products = () => {
   const [currentProductPage, setCurrentProductPage] = useState(1)
 
   const limitPage = {
-    product: 12,
-    brand: 12,
-    version: 12
+    product: 12
   }
   const fetchProductData = async () => {
-    const fetchDataImage = await readImage(1, 10000)
-    const fetchDataProduct = await readProduct(currentProductPage, limitPage.product)
-    const imageData = fetchDataImage?.data?.data?.image
-    const productData = fetchDataProduct?.data?.data?.product
-
-    const imagesByProductId = imageData.reduce((acc, image) => {
-      if (!acc[image.product_id]) {
-        acc[image.product_id] = []
-      }
-      acc[image.product_id].push(image)
-      return acc
-    }, {})
-    const groupedProducts = productData.map((product) => {
-      return {
-        ...product,
-        images: imagesByProductId[product.id] || []
-      }
-    })
-    setProducts(groupedProducts)
+    const fetchDataProduct = await readProduct({ currentPage: currentProductPage, currentLimit: limitPage.product })
+    setProducts(fetchDataProduct?.data?.data?.product)
     setTotalProductPages(fetchDataProduct?.data?.data?.totalPages)
   }
 
@@ -85,16 +68,14 @@ const Products = () => {
             <thead>
               <tr>
                 <th scope="col">#</th>
-                <th scope="col"></th>
-                <th scope="col">PRODUCT NAME</th>
-                <th scope="col">PRICE</th>
+                {/* <th scope="col">PRODUCT NAME</th> */}
                 <th scope="col">CATEGORY</th>
-                <th scope="col">COLOR</th>
-                <th scope="col">Capacity</th>
+                <th scope="col">BRAND</th>
+                <th scope="col">VERSION</th>
                 <th scope="col">RAM</th>
-                <th scope="col">DISCOUNT</th>
-                <th scope="col">STOCK</th>
+                <th scope="col">Capacity</th>
                 <th scope="col">STATUS</th>
+                <th scope="col">Config</th>
                 <th scope="col"></th>
               </tr>
             </thead>
@@ -107,17 +88,12 @@ const Products = () => {
                     className={cx({ active: selectedProductId === item.id })}
                   >
                     <th scope="row">{(currentProductPage - 1) * limitPage.product + index + 1}</th>
-                    <td>
-                      <img src={item?.images[0]?.url || ''} className={cx('rounded float-start', 'image-product')} alt={item?.title} />
-                    </td>
-                    <td>{item?.title}</td>
-                    <td>{item?.price}đ</td>
+                    {/* <td>{item?.title}</td> */}
                     <td>{item?.Category?.name}</td>
-                    <td>{item?.Color?.name}</td>
-                    <td>{item?.Capacity?.name}</td>
+                    <td>{item?.Brand?.name}</td>
+                    <td>{item?.Version?.name}</td>
                     <td>{item?.Ram?.name}</td>
-                    <td>{item?.discount}</td>
-                    <td>{item?.stock}</td>
+                    <td>{item?.Capacity?.name}</td>
                     <td>
                       <div className="form-check form-switch">
                         <input
@@ -134,6 +110,10 @@ const Products = () => {
                           <label className="form-check-label" htmlFor={`flexSwitchCheckDefault${index}`} onClick={() => handleStatusChange(item?.id, !item?.is_active)}>Off</label>
                         )}
                       </div>
+                    </td>
+                    <td className={cx('d-flex', 'justify-content-between')}>
+                      <ReadConfig fetchDataProductData={fetchProductData} product={item} />
+                      <ModalCreateConfig fetchProductData={fetchProductData} product={item} />
                     </td>
                     <td className={cx('text-end', 'col-btn')}>
                       <ModalEditProduct item={item} index={`modal-edit-${index}`} fetchProductData={fetchProductData} />

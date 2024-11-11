@@ -33,11 +33,18 @@ const deleteRole = (id) => { return axios.delete('/api/admin/role', { data: { id
 const readAddress = (userId, currentPage, currentLimit) => { return axios.get('/api/admin/address', { params: { page: currentPage, limit: currentLimit, user_id: userId }, headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
 
 // CRUD Product
-const readProduct = (currentPage, currentLimit) => { return axios.get('/api/admin/product', { params: { page: currentPage, limit: currentLimit }, headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
+const readProduct = ({ categoryId = null, brandId = null, versionId = null, ids = [], currentPage = 1, currentLimit = 10 }) => { return axios.get('/api/admin/product', { params: { categoryId, brandId, versionId, ids, page: currentPage, limit: currentLimit }, headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
 const createProduct = (data) => { return axios.post('/api/admin/product', { data }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
 const updateProduct = (data) => { return axios.put('/api/admin/product', { data }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
 const updateProductStatus = (data) => { return axios.put('/api/admin/product-status', { data }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
 const deleteProduct = (id) => { return axios.delete('/api/admin/product', { data: { id }, headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
+
+// CRUD Config
+const readConfig = ({ productId = null }) => { return axios.get('/api/admin/config', { params: { productId }, headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
+const createConfig = (data) => { return axios.post('/api/admin/config', { data }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
+const updateConfig = (data) => { return axios.put('/api/admin/config', { data }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
+// const updateConfigStatus = (data) => { return axios.put('/api/admin/product-status', { data }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
+// const deleteConfig = (id) => { return axios.delete('/api/admin/product', { data: { id }, headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
 
 // CRUD Image
 const readImage = (currentPage, currentLimit) => { return axios.get('/api/admin/image', { params: { page: currentPage, limit: currentLimit }, headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
@@ -91,6 +98,7 @@ export {
   createPositionRole, readPositionRole, deletePositionRole, readPositionRoleReverse,
   createRole, readRole, updateRole, deleteRole,
   createProduct, readProduct, updateProduct, deleteProduct, updateProductStatus, readColorDetail,
+  createConfig, readConfig, updateConfig,
   createImage, readImage, updateImage, deleteImage,
   createColor, readColor, updateColor, deleteColor,
   createCapacity, readCapacity, updateCapacity, deleteCapacity,

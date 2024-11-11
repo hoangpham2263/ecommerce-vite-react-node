@@ -2,7 +2,7 @@ import classNames from 'classnames/bind'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
-import { readImage, readProductDetail } from '../../services/publicApi'
+import { readImage, readProduct, readProductDetail } from '../../services/publicApi'
 import './HomeDetail.css'
 import styles from './HomeDetail.module.scss'
 import Specifications from './Specifications'
@@ -42,7 +42,17 @@ const HomeDetail = () => {
     setProduct(groupedProducts)
   }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => { fetchProductData() }, [slug])
+  useEffect(() => {
+    fetchProductData()
+  }, [slug])
+
+  const fetchProductCapacity = async () => {
+    const fetchDataProduct = await readProduct({ categoryId: product?.category_id, brandId: product?.brand_id, versionId: product?.version_id })
+    console.log(fetchDataProduct)
+  }
+  useEffect(() => {
+    fetchProductCapacity()
+  }, [product])
 
   return (
     <div className={cx('wrapper', 'container')}>
@@ -53,7 +63,6 @@ const HomeDetail = () => {
           <li className="breadcrumb-item active" aria-current="page">{product?.title}</li>
         </ol>
       </nav> */}
-
       <h5 className={cx('pt-4', 'm-0')}>{product?.title}</h5>
       <hr className={cx('cs-line')} />
       <div className={cx('row', 'mb-2')}>
@@ -72,7 +81,7 @@ const HomeDetail = () => {
           <SlideRight />
           <Sale />
           <p className={cx('my-0', 'ps-1', 'fw-light', 'cs-sale-size', 'fst-italic', 'mb-2')}>Sản phẩm đang tạm hết hàng tại khu vực bạn đang chọn, vui lòng chuyển về <span className={cx('fw-medium', 'cs-sale-size')}>Bình Dương, Đồng Nai, Tiền Giang, Tây Ninh,</span> ... để đặt hàng online</p>
-          <Button product={product}/>
+          <Button product={product} />
           <UuDai />
           <Security />
           <Assessment product={product} />

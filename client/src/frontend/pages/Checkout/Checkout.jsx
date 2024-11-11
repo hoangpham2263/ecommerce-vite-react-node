@@ -5,9 +5,8 @@ import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js'
 import { toast } from 'react-toastify'
 import { useEffect, useState } from 'react'
 import { LocalStorageGetInfo } from '../../../main/components/LocalStorageMethod'
-import { readImage, readCartByIds, readProductByIds } from '../../services/publicApi'
+import { readImage, readCartByIds } from '../../services/publicApi'
 import { BsCashCoin } from 'react-icons/bs'
-import { FaCcPaypal } from 'react-icons/fa6'
 import { BsPaypal } from 'react-icons/bs'
 
 const cx = classNames.bind(styles)
@@ -97,7 +96,6 @@ const Checkout = () => {
 
   const onApprove = (data, actions) => {
     return actions.order.capture().then(async (details) => {
-      console.log(details)
       if (details.status === 'COMPLETED') {
         // let fetchOrder = await createOrderWithUser(userLogin?.id)
         // if (fetchOrder) {

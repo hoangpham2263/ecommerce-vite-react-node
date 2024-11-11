@@ -18,6 +18,7 @@ import orderController from "../controllers/orderController"
 import cartController from "../controllers/cartController"
 import assessmentController from "../controllers/assessmentController"
 import userController from "../controllers/userController"
+import configController from "../controllers/configController"
 
 const router = express.Router();
 
@@ -55,6 +56,14 @@ const adminRoute = (app) => {
   router.put("/product", authCheckExistToken, authCheckUserPermission(), productController.updateFunc)
   router.put("/product-status", authCheckExistToken, authCheckUserPermission(), productController.updateFuncStatus)
   router.delete("/product", authCheckExistToken, authCheckUserPermission(), productController.deleteFunc)
+
+  // product
+  router.get("/config", authCheckExistToken, authCheckUserPermission(), configController.readFunc)
+  // router.get("/config/:slug", authCheckExistToken, authCheckUserPermission(), configController.readFuncWithSlug)
+  router.post("/config", authCheckExistToken, authCheckUserPermission(), configController.createFunc)
+  router.put("/config", authCheckExistToken, authCheckUserPermission(), configController.updateFunc)
+  // router.put("/config-status", authCheckExistToken, authCheckUserPermission(), configController.updateFuncStatus)
+  // router.delete("/config", authCheckExistToken, authCheckUserPermission(), configController.deleteFunc)
 
   // capacity
   router.get("/capacity", authCheckExistToken, authCheckUserPermission(), capacityController.readFunc)

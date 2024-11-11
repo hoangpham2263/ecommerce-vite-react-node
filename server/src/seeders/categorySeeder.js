@@ -11,10 +11,10 @@ module.exports = {
     await queryInterface.bulkInsert(
       "Category",
       [
-        { name: "Smartphone" },
-        { name: "Tablet" },
+        { name: "Điện thoại" },
+        { name: "Máy tính bảng" },
         { name: "Laptop" },
-        { name: "Watch" },
+        { name: "Đồng hồ thông minh" },
       ],
       {}
     );
