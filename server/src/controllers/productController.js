@@ -1,6 +1,7 @@
 import slugify from "slugify";
 import db from "../models/index";
 import { UploadCloudList } from "../utility/UploadCloudList";
+const { Op } = require('sequelize');
 
 const readFunc = async (req, res) => {
   try {
@@ -71,6 +72,30 @@ const readFuncWithSlug = async (req, res) => {
     return res.status(500).json({ message: "error from server", code: -1 });
   }
 };
+
+const readFuncByIds = async (req, res) => {
+  try {
+    let { ids } = req.query;
+    ids = typeof (ids) === 'string' ? JSON.parse(ids) : ids
+    const data = await db.Product.findAll({
+      where: { id: { [Op.in]: ids } },
+      attributes: ["id", "title", "capacity_id", "ram_id", "color_id", "stock", "discount", "price", "desc", "is_active", "slug", "category_id", "brand_id", "version_id", "updatedAt", "createdAt"],
+      order: [["id", "ASC"]],
+      include: [
+        { model: db.Capacity, attributes: ["id", "name"] },
+        { model: db.Color, attributes: ["id", "name", 'color_code'] },
+        { model: db.Ram, attributes: ["id", "name"] },
+        { model: db.Category, attributes: ["id", "name"] },
+        { model: db.Brand, attributes: ["id", "name"] },
+        { model: db.Version, attributes: ["id", "name"] },
+      ],
+    })
+    return res.status(200).json({ message: "get product success", code: 0, data: data, });
+  } catch (error) {
+    console.log(error)
+    return res.status(500).json({ message: "error from server", code: -1 });
+  }
+}
 
 const createProductTitle = async (brand_id, version_id, ram_id, capacity_id, color_id) => {
   const [brand, version, ram, capacity, color] = await Promise.all([
@@ -258,4 +283,4 @@ const deleteFunc = async (req, res) => {
   }
 }
 
-module.exports = { readFunc, readFuncWithSlug, createFunc, updateFunc, deleteFunc, updateFuncStatus };
+module.exports = { readFunc, readFuncWithSlug, createFunc, updateFunc, deleteFunc, updateFuncStatus, readFuncByIds };

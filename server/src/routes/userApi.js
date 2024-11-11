@@ -27,11 +27,13 @@ const adminRoute = (app) => {
   // cart
   router.get("/cart", authCheckExistToken, authCheckUserPermission(), cartController.readFunc)
   router.get("/cart-amount", authCheckExistToken, authCheckUserPermission(), cartController.readFuncAmount)
+  router.get("/cart-by-ids", cartController.readFuncByIds)
   router.post("/cart", authCheckExistToken, authCheckUserPermission(), cartController.createFunc)
   router.delete("/cart", authCheckExistToken, authCheckUserPermission(), cartController.deleteFunc)
 
   // product
   router.get("/product", productController.readFunc)
+  router.get("/product-by-ids", productController.readFuncByIds)
   router.get("/product/:slug", productController.readFuncWithSlug)
   router.get("/capacity", capacityController.readFunc)
   router.get("/color", colorController.readFunc)

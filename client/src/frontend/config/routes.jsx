@@ -4,7 +4,8 @@ const routes = {
   login: '/login',
   home: '/',
   homeDetail: '/:slug',
-  cart: '/cart'
+  cart: '/cart',
+  checkout: '/checkout'
 }
 
 export default routes

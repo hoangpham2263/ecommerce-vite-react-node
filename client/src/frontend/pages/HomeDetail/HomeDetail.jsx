@@ -27,12 +27,11 @@ const HomeDetail = () => {
   const { slug } = useParams()
 
   const fetchProductData = async () => {
-    const fetchDataImage = await readImage(1, 100)
+    const fetchDataImage = await readImage(1, 10000)
     const fetchDataProduct = await readProductDetail(slug)
 
     const imageData = fetchDataImage?.data?.data?.image
     const productData = fetchDataProduct?.data?.data
-
     const filteredImages = await imageData.filter(prod => prod?.product_id === productData.id)
     const imagesDetail = [...filteredImages]
     const groupedProducts = {

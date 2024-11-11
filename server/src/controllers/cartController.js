@@ -1,5 +1,5 @@
 import db from "../models/index";
-const { Op, where } = require('sequelize');
+const { Op } = require('sequelize');
 
 const readFunc = async (req, res) => {
   try {
@@ -12,13 +12,43 @@ const readFunc = async (req, res) => {
       let { count, rows } = await db.Cart.findAndCountAll({
         offset: offset,
         limit: limit,
+        where: { UserId: req.query.userId },
         attributes: ["id", "UserId", "ProductId", "quantity", "total", "updatedAt", "createdAt"],
         order: [["UserId", "ASC"]],
+        include: [
+          {
+            model: db.Product, attributes: ["id", "title", "capacity_id", "ram_id", "color_id", "stock", "discount", "price", "desc", "is_active", "slug", "category_id", "brand_id", "version_id", "updatedAt", "createdAt"],
+            include: [
+              { model: db.Capacity, attributes: ["id", "name"] },
+              { model: db.Color, attributes: ["id", "name", 'color_code'] },
+              { model: db.Ram, attributes: ["id", "name"] },
+              { model: db.Category, attributes: ["id", "name"] },
+              { model: db.Brand, attributes: ["id", "name"] },
+              { model: db.Version, attributes: ["id", "name"] },
+            ]
+          }
+        ],
       })
       const totalPages = Math.ceil(count / limit);
       data = { totalRows: count, totalPages: totalPages, cart: rows, }
     } else {
-      data = await db.Cart.findAll({ attributes: ["id", "UserId", "ProductId", "quantity", "total", "updatedAt", "createdAt"], order: [["UserId", "ASC"]] })
+      data = await db.Cart.findAll({
+        where: { UserId: req.query.userId },
+        attributes: ["id", "UserId", "ProductId", "quantity", "total", "updatedAt", "createdAt"], order: [["UserId", "ASC"]],
+        include: [
+          {
+            model: db.Product, attributes: ["id", "title", "capacity_id", "ram_id", "color_id", "stock", "discount", "price", "desc", "is_active", "slug", "category_id", "brand_id", "version_id", "updatedAt", "createdAt"],
+            include: [
+              { model: db.Capacity, attributes: ["id", "name"] },
+              { model: db.Color, attributes: ["id", "name", 'color_code'] },
+              { model: db.Ram, attributes: ["id", "name"] },
+              { model: db.Category, attributes: ["id", "name"] },
+              { model: db.Brand, attributes: ["id", "name"] },
+              { model: db.Version, attributes: ["id", "name"] },
+            ]
+          }
+        ],
+      })
     }
     return res.status(200).json({ message: "get cart success", code: 0, data: data, });
   } catch (error) {
@@ -32,6 +62,36 @@ const readFuncAmount = async (req, res) => {
       const { count, rows } = await db.Cart.findAndCountAll({ where: { UserId: req.query.userId }, attributes: ["id", "UserId", "ProductId", "quantity", "total", "updatedAt", "createdAt"], order: [["UserId", "ASC"]] })
       return res.status(200).json({ message: "get cart success", code: 0, data: count, });
     }
+  } catch (error) {
+    console.log(error)
+    return res.status(500).json({ message: "error from server", code: -1 });
+  }
+}
+
+const readFuncByIds = async (req, res) => {
+  try {
+    let { ids } = req.query;
+    ids = typeof (ids) === 'string' ? JSON.parse(ids) : ids
+    const data = await db.Cart.findAll({
+      where: { id: { [Op.in]: ids } },
+      attributes: ["id", "UserId", "ProductId", "quantity", "total", "updatedAt", "createdAt"],
+      order: [["UserId", "ASC"]],
+      include: [
+        {
+          model: db.Product, attributes: ["id", "title", "capacity_id", "ram_id", "color_id", "stock", "discount", "price", "desc", "is_active", "slug", "category_id", "brand_id", "version_id", "updatedAt", "createdAt"],
+          include: [
+            { model: db.Capacity, attributes: ["id", "name"] },
+            { model: db.Color, attributes: ["id", "name", 'color_code'] },
+            { model: db.Ram, attributes: ["id", "name"] },
+            { model: db.Category, attributes: ["id", "name"] },
+            { model: db.Brand, attributes: ["id", "name"] },
+            { model: db.Version, attributes: ["id", "name"] },
+          ]
+        }
+      ],
+    })
+
+    return res.status(200).json({ message: "get cart success", code: 0, data: data, });
   } catch (error) {
     console.log(error)
     return res.status(500).json({ message: "error from server", code: -1 });
@@ -58,17 +118,16 @@ const createFunc = async (req, res) => {
 
 const deleteFunc = async (req, res) => {
   try {
-    let { id } = req.body;
-    let cart = await db.Cart.findOne({ where: { id: id, }, });
-    if (cart) {
-      await cart.destroy();
+    let { ids } = req.body;
+    const deleteCount = await db.Cart.destroy({
+      where: { id: { [Op.in]: ids } }
+    })
+    if (deleteCount > 0) {
       return res.status(200).json({ message: "delete cart success", code: 0 });
-    } else {
-      return res.status(200).json({ message: "cart not exist", code: 1 });
     }
   } catch (error) {
     return res.status(500).json({ message: "error from server", code: -1 });
   }
 }
 
-module.exports = { readFunc, createFunc, deleteFunc, readFuncAmount };
+module.exports = { readFunc, createFunc, deleteFunc, readFuncAmount, readFuncByIds };
