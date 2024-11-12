@@ -13,12 +13,21 @@ const conf_includes = [
 // ---------- read config ----------
 const readFunc = async (req, res) => {
   try {
-    let data = await db.Config.findAll({
-      where: { product_id: req.query.productId },
-      attributes: conf_attributes,
-      order: [["id", "ASC"]],
-      include: conf_includes,
-    })
+    let data;
+    if (req.query.productId) {
+      data = await db.Config.findAll({
+        where: { product_id: req.query.productId },
+        attributes: conf_attributes,
+        order: [["id", "ASC"]],
+        include: conf_includes,
+      })
+    } else {
+      data = await db.Config.findAll({
+        attributes: conf_attributes,
+        order: [["id", "ASC"]],
+        include: conf_includes,
+      })
+    }
     return res.status(200).json({ message: "get config success", code: 0, data: data, });
   } catch (error) {
     return res.status(500).json({ message: "error from server", code: -1 });

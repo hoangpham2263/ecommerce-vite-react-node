@@ -18,7 +18,6 @@ const createImage = (data) => { return axios.post('/api/image', { data }) }
 const updateImage = (data) => { return axios.put('/api/image', { data }) }
 const deleteImage = (id) => { return axios.delete('/api/image', { data: { id } }) }
 
-
 const readAddress = (userId, currentPage, currentLimit) => { return axios.get('/api/address', { params: { page: currentPage, limit: currentLimit, user_id: userId } }) }
 const readProduct = ({ categoryId = null, brandId = null, versionId = null, ids = [], currentPage = 1, currentLimit = 10 }) => { return axios.get('/api/product', { params: { categoryId, brandId, versionId, ids, page: currentPage, limit: currentLimit } }) }
 const readProductDetail = (slug) => { return axios.get(`/api/product/${slug}`) }
@@ -30,9 +29,10 @@ const readRam = (currentPage, currentLimit) => { return axios.get('/api/ram', { 
 const readCategory = (currentPage, currentLimit) => { return axios.get('/api/category', { params: { page: currentPage, limit: currentLimit } }) }
 const readBrand = (currentPage, currentLimit, categoryId) => { return axios.get('/api/brand', { params: { page: currentPage, limit: currentLimit, category_id: categoryId } }) }
 const readVersion = (currentPage, currentLimit, brandId) => { return axios.get('/api/version', { params: { page: currentPage, limit: currentLimit, brand_id: brandId } }) }
+const readConfig = ({ productId = null }) => { return axios.get('/api/config', { params: { productId } }) }
 
 export {
-  readCart, addCart, deleteCart, readCartAmount, readCartByIds,
+  readCart, addCart, deleteCart, readCartAmount, readCartByIds, readConfig,
   createImage, readImage, updateImage, deleteImage,
   readUser, readProduct, readProductDetail,
   readColorDetail, readColor, readCapacity, readRam, readCategory, readBrand, readVersion, readAddress

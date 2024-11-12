@@ -14,7 +14,7 @@ const DisplayImages = ({ product }) => {
     <span>
       <div id="carouselExample" className="carousel slide">
         <div className="carousel-inner">
-          {product?.images?.map((item, index) => {
+          {product?.configs && product?.configs[0]?.images?.map((item, index) => {
             return (
               <div
                 key={index}
@@ -35,7 +35,7 @@ const DisplayImages = ({ product }) => {
         </button>
       </div>
       <div className={cx('row', 'mt-3', 'px-2')}>
-        {product?.imagesDetail?.map((item, index) => {
+        {product?.configs && product?.configs[0]?.images?.map((item, index) => {
           return (
             <img
               key={index}

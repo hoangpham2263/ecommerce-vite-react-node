@@ -57,7 +57,7 @@ const adminRoute = (app) => {
   router.put("/product-status", authCheckExistToken, authCheckUserPermission(), productController.updateFuncStatus)
   router.delete("/product", authCheckExistToken, authCheckUserPermission(), productController.deleteFunc)
 
-  // product
+  // config
   router.get("/config", authCheckExistToken, authCheckUserPermission(), configController.readFunc)
   // router.get("/config/:slug", authCheckExistToken, authCheckUserPermission(), configController.readFuncWithSlug)
   router.post("/config", authCheckExistToken, authCheckUserPermission(), configController.createFunc)

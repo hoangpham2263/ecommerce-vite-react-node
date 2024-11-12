@@ -11,36 +11,86 @@ const prod_includes = [
   { model: db.Version, attributes: ["id", "name"] },
 ]
 
+// ---------- group images by config_id ----------
+const groupImagesByConfigId = (images) => {
+  return images.reduce((acc, image) => {
+    if (!acc[image.config_id]) {
+      acc[image.config_id] = [];
+    }
+    acc[image.config_id].push(image);
+    return acc;
+  }, {});
+};
+
+// ---------- group configs by product_id ----------
+const groupConfigsByProductId = (configs) => {
+  return configs.reduce((acc, config) => {
+    if (!acc[config.product_id]) {
+      acc[config.product_id] = [];
+    }
+    acc[config.product_id].push(config);
+    return acc;
+  }, {});
+};
+
 const readFunc = async (req, res) => {
   try {
-    let data
-    // ---------- Read Product With Page & Limit ----------
+    let data;
+
+    // ---------- Truy vấn hình ảnh và cấu hình ----------
+    const queryImage = await db.Image.findAll({ attributes: ["id", "url", "file_name", "config_id", "updatedAt", "createdAt"], order: [["id", "ASC"]] });
+    const queryConfig = await db.Config.findAll({ attributes: ["id", "price", "stock", "discount", "color_id", "product_id", "is_active", "updatedAt", "createdAt"], order: [["id", "ASC"]] });
+
+    const imagesByConfigId = groupImagesByConfigId(queryImage);
+    const groupedConfigs = queryConfig.map((config) => {
+      const configData = config.toJSON();
+      return { ...configData, images: imagesByConfigId[configData.id] || [] }
+    });
+    const configByProductId = groupConfigsByProductId(groupedConfigs);
+
+    // ---------- Truy vấn sản phẩm ----------
     if (req.query.page && req.query.limit) {
       let { page, limit } = req.query;
       page = parseInt(page, 10) || 1;
       limit = parseInt(limit, 10) || 10;
       let offset = (page - 1) * limit;
+
       let { count, rows } = await db.Product.findAndCountAll({
         offset: offset,
         limit: limit,
         attributes: prod_attributes,
         order: [["title", "ASC"]],
         include: prod_includes,
-      })
+      });
+
       let totalPages = Math.ceil(count / limit);
-      data = { totalRows: count, totalPages: totalPages, product: rows, }
-      // ---------- Read Product By Ids ----------
+      const groupedProducts = rows.map((product) => {
+        const productData = product.toJSON();
+        return {
+          ...productData,
+          configs: configByProductId[productData.id] || [],
+        };
+      });
+
+      data = { totalRows: count, totalPages: totalPages, product: groupedProducts };
+
     } else if (req.query.ids) {
       let { ids } = req.query;
-      console.log(ids)
-      ids = typeof (ids) === 'string' ? JSON.parse(ids) : ids
+      ids = typeof (ids) === 'string' ? JSON.parse(ids) : ids;
       data = await db.Product.findAll({
         where: { id: { [Op.in]: ids } },
         attributes: prod_attributes,
         order: [["id", "ASC"]],
         include: prod_includes,
-      })
-      // ---------- Read Product By CategoryId ----------
+      });
+      data = data.map((product) => {
+        const productData = product.toJSON();
+        return {
+          ...productData,
+          configs: configByProductId[productData.id] || [],
+        };
+      });
+
     } else if (req.query.categoryId && req.query.brandId && req.query.versionId) {
       let { categoryId, brandId, versionId } = req.query;
       data = await db.Product.findAll({
@@ -48,33 +98,79 @@ const readFunc = async (req, res) => {
         attributes: prod_attributes,
         order: [["title", "ASC"]],
         include: prod_includes,
-      })
+      });
+      data = data.map((product) => {
+        const productData = product.toJSON();
+        return {
+          ...productData,
+          configs: configByProductId[productData.id] || [],
+        };
+      });
+
     } else {
-      // ---------- Read All Product ----------
       data = await db.Product.findAll({
         attributes: prod_attributes,
         order: [["title", "ASC"]],
         include: prod_includes,
-      })
+      });
+      data = data.map((product) => {
+        const productData = product.toJSON();
+        return {
+          ...productData,
+          configs: configByProductId[productData.id] || [],
+        };
+      });
     }
-    return res.status(200).json({ message: "get product success", code: 0, data: data, });
+
+    return res.status(200).json({ message: "get product success", code: 0, data: data });
+
   } catch (error) {
-    console.log(error)
     return res.status(500).json({ message: "error from server", code: -1 });
   }
-}
+};
 
 // ---------- Read Product Detail ----------
 const readFuncWithSlug = async (req, res) => {
   try {
     if (req.params.slug) {
       const { slug } = req.params;
-      const data = await db.Product.findOne({
+
+      // Fetch the product by slug
+      const product = await db.Product.findOne({
         where: { slug: slug },
         attributes: prod_attributes,
         include: prod_includes,
       });
-      return res.status(200).json({ message: "get product success", code: 0, data: data });
+
+      if (!product) {
+        return res.status(404).json({ message: "Product not found", code: -1 });
+      }
+
+      // Query configurations and images for the product
+      const queryConfig = await db.Config.findAll({
+        where: { product_id: product.id },
+        attributes: ["id", "price", "stock", "discount", "color_id", "product_id", "is_active", "updatedAt", "createdAt"],
+        order: [["id", "ASC"]],
+      });
+
+      const queryImage = await db.Image.findAll({
+        attributes: ["id", "url", "file_name", "config_id", "updatedAt", "createdAt"],
+        order: [["id", "ASC"]],
+      });
+
+      // Group images by config_id and configs by product_id
+      const imagesByConfigId = groupImagesByConfigId(queryImage);
+      const groupedConfigs = queryConfig.map((config) => {
+        const configData = config.toJSON();
+        return { ...configData, images: imagesByConfigId[configData.id] || [] };
+      });
+
+      // Attach configs to the product
+      const productData = product.toJSON();
+      productData.configs = groupedConfigs;
+
+      return res.status(200).json({ message: "get product success", code: 0, data: productData });
+
     } else {
       return res.status(400).json({ message: "slug not provided", code: -1 });
     }
@@ -82,6 +178,7 @@ const readFuncWithSlug = async (req, res) => {
     return res.status(500).json({ message: "error from server", code: -1 });
   }
 };
+
 
 // ---------- crate product ----------
 const createProductTitle = async (category_id, brand_id, version_id, ram_id, capacity_id) => {

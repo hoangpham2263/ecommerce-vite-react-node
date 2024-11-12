@@ -27,33 +27,15 @@ const HomeDetail = () => {
   const { slug } = useParams()
 
   const fetchProductData = async () => {
-    const fetchDataImage = await readImage(1, 10000)
     const fetchDataProduct = await readProductDetail(slug)
-
-    const imageData = fetchDataImage?.data?.data?.image
-    const productData = fetchDataProduct?.data?.data
-    const filteredImages = await imageData.filter(prod => prod?.product_id === productData.id)
-    const imagesDetail = [...filteredImages]
-    const groupedProducts = {
-      ...productData,
-      images: filteredImages,
-      imagesDetail: imagesDetail
-    }
-    setProduct(groupedProducts)
+    setProduct(fetchDataProduct?.data?.data)
   }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     fetchProductData()
   }, [slug])
 
-  const fetchProductCapacity = async () => {
-    const fetchDataProduct = await readProduct({ categoryId: product?.category_id, brandId: product?.brand_id, versionId: product?.version_id })
-    console.log(fetchDataProduct)
-  }
-  useEffect(() => {
-    fetchProductCapacity()
-  }, [product])
-
+  console.log(product)
   return (
     <div className={cx('wrapper', 'container')}>
       {/* <nav aria-label="breadcrumb">

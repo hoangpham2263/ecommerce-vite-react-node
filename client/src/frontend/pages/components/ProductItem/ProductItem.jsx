@@ -77,29 +77,12 @@ const ProductItem = ({ stt }) => {
 
   // ---------- call api ----------
   const fetchProductData = async () => {
-    const fetchDataImage = await readImage(1, 10000)
     const fetchDataProduct = await readProduct(currentProductPage, limitPage.product)
-    const imageData = fetchDataImage?.data?.data?.image
-    const productData = fetchDataProduct?.data?.data?.product
-    const imagesByProductId = imageData.reduce((acc, image) => {
-      if (!acc[image.product_id]) {
-        acc[image.product_id] = []
-      }
-      acc[image.product_id].push(image)
-      return acc
-    }, {})
-    const groupedProducts = productData.map((product) => {
-      return {
-        ...product,
-        images: imagesByProductId[product.id] || []
-      }
-    })
-    setProducts(groupedProducts)
+    setProducts(fetchDataProduct?.data?.data?.product)
     setTotalProductPages(fetchDataProduct?.data?.data?.totalPages)
   }
   useEffect(() => { fetchProductData() }, [currentProductPage])
   // ---------- end call api ----------
-
   return (
     <div className={cx('container')}>
       <div className={cx('row ', 'mb-3', 'd-flex align-items-center')}>
@@ -126,7 +109,7 @@ const ProductItem = ({ stt }) => {
                     <div className={cx('cs-item-block')}>
                       <div className={cx('cs-card')}>
                         <div className={cx('cs-item-pic')}>
-                          <img className={cx('cs-item-pic-content')} src={item?.images[0]?.url || ''} alt='Product' />
+                          <img className={cx('cs-item-pic-content')} src={item?.configs[0]?.images[0]?.url || ''} alt='Product' />
                         </div>
                         <div className={cx('cs-card-body')}>
                           <button
@@ -149,7 +132,7 @@ const ProductItem = ({ stt }) => {
                       </div>
                       <a className={cx('text-decoration-none text-dark', 'cs-item-desc')} href={`/${item?.slug}`} >
                         <div className={cx('cs-item-desc-title')}>
-                          <div className={cx('cs-item-desc-content')}>⚡️ Giá Sốc ⚡️ {item?.Brand?.name} {item?.Version?.name} {item?.Capacity?.name} {item?.Color?.name}</div>
+                          <div className={cx('cs-item-desc-content')}>⚡️ Giá Sốc ⚡️ {item?.Brand?.name} {item?.Version?.name} {item?.Capacity?.name} {item?.configs[0]?.Color?.name}</div>
                         </div>
                         <div className={cx('cs-item-desc-voucher', 'd-flex')}>
                           <div className={cx('cs-voucher')}>Rẻ Vô Địch</div>
@@ -157,12 +140,12 @@ const ProductItem = ({ stt }) => {
                         </div>
                         <div className={cx('cs-item-desc-price')}>
                           <div className={cx('cs-item-desc-price-sale')}>
-                            <span className={cx('cs-unit')}>₫</span> <span className={cx('cs-price')}>{item?.price}</span>
+                            <span className={cx('cs-unit')}>₫</span> <span className={cx('cs-price')}>{item?.configs[0]?.price}</span>
                           </div>
-                          <div className={cx('cs-item-desc-price-origin')}>₫{item?.price}</div>
+                          <div className={cx('cs-item-desc-price-origin')}>₫{item?.configs[0]?.price}</div>
                           <div className={cx('cs-item-desc-price-percent')}>
                             <div className={cx('cs-box-percent')}>
-                              <span className={cx('cs-content-percent')}>-{item?.discount}%</span>
+                              <span className={cx('cs-content-percent')}>-{item?.configs[0]?.discount}%</span>
                             </div>
                           </div>
                         </div>
@@ -183,7 +166,7 @@ const ProductItem = ({ stt }) => {
                     <div className={cx('product__price--percent')}>
                       <img className={cx('product__price--percent')} src='https://res.cloudinary.com/dqhj1sukr/image/upload/v1730468046/uploadLocal_ecommerce/azxoe0ipn6yl0hifhdhz.png' />
                       <p className={cx('product__price--percent-detail')}>
-                        Giảm&nbsp;{item?.discount}%
+                        Giảm&nbsp;{item?.configs[0]?.discount}%
                       </p>
                     </div>
                   </div>
