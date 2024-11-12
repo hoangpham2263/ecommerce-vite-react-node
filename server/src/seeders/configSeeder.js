@@ -1,20 +1,20 @@
 "use strict";
 
 /** @type {import('sequelize-cli').Migration} */
-const iphoneProducts = require('./productsData/smartphone/iphone');
+const iphoneConfigs = require('./configsData/smartphone/iphone');
 
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.bulkInsert(
-      "Product",
+      "Config",
       [
-        ...iphoneProducts,
+        ...iphoneConfigs,
       ],
       {}
     );
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.bulkDelete("Product", null, {});
+    await queryInterface.bulkDelete("Config", null, {});
   },
 };

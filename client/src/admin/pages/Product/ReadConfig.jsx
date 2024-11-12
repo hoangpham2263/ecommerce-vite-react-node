@@ -34,7 +34,7 @@ const ReadConfig = ({ product, fetchDataProductData }) => {
     <span>
       {Array.isArray(config) && config.map((item, index) => {
         return (
-          <ModalEditConfig key={`config-${index}`} item={item} fetchDataProductData={fetchDataProductData} />
+          <ModalEditConfig key={`config-${index}`} item={item} fetchDataProductData={fetchDataProductData} fetchConfig={fetchConfig} />
         )
       })}
     </span>

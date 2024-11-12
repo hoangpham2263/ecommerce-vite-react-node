@@ -3,7 +3,7 @@ import { toast } from 'react-toastify'
 import { readColor, readColorDetail, updateConfig } from '../../services/privateApi'
 import { ImageToBase64 } from '../../../main/utility/ImageToBase64'
 
-const ModalEditConfig = ({ item, fetchDataProductData }) => {
+const ModalEditConfig = ({ item, fetchDataProductData, fetchConfig }) => {
   const [data, setData] = useState({
     price: '',
     color_id: '',
@@ -54,7 +54,7 @@ const ModalEditConfig = ({ item, fetchDataProductData }) => {
         setData((prev) => ({ ...prev, buttonColor: result?.data?.data?.color_code || '#000' }))
       })
     }
-  }, [data.color_id, fetchDataProductData])
+  }, [data.color_id, fetchDataProductData, fetchConfig])
 
   const handleOnChange = (e) => {
     const { name, value } = e.target
@@ -103,7 +103,7 @@ const ModalEditConfig = ({ item, fetchDataProductData }) => {
         data-bs-toggle="offcanvas"
         data-bs-target={`#offcanvasConfig-edit-${item?.id}`}
         aria-controls="offcanvasConfig-edit"
-        style={{ backgroundColor: `${item?.Color?.color_code}`, borderColor: `${item?.Color?.color_code}` }}
+        style={{ backgroundColor: `${item?.Color?.color_code}`, borderColor: `${item?.Color?.color_code}`, color: item?.Color?.color_code.toUpperCase() === '#FFFFFF' || item?.Color?.color_code.toUpperCase() === '#FFFF00' ? '#000000' : '' }}
       >
         {item?.Color?.name}
       </button>
@@ -211,7 +211,7 @@ const ModalEditConfig = ({ item, fetchDataProductData }) => {
           </form>
         </div>
       </div>
-    </span>
+    </span >
   )
 }
 
