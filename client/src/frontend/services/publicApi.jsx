@@ -19,7 +19,7 @@ const updateImage = (data) => { return axios.put('/api/image', { data }) }
 const deleteImage = (id) => { return axios.delete('/api/image', { data: { id } }) }
 
 const readAddress = (userId, currentPage, currentLimit) => { return axios.get('/api/address', { params: { page: currentPage, limit: currentLimit, user_id: userId } }) }
-const readProduct = ({ categoryId = null, brandId = null, versionId = null, ids = [], currentPage = 1, currentLimit = 10 }) => { return axios.get('/api/product', { params: { categoryId, brandId, versionId, ids, page: currentPage, limit: currentLimit } }) }
+const readProduct = ({ categoryId = null, brandId = null, versionId = null, ids = [], currentPage = null, currentLimit = null }) => { return axios.get('/api/product', { params: { categoryId, brandId, versionId, ids, page: currentPage, limit: currentLimit } }) }
 const readProductDetail = (slug) => { return axios.get(`/api/product/${slug}`) }
 
 const readColorDetail = (id) => { return axios.get(`/api/color/${id}`) }

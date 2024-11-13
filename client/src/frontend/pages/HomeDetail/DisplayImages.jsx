@@ -4,7 +4,7 @@ import { useState } from 'react'
 
 const cx = classNames.bind(styles)
 
-const DisplayImages = ({ product }) => {
+const DisplayImages = ({ product,selectConfig }) => {
   const [activeIndex, setActiveIndex] = useState(0)
 
   const handleThumbnailClick = (index) => {
@@ -14,7 +14,7 @@ const DisplayImages = ({ product }) => {
     <span>
       <div id="carouselExample" className="carousel slide">
         <div className="carousel-inner">
-          {product?.configs && product?.configs[0]?.images?.map((item, index) => {
+          {product?.configs && product?.configs[selectConfig]?.images?.map((item, index) => {
             return (
               <div
                 key={index}
@@ -35,7 +35,7 @@ const DisplayImages = ({ product }) => {
         </button>
       </div>
       <div className={cx('row', 'mt-3', 'px-2')}>
-        {product?.configs && product?.configs[0]?.images?.map((item, index) => {
+        {product?.configs && product?.configs[selectConfig]?.images?.map((item, index) => {
           return (
             <img
               key={index}

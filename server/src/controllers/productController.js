@@ -37,9 +37,8 @@ const readFunc = async (req, res) => {
   try {
     let data;
 
-    // ---------- Truy vấn hình ảnh và cấu hình ----------
     const queryImage = await db.Image.findAll({ attributes: ["id", "url", "file_name", "config_id", "updatedAt", "createdAt"], order: [["id", "ASC"]] });
-    const queryConfig = await db.Config.findAll({ attributes: ["id", "price", "stock", "discount", "color_id", "product_id", "is_active", "updatedAt", "createdAt"], order: [["id", "ASC"]] });
+    const queryConfig = await db.Config.findAll({ attributes: ["id", "price", "stock", "discount", "color_id", "product_id", "is_active", "updatedAt", "createdAt"], order: [["id", "ASC"]], include: [{ model: db.Color, attributes: ["id", "name", "color_code", "updatedAt", "createdAt"] }] });
 
     const imagesByConfigId = groupImagesByConfigId(queryImage);
     const groupedConfigs = queryConfig.map((config) => {
@@ -47,8 +46,7 @@ const readFunc = async (req, res) => {
       return { ...configData, images: imagesByConfigId[configData.id] || [] }
     });
     const configByProductId = groupConfigsByProductId(groupedConfigs);
-
-    // ---------- Truy vấn sản phẩm ----------
+    // ---------- pagination ----------
     if (req.query.page && req.query.limit) {
       let { page, limit } = req.query;
       page = parseInt(page, 10) || 1;
@@ -96,7 +94,7 @@ const readFunc = async (req, res) => {
       data = await db.Product.findAll({
         where: { [Op.and]: [{ category_id: categoryId }, { brand_id: brandId }, { version_id: versionId }] },
         attributes: prod_attributes,
-        order: [["title", "ASC"]],
+        order: [["capacity_id", "ASC"]],
         include: prod_includes,
       });
       data = data.map((product) => {
@@ -151,8 +149,8 @@ const readFuncWithSlug = async (req, res) => {
         where: { product_id: product.id },
         attributes: ["id", "price", "stock", "discount", "color_id", "product_id", "is_active", "updatedAt", "createdAt"],
         order: [["id", "ASC"]],
+        include: [{ model: db.Color, attributes: ["id", "name", "color_code", "updatedAt", "createdAt"] }]
       });
-
       const queryImage = await db.Image.findAll({
         attributes: ["id", "url", "file_name", "config_id", "updatedAt", "createdAt"],
         order: [["id", "ASC"]],

@@ -21,8 +21,8 @@ module.exports = {
       quantity: {
         type: Sequelize.INTEGER,
       },
-      total: {
-        type: Sequelize.FLOAT,
+      select_config: {
+        type: Sequelize.INTEGER,
       },
       createdAt: {
         allowNull: false,

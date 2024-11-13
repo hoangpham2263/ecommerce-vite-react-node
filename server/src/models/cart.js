@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
       UserId: DataTypes.INTEGER,
       ProductId: DataTypes.INTEGER,
       quantity: DataTypes.INTEGER,
-      total: DataTypes.FLOAT,
+      select_config: DataTypes.INTEGER,
     },
     {
       sequelize,

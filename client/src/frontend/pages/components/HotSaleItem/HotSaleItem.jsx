@@ -22,6 +22,8 @@ const HotSaleItem = () => {
   const closeButtonRef = useRef(null)
   const LocalStorageGetInfos = LocalStorageGetInfo() || {}
   const [quantity, setQuantity] = useState(1)
+  const [selectConfig, setSelectConfig] = useState(0)
+
 
   const fetchAmountCart = useFetchAmountCart()
   useEffect(() => { fetchAmountCart() }, [])
@@ -41,24 +43,24 @@ const HotSaleItem = () => {
     }
   }
   const handleAddProductToCart = async (e) => {
-    e.preventDefault()
     const data = {
       UserId: LocalStorageGetInfos?.user?.id,
       ProductId: product?.id,
       quantity: quantity,
-      total: product?.price * quantity
+      select_config: Number(selectConfig)
     }
-    // console.log(data)
-    // console.log(product?.configs[0])
-    // const fetchData = await addCart(data)
-    // if (fetchData?.data?.code === 0) {
-    //   toast.success('Thêm vào giỏ hàng thành công')
-    //   fetchAmountCart()
-    //   closeButtonRef.current.click()
-    //   setQuantity(1)
-    // }
+    const fetchData = await addCart(data)
+    if (fetchData?.data?.code === 0) {
+      toast.success('Thêm vào giỏ hàng thành công')
+      fetchAmountCart()
+      closeButtonRef.current.click()
+      setQuantity(1)
+      setSelectConfig(0)
+    }
   }
-
+  const handleSelectConfig = (event) => {
+    setSelectConfig(event.target.value)
+  }
   const handleFavoriteClick = (event) => {
     event.stopPropagation()
   }
@@ -71,6 +73,11 @@ const HotSaleItem = () => {
   useEffect(() => {
     fetchProductData()
   }, [])
+
+  const formatNumber = (number) => {
+    return number.toLocaleString('vi-VN')
+  }
+
   return (
     <span>
       <div className={cx('row d-flex flex-wrap grid gap-5 justify-content-center pb-3')}>
@@ -158,6 +165,17 @@ const HotSaleItem = () => {
                   <button disabled type="button" className="btn btn-outline-secondary text-dark">{quantity}</button>
                   <button type="button" className="btn btn-outline-secondary" onClick={handleIncreaseQuantity}>+</button>
                 </div>
+                <h5 className='text-start mt-3'>{product?.title}</h5>
+                <span className='d-flex align-items-center mt-2 w-100'>
+                  <select className="form-select w-25" onChange={handleSelectConfig}>
+                    {product?.configs && product?.configs.map((item, index) => (
+                      <option key={item?.id} value={index} >
+                        {item?.Color?.name}
+                      </option>
+                    ))}
+                  </select>
+                  <p className='w-50 mb-0 ms-3 text-start fs-5 fw-normal'>{product?.configs && formatNumber((product?.configs[selectConfig].price || 0) * (1 - product?.configs[selectConfig].discount / 100) - 2000000)}đ</p>
+                </span>
               </div>
               <div className="modal-footer">
                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Thoát</button>

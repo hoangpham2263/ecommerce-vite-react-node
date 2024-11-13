@@ -8,7 +8,7 @@ import Checkbox from '@mui/material/Checkbox'
 
 import styles from './ProductItem.module.scss'
 import config from '../../../config'
-import { addCart, readImage, readProduct } from '../../../services/publicApi'
+import { addCart, readProduct } from '../../../services/publicApi'
 import { LocalStorageGetInfo } from '../../../../main/components/LocalStorageMethod'
 import useFetchAmountCart from '../../../hooks/useFetchAmountCart'
 const cx = classNames.bind(styles)
@@ -20,6 +20,7 @@ const ProductItem = ({ stt }) => {
   const [productCurrent, setProductCurrent] = useState({})
   const [currentProductPage, setCurrentProductPage] = useState(1)
   const [totalProductPages, setTotalProductPages] = useState(0)
+  const [selectConfig, setSelectConfig] = useState(0)
 
   // ---------- navigation ----------
   const limitPage = {
@@ -63,7 +64,7 @@ const ProductItem = ({ stt }) => {
       UserId: LocalStorageGetInfos?.user?.id,
       ProductId: productCurrent?.id,
       quantity: quantity,
-      total: productCurrent?.price * quantity
+      select_config: Number(selectConfig)
     }
     const fetchData = await addCart(data)
     if (fetchData?.data?.code === 0) {
@@ -71,18 +72,23 @@ const ProductItem = ({ stt }) => {
       fetchAmountCart()
       closeButtonRef.current.click()
       setQuantity(1)
+      setSelectConfig(0)
     }
   }
-  // ---------- end add cart ----------
-
+  const handleSelectConfig = (event) => {
+    setSelectConfig(event.target.value)
+  }
   // ---------- call api ----------
   const fetchProductData = async () => {
-    const fetchDataProduct = await readProduct(currentProductPage, limitPage.product)
+    const fetchDataProduct = await readProduct({ currentPage: currentProductPage, currentLimit: limitPage.product })
     setProducts(fetchDataProduct?.data?.data?.product)
     setTotalProductPages(fetchDataProduct?.data?.data?.totalPages)
   }
   useEffect(() => { fetchProductData() }, [currentProductPage])
-  // ---------- end call api ----------
+  const formatNumber = (number) => {
+    return number.toLocaleString('vi-VN')
+  }
+
   return (
     <div className={cx('container')}>
       <div className={cx('row ', 'mb-3', 'd-flex align-items-center')}>
@@ -191,6 +197,17 @@ const ProductItem = ({ stt }) => {
                   <button disabled type="button" className="btn btn-outline-secondary text-dark">{quantity}</button>
                   <button type="button" className="btn btn-outline-secondary" onClick={handleIncreaseQuantity}>+</button>
                 </div>
+                <h5 className='text-start mt-3'>{productCurrent?.title}</h5>
+                <span className='d-flex align-items-center mt-2 w-100'>
+                  <select className="form-select w-25" onChange={handleSelectConfig}>
+                    {productCurrent?.configs && productCurrent?.configs.map((item, index) => (
+                      <option key={item?.id} value={index} >
+                        {item?.Color?.name}
+                      </option>
+                    ))}
+                  </select>
+                  <p className='w-50 mb-0 ms-3 text-start fs-5 fw-normal'>{productCurrent?.configs && formatNumber((productCurrent?.configs[selectConfig].price || 0) * (1 - productCurrent?.configs[selectConfig].discount / 100) - 2000000)}đ</p>
+                </span>
               </div>
               <div className="modal-footer">
                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Thoát</button>
@@ -200,7 +217,7 @@ const ProductItem = ({ stt }) => {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   )
 }
 
