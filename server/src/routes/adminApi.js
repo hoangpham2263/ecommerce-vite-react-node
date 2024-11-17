@@ -13,7 +13,6 @@ import brandController from "../controllers/brandController"
 import versionController from "../controllers/versionController"
 import imageController from "../controllers/imageController"
 import addressController from "../controllers/addressController"
-import orderItemController from "../controllers/orderItemController"
 import orderController from "../controllers/orderController"
 import cartController from "../controllers/cartController"
 import assessmentController from "../controllers/assessmentController"
@@ -119,12 +118,6 @@ const adminRoute = (app) => {
   router.post("/address", authCheckExistToken, authCheckUserPermission(), addressController.createFunc)
   router.put("/address", authCheckExistToken, authCheckUserPermission(), addressController.updateFunc)
   router.delete("/address", authCheckExistToken, authCheckUserPermission(), addressController.deleteFunc)
-
-  // orderItem
-  router.get("/order-item", authCheckExistToken, authCheckUserPermission(), orderItemController.readFunc)
-  router.post("/order-item", authCheckExistToken, authCheckUserPermission(), orderItemController.createFunc)
-  // router.put("/order-item", authCheckExistToken, authCheckUserPermission(), orderItemController.updateFunc)
-  router.delete("/order-item", authCheckExistToken, authCheckUserPermission(), orderItemController.deleteFunc)
 
   // order
   router.get("/order", authCheckExistToken, authCheckUserPermission(), orderController.readFunc)

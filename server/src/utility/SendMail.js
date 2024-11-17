@@ -19,7 +19,7 @@ async function sendEmail(req, res) {
     const emailContent = `
         <div style="font-family: Arial, sans-serif; font-size: 14px; color: #333;">
             <h2>Hoá Đơn Thanh Toán Sản Phẩm</h2>
-            <p>Xin chào ${userLogin?.lastName} ${userLogin?.firstName},</p>
+            <p>Xin chào ${userLogin?.full_name},</p>
             <p>Cảm ơn bạn đã mua sắm tại QuocHoangDev. Dưới đây là chi tiết đơn hàng của bạn:</p>
             <table style="width: 100%; border-collapse: collapse;">
                 <thead>
@@ -34,19 +34,19 @@ async function sendEmail(req, res) {
                     </tr>
                 </thead>
                 <tbody>
-                    ${dataCheckout.map((product, index) => `
-                        <tr>
-                            <td style="border: 1px solid #ddd; padding: 8px;">${index + 1}</td>
-                            <td style="border: 1px solid #ddd; padding: 8px;">
-                                <img src="${product?.image}" alt="${product?.title}" style="width: 50px; height: auto;" />
-                            </td>
-                            <td style="border: 1px solid #ddd; padding: 8px;">${product?.title}</td>
-                            <td style="border: 1px solid #ddd; padding: 8px;">${formatNumber(product?.priceDiscount)}₫</td>
-                            <td style="border: 1px solid #ddd; padding: 8px;">${product?.color}</td>
-                            <td style="border: 1px solid #ddd; padding: 8px;">${product?.capacity}</td>
-                            <td style="border: 1px solid #ddd; padding: 8px;">${product?.quantity}</td>
-                        </tr>
-                    `).join('')}
+                ${dataCheckout.map((item, index) => `
+                    <tr>
+                        <td style="border: 1px solid #ddd; padding: 8px;">${index + 1}</td>
+                        <td style="border: 1px solid #ddd; padding: 8px;">
+                            <img src="${item?.images && item?.images[0]?.url}" alt="product..." style="width: 50px; height: auto;" />
+                        </td>
+                        <td style="border: 1px solid #ddd; padding: 8px;">${item?.Product?.title}</td>
+                        <td style="border: 1px solid #ddd; padding: 8px;">${formatNumber(item?.Config?.price)}₫</td>
+                        <td style="border: 1px solid #ddd; padding: 8px;">${item?.Config?.Color?.name}</td>
+                        <td style="border: 1px solid #ddd; padding: 8px;">${item?.Product?.Capacity?.name}</td>
+                        <td style="border: 1px solid #ddd; padding: 8px;">${item?.quantity}</td>
+                    </tr>
+                `).join('')}
                 </tbody>
             </table>
             <p>Tổng tiền: <strong>${formatNumber(value)}₫</strong></p>

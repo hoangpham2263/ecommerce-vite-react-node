@@ -31,9 +31,22 @@ const readBrand = (currentPage, currentLimit, categoryId) => { return axios.get(
 const readVersion = (currentPage, currentLimit, brandId) => { return axios.get('/api/version', { params: { page: currentPage, limit: currentLimit, brand_id: brandId } }) }
 const readConfig = ({ productId = null }) => { return axios.get('/api/config', { params: { productId } }) }
 
+// CRUD Order
+const readOrder = (currentPage, currentLimit, brandId) => { return axios.get('/api/order', { params: { page: currentPage, limit: currentLimit, brand_id: brandId }, headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
+const createOrder = (data) => { return axios.post('/api/order', { data }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
+const updateOrder = (data) => { return axios.put('/api/order', { data }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
+const deleteOrder = (id) => { return axios.delete('/api/order', { data: { id }, headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
+
+
+// Send Mail
+const sendMailer = (data) => { return axios.post('/api/send-mail', { data }) };
+const sendMailerContact = (data) => { return axios.post('/api/send-mail-contact', { data }) };
+
 export {
   readCart, addCart, deleteCart, readCartAmount, readCartByIds, readConfig,
   createImage, readImage, updateImage, deleteImage,
   readUser, readProduct, readProductDetail,
-  readColorDetail, readColor, readCapacity, readRam, readCategory, readBrand, readVersion, readAddress
+  readColorDetail, readColor, readCapacity, readRam, readCategory, readBrand, readVersion, readAddress,
+  sendMailer, sendMailerContact,
+  readOrder, createOrder, updateOrder, deleteOrder
 }

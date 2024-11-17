@@ -47,7 +47,7 @@ const HotSaleItem = () => {
       UserId: LocalStorageGetInfos?.user?.id,
       ProductId: product?.id,
       quantity: quantity,
-      select_config: Number(selectConfig)
+      config_id: product.configs && product.configs[Number(selectConfig)]?.id
     }
     const fetchData = await addCart(data)
     if (fetchData?.data?.code === 0) {

@@ -91,6 +91,12 @@ const createVersion = (data) => { return axios.post('/api/admin/version', { data
 const updateVersion = (data) => { return axios.put('/api/admin/version', { data }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
 const deleteVersion = (id) => { return axios.delete('/api/admin/version', { data: { id }, headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
 
+// CRUD Order
+const readOrder = (currentPage, currentLimit, brandId) => { return axios.get('/api/admin/order', { params: { page: currentPage, limit: currentLimit, brand_id: brandId }, headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
+const createOrder = (data) => { return axios.post('/api/admin/order', { data }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
+const updateOrder = (data) => { return axios.put('/api/admin/order', { data }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
+const deleteOrder = (id) => { return axios.delete('/api/admin/order', { data: { id }, headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
+
 
 export {
   createUser, readUser, updateUser, deleteUser,
@@ -106,5 +112,6 @@ export {
   createCategory, readCategory, updateCategory, deleteCategory,
   createBrand, readBrand, updateBrand, deleteBrand,
   createVersion, readVersion, updateVersion, deleteVersion,
-  readAddress
+  readAddress,
+  readOrder, createOrder, updateOrder, deleteOrder
 }

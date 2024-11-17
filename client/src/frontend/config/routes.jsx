@@ -5,6 +5,8 @@ const routes = {
   home: '/',
   homeDetail: '/:slug',
   cart: '/cart',
+  order: '/order',
+  dienThoai: '/dien-thoai',
   checkout: '/checkout'
 }
 

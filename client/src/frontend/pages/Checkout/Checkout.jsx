@@ -5,9 +5,10 @@ import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js'
 import { toast } from 'react-toastify'
 import { useEffect, useState } from 'react'
 import { LocalStorageGetInfo } from '../../../main/components/LocalStorageMethod'
-import { readImage, readCartByIds } from '../../services/publicApi'
+import { readCartByIds, sendMailer, createOrder, deleteCart } from '../../services/publicApi'
 import { BsCashCoin } from 'react-icons/bs'
 import { BsPaypal } from 'react-icons/bs'
+import config from '../../config'
 
 const cx = classNames.bind(styles)
 const Checkout = () => {
@@ -18,32 +19,10 @@ const Checkout = () => {
   // ---------- formatNumber ----------
   const formatNumber = (number) => { return number != null ? number.toLocaleString('vi-VN') : '' }
 
-  // ---------- totalPrice ----------
-  const totalPrice = carts.reduce((acc, product) => {
-    return acc + (product.total)
-  }, 0)
-
   // ---------- fetch product ----------
   const fetchProduct = async () => {
-    const fetchDataImage = await readImage(1, 10000)
-    const fetchDataCart = await readCartByIds(dataCheckout)
-    const imageData = fetchDataImage?.data?.data?.image
-    const cartsData = fetchDataCart?.data?.data
-
-    const imagesByProductId = imageData.reduce((acc, image) => {
-      if (!acc[image.product_id]) {
-        acc[image.product_id] = []
-      }
-      acc[image.product_id].push(image)
-      return acc
-    }, {})
-    const groupedProducts = cartsData.map((cart) => {
-      return {
-        ...cart,
-        images: imagesByProductId[cart?.Product?.id] || []
-      }
-    })
-    setCarts(groupedProducts)
+    const fetchCartsByIds = await readCartByIds(dataCheckout)
+    setCarts(fetchCartsByIds?.data?.data)
   }
   useEffect(() => { fetchProduct() }, [])
 
@@ -61,34 +40,25 @@ const Checkout = () => {
 
   const handleCheckout = async (e) => {
     e.preventDefault()
-    // let currentDataPayment = { ...dataCheckout[0], priceDiscount: dataCheckout[0]?.priceDiscount + dataPayment.ship }
-    // const value = (+totalPrice() + +dataPayment.ship)
-    // const fetchSendMailer = await sendMailer({ userLogin, dataCheckout, value })
-    // console.log(fetchSendMailer);
-    // if (fetchSendMailer) {
-    //   let fetchOrder = await createOrderWithUser(userLogin?.id)
-    //   if (fetchOrder) {
-    //     await dataCheckout.map(async (cart, index) => {
-    //       if (!cart.id) {
-    //         let currentCart = { ...cart, idOrder: fetchOrder?.DT?.id }
-    //         await createCart(currentCart)
-    //         await fetchJWT()
-    //       } else {
-    //         await updateCart(cart.id, fetchOrder?.DT?.id)
-    //         await fetchJWT()
-    //       }
-    //     })
-    //   }
-    //   toast.success("Đặt hàng thành công");
-    //   navigate(`/${config.routes.order}`)
-    // }
+    let currentDataPayment = carts.reduce((total, item) => total + (item?.Config?.price * item?.quantity || 0), 0) + +dataPayment.ship
+    const fetchSendMailer = await sendMailer({ userLogin: LocalStorageGetInfos?.user, dataCheckout: carts, value: currentDataPayment })
+    if (fetchSendMailer) {
+      let fetchCreateOrder = await createOrder({ user_id: LocalStorageGetInfos?.user?.id, cart_ids: dataCheckout, order_line_id: 1, total: currentDataPayment, note: 'Thanh toán khi nhận hàng' })
+      if (fetchCreateOrder) {
+        await deleteCart(dataCheckout)
+        localStorage.removeItem('dataCheckout')
+        toast.success('Đặt hàng thành công')
+        window.location.href = config.routes.order
+      }
+    }
   }
 
-  const createOrder = (data, actions) => {
+  const createNewOrder = (data, actions) => {
+    const total = (carts.reduce((total, item) => total + (item?.Config?.price * item?.quantity || 0), 0) + +dataPayment.ship) / 100000
     return actions.order.create({
       purchase_units: [{
         amount: {
-          value: (+totalPrice + +dataPayment.ship) / 100000
+          value: total
         }
       }]
     })
@@ -97,21 +67,17 @@ const Checkout = () => {
   const onApprove = (data, actions) => {
     return actions.order.capture().then(async (details) => {
       if (details.status === 'COMPLETED') {
-        // let fetchOrder = await createOrderWithUser(userLogin?.id)
-        // if (fetchOrder) {
-        //   await dataCheckout.map(async (cart, index) => {
-        //     if (!cart.id) {
-        //       let currentCart = { ...cart, idOrder: fetchOrder?.DT?.id }
-        //       await createCart(currentCart)
-        //       await fetchJWT()
-        //     } else {
-        //       await updateCart(cart.id, fetchOrder?.DT?.id)
-        //       await fetchJWT()
-        //     }
-        //   })
-        // }
-        toast.success('Đặt hàng thành công')
-        // navigate(`/${config.routes.order}`)
+        let currentDataPayment = carts.reduce((total, item) => total + (item?.Config?.price * item?.quantity || 0), 0) + +dataPayment.ship
+        const fetchSendMailer = await sendMailer({ userLogin: LocalStorageGetInfos?.user, dataCheckout: carts, value: currentDataPayment })
+        if (fetchSendMailer) {
+          let fetchCreateOrder = await createOrder({ user_id: LocalStorageGetInfos?.user?.id, cart_ids: dataCheckout, order_line_id: 1, total: currentDataPayment, note: 'Thanh toán khi nhận hàng' })
+          if (fetchCreateOrder) {
+            await deleteCart(dataCheckout)
+            localStorage.removeItem('dataCheckout')
+            toast.success('Đặt hàng thành công')
+            window.location.href = config.routes.order
+          }
+        }
       } else {
         toast.warning('Số dư không đủ')
       }
@@ -175,13 +141,13 @@ const Checkout = () => {
                 return (
                   <tr key={`${index}-product`} className={cx('cursor-text')}>
                     <th className={cx('cursor-text')} scope="row">{index + 1}</th>
-                    <td><img className={cx('img-avatar', 'cursor-text')} src={cart?.images[0]?.url || ''} alt="" /></td>
+                    <td><img className={cx('img-avatar', 'cursor-text')} src={cart?.images && cart?.images[0]?.url || ''} alt="" /></td>
                     <td className={cx('cursor-text')} >{cart?.Product?.title}</td>
-                    <td className={cx('cursor-text')}>{cart && formatNumber(cart?.Product?.price)}₫</td>
-                    <td className={cx('cursor-text')}>{cart?.Product?.Color?.name}</td>
+                    <td className={cx('cursor-text')}>{cart && formatNumber(cart?.Config?.price)}₫</td>
+                    <td className={cx('cursor-text')}>{cart?.Config?.Color?.name}</td>
                     <td className={cx('cursor-text')}>{cart?.Product?.Capacity?.name}</td>
                     <td className={cx('cursor-text')}>{cart?.quantity}</td>
-                    <td className={cx('cursor-text')}>{cart && formatNumber(cart?.total)}₫</td>
+                    <td className={cx('cursor-text')}>{cart && formatNumber(cart?.Config?.price * cart?.quantity)}₫</td>
                   </tr>
                 )
               })}
@@ -234,7 +200,7 @@ const Checkout = () => {
                     <tbody>
                       <tr>
                         <td>Tạm tính</td>
-                        <td className="d-flex justify-content-end fw-bold">{carts && formatNumber(+totalPrice)} VND</td>
+                        <td className="d-flex justify-content-end fw-bold">{carts && formatNumber(carts.reduce((total, item) => total + (item?.Config?.price * item?.quantity || 0), 0))}VND</td>
                       </tr>
                       <tr>
                         <td>Giảm giá</td>
@@ -252,7 +218,7 @@ const Checkout = () => {
                     <tbody>
                       <tr>
                         <td>Tổng tiền</td>
-                        <td className="d-flex justify-content-end fw-bold fs-3 text-danger">{carts && formatNumber((+totalPrice + +dataPayment.ship))} VND</td>
+                        <td className="d-flex justify-content-end fw-bold fs-3 text-danger">{carts && formatNumber(carts.reduce((total, item) => total + (item?.Config?.price * item?.quantity || 0), 0) + +dataPayment.ship)} VND</td>
                       </tr>
                       <tr>
                         <td colSpan={2} className="text-center">(Đã bao gồm VAT nếu có)</td>
@@ -270,7 +236,7 @@ const Checkout = () => {
                   }
                   {dataPayment.payment === 'payment-paypal'
                     && <PayPalScriptProvider options={{ 'client-id': import.meta.env.VITE_PAYPAL_CLIENT_ID }} amount={10000000}>
-                      <PayPalButtons style={{ layout: 'vertical' }} onApprove={onApprove} createOrder={createOrder} onError={onError} />
+                      <PayPalButtons style={{ layout: 'vertical' }} onApprove={onApprove} createOrder={createNewOrder} onError={onError} />
                     </PayPalScriptProvider>
                   }
                 </div>

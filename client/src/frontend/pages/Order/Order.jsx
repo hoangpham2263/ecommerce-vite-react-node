@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind'
 import { toast } from 'react-toastify'
 import { useEffect, useState } from 'react'
-import styles from './Cart.module.scss'
+import styles from './Order.module.scss'
 import { addCart, deleteCart, readCart } from '../../services/publicApi'
 import { LocalStorageGetInfo } from '../../../main/components/LocalStorageMethod'
 import { useNavigate } from 'react-router-dom'
@@ -9,7 +9,7 @@ import config from '../../config'
 import useFetchAmountCart from '../../hooks/useFetchAmountCart'
 
 const cx = classNames.bind(styles)
-const Cart = () => {
+const Order = () => {
   // ---------- init variable ----------
   const navigate = useNavigate()
   const LocalStorageGetInfos = LocalStorageGetInfo() || {}
@@ -111,7 +111,7 @@ const Cart = () => {
     <>
       {carts.length > 0 ? <div className='container'>
         <div className={cx('cs-wrapper')}>
-          <h4 className={cx('pt-4', 'pb-2', 'fw-normal')}>Giỏ Hàng</h4>
+          <h4 className={cx('pt-4', 'pb-2', 'fw-normal')}>Đơn mua</h4>
           <table className="table table-striped">
             <thead>
               <tr className=''>
@@ -185,4 +185,4 @@ const Cart = () => {
   )
 }
 
-export default Cart
+export default Order

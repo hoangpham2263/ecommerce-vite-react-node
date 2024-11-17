@@ -15,6 +15,8 @@ import orderController from "../controllers/orderController"
 import cartController from "../controllers/cartController"
 import assessmentController from "../controllers/assessmentController"
 import configController from "../controllers/configController"
+import SendMail from '../utility/SendMail'
+import sendMailContact from '../utility/SendMailContact'
 
 const router = express.Router();
 
@@ -32,6 +34,12 @@ const adminRoute = (app) => {
   router.post("/cart", authCheckExistToken, authCheckUserPermission(), cartController.createFunc)
   router.delete("/cart", authCheckExistToken, authCheckUserPermission(), cartController.deleteFunc)
 
+  // order
+  router.get("/order", authCheckExistToken, authCheckUserPermission(), orderController.readFunc)
+  router.post("/order", authCheckExistToken, authCheckUserPermission(), orderController.createFunc)
+  router.put("/order", authCheckExistToken, authCheckUserPermission(), orderController.updateFunc)
+  router.delete("/order", authCheckExistToken, authCheckUserPermission(), orderController.deleteFunc)
+
   // product
   router.get("/product", productController.readFunc)
   router.get("/product/:slug", productController.readFuncWithSlug)
@@ -46,6 +54,10 @@ const adminRoute = (app) => {
   router.get("/address", addressController.readFunc)
   router.get("/order", orderController.readFunc)
   router.get("/assessment", assessmentController.readFunc)
+
+  // Send Mail 
+  router.post("/send-mail", SendMail);
+  router.post("/send-mail-contact", sendMailContact);
 
   return app.use("/api", router);
 };

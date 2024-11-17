@@ -33,19 +33,19 @@ const Header = () => {
           </div>
         </div>
         <div className={cx('me-2')}><Search /></div>
-        <div className={cx('cs-nav-item')}><PiPhoneCallThin className={cx('cs-nav-item-icon')} />
+        <a href="tel:0971955144" className={cx('cs-nav-item', 'text-decoration-none', 'text-light')}><PiPhoneCallThin className={cx('cs-nav-item-icon')} />
           <div className={cx('d-flex', 'flex-column')}>
             <p className={cx('gl-fz-12', 'm-0', 'd-flex', 'justify-content-between')}>Gọi mua hàng</p>
             <p className={cx('gl-fz-10', 'm-0')}>0971955144</p>
           </div>
-        </div>
+        </a>
         <div className={cx('cs-nav-item')}><CiLocationOn className={cx('cs-nav-item-icon')} />
           <div className={cx('d-flex', 'flex-column')}>
             <p className={cx('gl-fz-11', 'm-0', 'd-flex', 'justify-content-between')}>Cửa hàng</p>
             <p className={cx('gl-fz-11', 'm-0')}>gần bạn</p>
           </div>
         </div>
-        <div className={cx('cs-nav-item')}><LiaShippingFastSolid className={cx('cs-nav-item-icon')} />
+        <div onClick={() => window.location.href = config.routes.order} className={cx('cs-nav-item')}><LiaShippingFastSolid className={cx('cs-nav-item-icon')} />
           <div className={cx('d-flex', 'flex-column')}>
             <p className={cx('gl-fz-11', 'm-0', 'd-flex', 'justify-content-between')}>Tra cứu</p>
             <p className={cx('gl-fz-11', 'm-0')}>đơn hàng</p>

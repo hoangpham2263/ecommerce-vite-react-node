@@ -21,7 +21,7 @@ module.exports = {
       quantity: {
         type: Sequelize.INTEGER,
       },
-      select_config: {
+      config_id: {
         type: Sequelize.INTEGER,
       },
       createdAt: {

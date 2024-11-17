@@ -1,0 +1,33 @@
+.cs-wrapper {
+  min-height: 640px;
+
+  .cs-cursor {
+      cursor: pointer !important;
+  }
+
+  .cs-cursor-text {
+      cursor: text !important;
+  }
+
+  .w-btn {
+      width: 196px !important;
+  }
+
+  .cs-border {
+      border-style: hidden !important;
+  }
+
+  .cs-img {
+      height: 33.5px !important;
+  }
+}
+
+// no cart
+.no-cart {
+  display         : flex;
+  justify-content : center;
+  align-items     : center;
+  width           : 100%;
+  height          : 540px;
+  background-color: #fff;
+}

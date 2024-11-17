@@ -64,7 +64,7 @@ const ProductItem = ({ stt }) => {
       UserId: LocalStorageGetInfos?.user?.id,
       ProductId: productCurrent?.id,
       quantity: quantity,
-      select_config: Number(selectConfig)
+      config_id: productCurrent.configs && productCurrent.configs[Number(selectConfig)]?.id
     }
     const fetchData = await addCart(data)
     if (fetchData?.data?.code === 0) {

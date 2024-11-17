@@ -6,6 +6,8 @@ import Register from '../pages/Register'
 import Login from '../pages/Login'
 import Cart from '../pages/Cart'
 import Checkout from '../pages/Checkout'
+import Order from '../pages/Order'
+import DienThoai from '../pages/DienThoai'
 
 const frontendRoutes = [
   {
@@ -31,6 +33,16 @@ const frontendRoutes = [
   {
     path: config.routes.cart,
     component: Cart,
+    layout: DefaultLayout
+  },
+  {
+    path: config.routes.order,
+    component: Order,
+    layout: DefaultLayout
+  },
+  {
+    path: config.routes.dienThoai,
+    component: DienThoai,
     layout: DefaultLayout
   },
   {

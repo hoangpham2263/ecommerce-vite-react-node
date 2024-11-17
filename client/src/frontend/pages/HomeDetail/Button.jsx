@@ -38,7 +38,7 @@ const Button = ({ product, selectConfig }) => {
       UserId: LocalStorageGetInfos?.user?.id,
       ProductId: product?.id,
       quantity: quantity,
-      select_config: selectConfig
+      config_id: product.configs && product.configs[selectConfig]?.id
     }
     const fetchData = await addCart(data)
     if (fetchData?.data?.code === 0) {
