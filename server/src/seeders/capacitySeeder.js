@@ -11,16 +11,16 @@ module.exports = {
     await queryInterface.bulkInsert(
       "Capacity",
       [
-        { name: "8GB" },
-        { name: "16GB" },
-        { name: "32GB" },
-        { name: "64GB" },
-        { name: "128GB" },
-        { name: "256GB" },
-        { name: "512GB" },
-        { name: "1TB" },
-        { name: "2TB" },
-        { name: "4TB" },
+        { id: 1, name: "8GB" },
+        { id: 2, name: "16GB" },
+        { id: 3, name: "32GB" },
+        { id: 4, name: "64GB" },
+        { id: 5, name: "128GB" },
+        { id: 6, name: "256GB" },
+        { id: 7, name: "512GB" },
+        { id: 8, name: "1TB" },
+        { id: 9, name: "2TB" },
+        { id: 10, name: "4TB" },
       ],
       {}
     );
