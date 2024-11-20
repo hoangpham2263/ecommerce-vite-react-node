@@ -2,12 +2,18 @@
 .page {
   display        : flex;
   justify-content: flex-end;
-  margin-top     : 20px;
   height         : 36px;
 
   .custom {
-      --bs-pagination-padding-x: 13px;
-      --bs-pagination-padding-y: 6px;
-      --bs-pagination-font-size: 14px;
+    --bs-pagination-padding-x             : 13px;
+    --bs-pagination-padding-y             : 6px;
+    --bs-pagination-font-size             : 14px;
+    --bs-pagination-active-bg             : var(--primary);
+    --bs-pagination-active-border-color   : var(--primary);
+    --bs-pagination-active-color          : var(--color-white);
+    --bs-pagination-focus-box-shadow      : 0 0 0 0.25rem rgba(215, 0, 24, 0.25);
+    --bs-pagination-color                 : black;
+    --bs-pagination-hover-color           : var(--primary);
+    --bs-pagination-focus-color           : var(--primary);
   }
 }

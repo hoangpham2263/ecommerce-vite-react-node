@@ -1,64 +1,63 @@
-import classNames from 'classnames/bind'
 import { useEffect, useRef, useState } from 'react'
-import FavoriteBorder from '@mui/icons-material/FavoriteBorder'
 import { toast } from 'react-toastify'
+import classNames from 'classnames/bind'
+import styles from './ProductItem.module.scss'
 import Favorite from '@mui/icons-material/Favorite'
 import Rating from '@mui/material/Rating'
 import Checkbox from '@mui/material/Checkbox'
-
-import styles from './ProductItem.module.scss'
-import config from '../../../config'
+import FavoriteBorder from '@mui/icons-material/FavoriteBorder'
 import { addCart, readProduct } from '../../../services/publicApi'
 import { LocalStorageGetInfo } from '../../../../main/components/LocalStorageMethod'
 import useFetchAmountCart from '../../../hooks/useFetchAmountCart'
+import ReactPaginateBlock from '../ReactPaginateBlock'
+import config from '../../../config'
+
 const cx = classNames.bind(styles)
 
-const ProductItem = ({ stt }) => {
+const ProductItem = ({ data, stt }) => {
   // ---------- init variable ----------
-  const label = { inputProps: { 'aria-label': 'Checkbox demo' } }
   const [products, setProducts] = useState(null)
   const [productCurrent, setProductCurrent] = useState({})
-  const [currentProductPage, setCurrentProductPage] = useState(1)
-  const [totalProductPages, setTotalProductPages] = useState(0)
   const [selectConfig, setSelectConfig] = useState(0)
+  const [currentPage, setCurrentPage] = useState(1)
+  const [currentLimit, setCurrentLimit] = useState(data?.limit || 12)
+  const [totalPages, setTotalPages] = useState(0)
+  const label = { inputProps: { 'aria-label': 'Checkbox demo' } }
 
-  // ---------- navigation ----------
-  const limitPage = {
-    product: 100
-  }
-
-  const handleFavoriteClick = (event) => {
-    event.stopPropagation()
-  }
-  const handlePageChange = (setPage, currentPage, totalPages, direction) => {
-    const newPage = direction === 'next' ? currentPage + 1 : currentPage - 1
-    if (newPage >= 1 && newPage <= totalPages) {
-      setPage(newPage)
-    }
-  }
-
-  // ---------- add cart ----------
   const closeButtonRef = useRef(null)
   const LocalStorageGetInfos = LocalStorageGetInfo() || {}
   const [quantity, setQuantity] = useState(1)
 
+  // ---------- navigation ----------
+  const handlePageClick = (event) => { setCurrentPage(event.selected + 1) }
+  useEffect(() => { setCurrentLimit(data?.limit || 12) }, [currentPage])
+
+  // ---------- call api ----------
+  const fetchProductData = async () => {
+    const fetchDataProduct = await readProduct({ currentPage: currentPage, currentLimit: currentLimit })
+    setTotalPages(fetchDataProduct?.data?.data?.totalPages)
+    setProducts(fetchDataProduct?.data?.data)
+  }
+  useEffect(() => { fetchProductData() }, [currentPage, currentLimit])
+
+  // ---------- format number ----------
+  const formatNumber = (number) => { return number.toLocaleString('vi-VN') }
+
+  // ---------- handle favorite ----------
+  const handleFavoriteClick = (event) => { event.stopPropagation() }
+
+  // ---------- add cart ----------
   const fetchAmountCart = useFetchAmountCart()
   useEffect(() => { fetchAmountCart() }, [])
-
   const handleRemoveBackdrop = (item) => {
     setProductCurrent(item)
     const modalBackdrops = document.querySelectorAll('.modal-backdrop.fade.show')
     modalBackdrops.forEach((backdrop) => { backdrop.style.display = 'none' })
   }
+  const handleIncreaseQuantity = () => { setQuantity(quantity + 1) }
+  const handleDecreaseQuantity = () => { if (quantity > 1) { setQuantity(quantity - 1) } }
+  const handleSelectConfig = (event) => { setSelectConfig(event.target.value) }
 
-  const handleIncreaseQuantity = () => {
-    setQuantity(quantity + 1)
-  }
-  const handleDecreaseQuantity = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1)
-    }
-  }
   const handleAddProductToCartProd = async () => {
     const data = {
       UserId: LocalStorageGetInfos?.user?.id,
@@ -75,41 +74,25 @@ const ProductItem = ({ stt }) => {
       setSelectConfig(0)
     }
   }
-  const handleSelectConfig = (event) => {
-    setSelectConfig(event.target.value)
-  }
-  // ---------- call api ----------
-  const fetchProductData = async () => {
-    const fetchDataProduct = await readProduct({ currentPage: currentProductPage, currentLimit: limitPage.product })
-    setProducts(fetchDataProduct?.data?.data?.product)
-    setTotalProductPages(fetchDataProduct?.data?.data?.totalPages)
-  }
-  useEffect(() => { fetchProductData() }, [currentProductPage])
-  const formatNumber = (number) => {
-    return number.toLocaleString('vi-VN')
-  }
 
+  // ---------- render ----------
   return (
-    <div className={cx('container')}>
+    <div className={cx('container mb-5')}>
       <div className={cx('row ', 'mb-3', 'd-flex align-items-center')}>
-        <h3 className={cx('col-4', 'm-0')}>ĐIỆN THOẠI NỔI BẬT NHẤT</h3>
+        <h3 className={cx('col-4', 'm-0')}>{data?.title && data?.title}</h3>
         <div className={cx('col-8', 'text-end')}>
-          <button type="button" className={cx('btn', 'cs-brand-item', 'me-2')}>Second1</button>
-          <button type="button" className={cx('btn', 'cs-brand-item', 'me-2')}>Second2</button>
-          <button type="button" className={cx('btn', 'cs-brand-item', 'me-2')}>Second3</button>
-          <button type="button" className={cx('btn', 'cs-brand-item', 'me-2')}>Second3</button>
-          <button type="button" className={cx('btn', 'cs-brand-item', 'me-2')}>Second3</button>
-          <button type="button" className={cx('btn', 'cs-brand-item', 'me-2')}>Second3</button>
-          <button type="button" className={cx('btn', 'cs-brand-item', 'me-2')}>Second3</button>
-          <button type="button" className={cx('btn', 'cs-brand-item', 'me-2')}>Second3</button>
-          <button type="button" className={cx('btn', 'cs-brand-item', 'me-2')}>Second3</button>
+          {data?.category && data?.category.map((item, index) => {
+            return (
+              <button key={`category-${index}`} type="button" className={cx('btn', 'cs-brand-item', 'me-2')}>{item?.name}</button>
+            )
+          })}
         </div>
       </div>
       <div className='row'>
         <div className={cx('col-2', 'w-100', 'text-dark')}>
           <span>
             <div className={cx('row', 'd-flex', 'flex-wrap', 'grid', 'pb-3')}>
-              {products && products.map((item, index) => {
+              {products && products?.product.map((item, index) => {
                 const randomConfig = Math.floor(Math.random() * (item?.configs.length))
                 return (
                   <div key={index} className={cx('col-2', 'pt-0', 'pb-2', 'px-1')}>
@@ -185,6 +168,8 @@ const ProductItem = ({ stt }) => {
           </span>
         </div>
       </div>
+      {(totalPages > 0 && data?.pagination === true) && <ReactPaginateBlock handlePageClick={handlePageClick} totalPages={totalPages} />}
+
       {/* Modal */}
       <div>
         <div className={cx('modal fade', 'cs-cartModalProd')} id={`cartModalProd-${stt}`} tabIndex={-1} aria-labelledby={`cartModalProdLabel-${stt}`} aria-hidden="true">

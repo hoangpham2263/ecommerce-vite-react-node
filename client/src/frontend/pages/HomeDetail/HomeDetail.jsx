@@ -36,9 +36,7 @@ const HomeDetail = () => {
       versionId: fetchDataProduct?.data?.data.version_id
     })
   }
-  useEffect(() => {
-    fetchProductData()
-  }, [slug])
+  useEffect(() => { fetchProductData() }, [slug])
 
   // ---------- product for category ----------
   const fetchProductCategory = async ({ categoryId, brandId, versionId }) => {
@@ -50,16 +48,12 @@ const HomeDetail = () => {
   }
 
   // ---------- color ----------
-  const formatNumber = (number) => {
-    return number.toLocaleString('vi-VN')
-  }
-  const handleSelectColor = (item, index) => {
-    setSelectConfig(index)
-  }
+  const formatNumber = (number) => { return number.toLocaleString('vi-VN') }
+  const handleSelectColor = (item, index) => { setSelectConfig(index) }
 
   return (
     <div className={cx('wrapper', 'container')}>
-      <h5 className={cx('pt-4', 'm-0')}>{product?.title}</h5>
+      <h5 className={cx('pt-4', 'm-0')}>{product?.title?.toUpperCase()}</h5>
       <hr className={cx('cs-line')} />
       <div className={cx('row', 'mb-2')}>
         {/* ---------- col left ---------- */}
@@ -115,7 +109,14 @@ const HomeDetail = () => {
         </div>
       </div >
       <hr />
-      <ProductItem />
+      <ProductItem
+        data={{
+          title: 'Sản phẩm liên quan',
+          limit: 12,
+          pagination: false
+        }}
+        stt={2}
+      />
     </div >
   )
 }

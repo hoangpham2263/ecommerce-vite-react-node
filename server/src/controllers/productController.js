@@ -57,7 +57,7 @@ const readFunc = async (req, res) => {
         offset: offset,
         limit: limit,
         attributes: prod_attributes,
-        order: [["title", "ASC"]],
+        order: [["id", "DESC"]],
         include: prod_includes,
       });
 
@@ -69,7 +69,6 @@ const readFunc = async (req, res) => {
           configs: configByProductId[productData.id] || [],
         };
       });
-
       data = { totalRows: count, totalPages: totalPages, product: groupedProducts };
 
     } else if (req.query.ids) {
@@ -78,7 +77,7 @@ const readFunc = async (req, res) => {
       data = await db.Product.findAll({
         where: { id: { [Op.in]: ids } },
         attributes: prod_attributes,
-        order: [["id", "ASC"]],
+        order: [["id", "DESC"]],
         include: prod_includes,
       });
       data = data.map((product) => {
@@ -108,7 +107,7 @@ const readFunc = async (req, res) => {
     } else {
       data = await db.Product.findAll({
         attributes: prod_attributes,
-        order: [["title", "ASC"]],
+        order: [["id", "DESC"]],
         include: prod_includes,
       });
       data = data.map((product) => {

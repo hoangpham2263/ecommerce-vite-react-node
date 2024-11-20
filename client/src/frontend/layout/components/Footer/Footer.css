@@ -72,7 +72,7 @@
 
 .cs-wrapper-footer .cs-input:focus {
     border-color: #d70018 !important;
-    box-shadow  : 0 0 0 .125em rgba(72, 95, 199, .25);
+    box-shadow  : 0 0 0 .125em rgba(215, 0, 24, 0.25);
 }
 
 .cs-wrapper-footer .cs-input:focus-visible {

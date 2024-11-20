@@ -13,16 +13,18 @@ const readFunc = async (req, res) => {
       let { count, rows } = await db.Order.findAndCountAll({
         offset: offset,
         limit: limit,
+        where: { user_id: req.query.user_id },
         attributes: order_attributes,
         order: [["user_id", "ASC"]],
       })
       const totalPages = Math.ceil(count / limit);
       data = { totalRows: count, totalPages: totalPages, order: rows, }
     } else {
-      data = await db.Order.findAll({ attributes: order_attributes, order: [["user_id", "ASC"]] })
+      data = await db.Order.findAll({ attributes: order_attributes, where: { user_id: req.query.user_id }, order: [["user_id", "ASC"]] })
     }
     return res.status(200).json({ message: "get order success", code: 0, data: data, });
   } catch (error) {
+    console.log(error)
     return res.status(500).json({ message: "error from server", code: -1 });
   }
 }

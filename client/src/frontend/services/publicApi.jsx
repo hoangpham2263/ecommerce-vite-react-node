@@ -32,7 +32,7 @@ const readVersion = (currentPage, currentLimit, brandId) => { return axios.get('
 const readConfig = ({ productId = null }) => { return axios.get('/api/config', { params: { productId } }) }
 
 // CRUD Order
-const readOrder = (currentPage, currentLimit, brandId) => { return axios.get('/api/order', { params: { page: currentPage, limit: currentLimit, brand_id: brandId }, headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
+const readOrder = ({ currentPage, currentLimit, userId = null }) => { return axios.get('/api/order', { params: { page: currentPage, limit: currentLimit, user_id: userId }, headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
 const createOrder = (data) => { return axios.post('/api/order', { data }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
 const updateOrder = (data) => { return axios.put('/api/order', { data }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
 const deleteOrder = (id) => { return axios.delete('/api/order', { data: { id }, headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }

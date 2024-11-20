@@ -19,11 +19,11 @@ const registerAccount = async (req, res) => {
   try {
     const { fullName, userName, password, gender } = req?.body?.data;
 
-    if (!fullName || !userName || !password || !gender) {return res.status(200).json({ message: "Missing required parameters", code: 1 })}
+    if (!fullName || !userName || !password || !gender) { return res.status(200).json({ message: "Missing required parameters", code: 1 }) }
 
-    if (password.length < 6) {return res.status(200).json({ message: "Your password must have more than 6 letters", code: 1 })}
+    if (password.length < 6) { return res.status(200).json({ message: "Your password must have more than 6 letters", code: 1 }) }
 
-    if (await checkUsernameExist(userName)) {return res.status(200).json({ message: "The username already exists", code: 1 })}
+    if (await checkUsernameExist(userName)) { return res.status(200).json({ message: "The username already exists", code: 1 }) }
 
     const hashPassword = await hashAccountPassword(password);
 
@@ -49,7 +49,7 @@ const registerAccount = async (req, res) => {
 // Login
 const createJWT = (payload) => {
   const key = process.env.JWT_SECRET;
-  if (!key) {throw new Error('JWT_SECRET is not defined')}
+  if (!key) { throw new Error('JWT_SECRET is not defined') }
   try {
     return jwt.sign(payload, key);
   } catch (error) {
@@ -87,7 +87,7 @@ const loginAccount = async (req, res) => {
 
     await res.cookie("jwt", token, {
       httpOnly: true,
-      maxAge: 24 * 60 * 60 * 1000,
+      maxAge: 24 * 60 * 60 * 1000 * 100,
       secure: process.env.NODE_SECURE,
       sameSite: 'None'
     });

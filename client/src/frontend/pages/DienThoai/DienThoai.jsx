@@ -1,21 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import { useState } from 'react'
 import classNames from 'classnames/bind'
+import styles from './DienThoai.module.scss'
 import SliderDefaultLayout from '../components/SliderDefaultLayout'
 import ProductItem from '../components/ProductItem'
-// import { readProductFilter } from '../../services/apiUserService'
-
-import styles from './DienThoai.module.scss'
-import ReactPaginateBlock from '../components/ReactPaginateBlock'
 
 const cx = classNames.bind(styles)
 const DienThoai = () => {
 
   // Pagination
-  const [listDataProduct, setListDataProduct] = useState([])
-  const [currentPage, setCurrentPage] = useState(1)
-  const [currentLimit, setCurrentLimit] = useState(12)
-  const [totalPages, setTotalPages] = useState(10)
-
   const allVersion = [{ key: 'Tất cả', value: '' }, { key: 'IPhone 11', value: 11 }, { key: 'IPhone 12', value: 12 }, { key: 'IPhone 13', value: 13 }, { key: 'IPhone 14', value: 14 }, { key: 'IPhone 15', value: 15 }, { key: 'IPhone 14', value: 14 }, { key: 'IPhone 15', value: 15 }, { key: 'IPhone 14', value: 14 }, { key: 'IPhone 15', value: 15 }, { key: 'IPhone 14', value: 14 }, { key: 'IPhone 15', value: 15 }, { key: 'IPhone 14', value: 14 }]
 
   const [selectVersion, setSelectVersion] = useState('Tất cả')
@@ -23,35 +15,16 @@ const DienThoai = () => {
   const [sort, setSort] = useState(null)
   const [version, setVersion] = useState(null)
 
-  // Page
-  const handlePageClick = (event) => {
-    setCurrentPage(event.selected + 1)
-  }
-
-  useEffect(() => {
-    fetchProducts('mobile', 'iphone', null, null)
-    setCurrentLimit(12)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentPage])
-
-
-  const fetchProducts = async (categories, brand, version, sort) => {
-    // let data = await readProductFilter(currentPage, currentLimit, categories, brand, version, sort)
-    // setListDataProduct(data?.DT?.products)
-    // setTotalPages(data?.DT?.totalPages)
-  }
 
   // handle click item category
   const handleClickItemCategory = (key, value) => {
     setSelectVersion(key)
     setVersion(value)
-    fetchProducts('mobile', 'iphone', value, sort)
   }
 
   const handleCategorySelect = async (e) => {
     if (e.target.value !== false) {
       setSort(e.target.value)
-      fetchProducts('mobile', 'iphone', version, e.target.value)
     }
   }
 
@@ -83,10 +56,15 @@ const DienThoai = () => {
           </select>
         </div>
       </div>
-      <div className={cx('w-100 mt-5')}>
-        <ProductItem />
+      <div className={cx('w-100 mt-3')}>
+        <ProductItem
+          data={{
+            limit: 24,
+            pagination: true
+          }}
+          stt={1}
+        />
       </div>
-      {totalPages > 0 && <ReactPaginateBlock handlePageClick={handlePageClick} totalPages={totalPages} />}
     </div>
 
   )
