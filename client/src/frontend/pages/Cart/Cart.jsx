@@ -18,7 +18,8 @@ const Cart = () => {
 
   // ---------- call api ----------
   const handleFetchCarts = async () => {
-    const fetchCartsByUser = await readCart(LocalStorageGetInfos?.user?.id)
+    const data = { user_id: LocalStorageGetInfos?.user?.id }
+    const fetchCartsByUser = await readCart(data)
     const getAllCarts = fetchCartsByUser?.data?.data
     setCarts(getAllCarts)
   }
@@ -70,7 +71,8 @@ const Cart = () => {
   }
   // ---------- delete ----------
   const handleDeleteCart = async (item) => {
-    const fetchCart = await deleteCart([item?.id])
+    const ids = [item?.id]
+    const fetchCart = await deleteCart(ids)
     if (fetchCart?.data?.code === 0) {
       handleFetchCarts()
       fetchAmountCart()
@@ -80,7 +82,8 @@ const Cart = () => {
 
   const handleDeleteMultiple = async () => {
     if (selectedItems.length > 0) {
-      const fetchCart = await deleteCart(selectedItems)
+      const ids = selectedItems
+      const fetchCart = await deleteCart(ids)
       if (fetchCart?.data?.code === 0) {
         handleFetchCarts()
         fetchAmountCart()

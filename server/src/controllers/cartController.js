@@ -34,7 +34,7 @@ const readFunc = async (req, res) => {
       let { count, rows } = await db.Cart.findAndCountAll({
         offset: offset,
         limit: limit,
-        where: { UserId: req.query.userId },
+        where: { UserId: req.query.user_id },
         attributes: cart_attributes,
         order: [["UserId", "ASC"]],
         include: cart_includes,
@@ -43,7 +43,7 @@ const readFunc = async (req, res) => {
       data = { totalRows: count, totalPages: totalPages, cart: rows, }
     } else {
       data = await db.Cart.findAll({
-        where: { UserId: req.query.userId },
+        where: { UserId: req.query.user_id },
         attributes: cart_attributes,
         order: [["UserId", "ASC"]],
         include: cart_includes,
@@ -76,8 +76,8 @@ const readFunc = async (req, res) => {
 
 const readFuncAmount = async (req, res) => {
   try {
-    if (req.query.userId) {
-      const { count, rows } = await db.Cart.findAndCountAll({ where: { UserId: req.query.userId }, attributes: cart_attributes, order: [["UserId", "ASC"]] })
+    if (req.query.user_id) {
+      const { count, rows } = await db.Cart.findAndCountAll({ where: { UserId: req.query.user_id }, attributes: cart_attributes, order: [["UserId", "ASC"]] })
       return res.status(200).json({ message: "get cart success", code: 0, data: count, });
     }
   } catch (error) {

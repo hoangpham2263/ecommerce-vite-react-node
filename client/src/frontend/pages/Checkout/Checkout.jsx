@@ -21,7 +21,8 @@ const Checkout = () => {
 
   // ---------- fetch product ----------
   const fetchProduct = async () => {
-    const fetchCartsByIds = await readCartByIds(dataCheckout)
+    const ids = dataCheckout
+    const fetchCartsByIds = await readCartByIds(ids)
     setCarts(fetchCartsByIds?.data?.data)
   }
   useEffect(() => { fetchProduct() }, [])
@@ -45,7 +46,8 @@ const Checkout = () => {
     if (fetchSendMailer) {
       let fetchCreateOrder = await createOrder({ user_id: LocalStorageGetInfos?.user?.id, cart_ids: dataCheckout, order_line_id: 1, total: currentDataPayment, note: 'Thanh toán khi nhận hàng' })
       if (fetchCreateOrder) {
-        await deleteCart(dataCheckout)
+        const ids = dataCheckout
+        await deleteCart(ids)
         localStorage.removeItem('dataCheckout')
         toast.success('Đặt hàng thành công')
         window.location.href = config.routes.order
@@ -72,7 +74,8 @@ const Checkout = () => {
         if (fetchSendMailer) {
           let fetchCreateOrder = await createOrder({ user_id: LocalStorageGetInfos?.user?.id, cart_ids: dataCheckout, order_line_id: 1, total: currentDataPayment, note: 'Thanh toán khi nhận hàng' })
           if (fetchCreateOrder) {
-            await deleteCart(dataCheckout)
+            const ids = dataCheckout
+            await deleteCart(ids)
             localStorage.removeItem('dataCheckout')
             toast.success('Đặt hàng thành công')
             window.location.href = config.routes.order

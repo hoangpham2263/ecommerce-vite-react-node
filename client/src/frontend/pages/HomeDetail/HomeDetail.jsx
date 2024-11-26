@@ -40,7 +40,8 @@ const HomeDetail = () => {
 
   // ---------- product for category ----------
   const fetchProductCategory = async ({ categoryId, brandId, versionId }) => {
-    const fetchDataProduct = await readProduct({ categoryId, brandId, versionId })
+    const data = { category_id: categoryId, brand_id: brandId, version_id: versionId }
+    const fetchDataProduct = await readProduct(data)
     setProductForCategory(fetchDataProduct?.data?.data)
   }
   const handleSelectCategory = (item, index) => {

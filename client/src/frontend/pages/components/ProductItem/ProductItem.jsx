@@ -34,7 +34,8 @@ const ProductItem = ({ data, stt }) => {
 
   // ---------- call api ----------
   const fetchProductData = async () => {
-    const fetchDataProduct = await readProduct({ currentPage: currentPage, currentLimit: currentLimit })
+    const data = { page: currentPage, limit: currentLimit }
+    const fetchDataProduct = await readProduct(data)
     setTotalPages(fetchDataProduct?.data?.data?.totalPages)
     setProducts(fetchDataProduct?.data?.data)
   }

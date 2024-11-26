@@ -37,7 +37,8 @@ const ModalEdit = ({ item, index, fetchData }) => {
   }
 
   const handleAddressByUser = async (item) => {
-    const res = await readAddress(item?.id)
+    const data = { user_id: item?.id }
+    const res = await readAddress(data)
     if (res?.data?.code === 0) {
       setAddressByUser(res?.data?.data)
     } else {

@@ -66,7 +66,8 @@ const HotSaleItem = () => {
   }
 
   const fetchProductData = async () => {
-    const fetchProducts = await readProduct({ currentPage: 1, currentLimit: 5 })
+    const data = { page: 1, limit: 5 }
+    const fetchProducts = await readProduct(data)
     setProducts(fetchProducts?.data?.data?.product)
   }
 

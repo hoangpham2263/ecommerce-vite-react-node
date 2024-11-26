@@ -8,7 +8,8 @@ const useFetchAmountCart = () => {
   const LocalStorageGetInfos = LocalStorageGetInfo() || {}
 
   const fetchAmountCart = async () => {
-    const fetchData = await readCartAmount(LocalStorageGetInfos?.user?.id)
+    const data = { user_id: LocalStorageGetInfos?.user?.id }
+    const fetchData = await readCartAmount(data)
     if (fetchData?.data?.code === 0) {
       setCountCart(fetchData?.data?.data)
     }

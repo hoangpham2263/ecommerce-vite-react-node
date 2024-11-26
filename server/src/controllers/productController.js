@@ -36,7 +36,6 @@ const groupConfigsByProductId = (configs) => {
 const readFunc = async (req, res) => {
   try {
     let data;
-
     const queryImage = await db.Image.findAll({ attributes: ["id", "url", "file_name", "config_id", "updatedAt", "createdAt"], order: [["id", "ASC"]] });
     const queryConfig = await db.Config.findAll({ attributes: ["id", "price", "stock", "discount", "color_id", "product_id", "is_active", "updatedAt", "createdAt"], order: [["id", "ASC"]], include: [{ model: db.Color, attributes: ["id", "name", "color_code", "updatedAt", "createdAt"] }] });
 
@@ -88,10 +87,10 @@ const readFunc = async (req, res) => {
         };
       });
 
-    } else if (req.query.categoryId && req.query.brandId && req.query.versionId) {
-      let { categoryId, brandId, versionId } = req.query;
+    } else if (req.query.category_id && req.query.brand_id && req.query.version_id) {
+      let { category_id, brand_id, version_id } = req.query;
       data = await db.Product.findAll({
-        where: { [Op.and]: [{ category_id: categoryId }, { brand_id: brandId }, { version_id: versionId }] },
+        where: { [Op.and]: [{ category_id: category_id }, { brand_id: brand_id }, { version_id: version_id }] },
         attributes: prod_attributes,
         order: [["capacity_id", "ASC"]],
         include: prod_includes,

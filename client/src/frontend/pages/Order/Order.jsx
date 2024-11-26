@@ -18,10 +18,12 @@ const Order = () => {
 
   // ---------- call api ----------
   const handleFetchCarts = async () => {
-    const fetchCartsByUser = await readCart(LocalStorageGetInfos?.user?.id)
+    let data = { user_id: LocalStorageGetInfos?.user?.id }
+    const fetchCartsByUser = await readCart(data)
     const getAllCarts = fetchCartsByUser?.data?.data
     setCarts(getAllCarts)
-    const fetchOrdersByUser = await readOrder({ userId: LocalStorageGetInfos?.user?.id })
+    data = { user_id: LocalStorageGetInfos?.user?.id }
+    const fetchOrdersByUser = await readOrder(data)
     console.log(fetchOrdersByUser?.data?.data)
   }
   useEffect(() => { handleFetchCarts() }, [])
@@ -72,7 +74,8 @@ const Order = () => {
   }
   // ---------- delete ----------
   const handleDeleteCart = async (item) => {
-    const fetchCart = await deleteCart([item?.id])
+    const ids = [item?.id]
+    const fetchCart = await deleteCart(ids)
     if (fetchCart?.data?.code === 0) {
       handleFetchCarts()
       fetchAmountCart()
@@ -82,7 +85,8 @@ const Order = () => {
 
   const handleDeleteMultiple = async () => {
     if (selectedItems.length > 0) {
-      const fetchCart = await deleteCart(selectedItems)
+      const ids = selectedItems
+      const fetchCart = await deleteCart(ids)
       if (fetchCart?.data?.code === 0) {
         handleFetchCarts()
         fetchAmountCart()
@@ -111,84 +115,82 @@ const Order = () => {
 
   // ---------- render ----------
   return (
-    <>1</>
+    <div className={cx('cs-bg-color')}>
+      {carts.length > 0 ? <div className='container'>
+        <div className='row'>
+          <div className='col-3'></div>
+          <div className='col-9'>
+            <div className={cx('pt-4', 'cs-wrapper')}>
+              <div className={cx('d-flex justify-content-between bg-white', 'cs-bl-title')}>
+                <div className={cx('fw-normal d-flex justify-content-center align-items-center py-3', 'cs-title-item', 'cs-title-item-active')}>Tất cả</div>
+                <div className={cx('fw-normal d-flex justify-content-center align-items-center py-3', 'cs-title-item')}>Chờ thanh toán</div>
+                <div className={cx('fw-normal d-flex justify-content-center align-items-center py-3', 'cs-title-item')}>Vận chuyển</div>
+                <div className={cx('fw-normal d-flex justify-content-center align-items-center py-3', 'cs-title-item')}>Chờ giao hàng</div>
+                <div className={cx('fw-normal d-flex justify-content-center align-items-center py-3', 'cs-title-item')}>Hoàn thành</div>
+                <div className={cx('fw-normal d-flex justify-content-center align-items-center py-3', 'cs-title-item')}>Đã hủy</div>
+                <div className={cx('fw-normal d-flex justify-content-center align-items-center py-3', 'cs-title-item')}>Trả hàng/Hoàn tiền</div>
+              </div>
+              <div className={cx('mt-3 w-100', 'cs-bl-item')}>
+                <div>
+                  <div className={cx('d-flex align-items-center justify-content-between w-100')}>
+                    <div className={cx('d-flex')}>
+                      <div className={cx('cs-title')}>Laura.Beauty</div>
+                      <div className={cx('cs-title')}>Laura.Beauty</div>
+                      <div className={cx('cs-title')}>Laura.Beauty</div>
+                    </div>
+                    <div className={cx('d-flex')}>
+                      <div className={cx('cs-title')}>Laura.Beauty</div>
+                      <div className={cx('cs-title')}>Laura.Beauty</div>
+                      <div className={cx('cs-title')}>Laura.Beauty</div>
+                    </div>
+                  </div>
+                  <div className={cx('d-flex align-items-center justify-content-between w-100')}>
+                    <div className={cx('d-flex')}>
+                      <div className={cx('cs-title')}>Laura.Beauty</div>
+                      <div className={cx('cs-title')}>Laura.Beauty</div>
+                      <div className={cx('cs-title')}>Laura.Beauty</div>
+                    </div>
+                    <div className={cx('d-flex')}>
+                      <div className={cx('cs-title')}>Laura.Beauty</div>
+                      <div className={cx('cs-title')}>Laura.Beauty</div>
+                      <div className={cx('cs-title')}>Laura.Beauty</div>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <div className={cx('d-flex align-items-center justify-content-between w-100')}>
+                    <div className={cx('d-flex')}>
+                      <div className={cx('cs-title')}>Laura.Beauty</div>
+                      <div className={cx('cs-title')}>Laura.Beauty</div>
+                      <div className={cx('cs-title')}>Laura.Beauty</div>
+                    </div>
+                    <div className={cx('d-flex')}>
+                      <div className={cx('cs-title')}>Laura.Beauty</div>
+                      <div className={cx('cs-title')}>Laura.Beauty</div>
+                      <div className={cx('cs-title')}>Laura.Beauty</div>
+                    </div>
+                  </div>
+                  <div className={cx('d-flex align-items-center justify-content-between w-100')}>
+                    <div className={cx('d-flex')}>
+                      <div className={cx('cs-title')}>Laura.Beauty</div>
+                      <div className={cx('cs-title')}>Laura.Beauty</div>
+                      <div className={cx('cs-title')}>Laura.Beauty</div>
+                    </div>
+                    <div className={cx('d-flex')}>
+                      <div className={cx('cs-title')}>Laura.Beauty</div>
+                      <div className={cx('cs-title')}>Laura.Beauty</div>
+                      <div className={cx('cs-title')}>Laura.Beauty</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> : <div className={cx('no-cart')}><img src='https://res.cloudinary.com/dqhj1sukr/image/upload/v1730960241/uploadLocal_ecommerce/cart.png' /></div>
+      }
+    </div>
   )
-  // return (
-  //   <>
-  //     {carts.length > 0 ? <div className='container'>
-  //       <div className={cx('cs-wrapper')}>
-  //         <h4 className={cx('pt-4', 'pb-2', 'fw-normal')}>Đơn mua</h4>
-  //         <table className="table table-striped">
-  //           <thead>
-  //             <tr className=''>
-  //               <th className={cx('fw-normal')} scope="col">
-  //                 <label htmlFor='checkboxNoLabelTitle' className={cx('w-100', 'cs-cursor')}>
-  //                   <input className={cx('form-check-input', 'cs-cursor')} type="checkbox" id="checkboxNoLabelTitle" aria-label="..." onChange={handleSelectAll} checked={selectedItems.length === carts.length && carts.length > 0} />
-  //                 </label>
-  //               </th>
-  //               <th className={cx('fw-normal', 'cs-cursor-text')} scope="col">STT</th>
-  //               <th className={cx('fw-normal', 'cs-cursor-text')} scope="col"></th>
-  //               <th className={cx('fw-normal', 'cs-cursor-text')} scope="col">TÊN SẢN PHẨM</th>
-  //               <th className={cx('fw-normal', 'cs-cursor-text')} scope="col">MÀU</th>
-  //               <th className={cx('fw-normal', 'cs-cursor-text')} scope="col">GIÁ GỐC</th>
-  //               <th className={cx('fw-normal', 'cs-cursor-text')} scope="col">SỐ LƯỢNG</th>
-  //               <th className={cx('fw-normal', 'cs-cursor-text')} scope="col">TỔNG TIỀN</th>
-  //               <th className={cx('fw-normal', 'cs-cursor-text')} scope="col"></th>
-  //             </tr>
-  //           </thead>
-  //           <tbody>
-  //             {carts && carts.map((item, index) => {
-  //               return (
-  //                 <tr key={`cart-${index}`}>
-  //                   <th className={cx('fw-light')}>
-  //                     <label htmlFor={`checkboxNoLabelDesc-${index}`} className={cx('w-100', 'cs-cursor')}>
-  //                       <input className={cx('form-check-input', 'cs-cursor')} type="checkbox" id={`checkboxNoLabelDesc-${index}`} aria-label="..." onChange={() => handleCheckboxChange(item.id)} checked={selectedItems.includes(item.id)} />
-  //                     </label>
-  //                   </th>
-  //                   <th className={cx('fw-light', 'cs-cursor-text')}>{index + 1}</th>
-  //                   <td className={cx('fw-light', 'cs-cursor-text')}>
-  //                     <img className={cx('cs-img')} src={item?.images && item?.images[0]?.url} />
-  //                   </td>
-  //                   <td className={cx('fw-light', 'cs-cursor-text')}>{item?.Product?.title}</td>
-  //                   <td className={cx('fw-light', 'cs-cursor-text')}>{item?.Config?.Color?.name}</td>
-  //                   <td className={cx('fw-light', 'cs-cursor-text')}>{formatNumber(item?.Config?.price)}đ</td>
-  //                   <td className={cx('fw-light', 'cs-cursor-text')}>
-  //                     <div className="btn-group" role="group" aria-label="Default button group">
-  //                       <button type="button" className="btn btn-outline-secondary" onClick={() => handleDecreaseQuantityCart(item)}>-</button>
-  //                       <button disabled type="button" className="btn btn-outline-secondary text-dark">{item?.quantity}</button>
-  //                       <button type="button" className="btn btn-outline-secondary" onClick={() => handleIncreaseQuantityCart(item)}>+</button>
-  //                     </div>
-  //                   </td>
-  //                   <td className={cx('fw-light', 'cs-cursor-text')}>{formatNumber(item?.Config?.price * item?.quantity)}đ</td>
-  //                   <td className={cx('fw-light text-end', 'w-btn')}>
-  //                     <button type="button" className="btn btn-primary me-2" onClick={() => handleBuyOne(item)}>Mua ngay</button>
-  //                     <button type="button" className="btn btn-danger" onClick={() => handleDeleteCart(item)}>Xóa</button>
-  //                   </td>
-  //                 </tr>
-  //               )
-  //             })}
-  //             {/* total */}
-  //             <tr className={cx('cs-border')}>
-  //               <th className={cx('fw-light')}></th>
-  //               <th className={cx('fw-light')}></th>
-  //               <td className={cx('fw-light')}></td>
-  //               <td className={cx('fw-light')}></td>
-  //               <td className={cx('fw-light')}></td>
-  //               <td className={cx('fw-light')}></td>
-  //               <td className={cx('fw-medium px-5 text-danger')}>{carts && carts.reduce((total, num) => total + (num?.quantity || 0), 0)}</td>
-  //               <td className={cx('fw-medium text-danger')}>{carts && formatNumber(carts.reduce((total, item) => total + (item?.Config?.price * item?.quantity || 0), 0))}đ</td>
-  //               <td className={cx('fw-light text-end', 'w-btn')}>
-  //                 <button type="button" className="btn btn-primary text-light me-2" onClick={handleBuyMultiple}>Mua nhiều</button>
-  //                 <button type="button" className="btn btn-danger text-light" onClick={handleDeleteMultiple}>Xóa nhiều</button>
-  //               </td>
-  //             </tr>
-  //           </tbody>
-  //         </table>
-  //       </div>
-  //     </div> : <div className={cx('no-cart')}><img src='https://res.cloudinary.com/dqhj1sukr/image/upload/v1730960241/uploadLocal_ecommerce/cart.png' /></div>
-  //     }
-  //   </>
-  // )
 }
-
 export default Order
+
