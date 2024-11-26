@@ -6,9 +6,10 @@ import ModalEditConfig from './ModalEditConfig'
 const ReadConfig = ({ product, fetchDataProductData }) => {
   const [config, setConfig] = useState([])
   const fetchConfig = async (product) => {
-    const data = { page: 1, limit: 10000 }
+    let data = { page: 1, limit: 10000 }
     const fetchDataImage = await readImage(data)
-    const fetchConfig = await readConfig({ productId: product.id })
+    data = { product_id: product.id }
+    const fetchConfig = await readConfig(data)
     const imageData = fetchDataImage?.data?.data?.image
     const configData = fetchConfig?.data?.data
 

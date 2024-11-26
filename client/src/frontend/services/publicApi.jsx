@@ -43,7 +43,7 @@ const readRam = (data) => { return defaultAxios.get('/api/ram', { params: data }
 const readCategory = (data) => { return defaultAxios.get('/api/category', { params: data }) }
 const readBrand = (data) => { return defaultAxios.get('/api/brand', { params: data }) }
 const readVersion = (data) => { return defaultAxios.get('/api/version', { params: data }) }
-const readConfig = ({ productId = null }) => { return defaultAxios.get('/api/config', { params: { productId } }) }
+const readConfig = (data) => { return defaultAxios.get('/api/config', { params: data }) }
 
 // CRUD Order
 const readOrder = (data) => { return authAxios.get('/api/order', { params: data }) }

@@ -44,7 +44,7 @@ const updateProductStatus = (data) => { return authAxios.put('/api/admin/product
 const deleteProduct = (id) => { return authAxios.delete('/api/admin/product', { data: { id } }) }
 
 // CRUD Config
-const readConfig = ({ productId = null }) => { return authAxios.get('/api/admin/config', { params: { productId } }) }
+const readConfig = (data) => { return authAxios.get('/api/admin/config', { params: data}) }
 const createConfig = (data) => { return authAxios.post('/api/admin/config', { data }) }
 const updateConfig = (data) => { return authAxios.put('/api/admin/config', { data }) }
 // const updateConfigStatus = (data) => { return authAxios.put('/api/admin/product-status', { data }) }

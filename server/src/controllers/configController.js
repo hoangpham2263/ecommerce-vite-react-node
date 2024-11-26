@@ -14,9 +14,9 @@ const conf_includes = [
 const readFunc = async (req, res) => {
   try {
     let data;
-    if (req.query.productId) {
+    if (req.query.product_id) {
       data = await db.Config.findAll({
-        where: { product_id: req.query.productId },
+        where: { product_id: req.query.product_id },
         attributes: conf_attributes,
         order: [["id", "ASC"]],
         include: conf_includes,
