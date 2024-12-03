@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { jwtDecode } from 'jwt-decode'
 
-import { confirmGetToken, getInfoAccountUseAccessToke, readProfileJWT, saveAccountToServer } from '../services/sharedApi'
+import { confirmGetToken, getInfoAccountUseAccessToke, readProfileJWT, saveAccountToServer } from '../services/sharedApi.jsx'
 import config from '../../admin/config'
 
 const LoginWithGoogle = () => {

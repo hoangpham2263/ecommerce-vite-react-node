@@ -2,16 +2,17 @@ import classNames from 'classnames/bind'
 import styles from './HomeDetail.module.scss'
 import { MdAddShoppingCart } from 'react-icons/md'
 import { addCart } from '../../services/publicApi'
-import { LocalStorageGetInfo } from '../../../main/components/LocalStorageMethod'
 import { useEffect, useRef, useState } from 'react'
 import { toast } from 'react-toastify'
 import useFetchAmountCart from '../../hooks/useFetchAmountCart'
+import { useAuth } from '../../../main/context/AuthContext'
 
 const cx = classNames.bind(styles)
 
 const Button = ({ product, selectConfig }) => {
   const closeButtonRef = useRef(null)
-  const LocalStorageGetInfos = LocalStorageGetInfo() || {}
+  const { user } = useAuth()
+  const LocalStorageGetInfos = user
   const [quantity, setQuantity] = useState(1)
 
   const fetchAmountCart = useFetchAmountCart()

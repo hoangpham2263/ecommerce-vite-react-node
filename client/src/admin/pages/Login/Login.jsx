@@ -10,7 +10,7 @@ import config from '../../config'
 import classNames from 'classnames/bind'
 import styles from './Login.module.scss'
 import LoginWithGoogleAdmin from '../../../main/components/LoginWithGoogleAdmin'
-import { loginAccountBasic, readProfileJWT } from '../../../main/services/sharedApi'
+import { loginAccountBasic, readProfileJWT } from '../../../main/services/sharedApi.jsx'
 
 const cx = classNames.bind(styles)
 

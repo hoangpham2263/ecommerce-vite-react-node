@@ -5,14 +5,15 @@ import classNames from 'classnames/bind'
 import styles from './Order.module.scss'
 import config from '../../config'
 import { addCart, deleteCart, readCart, readOrder } from '../../services/publicApi'
-import { LocalStorageGetInfo } from '../../../main/components/LocalStorageMethod'
 import useFetchAmountCart from '../../hooks/useFetchAmountCart'
+import { useAuth } from '../../../main/context/AuthContext'
 
 const cx = classNames.bind(styles)
 const Order = () => {
   // ---------- init variable ----------
   const navigate = useNavigate()
-  const LocalStorageGetInfos = LocalStorageGetInfo() || {}
+  const { user } = useAuth()
+  const LocalStorageGetInfos = user
   const [carts, setCarts] = useState([])
   const [selectedItems, setSelectedItems] = useState([])
 

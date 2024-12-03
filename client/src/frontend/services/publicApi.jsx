@@ -17,7 +17,7 @@ const readUser = (data) => { return axios.get('/api/user', { params: data }) }
 
 // ---------- cart ----------
 const readCart = (data) => { return authAxios.get('/api/cart', { params: data }) }
-const readCartAmount = (data) => { return authAxios.get('/api/cart-amount', { params: data }) }
+const readCartAmount = () => { return authAxios.get('/api/cart-amount') }
 const readCartByIds = (ids) => { return defaultAxios.get('/api/cart-by-ids', { params: { ids: ids } }) }
 const addCart = (data) => { return authAxios.post('/api/cart', { data }) }
 const deleteCart = (ids) => { return authAxios.delete('/api/cart', { data: { ids } }) }

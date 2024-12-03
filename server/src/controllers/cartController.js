@@ -1,5 +1,6 @@
 import db from "../models/index";
 const { Op } = require('sequelize');
+const jwt = require("jsonwebtoken");
 
 const prod_attributes = ["id", "title", "desc", "slug", "capacity_id", "ram_id", "category_id", "brand_id", "version_id", "is_active", "updatedAt", "createdAt"]
 const prod_includes = [
@@ -76,10 +77,12 @@ const readFunc = async (req, res) => {
 
 const readFuncAmount = async (req, res) => {
   try {
-    if (req.query.user_id) {
-      const { count, rows } = await db.Cart.findAndCountAll({ where: { UserId: req.query.user_id }, attributes: cart_attributes, order: [["UserId", "ASC"]] })
-      return res.status(200).json({ message: "get cart success", code: 0, data: count, });
-    }
+    const token = req?.cookies?.jwt;
+    if (!token) return res.status(401).json({ message: "No token provided", code: -1 });
+    const decoded = jwt.decode(token);
+    
+    const { count, rows } = await db.Cart.findAndCountAll({ where: { UserId: decoded?.userPresent?.user?.id }, attributes: cart_attributes, order: [["UserId", "ASC"]] })
+    return res.status(200).json({ message: "get cart success", code: 0, data: count, });
   } catch (error) {
     return res.status(500).json({ message: "error from server", code: -1 });
   }

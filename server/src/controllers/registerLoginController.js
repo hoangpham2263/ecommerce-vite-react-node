@@ -87,12 +87,12 @@ const loginAccount = async (req, res) => {
 
     await res.cookie("jwt", token, {
       httpOnly: true,
-      maxAge: 24 * 60 * 60 * 1000 * 100,
+      maxAge: 24 * 60 * 60 * 1000,
       secure: process.env.NODE_SECURE,
       sameSite: 'None'
     });
 
-    return res.status(200).json({ message: "Login successful!", code: 0 });
+    return res.status(200).json({ message: "Login successful!", jwt: req?.cookies?.jwt });
 
   } catch (error) {
     return res.status(500).json({ message: "Error from server", code: -1 });
@@ -116,18 +116,18 @@ const logoutAccount = async (req, res) => {
 };
 
 
-// Read JWT
-const readJWT = async (req, res) => {
+// checkSession
+const checkSession = async (req, res) => {
   try {
     const cookie = req.cookies;
     if (cookie?.jwt) {
-      return res.status(200).json({ message: "Read JWT success", code: 0, data: cookie });
+      return res.status(200).json({ message: "check session success", jwt: cookie.jwt });
     } else {
-      return res.status(200).json({ message: "JWT not exists success", code: 1 });
+      return res.status(401).json({ message: "No active session found", code: 1 });
     }
   } catch (error) {
     return res.status(500).json({ message: "Error from server", code: -1 });
   }
 };
 
-module.exports = { registerAccount, loginAccount, logoutAccount, readJWT };
+module.exports = { registerAccount, loginAccount, logoutAccount, checkSession };

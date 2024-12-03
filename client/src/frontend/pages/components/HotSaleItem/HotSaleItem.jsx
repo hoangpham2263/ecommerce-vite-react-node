@@ -9,8 +9,8 @@ import Checkbox from '@mui/material/Checkbox'
 import { toast } from 'react-toastify'
 import config from '../../../config'
 import { addCart, readProduct } from '../../../services/publicApi'
-import { LocalStorageGetInfo } from '../../../../main/components/LocalStorageMethod'
 import useFetchAmountCart from '../../../hooks/useFetchAmountCart'
+import { useAuth } from '../../../../main/context/AuthContext'
 const cx = classNames.bind(styles)
 
 const HotSaleItem = () => {
@@ -20,7 +20,8 @@ const HotSaleItem = () => {
   const [product, setProduct] = useState()
 
   const closeButtonRef = useRef(null)
-  const LocalStorageGetInfos = LocalStorageGetInfo() || {}
+  const { user } = useAuth()
+  const LocalStorageGetInfos = user
   const [quantity, setQuantity] = useState(1)
   const [selectConfig, setSelectConfig] = useState(0)
 

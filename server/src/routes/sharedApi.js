@@ -13,7 +13,7 @@ const sharedApiRoute = (app) => {
   router.post("/auth/register", registerLoginController.registerAccount);
   router.post("/auth/login", registerLoginController.loginAccount);
   router.post("/auth/logout", registerLoginController.logoutAccount);
-  router.get("/auth/jwt-token", registerLoginController.readJWT);
+  router.get("/auth/check-session", registerLoginController.checkSession);
 
   return app.use("/api", router);
 };

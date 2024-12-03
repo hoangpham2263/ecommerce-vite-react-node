@@ -77,7 +77,7 @@ const saveAccountGoogleOAuth = async (req, res) => {
 
       await res.cookie("jwt", token, {
         httpOnly: true,
-        maxAge: 24 * 60 * 60 * 1000 * 100,
+        maxAge: 24 * 60 * 60 * 1000,
         secure: process.env.NODE_SECURE,
         sameSite: 'None'
       });

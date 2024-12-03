@@ -3,16 +3,17 @@ import { toast } from 'react-toastify'
 import { useEffect, useState } from 'react'
 import styles from './Cart.module.scss'
 import { addCart, deleteCart, readCart } from '../../services/publicApi'
-import { LocalStorageGetInfo } from '../../../main/components/LocalStorageMethod'
 import { useNavigate } from 'react-router-dom'
 import config from '../../config'
 import useFetchAmountCart from '../../hooks/useFetchAmountCart'
+import { useAuth } from '../../../main/context/AuthContext'
 
 const cx = classNames.bind(styles)
 const Cart = () => {
   // ---------- init variable ----------
   const navigate = useNavigate()
-  const LocalStorageGetInfos = LocalStorageGetInfo() || {}
+  const { user } = useAuth()
+  const LocalStorageGetInfos = user
   const [carts, setCarts] = useState([])
   const [selectedItems, setSelectedItems] = useState([])
 

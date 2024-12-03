@@ -4,7 +4,7 @@ import { useGoogleLogin } from '@react-oauth/google'
 import { toast } from 'react-toastify'
 import { jwtDecode } from 'jwt-decode'
 
-import { confirmGetToken, getInfoAccountUseAccessToke, readProfileJWT, saveAccountToServer } from '../../main/services/sharedApi'
+import { confirmGetToken, getInfoAccountUseAccessToke, readProfileJWT, saveAccountToServer } from '../../main/services/sharedApi.jsx'
 
 const LoginWithGoogle = () => {
 

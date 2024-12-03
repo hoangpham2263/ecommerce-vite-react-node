@@ -4,16 +4,17 @@ import { IoLocationSharp } from 'react-icons/io5'
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js'
 import { toast } from 'react-toastify'
 import { useEffect, useState } from 'react'
-import { LocalStorageGetInfo } from '../../../main/components/LocalStorageMethod'
 import { readCartByIds, sendMailer, createOrder, deleteCart } from '../../services/publicApi'
 import { BsCashCoin } from 'react-icons/bs'
 import { BsPaypal } from 'react-icons/bs'
 import config from '../../config'
+import { useAuth } from '../../../main/context/AuthContext'
 
 const cx = classNames.bind(styles)
 const Checkout = () => {
+  const { user } = useAuth()
+  const LocalStorageGetInfos = user
   const dataCheckout = JSON.parse(localStorage.getItem('dataCheckout'))
-  const LocalStorageGetInfos = LocalStorageGetInfo() || {}
   const [carts, setCarts] = useState([])
 
   // ---------- formatNumber ----------

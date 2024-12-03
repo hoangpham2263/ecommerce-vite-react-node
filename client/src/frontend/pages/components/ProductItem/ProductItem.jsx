@@ -7,10 +7,10 @@ import Rating from '@mui/material/Rating'
 import Checkbox from '@mui/material/Checkbox'
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder'
 import { addCart, readProduct } from '../../../services/publicApi'
-import { LocalStorageGetInfo } from '../../../../main/components/LocalStorageMethod'
 import useFetchAmountCart from '../../../hooks/useFetchAmountCart'
 import ReactPaginateBlock from '../ReactPaginateBlock'
 import config from '../../../config'
+import { useAuth } from '../../../../main/context/AuthContext'
 
 const cx = classNames.bind(styles)
 
@@ -25,7 +25,8 @@ const ProductItem = ({ data, stt }) => {
   const label = { inputProps: { 'aria-label': 'Checkbox demo' } }
 
   const closeButtonRef = useRef(null)
-  const LocalStorageGetInfos = LocalStorageGetInfo() || {}
+  const { user } = useAuth()
+  const LocalStorageGetInfos = user
   const [quantity, setQuantity] = useState(1)
 
   // ---------- navigation ----------
