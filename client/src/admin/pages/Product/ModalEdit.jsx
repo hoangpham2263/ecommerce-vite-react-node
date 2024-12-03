@@ -22,12 +22,17 @@ const ModalEdit = ({ item, index, fetchProductData }) => {
 
   const handleGetDataAttribute = useCallback(async () => {
     try {
+      const dataRam = { page: 1, limit: 100 }
+      const dataCapacity = { page: 1, limit: 100 }
+      const dataCategory = { page: 1, limit: 100 }
+      const dataBrand = { page: 1, limit: 100, category_id: data?.category_id }
+      const dataVersion = { page: 1, limit: 100, brand_id: data?.brand_id }
       const [fetchRam, fetchCapacity, fetchCategory, fetchBrand, fetchVersion] = await Promise.all([
-        readRam(1, 100),
-        readCapacity(1, 100),
-        readCategory(1, 100),
-        readBrand(1, 100, data?.category_id),
-        readVersion(1, 100, data?.brand_id)
+        readRam(dataRam),
+        readCapacity(dataCapacity),
+        readCategory(dataCategory),
+        readBrand(dataBrand),
+        readVersion(dataVersion)
       ])
       setRams(fetchRam?.data?.data?.ram || [])
       setCapacities(fetchCapacity?.data?.data?.capacity || [])
@@ -93,7 +98,8 @@ const ModalEdit = ({ item, index, fetchProductData }) => {
   useEffect(() => {
     const fetchData = async () => {
       if (data?.brand_id && data.brand_id.length > 0) {
-        const result = await readVersion(1, 100, data?.brand_id)
+        const data = { page: 1, limit: 100, brand_id: data?.brand_id }
+        const result = await readVersion(data)
         setVersions(result?.data?.data?.version)
       }
     }

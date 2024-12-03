@@ -18,8 +18,9 @@ const ModalEditConfig = ({ item, fetchDataProductData, fetchConfig }) => {
   const closeButtonRef = useRef(null)
   const handleGetDataAttribute = useCallback(async () => {
     try {
+      const data = { page: 1, limit: 100 };
       const [fetchColor] = await Promise.all([
-        readColor(1, 100),
+        readColor(data)
       ])
       setColors(fetchColor?.data?.data?.color || [])
     } catch {

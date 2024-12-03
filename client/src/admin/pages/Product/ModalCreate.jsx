@@ -33,9 +33,10 @@ const ModalCreate = ({ fetchProductData }) => {
   }
 
   const handleGetDataAttribute = async () => {
-    const fetchRam = await readRam(1, 100)
-    const fetchCapacity = await readCapacity(1, 100)
-    const fetchCategory = await readCategory(1, 100)
+    const data = { page: 1, limit: 100 }
+    const fetchRam = await readRam(data)
+    const fetchCapacity = await readCapacity(data)
+    const fetchCategory = await readCategory(data)
     setRams(fetchRam?.data?.data?.ram)
     setCapacities(fetchCapacity?.data?.data?.capacity)
     setCategories(fetchCategory?.data?.data?.category)
@@ -48,7 +49,8 @@ const ModalCreate = ({ fetchProductData }) => {
   useEffect(() => {
     const fetchData = async () => {
       if (data?.category_id && data.category_id.length > 0) {
-        const result = await readBrand(1, 100, data?.category_id)
+        const data = { page: 1, limit: 100, category_id: data?.category_id }
+        const result = await readBrand(data)
         setBrands(result?.data?.data?.brand)
         setVersions('')
       }
@@ -59,7 +61,8 @@ const ModalCreate = ({ fetchProductData }) => {
   useEffect(() => {
     const fetchData = async () => {
       if (data?.brand_id && data.brand_id.length > 0) {
-        const result = await readVersion(1, 100, data?.brand_id)
+        const data = { page: 1, limit: 100, brand_id: data?.brand_id }
+        const result = await readVersion(data)
         setVersions(result?.data?.data?.version)
       }
     }

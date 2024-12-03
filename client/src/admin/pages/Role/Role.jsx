@@ -12,19 +12,18 @@ const cx = classNames.bind(styles)
 const Role = () => {
   const [data, setData] = useState()
   const [currentPage, setCurrentPage] = useState(1)
-  // eslint-disable-next-line no-unused-vars
   const [limit, setLimit] = useState(12)
   const [totalPages, setTotalPages] = useState(0)
 
   const fetchData = async () => {
-    let fetchData = await readRole(currentPage, limit)
+    const data = { page: currentPage, limit: limit }
+    let fetchData = await readRole(data)
     setData(fetchData?.data)
     setTotalPages(fetchData?.data?.data?.totalPages)
   }
 
   useEffect(() => {
     fetchData()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage, limit])
 
   const handlePageChange = (page) => {
@@ -38,7 +37,7 @@ const Role = () => {
       <div className={cx('row mb-3')}>
         <h3 className={cx('col-3 fw-normal')}>Role</h3>
         <div className={cx('col-9 d-flex justify-content-end')}>
-          <ModalCreate fetchData={fetchData}/>
+          <ModalCreate fetchData={fetchData} />
         </div>
       </div>
 
@@ -71,8 +70,8 @@ const Role = () => {
                   day: '2-digit'
                 })}`}</td>
                 <td className={cx(' pe-4', 'col-btn')}>
-                  <ModalEdit item={item} index={`modal-del-${index}`} fetchData={fetchData}/>
-                  <ModalDelete id={item?.id} index={`modal-del-${index}`} fetchData={fetchData}/>
+                  <ModalEdit item={item} index={`modal-del-${index}`} fetchData={fetchData} />
+                  <ModalDelete id={item?.id} index={`modal-del-${index}`} fetchData={fetchData} />
                 </td>
               </tr>
             ))}

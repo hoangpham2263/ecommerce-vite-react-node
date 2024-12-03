@@ -31,7 +31,8 @@ const ModalCreateConfig = ({ fetchProductData, product }) => {
   }
 
   const handleGetDataAttribute = async () => {
-    const fetchColor = await readColor(1, 100)
+    const data = { page: 1, limit: 100 }
+    const fetchColor = await readColor(data)
     setColors(fetchColor?.data?.data?.color)
   }
 

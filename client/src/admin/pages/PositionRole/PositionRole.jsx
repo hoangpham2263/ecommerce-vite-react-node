@@ -46,21 +46,24 @@ const PositionRole = () => {
 
   // Fetch Position Data
   const fetchDataPosition = async () => {
-    const fetchData = await readPosition(currentPagePosition, limitPosition)
+    const data = { page: currentPagePosition, limit: limitPosition }
+    const fetchData = await readPosition(data)
     setDataPosition(fetchData?.data)
     setTotalPagesPosition(fetchData?.data?.data?.totalPages)
   }
 
   // Fetch Position Role Data
   const fetchDataPositionRole = async () => {
-    const fetchData = await readPositionRole(currentPagePositionRole, limitPositionRole, selectedKeyPosition)
+    const data = { page: currentPagePositionRole, limit: limitPositionRole, position_id: selectedKeyPosition }
+    const fetchData = await readPositionRole(data)
     setDataPositionRole(fetchData?.data)
     setTotalPagesPositionRole(fetchData?.data?.data?.totalPages)
   }
 
   // Fetch Roles Data
   const fetchDataRole = async () => {
-    const fetchData = await readPositionRoleReverse(currentPageRole, limitRole, selectedKeyPosition)
+    const data = { page: currentPageRole, limit: limitRole, position_id: selectedKeyPosition }
+    const fetchData = await readPositionRoleReverse(data)
     setDataRole(fetchData?.data)
     setTotalPagesRole(fetchData?.data?.data?.totalPages)
   }

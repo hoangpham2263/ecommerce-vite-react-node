@@ -23,7 +23,8 @@ const Products = () => {
     product: 12
   }
   const fetchProductData = async () => {
-    const fetchDataProduct = await readProduct({ currentPage: currentProductPage, currentLimit: limitPage.product })
+    const data = { page: currentProductPage, limit: limitPage.product }
+    const fetchDataProduct = await readProduct(data)
     setProducts(fetchDataProduct?.data?.data?.product)
     setTotalProductPages(fetchDataProduct?.data?.data?.totalPages)
   }
