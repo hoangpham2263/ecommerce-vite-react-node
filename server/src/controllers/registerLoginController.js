@@ -91,10 +91,10 @@ const loginAccount = async (req, res) => {
       secure: process.env.NODE_SECURE,
       sameSite: 'None'
     });
-
     return res.status(200).json({ message: "Login successful!", jwt: req?.cookies?.jwt });
 
   } catch (error) {
+    console.log(error)
     return res.status(500).json({ message: "Error from server", code: -1 });
   }
 };

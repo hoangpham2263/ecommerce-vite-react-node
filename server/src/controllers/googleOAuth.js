@@ -81,7 +81,7 @@ const saveAccountGoogleOAuth = async (req, res) => {
         secure: process.env.NODE_SECURE,
         sameSite: 'None'
       });
-      return res.status(200).json({ message: "login successful", code: 0, data: [] });
+      return res.status(200).json({ message: "Login successful!", jwt: req?.cookies?.jwt });
     }
     return res.status(200).json({ message: "system error", code: 1, data: [] });
   } catch (error) {

@@ -1,7 +1,17 @@
-import { jwtDecode } from 'jwt-decode'
 import { createContext, useState, useEffect, useContext } from 'react'
-import { loginAccountBasic, logoutAccount, readCheckSession } from '../services/sharedApi.jsx'
+import { jwtDecode } from 'jwt-decode'
+import { toast } from 'react-toastify'
+import { useGoogleLogin } from '@react-oauth/google'
+import {
+  confirmGetToken,
+  getInfoAccountUseAccessToke,
+  saveAccountToServer,
+  loginAccountBasic,
+  logoutAccount,
+  readCheckSession
+} from '../services/sharedApi.jsx'
 import config from '../../frontend/config'
+import configAdmin from '../../admin/config'
 
 const AuthContext = createContext()
 
@@ -16,7 +26,6 @@ export const AuthProvider = ({ children }) => {
           const access_token = jwtDecode(fetchCheckSessionUser?.data?.jwt)
           setUser(access_token?.userPresent)
         } else {
-          console.log(fetchCheckSessionUser)
           setUser(null)
         }
       } catch (error) {
@@ -27,10 +36,79 @@ export const AuthProvider = ({ children }) => {
   }, [])
 
   const login = async (data) => {
-    let res = await loginAccountBasic(data)
-    const access_token = jwtDecode(res?.data?.jwt)
-    setUser(access_token?.userPresent)
+    try {
+      let res = await loginAccountBasic(data)
+      if (res.status === 200) {
+        window.location.href = config.routes.home
+      } else {
+        toast.error(res.data.message)
+      }
+    } catch (error) {
+      toast.error(error.message)
+    }
   }
+
+  const loginWithGoogle = useGoogleLogin({
+    flow: 'auth-code',
+    onSuccess: async (response) => {
+      try {
+        const tokenResponse = await confirmGetToken(response)
+        const accessToken = tokenResponse.data.access_token
+
+        const userInfoResponse = await getInfoAccountUseAccessToke(accessToken)
+        const saveAccountGoogleOAuth = await saveAccountToServer(userInfoResponse?.data)
+
+        if (saveAccountGoogleOAuth.status === 200) {
+          window.location.href = config.routes.home
+        } else {
+          setUser(null)
+        }
+      } catch (error) {
+        toast.error('Error during Google login:', error)
+      }
+    },
+    onError: (errorResponse) => {
+      toast.error('Google login failed.')
+    }
+  })
+
+  const loginAdmin = async (data) => {
+    try {
+      let res = await loginAccountBasic(data)
+      if (res.status === 200) {
+        window.location.href = configAdmin.routes.account
+      } else {
+        toast.error(res.data.message)
+      }
+    } catch (error) {
+      toast.error(error.message)
+    }
+  }
+
+  const loginWithGoogleAdmin = useGoogleLogin({
+    flow: 'auth-code',
+    onSuccess: async (response) => {
+      try {
+        const tokenResponse = await confirmGetToken(response)
+        const accessToken = tokenResponse.data.access_token
+
+        const userInfoResponse = await getInfoAccountUseAccessToke(accessToken)
+        const saveAccountGoogleOAuth = await saveAccountToServer(userInfoResponse?.data)
+
+        if (saveAccountGoogleOAuth.status === 200) {
+          window.location.href = configAdmin.routes.account
+        } else {
+          setUser(null)
+        }
+      } catch (error) {
+        toast.error('Error during Google login:', error)
+      }
+    },
+    onError: (errorResponse) => {
+      toast.error('Google login failed.')
+    }
+  })
+
 
   const logout = async () => {
     await logoutAccount()
@@ -39,7 +117,7 @@ export const AuthProvider = ({ children }) => {
   }
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, loginAdmin, loginWithGoogle, loginWithGoogleAdmin, logout }}>
       {children}
     </AuthContext.Provider>
   )

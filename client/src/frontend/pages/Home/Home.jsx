@@ -5,21 +5,10 @@ import ProductItemSquare from '../components/ProductItemSquare'
 import ProductItemRectangle from '../components/ProductItemRectangle'
 import ProductItemTechnologyNews from '../components/ProductItemTechnologyNews'
 import { dataChuyenTrangThuongHieu, dataHangCu, dataLinhKien, dataPhuKien, dataTechnologyNews, dataUuDaiSV, dataUuDaiThanhToan } from './Data'
-import { useEffect } from 'react'
-import config from '../../config'
 import { useAuth } from '../../../main/context/AuthContext'
-import { readCheckSession } from '../../../main/services/sharedApi.jsx'
 
 const Home = () => {
   const { user, login } = useAuth()
-
-  // ---------- check user already login ----------
-  useEffect(() => {
-    const fetchCheckSessionUser = async () => {
-      try { await readCheckSession() } catch (error) { window.location.href = config.routes.login }
-    }
-    fetchCheckSessionUser()
-  }, [])
 
   return (
     <div>

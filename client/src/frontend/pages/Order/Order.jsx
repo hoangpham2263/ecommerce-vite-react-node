@@ -25,7 +25,7 @@ const Order = () => {
     setCarts(getAllCarts)
     data = { user_id: LocalStorageGetInfos?.user?.id }
     const fetchOrdersByUser = await readOrder(data)
-    console.log(fetchOrdersByUser?.data?.data)
+    setCarts(fetchOrdersByUser?.data?.data)
   }
   useEffect(() => { handleFetchCarts() }, [])
 

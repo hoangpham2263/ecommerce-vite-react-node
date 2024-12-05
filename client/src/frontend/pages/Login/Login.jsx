@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { FaFacebookF } from 'react-icons/fa'
 import { FaTwitter } from 'react-icons/fa'
 import { BiShow, BiHide } from 'react-icons/bi'
@@ -8,16 +8,25 @@ import classNames from 'classnames/bind'
 import styles from './Login.module.scss'
 import LoginWithGoogle from '../../../main/components/LoginWithGoogle'
 import { useAuth } from '../../../main/context/AuthContext'
+import { readCheckSession } from '../../../main/services/sharedApi'
 
 const cx = classNames.bind(styles)
 
 const Login = () => {
-  const { user, login } = useAuth()
+  const { login } = useAuth()
   const [showPassword, setShowPassword] = useState([false])
   const [data, setData] = useState({
     userName: '',
     password: ''
   })
+
+  // ---------- check user already login ----------
+  useEffect(() => {
+    const fetchCheckSessionUser = async () => {
+      await readCheckSession(); window.location.href = config.routes.home
+    }
+    fetchCheckSessionUser()
+  }, [])
 
   const handleShowPassword = () => {
     setShowPassword((prev) => !prev)
@@ -31,7 +40,6 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     await login(data)
-    window.location.href = config.routes.home
   }
 
   return (
