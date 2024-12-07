@@ -9,13 +9,11 @@ const sharedApiRoute = (app) => {
   router.post('/auth/google', googleOAuth.loginGoogleOAuth)
   router.post('/auth/google/create', googleOAuth.saveAccountGoogleOAuth)
 
-  // login basic
+  // ---------- auth ----------
   router.post("/auth/register", registerLoginController.registerAccount);
   router.post("/auth/login", registerLoginController.loginAccount);
-
-  // logout
-  router.post("/auth/logout",registerLoginController.logoutAccount);
-  router.get("/auth/jwt-token", registerLoginController.readJWT);
+  router.post("/auth/logout", registerLoginController.logoutAccount);
+  router.get("/auth/check-session", registerLoginController.checkSession);
 
   return app.use("/api", router);
 };

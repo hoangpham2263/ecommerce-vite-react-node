@@ -1,25 +1,16 @@
 import { PiUserCircleThin } from 'react-icons/pi'
-import { logoutAccount } from '../../../../main/services/sharedApi'
-import { toast } from 'react-toastify'
-import { LocalStorageGetInfo } from '../../../../main/components/LocalStorageMethod'
 import config from '../../../config'
 import classNames from 'classnames/bind'
 import styles from './Header.module.scss'
+import { useAuth } from '../../../../main/context/AuthContext'
 
 const cx = classNames.bind(styles)
 
 const UserInfoLogin = () => {
-  const LocalStorageGetInfos = LocalStorageGetInfo() || {}
-
+  const { user, logout } = useAuth()
+  const LocalStorageGetInfos = user
   const handleLogout = async () => {
-    let response = await logoutAccount()
-    if (response?.data?.code === 0) {
-      localStorage.removeItem('infoAccountLogin')
-      toast.success(response?.data?.message)
-      window.location.href = '/'
-    } else {
-      toast.error(response?.data?.message)
-    }
+    await logout()
   }
 
   const handleRedirectAdmin = () => {
@@ -29,7 +20,7 @@ const UserInfoLogin = () => {
   return (
     <div>
       {
-        LocalStorageGetInfo() ? (
+        LocalStorageGetInfos ? (
           <div className={cx('cs-nav-item', 'cs-nav-item-login', 'cs-nav-item-bg', 'd-flex', 'flex-column', 'dropdown')} data-bs-toggle="dropdown">
             <div className="dropdown-toggle d-flex justify-content-center align-items-center" aria-expanded="false">
               {LocalStorageGetInfos?.user?.avatar ? (

@@ -48,6 +48,23 @@
         background-image: repeating-linear-gradient(45deg, #000, #000 33px, transparent 0, transparent 41px, var(--primary) 0, var(--primary) 74px, transparent 0, transparent 82px);
     }
 
+    .cursor-pointer {
+        cursor: pointer;
+    }
+
+    .cursor-text {
+        cursor: text !important;
+    }
+
+    .cs-input-option:checked {
+        background-color: #DC3444 !important;
+        border-color    : #DC3444 !important;
+    }
+
+    .cs-input-option:focus {
+        box-shadow: 0 0 0 .25rem rgba(220, 52, 68, 0.25) !important;
+    }
+
     .location {
         padding         : 28px 30px 24px;
         background-color: #fff;

@@ -137,9 +137,9 @@ const Assessment = ({ product }) => {
             {/* user assessment */}
             <div className={cx('row', 'mx-3', 'mb-2', 'pb-2', 'cs-border-bottom')}>
               <div className={cx('cs-user-assess')}>
-                <div className={cx('img', 'me-3')}>P</div>
+                <div className={cx('img', 'me-3')}>H</div>
                 <div className={cx('d-flex', 'flex-column')}>
-                  <h5 className={cx('cs-tech-size-15', 'm-0', 'd-flex', 'align-items-center', 'py-2', 'mb-2')}>Phạm thuý vy</h5>
+                  <h5 className={cx('cs-tech-size-15', 'm-0', 'd-flex', 'align-items-center', 'py-2', 'mb-2')}>Phạm Quốc Hoàng</h5>
                   <h5 className={cx('cs-tech-size-15', 'm-0', 'fw-light', 'mb-2', 'd-flex')}>
                     <div className={cx('d-flex', 'align-items-center', 'm-0', 'me-2', 'py-1', 'pe-1', 'cs-border-right')}>
                       <FaStar className={cx('text-warning')} />
@@ -157,9 +157,9 @@ const Assessment = ({ product }) => {
             </div>
             <div className={cx('row', 'mx-3', 'mb-2', 'pb-2', 'cs-border-bottom')}>
               <div className={cx('cs-user-assess')}>
-                <div className={cx('img', 'me-3')}>P</div>
+                <div className={cx('img', 'me-3')}>H</div>
                 <div className={cx('d-flex', 'flex-column')}>
-                  <h5 className={cx('cs-tech-size-15', 'm-0', 'd-flex', 'align-items-center', 'py-2', 'mb-2')}>Phạm thuý vy</h5>
+                  <h5 className={cx('cs-tech-size-15', 'm-0', 'd-flex', 'align-items-center', 'py-2', 'mb-2')}>Phạm Quốc Hoàng</h5>
                   <h5 className={cx('cs-tech-size-15', 'm-0', 'fw-light', 'mb-2', 'd-flex')}>
                     <div className={cx('d-flex', 'align-items-center', 'm-0', 'me-2', 'py-1', 'pe-1', 'cs-border-right')}>
                       <FaStar className={cx('text-warning')} />

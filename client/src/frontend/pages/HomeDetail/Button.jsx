@@ -2,16 +2,17 @@ import classNames from 'classnames/bind'
 import styles from './HomeDetail.module.scss'
 import { MdAddShoppingCart } from 'react-icons/md'
 import { addCart } from '../../services/publicApi'
-import { LocalStorageGetInfo } from '../../../main/components/LocalStorageMethod'
 import { useEffect, useRef, useState } from 'react'
 import { toast } from 'react-toastify'
 import useFetchAmountCart from '../../hooks/useFetchAmountCart'
+import { useAuth } from '../../../main/context/AuthContext'
 
 const cx = classNames.bind(styles)
 
-const Button = ({ product }) => {
+const Button = ({ product, selectConfig }) => {
   const closeButtonRef = useRef(null)
-  const LocalStorageGetInfos = LocalStorageGetInfo() || {}
+  const { user } = useAuth()
+  const LocalStorageGetInfos = user
   const [quantity, setQuantity] = useState(1)
 
   const fetchAmountCart = useFetchAmountCart()
@@ -31,15 +32,15 @@ const Button = ({ product }) => {
     }
   }
 
+  // ---------- button add to cart ----------
   const handleAddProductToCart = async (e) => {
     e.preventDefault()
     const data = {
       UserId: LocalStorageGetInfos?.user?.id,
       ProductId: product?.id,
       quantity: quantity,
-      total: product?.price * quantity
+      config_id: product.configs && product.configs[selectConfig]?.id
     }
-
     const fetchData = await addCart(data)
     if (fetchData?.data?.code === 0) {
       toast.success('Thêm vào giỏ hàng thành công')
@@ -47,6 +48,10 @@ const Button = ({ product }) => {
       closeButtonRef.current.click()
     }
   }
+  const formatNumber = (number) => {
+    return number.toLocaleString('vi-VN')
+  }
+
 
   return (
     <div className={cx('row')}>
@@ -77,7 +82,7 @@ const Button = ({ product }) => {
       <div className={cx('col-md-12', 'mb-3')}>
         <button type="button" className={cx('btn btn-warning w-100', 'cs-hight-60', 'cs-btn-warning')}>
           <p className={cx('m-0', 'cs-btn-size-14')}>Thu cũ lên đời</p>
-          <p className={cx('m-0', 'cs-btn-size-12')}>Chỉ từ 27.000.000đ</p>
+          <p className={cx('m-0', 'cs-btn-size-12')}>Chỉ từ {product?.configs && formatNumber((product.configs[selectConfig]?.price || 0) * (1 - product.configs[selectConfig]?.discount / 100) - 2000000)}đ</p>
         </button>
       </div>
 

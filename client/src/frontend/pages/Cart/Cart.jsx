@@ -3,23 +3,26 @@ import { toast } from 'react-toastify'
 import { useEffect, useState } from 'react'
 import styles from './Cart.module.scss'
 import { addCart, deleteCart, readCart } from '../../services/publicApi'
-import { LocalStorageGetInfo } from '../../../main/components/LocalStorageMethod'
 import { useNavigate } from 'react-router-dom'
 import config from '../../config'
 import useFetchAmountCart from '../../hooks/useFetchAmountCart'
+import { useAuth } from '../../../main/context/AuthContext'
 
 const cx = classNames.bind(styles)
 const Cart = () => {
   // ---------- init variable ----------
   const navigate = useNavigate()
-  const LocalStorageGetInfos = LocalStorageGetInfo() || {}
+  const { user } = useAuth()
+  const LocalStorageGetInfos = user
   const [carts, setCarts] = useState([])
   const [selectedItems, setSelectedItems] = useState([])
 
   // ---------- call api ----------
   const handleFetchCarts = async () => {
-    const fetchData = await readCart(LocalStorageGetInfos?.user?.id)
-    setCarts(fetchData?.data?.data)
+    const data = { user_id: LocalStorageGetInfos?.user?.id }
+    const fetchCartsByUser = await readCart(data)
+    const getAllCarts = fetchCartsByUser?.data?.data
+    setCarts(getAllCarts)
   }
   useEffect(() => { handleFetchCarts() }, [])
 
@@ -32,7 +35,7 @@ const Cart = () => {
       UserId: item?.UserId,
       ProductId: item?.Product?.id,
       quantity: item?.quantity > 1 ? item?.quantity - 1 : item.quantity,
-      total: item?.quantity > 1 ? item?.total - item?.Product?.price : item?.total
+      config_id: item?.config_id
     }
     const fetchCart = await addCart(data)
     if (fetchCart?.data?.code === 0) {
@@ -44,7 +47,7 @@ const Cart = () => {
       UserId: item?.UserId,
       ProductId: item?.Product?.id,
       quantity: item?.quantity + 1,
-      total: item?.total + item?.Product?.price
+      config_id: item?.config_id
     }
     const fetchCart = await addCart(data)
     if (fetchCart?.data?.code === 0) {
@@ -69,7 +72,8 @@ const Cart = () => {
   }
   // ---------- delete ----------
   const handleDeleteCart = async (item) => {
-    const fetchCart = await deleteCart([item?.id])
+    const ids = [item?.id]
+    const fetchCart = await deleteCart(ids)
     if (fetchCart?.data?.code === 0) {
       handleFetchCarts()
       fetchAmountCart()
@@ -79,7 +83,8 @@ const Cart = () => {
 
   const handleDeleteMultiple = async () => {
     if (selectedItems.length > 0) {
-      const fetchCart = await deleteCart(selectedItems)
+      const ids = selectedItems
+      const fetchCart = await deleteCart(ids)
       if (fetchCart?.data?.code === 0) {
         handleFetchCarts()
         fetchAmountCart()
@@ -104,6 +109,8 @@ const Cart = () => {
     }
   }
 
+  const formatNumber = (number) => { return number.toLocaleString('vi-VN') }
+
   return (
     <>
       {carts.length > 0 ? <div className='container'>
@@ -114,7 +121,7 @@ const Cart = () => {
               <tr className=''>
                 <th className={cx('fw-normal')} scope="col">
                   <label htmlFor='checkboxNoLabelTitle' className={cx('w-100', 'cs-cursor')}>
-                    <input className="form-check-input" type="checkbox" id="checkboxNoLabelTitle" aria-label="..." onChange={handleSelectAll} checked={selectedItems.length === carts.length && carts.length > 0} />
+                    <input className={cx('form-check-input', 'cs-cursor')} type="checkbox" id="checkboxNoLabelTitle" aria-label="..." onChange={handleSelectAll} checked={selectedItems.length === carts.length && carts.length > 0} />
                   </label>
                 </th>
                 <th className={cx('fw-normal', 'cs-cursor-text')} scope="col">STT</th>
@@ -137,10 +144,12 @@ const Cart = () => {
                       </label>
                     </th>
                     <th className={cx('fw-light', 'cs-cursor-text')}>{index + 1}</th>
-                    <td className={cx('fw-light', 'cs-cursor-text')}>image</td>
+                    <td className={cx('fw-light', 'cs-cursor-text')}>
+                      <img className={cx('cs-img')} src={item?.images && item?.images[0]?.url} />
+                    </td>
                     <td className={cx('fw-light', 'cs-cursor-text')}>{item?.Product?.title}</td>
-                    <td className={cx('fw-light', 'cs-cursor-text')}>{item?.Product?.Color?.name}</td>
-                    <td className={cx('fw-light', 'cs-cursor-text')}>{item?.Product?.price}đ</td>
+                    <td className={cx('fw-light', 'cs-cursor-text')}>{item?.Config?.Color?.name}</td>
+                    <td className={cx('fw-light', 'cs-cursor-text')}>{formatNumber(item?.Config?.price)}đ</td>
                     <td className={cx('fw-light', 'cs-cursor-text')}>
                       <div className="btn-group" role="group" aria-label="Default button group">
                         <button type="button" className="btn btn-outline-secondary" onClick={() => handleDecreaseQuantityCart(item)}>-</button>
@@ -148,7 +157,7 @@ const Cart = () => {
                         <button type="button" className="btn btn-outline-secondary" onClick={() => handleIncreaseQuantityCart(item)}>+</button>
                       </div>
                     </td>
-                    <td className={cx('fw-light', 'cs-cursor-text')}>{item?.total}đ</td>
+                    <td className={cx('fw-light', 'cs-cursor-text')}>{formatNumber(item?.Config?.price * item?.quantity)}đ</td>
                     <td className={cx('fw-light text-end', 'w-btn')}>
                       <button type="button" className="btn btn-primary me-2" onClick={() => handleBuyOne(item)}>Mua ngay</button>
                       <button type="button" className="btn btn-danger" onClick={() => handleDeleteCart(item)}>Xóa</button>
@@ -165,7 +174,7 @@ const Cart = () => {
                 <td className={cx('fw-light')}></td>
                 <td className={cx('fw-light')}></td>
                 <td className={cx('fw-medium px-5 text-danger')}>{carts && carts.reduce((total, num) => total + (num?.quantity || 0), 0)}</td>
-                <td className={cx('fw-medium text-danger')}>{carts && carts.reduce((total, num) => total + (num?.total || 0), 0)}đ</td>
+                <td className={cx('fw-medium text-danger')}>{carts && formatNumber(carts.reduce((total, item) => total + (item?.Config?.price * item?.quantity || 0), 0))}đ</td>
                 <td className={cx('fw-light text-end', 'w-btn')}>
                   <button type="button" className="btn btn-primary text-light me-2" onClick={handleBuyMultiple}>Mua nhiều</button>
                   <button type="button" className="btn btn-danger text-light" onClick={handleDeleteMultiple}>Xóa nhiều</button>

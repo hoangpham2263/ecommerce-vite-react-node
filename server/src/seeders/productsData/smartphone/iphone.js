@@ -1,80 +1,139 @@
 // ID 1 - 500
 
 module.exports = [
-  // iphone 11 64GB
-  { id: 1, title: 'iPhone 11 4GB 64GB Black', category_id: 1, desc: null, brand_id: 1, version_id: 1, ram_id: 4, capacity_id: 4, color_id: 1, stock: 100, discount: 23, price: 11990000, is_active: 1, slug: 'iphone-11-smartphone-4gb-64gb-black', },
-  { id: 2, title: 'iPhone 11 4GB 64GB Green', category_id: 1, desc: null, brand_id: 1, version_id: 1, ram_id: 4, capacity_id: 4, color_id: 9, stock: 100, discount: 28, price: 11990000, is_active: 1, slug: 'iphone-11-smartphone-4gb-64gb-green', },
-  { id: 3, title: 'iPhone 11 4GB 64GB Purple', category_id: 1, desc: null, brand_id: 1, version_id: 1, ram_id: 4, capacity_id: 4, color_id: 10, stock: 100, discount: 25, price: 11990000, is_active: 1, slug: 'iphone-11-smartphone-4gb-64gb-purple', },
-  { id: 4, title: 'iPhone 11 4GB 64GB Red', category_id: 1, desc: null, brand_id: 1, version_id: 1, ram_id: 4, capacity_id: 4, color_id: 8, stock: 100, discount: 29, price: 11990000, is_active: 1, slug: 'iphone-11-smartphone-4gb-64gb-red', },
-  { id: 5, title: 'iPhone 11 4GB 64GB White', category_id: 1, desc: null, brand_id: 1, version_id: 1, ram_id: 4, capacity_id: 4, color_id: 2, stock: 100, discount: 21, price: 11990000, is_active: 1, slug: 'iphone-11-smartphone-4gb-64gb-white', },
-  { id: 6, title: 'iPhone 11 4GB 64GB Yellow', category_id: 1, desc: null, brand_id: 1, version_id: 1, ram_id: 4, capacity_id: 4, color_id: 16, stock: 100, discount: 23, price: 11990000, is_active: 1, slug: 'iphone-11-smartphone-4gb-64gb-yellow', },
-  // iphone 11 128GB
-  { id: 7, title: 'iPhone 11 4GB 128GB Black', category_id: 1, desc: null, brand_id: 1, version_id: 1, ram_id: 4, capacity_id: 5, color_id: 1, stock: 100, discount: 21, price: 13990000, is_active: 1, slug: 'iphone-11-smartphone-4gb-128gb-black', },
-  { id: 8, title: 'iPhone 11 4GB 128GB Green', category_id: 1, desc: null, brand_id: 1, version_id: 1, ram_id: 4, capacity_id: 5, color_id: 9, stock: 100, discount: 31, price: 13990000, is_active: 1, slug: 'iphone-11-smartphone-4gb-128gb-green', },
-  { id: 9, title: 'iPhone 11 4GB 128GB Purple', category_id: 1, desc: null, brand_id: 1, version_id: 1, ram_id: 4, capacity_id: 5, color_id: 10, stock: 100, discount: 27, price: 13990000, is_active: 1, slug: 'iphone-11-smartphone-4gb-128gb-purple', },
-  { id: 10, title: 'iPhone 11 4GB 128GB Red', category_id: 1, desc: null, brand_id: 1, version_id: 1, ram_id: 4, capacity_id: 5, color_id: 8, stock: 100, discount: 22, price: 13990000, is_active: 1, slug: 'iphone-11-smartphone-4gb-128gb-red', },
-  { id: 11, title: 'iPhone 11 4GB 128GB White', category_id: 1, desc: null, brand_id: 1, version_id: 1, ram_id: 4, capacity_id: 5, color_id: 2, stock: 100, discount: 29, price: 13990000, is_active: 1, slug: 'iphone-11-smartphone-4gb-128gb-white', },
-  { id: 12, title: 'iPhone 11 4GB 128GB Yellow', category_id: 1, desc: null, brand_id: 1, version_id: 1, ram_id: 4, capacity_id: 5, color_id: 16, stock: 100, discount: 22, price: 13990000, is_active: 1, slug: 'iphone-11-smartphone-4gb-128gb-yellow', },
-  // iphone 11 256GB
-  { id: 13, title: 'iPhone 11 4GB 256GB Black', category_id: 1, desc: null, brand_id: 1, version_id: 1, ram_id: 4, capacity_id: 6, color_id: 1, stock: 100, discount: 31, price: 19990000, is_active: 1, slug: 'iphone-11-smartphone-4gb-256gb-black', },
-  { id: 14, title: 'iPhone 11 4GB 256GB Green', category_id: 1, desc: null, brand_id: 1, version_id: 1, ram_id: 4, capacity_id: 6, color_id: 9, stock: 100, discount: 29, price: 19990000, is_active: 1, slug: 'iphone-11-smartphone-4gb-256gb-green', },
-  { id: 15, title: 'iPhone 11 4GB 256GB Purple', category_id: 1, desc: null, brand_id: 1, version_id: 1, ram_id: 4, capacity_id: 6, color_id: 10, stock: 100, discount: 27, price: 19990000, is_active: 1, slug: 'iphone-11-smartphone-4gb-256gb-purple', },
-  { id: 16, title: 'iPhone 11 4GB 256GB Red', category_id: 1, desc: null, brand_id: 1, version_id: 1, ram_id: 4, capacity_id: 6, color_id: 8, stock: 100, discount: 22, price: 19990000, is_active: 1, slug: 'iphone-11-smartphone-4gb-256gb-red', },
-  { id: 17, title: 'iPhone 11 4GB 256GB White', category_id: 1, desc: null, brand_id: 1, version_id: 1, ram_id: 4, capacity_id: 6, color_id: 2, stock: 100, discount: 24, price: 19990000, is_active: 1, slug: 'iphone-11-smartphone-4gb-256gb-white', },
-  { id: 18, title: 'iPhone 11 4GB 256GB Yellow', category_id: 1, desc: null, brand_id: 1, version_id: 1, ram_id: 4, capacity_id: 6, color_id: 16, stock: 100, discount: 27, price: 19990000, is_active: 1, slug: 'iphone-11-smartphone-4gb-256gb-yellow', },
+  // ---------- iphone 11 64GB ----------
+  { id: 1, title: 'Điện thoại iPhone 11 - RAM 4GB, Dung lượng bộ nhớ 64GB', category_id: 1, desc: null, brand_id: 1, version_id: 1, ram_id: 4, capacity_id: 4, is_active: 1, slug: 'dien-thoai-iphone-11-4gb-64gb', },
+  // ---------- iphone 11 128GB ----------
+  { id: 2, title: 'Điện thoại iPhone 11 - RAM 4GB, Dung lượng bộ nhớ 128GB', category_id: 1, desc: null, brand_id: 1, version_id: 1, ram_id: 4, capacity_id: 5, is_active: 1, slug: 'dien-thoai-iphone-11-4gb-128gb', },
+  // ---------- iphone 11 256GB ----------
+  { id: 3, title: 'Điện thoại iPhone 11 - RAM 4GB, Dung lượng bộ nhớ 256GB', category_id: 1, desc: null, brand_id: 1, version_id: 1, ram_id: 4, capacity_id: 6, is_active: 1, slug: 'dien-thoai-iphone-11-4gb-256gb', },
 
-  // iphone 12 64GB
-  { id: 19, title: 'iPhone 12 4GB 64GB Black', category_id: 1, desc: null, brand_id: 1, version_id: 2, ram_id: 4, capacity_id: 4, color_id: 1, stock: 100, discount: 31, price: 15990000, is_active: 1, slug: 'iphone-12-smartphone-4gb-64gb-black' },
-  { id: 20, title: 'iPhone 12 4GB 64GB Blue', category_id: 1, desc: null, brand_id: 1, version_id: 2, ram_id: 4, capacity_id: 4, color_id: 11, stock: 100, discount: 30, price: 15990000, is_active: 1, slug: 'iphone-12-smartphone-4gb-64gb-blue' },
-  { id: 21, title: 'iPhone 12 4GB 64GB Green', category_id: 1, desc: null, brand_id: 1, version_id: 2, ram_id: 4, capacity_id: 4, color_id: 9, stock: 100, discount: 29, price: 15990000, is_active: 1, slug: 'iphone-12-smartphone-4gb-64gb-green' },
-  { id: 22, title: 'iPhone 12 4GB 64GB Purple', category_id: 1, desc: null, brand_id: 1, version_id: 2, ram_id: 4, capacity_id: 4, color_id: 10, stock: 100, discount: 31, price: 15990000, is_active: 1, slug: 'iphone-12-smartphone-4gb-64gb-purple' },
-  { id: 23, title: 'iPhone 12 4GB 64GB Red', category_id: 1, desc: null, brand_id: 1, version_id: 2, ram_id: 4, capacity_id: 4, color_id: 8, stock: 100, discount: 33, price: 15990000, is_active: 1, slug: 'iphone-12-smartphone-4gb-64gb-red' },
-  { id: 24, title: 'iPhone 12 4GB 64GB White', category_id: 1, desc: null, brand_id: 1, version_id: 2, ram_id: 4, capacity_id: 4, color_id: 2, stock: 100, discount: 27, price: 15990000, is_active: 1, slug: 'iphone-12-smartphone-4gb-64gb-white' },
-  // iphone 12 128GB
-  { id: 25, title: 'iPhone 12 4GB 128GB Black', category_id: 1, desc: null, brand_id: 1, version_id: 2, ram_id: 4, capacity_id: 5, color_id: 1, stock: 100, discount: 21, price: 17990000, is_active: 1, slug: 'iphone-12-smartphone-4gb-128gb-black' },
-  { id: 26, title: 'iPhone 12 4GB 128GB Blue', category_id: 1, desc: null, brand_id: 1, version_id: 2, ram_id: 4, capacity_id: 5, color_id: 11, stock: 100, discount: 22, price: 17990000, is_active: 1, slug: 'iphone-12-smartphone-4gb-128gb-blue' },
-  { id: 27, title: 'iPhone 12 4GB 128GB Green', category_id: 1, desc: null, brand_id: 1, version_id: 2, ram_id: 4, capacity_id: 5, color_id: 9, stock: 100, discount: 24, price: 17990000, is_active: 1, slug: 'iphone-12-smartphone-4gb-128gb-green' },
-  { id: 28, title: 'iPhone 12 4GB 128GB Purple', category_id: 1, desc: null, brand_id: 1, version_id: 2, ram_id: 4, capacity_id: 5, color_id: 10, stock: 100, discount: 27, price: 17990000, is_active: 1, slug: 'iphone-12-smartphone-4gb-128gb-purple' },
-  { id: 29, title: 'iPhone 12 4GB 128GB Red', category_id: 1, desc: null, brand_id: 1, version_id: 2, ram_id: 4, capacity_id: 5, color_id: 8, stock: 100, discount: 29, price: 17990000, is_active: 1, slug: 'iphone-12-smartphone-4gb-128gb-red' },
-  { id: 30, title: 'iPhone 12 4GB 128GB White', category_id: 1, desc: null, brand_id: 1, version_id: 2, ram_id: 4, capacity_id: 5, color_id: 2, stock: 100, discount: 22, price: 17990000, is_active: 1, slug: 'iphone-12-smartphone-4gb-128gb-white' },
-  // iphone 12 256GB
-  { id: 31, title: 'iPhone 12 4GB 256GB Black', category_id: 1, desc: null, brand_id: 1, version_id: 2, ram_id: 4, capacity_id: 6, color_id: 1, stock: 100, discount: 23, price: 23990000, is_active: 1, slug: 'iphone-12-smartphone-4gb-256gb-black' },
-  { id: 32, title: 'iPhone 12 4GB 256GB Blue', category_id: 1, desc: null, brand_id: 1, version_id: 2, ram_id: 4, capacity_id: 6, color_id: 11, stock: 100, discount: 22, price: 23990000, is_active: 1, slug: 'iphone-12-smartphone-4gb-256gb-blue' },
-  { id: 33, title: 'iPhone 12 4GB 256GB Green', category_id: 1, desc: null, brand_id: 1, version_id: 2, ram_id: 4, capacity_id: 6, color_id: 9, stock: 100, discount: 25, price: 23990000, is_active: 1, slug: 'iphone-12-smartphone-4gb-256gb-green' },
-  { id: 34, title: 'iPhone 12 4GB 256GB Red', category_id: 1, desc: null, brand_id: 1, version_id: 2, ram_id: 4, capacity_id: 6, color_id: 8, stock: 100, discount: 27, price: 23990000, is_active: 1, slug: 'iphone-12-smartphone-4gb-256gb-red' },
-  { id: 35, title: 'iPhone 12 4GB 256GB White', category_id: 1, desc: null, brand_id: 1, version_id: 2, ram_id: 4, capacity_id: 6, color_id: 2, stock: 100, discount: 21, price: 23990000, is_active: 1, slug: 'iphone-12-smartphone-4gb-256gb-white' },
+  // ---------- iphone 12 64GB ----------
+  { id: 4, title: 'Điện thoại iPhone 12 - RAM 4GB, Dung lượng bộ nhớ 64GB', category_id: 1, desc: null, brand_id: 1, version_id: 2, ram_id: 4, capacity_id: 4, is_active: 1, slug: 'dien-thoai-iphone-12-4gb-64gb' },
+  // ---------- iphone 12 128GB ----------
+  { id: 5, title: 'Điện thoại iPhone 12 - RAM 4GB, Dung lượng bộ nhớ 128GB', category_id: 1, desc: null, brand_id: 1, version_id: 2, ram_id: 4, capacity_id: 5, is_active: 1, slug: 'dien-thoai-iphone-12-4gb-128gb' },
+  // ---------- iphone 12 256GB ----------
+  { id: 6, title: 'Điện thoại iPhone 12 - RAM 4GB, Dung lượng bộ nhớ 256GB', category_id: 1, desc: null, brand_id: 1, version_id: 2, ram_id: 4, capacity_id: 6, is_active: 1, slug: 'dien-thoai-iphone-12-4gb-256gb' },
 
-  // iphone 12 pro 128GB
-  { id: 36, title: 'iPhone 12 Pro 6GB 128GB Blue', category_id: 1, desc: null, brand_id: 1, version_id: 3, ram_id: 5, capacity_id: 5, color_id: 11, stock: 100, discount: 4, price: 24990000, is_active: 1, slug: 'iphone-12-pro-smartphone-6gb-128gb-blue' },
-  { id: 37, title: 'iPhone 12 Pro 6GB 128GB Grey', category_id: 1, desc: null, brand_id: 1, version_id: 3, ram_id: 5, capacity_id: 5, color_id: 25, stock: 100, discount: 7, price: 24990000, is_active: 1, slug: 'iphone-12-pro-smartphone-6gb-128gb-grey' },
-  { id: 38, title: 'iPhone 12 Pro 6GB 128GB White', category_id: 1, desc: null, brand_id: 1, version_id: 3, ram_id: 5, capacity_id: 5, color_id: 2, stock: 100, discount: 8, price: 24990000, is_active: 1, slug: 'iphone-12-pro-smartphone-6gb-128gb-white' },
-  { id: 39, title: 'iPhone 12 Pro 6GB 128GB Yellow', category_id: 1, desc: null, brand_id: 1, version_id: 3, ram_id: 5, capacity_id: 5, color_id: 16, stock: 100, discount: 10, price: 24990000, is_active: 1, slug: 'iphone-12-pro-smartphone-6gb-128gb-yellow' },
-  // iphone 12 pro 256GB
-  { id: 40, title: 'iPhone 12 Pro 6GB 256GB Blue', category_id: 1, desc: null, brand_id: 1, version_id: 3, ram_id: 5, capacity_id: 6, color_id: 11, stock: 100, discount: 5, price: 24590000, is_active: 1, slug: 'iphone-12-pro-smartphone-6gb-256gb-blue' },
-  { id: 41, title: 'iPhone 12 Pro 6GB 256GB Grey', category_id: 1, desc: null, brand_id: 1, version_id: 3, ram_id: 5, capacity_id: 6, color_id: 25, stock: 100, discount: 9, price: 24590000, is_active: 1, slug: 'iphone-12-pro-smartphone-6gb-256gb-grey' },
-  { id: 42, title: 'iPhone 12 Pro 6GB 256GB White', category_id: 1, desc: null, brand_id: 1, version_id: 3, ram_id: 5, capacity_id: 6, color_id: 2, stock: 100, discount: 11, price: 24590000, is_active: 1, slug: 'iphone-12-pro-smartphone-6gb-256gb-white' },
-  { id: 43, title: 'iPhone 12 Pro 6GB 256GB Yellow', category_id: 1, desc: null, brand_id: 1, version_id: 3, ram_id: 5, capacity_id: 6, color_id: 16, stock: 100, discount: 7, price: 24590000, is_active: 1, slug: 'iphone-12-pro-smartphone-6gb-256gb-yellow' },
-  // iphone 12 pro 512GB
-  { id: 44, title: 'iPhone 12 Pro 6GB 512GB Blue', category_id: 1, desc: null, brand_id: 1, version_id: 3, ram_id: 5, capacity_id: 7, color_id: 11, stock: 100, discount: 14, price: 27500000, is_active: 1, slug: 'iphone-12-pro-smartphone-6gb-512gb-blue' },
-  { id: 45, title: 'iPhone 12 Pro 6GB 512GB Grey', category_id: 1, desc: null, brand_id: 1, version_id: 3, ram_id: 5, capacity_id: 7, color_id: 25, stock: 100, discount: 17, price: 27500000, is_active: 1, slug: 'iphone-12-pro-smartphone-6gb-512gb-grey' },
-  { id: 46, title: 'iPhone 12 Pro 6GB 512GB White', category_id: 1, desc: null, brand_id: 1, version_id: 3, ram_id: 5, capacity_id: 7, color_id: 2, stock: 100, discount: 16, price: 27500000, is_active: 1, slug: 'iphone-12-pro-smartphone-6gb-512gb-white' },
-  { id: 47, title: 'iPhone 12 Pro 6GB 512GB Yellow', category_id: 1, desc: null, brand_id: 1, version_id: 3, ram_id: 5, capacity_id: 7, color_id: 16, stock: 100, discount: 19, price: 27500000, is_active: 1, slug: 'iphone-12-pro-smartphone-6gb-512gb-yellow' },
+  // ---------- iphone 12 pro 128GB ----------
+  { id: 7, title: 'Điện thoại iPhone 12 Pro - RAM 6GB, Dung lượng bộ nhớ 128GB', category_id: 1, desc: null, brand_id: 1, version_id: 3, ram_id: 5, capacity_id: 5, is_active: 1, slug: 'dien-thoai-iphone-12-pro-6gb-128gb' },
+  // ---------- iphone 12 pro 256GB ----------
+  { id: 8, title: 'Điện thoại iPhone 12 Pro - RAM 6GB, Dung lượng bộ nhớ 256GB', category_id: 1, desc: null, brand_id: 1, version_id: 3, ram_id: 5, capacity_id: 6, is_active: 1, slug: 'dien-thoai-iphone-12-pro-6gb-256gb' },
+  // ---------- iphone 12 pro 512GB ----------
+  { id: 9, title: 'Điện thoại iPhone 12 Pro - RAM 6GB, Dung lượng bộ nhớ 512GB', category_id: 1, desc: null, brand_id: 1, version_id: 3, ram_id: 5, capacity_id: 7, is_active: 1, slug: 'dien-thoai-iphone-12-pro-6gb-512gb' },
 
-  // iphone 12 pro max 128GB
-  { id: 48, title: 'iPhone 12 Pro Max 6GB 128GB Blue', category_id: 1, desc: null, brand_id: 1, version_id: 4, ram_id: 5, capacity_id: 5, color_id: 11, stock: 100, discount: 15, price: 23490000, is_active: 1, slug: 'iphone-12-pro-max-smartphone-6gb-128gb-blue' },
-  { id: 49, title: 'iPhone 12 Pro Max 6GB 128GB Grey', category_id: 1, desc: null, brand_id: 1, version_id: 4, ram_id: 5, capacity_id: 5, color_id: 25, stock: 100, discount: 14, price: 23490000, is_active: 1, slug: 'iphone-12-pro-max-smartphone-6gb-128gb-grey' },
-  { id: 50, title: 'iPhone 12 Pro Max 6GB 128GB White', category_id: 1, desc: null, brand_id: 1, version_id: 4, ram_id: 5, capacity_id: 5, color_id: 2, stock: 100, discount: 17, price: 23490000, is_active: 1, slug: 'iphone-12-pro-max-smartphone-6gb-128gb-white' },
-  { id: 51, title: 'iPhone 12 Pro Max 6GB 128GB Yellow', category_id: 1, desc: null, brand_id: 1, version_id: 4, ram_id: 5, capacity_id: 5, color_id: 16, stock: 100, discount: 14, price: 23490000, is_active: 1, slug: 'iphone-12-pro-max-smartphone-6gb-128gb-yellow' },
-  // iphone 12 pro max 256GB
-  { id: 52, title: 'iPhone 12 Pro Max 6GB 256GB Blue', category_id: 1, desc: null, brand_id: 1, version_id: 4, ram_id: 5, capacity_id: 6, color_id: 11, stock: 100, discount: 15, price: 31990000, is_active: 1, slug: 'iphone-12-pro-max-smartphone-6gb-256gb-blue' },
-  { id: 53, title: 'iPhone 12 Pro Max 6GB 256GB Grey', category_id: 1, desc: null, brand_id: 1, version_id: 4, ram_id: 5, capacity_id: 6, color_id: 25, stock: 100, discount: 14, price: 31990000, is_active: 1, slug: 'iphone-12-pro-max-smartphone-6gb-256gb-grey' },
-  { id: 54, title: 'iPhone 12 Pro Max 6GB 256GB White', category_id: 1, desc: null, brand_id: 1, version_id: 4, ram_id: 5, capacity_id: 6, color_id: 2, stock: 100, discount: 17, price: 31990000, is_active: 1, slug: 'iphone-12-pro-max-smartphone-6gb-256gb-white' },
-  { id: 55, title: 'iPhone 12 Pro Max 6GB 256GB Yellow', category_id: 1, desc: null, brand_id: 1, version_id: 4, ram_id: 5, capacity_id: 6, color_id: 16, stock: 100, discount: 14, price: 31990000, is_active: 1, slug: 'iphone-12-pro-max-smartphone-6gb-256gb-yellow' },
-  // iphone 12 pro max 512GB
-  { id: 56, title: 'iPhone 12 Pro Max 6GB 512GB Blue', category_id: 1, desc: null, brand_id: 1, version_id: 4, ram_id: 5, capacity_id: 7, color_id: 11, stock: 100, discount: 15, price: 37990000, is_active: 1, slug: 'iphone-12-pro-max-smartphone-6gb-512gb-blue' },
-  { id: 57, title: 'iPhone 12 Pro Max 6GB 512GB Grey', category_id: 1, desc: null, brand_id: 1, version_id: 4, ram_id: 5, capacity_id: 7, color_id: 25, stock: 100, discount: 14, price: 37990000, is_active: 1, slug: 'iphone-12-pro-max-smartphone-6gb-512gb-grey' },
-  { id: 58, title: 'iPhone 12 Pro Max 6GB 512GB White', category_id: 1, desc: null, brand_id: 1, version_id: 4, ram_id: 5, capacity_id: 7, color_id: 2, stock: 100, discount: 17, price: 37990000, is_active: 1, slug: 'iphone-12-pro-max-smartphone-6gb-512gb-white' },
-  { id: 59, title: 'iPhone 12 Pro Max 6GB 512GB Yellow', category_id: 1, desc: null, brand_id: 1, version_id: 4, ram_id: 5, capacity_id: 7, color_id: 16, stock: 100, discount: 14, price: 37990000, is_active: 1, slug: 'iphone-12-pro-max-smartphone-6gb-512gb-yellow' },
+  // ---------- iphone 12 pro max 128GB ----------
+  { id: 10, title: 'Điện thoại iPhone 12 Pro Max - RAM 6GB, Dung lượng bộ nhớ 128GB', category_id: 1, desc: null, brand_id: 1, version_id: 4, ram_id: 5, capacity_id: 5, is_active: 1, slug: 'dien-thoai-iphone-12-pro-max-6gb-128gb' },
+  // ---------- iphone 12 pro max 256GB ----------
+  { id: 11, title: 'Điện thoại iPhone 12 Pro Max - RAM 6GB, Dung lượng bộ nhớ 256GB', category_id: 1, desc: null, brand_id: 1, version_id: 4, ram_id: 5, capacity_id: 6, is_active: 1, slug: 'dien-thoai-iphone-12-pro-max-6gb-256gb' },
+  // ---------- iphone 12 pro max 512GB ----------
+  { id: 12, title: 'Điện thoại iPhone 12 Pro Max - RAM 6GB, Dung lượng bộ nhớ 512GB', category_id: 1, desc: null, brand_id: 1, version_id: 4, ram_id: 5, capacity_id: 7, is_active: 1, slug: 'dien-thoai-iphone-12-pro-max-6gb-512gb' },
+
+  // ---------- iphone 13 128GB ----------
+  { id: 13, title: 'Điện thoại iPhone 13 - RAM 4GB, Dung lượng bộ nhớ 128GB', category_id: 1, desc: null, brand_id: 1, version_id: 5, ram_id: 4, capacity_id: 5, is_active: 1, slug: 'dien-thoai-iphone-13-4gb-128gb' },
+  // ---------- iphone 13 256GB ----------
+  { id: 14, title: 'Điện thoại iPhone 13 - RAM 4GB, Dung lượng bộ nhớ 256GB', category_id: 1, desc: null, brand_id: 1, version_id: 5, ram_id: 4, capacity_id: 6, is_active: 1, slug: 'dien-thoai-iphone-13-4gb-256gb' },
+  // ---------- iphone 13 512GB ----------
+  { id: 15, title: 'Điện thoại iPhone 13 - RAM 4GB, Dung lượng bộ nhớ 512GB', category_id: 1, desc: null, brand_id: 1, version_id: 5, ram_id: 4, capacity_id: 7, is_active: 1, slug: 'dien-thoai-iphone-13-4gb-512gb' },
+
+  // ---------- iphone 13 pro 128GB ----------
+  { id: 16, title: 'Điện thoại iPhone 13 Pro - RAM 6GB, Dung lượng bộ nhớ 128GB', category_id: 1, desc: null, brand_id: 1, version_id: 6, ram_id: 5, capacity_id: 5, is_active: 1, slug: 'dien-thoai-iphone-13-pro-6gb-128gb' },
+  // ---------- iphone 13 pro 256GB ----------
+  { id: 17, title: 'Điện thoại iPhone 13 Pro - RAM 6GB, Dung lượng bộ nhớ 256GB', category_id: 1, desc: null, brand_id: 1, version_id: 6, ram_id: 5, capacity_id: 6, is_active: 1, slug: 'dien-thoai-iphone-13-pro-6gb-256gb' },
+  // ---------- iphone 13 pro 512GB ----------
+  { id: 18, title: 'Điện thoại iPhone 13 Pro - RAM 6GB, Dung lượng bộ nhớ 512GB', category_id: 1, desc: null, brand_id: 1, version_id: 6, ram_id: 5, capacity_id: 7, is_active: 1, slug: 'dien-thoai-iphone-13-pro-6gb-512gb' },
+
+  // ---------- iphone 13 pro max 128GB ----------
+  { id: 19, title: 'Điện thoại iPhone 13 Pro Max - RAM 6GB, Dung lượng bộ nhớ 128GB', category_id: 1, desc: null, brand_id: 1, version_id: 7, ram_id: 5, capacity_id: 5, is_active: 1, slug: 'dien-thoai-iphone-13-pro-max-6gb-128gb' },
+  // ---------- iphone 13 pro max 256GB ----------
+  { id: 20, title: 'Điện thoại iPhone 13 Pro Max - RAM 6GB, Dung lượng bộ nhớ 256GB', category_id: 1, desc: null, brand_id: 1, version_id: 7, ram_id: 5, capacity_id: 6, is_active: 1, slug: 'dien-thoai-iphone-13-pro-max-6gb-256gb' },
+  // ---------- iphone 13 pro max 512GB ----------
+  { id: 21, title: 'Điện thoại iPhone 13 Pro Max - RAM 6GB, Dung lượng bộ nhớ 512GB', category_id: 1, desc: null, brand_id: 1, version_id: 7, ram_id: 5, capacity_id: 7, is_active: 1, slug: 'dien-thoai-iphone-13-pro-max-6gb-512gb' },
+
+  // ---------- iphone 14 128GB ----------
+  { id: 22, title: 'Điện thoại iPhone 14 - RAM 4GB, Dung lượng bộ nhớ 128GB', category_id: 1, desc: null, brand_id: 1, version_id: 8, ram_id: 4, capacity_id: 5, is_active: 1, slug: 'dien-thoai-iphone-14-4gb-128gb' },
+  // ---------- iphone 14 256GB ----------
+  { id: 23, title: 'Điện thoại iPhone 14 - RAM 4GB, Dung lượng bộ nhớ 256GB', category_id: 1, desc: null, brand_id: 1, version_id: 8, ram_id: 4, capacity_id: 6, is_active: 1, slug: 'dien-thoai-iphone-14-4gb-256gb' },
+  // ---------- iphone 14 512GB ----------
+  { id: 24, title: 'Điện thoại iPhone 14 - RAM 4GB, Dung lượng bộ nhớ 512GB', category_id: 1, desc: null, brand_id: 1, version_id: 8, ram_id: 4, capacity_id: 7, is_active: 1, slug: 'dien-thoai-iphone-14-4gb-512gb' },
+
+  // ---------- iphone 14 pro 128GB ----------
+  { id: 25, title: 'Điện thoại iPhone 14 Pro - RAM 6GB, Dung lượng bộ nhớ 128GB', category_id: 1, desc: null, brand_id: 1, version_id: 9, ram_id: 5, capacity_id: 5, is_active: 1, slug: 'dien-thoai-iphone-14-pro-6gb-128gb' },
+  // ---------- iphone 14 pro 256GB ----------
+  { id: 26, title: 'Điện thoại iPhone 14 Pro - RAM 6GB, Dung lượng bộ nhớ 256GB', category_id: 1, desc: null, brand_id: 1, version_id: 9, ram_id: 5, capacity_id: 6, is_active: 1, slug: 'dien-thoai-iphone-14-pro-6gb-256gb' },
+  // ---------- iphone 14 pro 512GB ----------
+  { id: 27, title: 'Điện thoại iPhone 14 Pro - RAM 6GB, Dung lượng bộ nhớ 512GB', category_id: 1, desc: null, brand_id: 1, version_id: 9, ram_id: 5, capacity_id: 7, is_active: 1, slug: 'dien-thoai-iphone-14-pro-6gb-512gb' },
+
+  // ---------- iphone 14 pro max 128GB ----------
+  { id: 28, title: 'Điện thoại iPhone 14 Pro Max - RAM 6GB, Dung lượng bộ nhớ 128GB', category_id: 1, desc: null, brand_id: 1, version_id: 10, ram_id: 5, capacity_id: 5, is_active: 1, slug: 'dien-thoai-iphone-14-pro-max-6gb-128gb' },
+  // ---------- iphone 14 pro max 256GB ----------
+  { id: 29, title: 'Điện thoại iPhone 14 Pro Max - RAM 6GB, Dung lượng bộ nhớ 256GB', category_id: 1, desc: null, brand_id: 1, version_id: 10, ram_id: 5, capacity_id: 6, is_active: 1, slug: 'dien-thoai-iphone-14-pro-max-6gb-256gb' },
+  // ---------- iphone 14 pro max 512GB ----------
+  { id: 30, title: 'Điện thoại iPhone 14 Pro Max - RAM 6GB, Dung lượng bộ nhớ 512GB', category_id: 1, desc: null, brand_id: 1, version_id: 10, ram_id: 5, capacity_id: 7, is_active: 1, slug: 'dien-thoai-iphone-14-pro-max-6gb-512gb' },
+
+  // ---------- iphone 15 128GB ----------
+  { id: 31, title: 'Điện thoại iPhone 15 - RAM 6GB, Dung lượng bộ nhớ 128GB', category_id: 1, desc: null, brand_id: 1, version_id: 11, ram_id: 5, capacity_id: 5, is_active: 1, slug: 'dien-thoai-iphone-15-6gb-128gb' },
+  // ---------- iphone 15 256GB ----------
+  { id: 32, title: 'Điện thoại iPhone 15 - RAM 6GB, Dung lượng bộ nhớ 256GB', category_id: 1, desc: null, brand_id: 1, version_id: 11, ram_id: 5, capacity_id: 6, is_active: 1, slug: 'dien-thoai-iphone-15-6gb-256gb' },
+  // ---------- iphone 15 512GB ----------
+  { id: 33, title: 'Điện thoại iPhone 15 - RAM 6GB, Dung lượng bộ nhớ 512GB', category_id: 1, desc: null, brand_id: 1, version_id: 11, ram_id: 5, capacity_id: 7, is_active: 1, slug: 'dien-thoai-iphone-15-6gb-512gb' },
+  // ---------- iphone 15 1TB ----------
+  { id: 34, title: 'Điện thoại iPhone 15 - RAM 6GB, Dung lượng bộ nhớ 1TB', category_id: 1, desc: null, brand_id: 1, version_id: 11, ram_id: 5, capacity_id: 8, is_active: 1, slug: 'dien-thoai-iphone-15-6gb-1tb' },
+
+  // ---------- iphone 15 pro 128GB ----------
+  { id: 35, title: 'Điện thoại iPhone 15 Pro - RAM 8GB, Dung lượng bộ nhớ 128GB', category_id: 1, desc: null, brand_id: 1, version_id: 12, ram_id: 6, capacity_id: 5, is_active: 1, slug: 'dien-thoai-iphone-15-pro-8gb-128gb' },
+  // ---------- iphone 15 pro 256GB ----------
+  { id: 36, title: 'Điện thoại iPhone 15 Pro - RAM 8GB, Dung lượng bộ nhớ 256GB', category_id: 1, desc: null, brand_id: 1, version_id: 12, ram_id: 6, capacity_id: 6, is_active: 1, slug: 'dien-thoai-iphone-15-pro-8gb-256gb' },
+  // ---------- iphone 15 pro 512GB ----------
+  { id: 37, title: 'Điện thoại iPhone 15 Pro - RAM 8GB, Dung lượng bộ nhớ 512GB', category_id: 1, desc: null, brand_id: 1, version_id: 12, ram_id: 6, capacity_id: 7, is_active: 1, slug: 'dien-thoai-iphone-15-pro-8gb-512gb' },
+  // ---------- iphone 15 pro 1TB ----------
+  { id: 38, title: 'Điện thoại iPhone 15 Pro - RAM 8GB, Dung lượng bộ nhớ 1TB', category_id: 1, desc: null, brand_id: 1, version_id: 12, ram_id: 6, capacity_id: 8, is_active: 1, slug: 'dien-thoai-iphone-15-pro-8gb-1tb' },
+
+  // ---------- iphone 15 pro max 128GB ----------
+  { id: 39, title: 'Điện thoại iPhone 15 Pro Max - RAM 8GB, Dung lượng bộ nhớ 128GB', category_id: 1, desc: null, brand_id: 1, version_id: 13, ram_id: 6, capacity_id: 5, is_active: 1, slug: 'dien-thoai-iphone-15-pro-max-8gb-128gb' },
+  // ---------- iphone 15 pro max 256GB ----------
+  { id: 40, title: 'Điện thoại iPhone 15 Pro Max - RAM 8GB, Dung lượng bộ nhớ 256GB', category_id: 1, desc: null, brand_id: 1, version_id: 13, ram_id: 6, capacity_id: 6, is_active: 1, slug: 'dien-thoai-iphone-15-pro-max-8gb-256gb' },
+  // ---------- iphone 15 pro max 512GB ----------
+  { id: 41, title: 'Điện thoại iPhone 15 Pro Max - RAM 8GB, Dung lượng bộ nhớ 512GB', category_id: 1, desc: null, brand_id: 1, version_id: 13, ram_id: 6, capacity_id: 7, is_active: 1, slug: 'dien-thoai-iphone-15-pro-max-8gb-512gb' },
+  // ---------- iphone 15 pro max 1TB ----------
+  { id: 42, title: 'Điện thoại iPhone 15 Pro Max - RAM 8GB, Dung lượng bộ nhớ 1TB', category_id: 1, desc: null, brand_id: 1, version_id: 13, ram_id: 6, capacity_id: 8, is_active: 1, slug: 'dien-thoai-iphone-15-pro-max-8gb-1tb' },
+
+  // ---------- iphone 16 128GB ----------
+  { id: 43, title: 'Điện thoại iPhone 16 - RAM 8GB, Dung lượng bộ nhớ 128GB', category_id: 1, desc: null, brand_id: 1, version_id: 14, ram_id: 6, capacity_id: 5, is_active: 1, slug: 'dien-thoai-iphone-16-8gb-128gb' },
+  // ---------- iphone 16 256GB ----------
+  { id: 44, title: 'Điện thoại iPhone 16 - RAM 8GB, Dung lượng bộ nhớ 256GB', category_id: 1, desc: null, brand_id: 1, version_id: 14, ram_id: 6, capacity_id: 6, is_active: 1, slug: 'dien-thoai-iphone-16-8gb-256gb' },
+  // ---------- iphone 16 512GB ----------
+  { id: 45, title: 'Điện thoại iPhone 16 - RAM 8GB, Dung lượng bộ nhớ 512GB', category_id: 1, desc: null, brand_id: 1, version_id: 14, ram_id: 6, capacity_id: 7, is_active: 1, slug: 'dien-thoai-iphone-16-8gb-512gb' },
+  // ---------- iphone 16 1TB ----------
+  { id: 46, title: 'Điện thoại iPhone 16 - RAM 8GB, Dung lượng bộ nhớ 1TB', category_id: 1, desc: null, brand_id: 1, version_id: 14, ram_id: 6, capacity_id: 8, is_active: 1, slug: 'dien-thoai-iphone-16-8gb-1tb' },
+
+  // ---------- iphone 16 pro 128GB ----------
+  { id: 47, title: 'Điện thoại iPhone 16 Pro - RAM 8GB, Dung lượng bộ nhớ 128GB', category_id: 1, desc: null, brand_id: 1, version_id: 15, ram_id: 6, capacity_id: 5, is_active: 1, slug: 'dien-thoai-iphone-16-pro-8gb-128gb' },
+  // ---------- iphone 16 pro 256GB ----------
+  { id: 48, title: 'Điện thoại iPhone 16 Pro - RAM 8GB, Dung lượng bộ nhớ 256GB', category_id: 1, desc: null, brand_id: 1, version_id: 15, ram_id: 6, capacity_id: 6, is_active: 1, slug: 'dien-thoai-iphone-16-pro-8gb-256gb' },
+  // ---------- iphone 16 pro 512GB ----------
+  { id: 49, title: 'Điện thoại iPhone 16 Pro - RAM 8GB, Dung lượng bộ nhớ 512GB', category_id: 1, desc: null, brand_id: 1, version_id: 15, ram_id: 6, capacity_id: 7, is_active: 1, slug: 'dien-thoai-iphone-16-pro-8gb-512gb' },
+  // ---------- iphone 16 pro 1TB ----------
+  { id: 50, title: 'Điện thoại iPhone 16 Pro - RAM 8GB, Dung lượng bộ nhớ 1TB', category_id: 1, desc: null, brand_id: 1, version_id: 15, ram_id: 6, capacity_id: 8, is_active: 1, slug: 'dien-thoai-iphone-16-pro-8gb-1tb' },
+
+  // ---------- iphone 16 pro max 128GB ----------
+  { id: 51, title: 'Điện thoại iPhone 16 Pro Max - RAM 8GB, Dung lượng bộ nhớ 128GB', category_id: 1, desc: null, brand_id: 1, version_id: 16, ram_id: 6, capacity_id: 5, is_active: 1, slug: 'dien-thoai-iphone-16-pro-max-8gb-128gb' },
+  // ---------- iphone 16 pro max 256GB ----------
+  { id: 52, title: 'Điện thoại iPhone 16 Pro Max - RAM 8GB, Dung lượng bộ nhớ 256GB', category_id: 1, desc: null, brand_id: 1, version_id: 16, ram_id: 6, capacity_id: 6, is_active: 1, slug: 'dien-thoai-iphone-16-pro-max-8gb-256gb' },
+  // ---------- iphone 16 pro max 512GB ----------
+  { id: 53, title: 'Điện thoại iPhone 16 Pro Max - RAM 8GB, Dung lượng bộ nhớ 512GB', category_id: 1, desc: null, brand_id: 1, version_id: 16, ram_id: 6, capacity_id: 7, is_active: 1, slug: 'dien-thoai-iphone-16-pro-max-8gb-512gb' },
+  // ---------- iphone 16 pro max 1TB ----------
+  { id: 54, title: 'Điện thoại iPhone 16 Pro Max - RAM 8GB, Dung lượng bộ nhớ 1TB', category_id: 1, desc: null, brand_id: 1, version_id: 16, ram_id: 6, capacity_id: 8, is_active: 1, slug: 'dien-thoai-iphone-16-pro-max-8gb-1tb' },
+
+  // ---------- iphone 16 plus 128GB ----------
+  { id: 55, title: 'Điện thoại iPhone 16 Plus - RAM 8GB, Dung lượng bộ nhớ 128GB', category_id: 1, desc: null, brand_id: 1, version_id: 17, ram_id: 6, capacity_id: 5, is_active: 1, slug: 'dien-thoai-iphone-16-plus-8gb-128gb' },
+  // ---------- iphone 16 plus 256GB ----------
+  { id: 56, title: 'Điện thoại iPhone 16 Plus - RAM 8GB, Dung lượng bộ nhớ 256GB', category_id: 1, desc: null, brand_id: 1, version_id: 17, ram_id: 6, capacity_id: 6, is_active: 1, slug: 'dien-thoai-iphone-16-plus-8gb-256gb' },
+  // ---------- iphone 16 plus 512GB ----------
+  { id: 57, title: 'Điện thoại iPhone 16 Plus - RAM 8GB, Dung lượng bộ nhớ 512GB', category_id: 1, desc: null, brand_id: 1, version_id: 17, ram_id: 6, capacity_id: 7, is_active: 1, slug: 'dien-thoai-iphone-16-plus-8gb-512gb' },
+  // ---------- iphone 16 plus 1TB ----------
+  { id: 58, title: 'Điện thoại iPhone 16 Plus - RAM 8GB, Dung lượng bộ nhớ 1TB', category_id: 1, desc: null, brand_id: 1, version_id: 17, ram_id: 6, capacity_id: 8, is_active: 1, slug: 'dien-thoai-iphone-16-plus-8gb-1tb' },
+
 
 ]
 

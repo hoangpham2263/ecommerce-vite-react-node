@@ -1,25 +1,32 @@
-import { useState } from 'react'
-import { toast } from 'react-toastify'
+import { useEffect, useState } from 'react'
 import { FaFacebookF } from 'react-icons/fa'
 import { FaTwitter } from 'react-icons/fa'
 import { BiShow, BiHide } from 'react-icons/bi'
-import { jwtDecode } from 'jwt-decode'
-
 import './Login.css'
 import config from '../../config'
 import classNames from 'classnames/bind'
 import styles from './Login.module.scss'
 import LoginWithGoogle from '../../../main/components/LoginWithGoogle'
-import { loginAccountBasic, readProfileJWT } from '../../../main/services/sharedApi'
+import { useAuth } from '../../../main/context/AuthContext'
+import { readCheckSession } from '../../../main/services/sharedApi'
 
 const cx = classNames.bind(styles)
 
 const Login = () => {
+  const { login } = useAuth()
   const [showPassword, setShowPassword] = useState([false])
   const [data, setData] = useState({
     userName: '',
     password: ''
   })
+
+  // ---------- check user already login ----------
+  useEffect(() => {
+    const fetchCheckSessionUser = async () => {
+      await readCheckSession(); window.location.href = config.routes.home
+    }
+    fetchCheckSessionUser()
+  }, [])
 
   const handleShowPassword = () => {
     setShowPassword((prev) => !prev)
@@ -32,17 +39,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    let res = await loginAccountBasic(data)
-    if (res?.data?.code === 0) {
-      const infoLoginJWT = await readProfileJWT()
-      if (infoLoginJWT?.data?.code === 0) {
-        const infoAccountLogin = jwtDecode(infoLoginJWT?.data?.data?.jwt)
-        localStorage.setItem('infoAccountLogin', JSON.stringify(infoAccountLogin))
-        window.location.href = config.routes.home
-      }
-    } else {
-      toast.error(res?.data?.message)
-    }
+    await login(data)
   }
 
   return (

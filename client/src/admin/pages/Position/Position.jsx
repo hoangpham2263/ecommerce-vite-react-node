@@ -17,7 +17,8 @@ const Position = () => {
   const [totalPages, setTotalPages] = useState(0)
 
   const fetchData = async () => {
-    let fetchData = await readPosition(currentPage, limit)
+    const data = { page: currentPage, limit: limit }
+    let fetchData = await readPosition(data)
     setData(fetchData?.data)
     setTotalPages(fetchData?.data?.data?.totalPages)
   }

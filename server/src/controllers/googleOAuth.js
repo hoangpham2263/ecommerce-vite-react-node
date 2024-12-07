@@ -63,15 +63,16 @@ const saveAccountGoogleOAuth = async (req, res) => {
       });
     }
 
-    let user = await db.User.findOne({ where: { email: email }, include: { model: db.Position, attributes: ["id", "key_position", "name", 'desc', 'is_active', 'is_master',"updatedAt","createdAt"] } });
+    let user = await db.User.findOne({ where: { email: email }, include: { model: db.Position, attributes: ["id", "key_position", "name", 'desc', 'is_active', 'is_master', "updatedAt", "createdAt"] } });
     if (user) {
       let { id, full_name, avatar, username, email, phone, gender, is_active, is_verified, position_id, createdAt, updatedAt } = user.dataValues;
       let userPosition = user?.dataValues?.Position?.dataValues
       let payload = {
         userPresent: {
-          user: { id, full_name, avatar, username, email, phone, gender, is_active, is_verified, position_id, createdAt, updatedAt},
-          position: userPosition 
-        }};
+          user: { id, full_name, avatar, username, email, phone, gender, is_active, is_verified, position_id, createdAt, updatedAt },
+          position: userPosition
+        }
+      };
       let token = await createJWT(payload);
 
       await res.cookie("jwt", token, {
@@ -80,7 +81,7 @@ const saveAccountGoogleOAuth = async (req, res) => {
         secure: process.env.NODE_SECURE,
         sameSite: 'None'
       });
-      return res.status(200).json({ message: "login successful", code: 0, data: [] });
+      return res.status(200).json({ message: "Login successful!", jwt: req?.cookies?.jwt });
     }
     return res.status(200).json({ message: "system error", code: 1, data: [] });
   } catch (error) {

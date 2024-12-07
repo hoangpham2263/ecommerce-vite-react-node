@@ -17,7 +17,20 @@
   --bs-table-bg: #d0fcfe !important;
 }
 
-.image-product{
+.image-product {
   // width: 30px !important;
   height: 30px !important;
+}
+
+// ---------- config ----------
+.cs-config-body {
+  border-radius: 0 !important;
+}
+
+.cs-config-border {
+  border: none !important;
+  border-style: hidden !important;
+}
+.cs-config-img{
+  height: 30px!important;
 }

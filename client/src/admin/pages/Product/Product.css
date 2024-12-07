@@ -4,6 +4,10 @@
   cursor        : pointer;
 }
 
+.table tr {
+  border-bottom: solid 1px #dee2e6 !important;
+}
+
 .input-group-text {
   display      : inline-block !important;
   white-space  : normal !important;
@@ -29,7 +33,8 @@ strong {
   display      : inline-block !important;
   margin-right : 10px !important;
 }
-.cs-btn-color{
-  width: 100% !important;
+
+.cs-btn-color {
+  width       : 100% !important;
   border-color: #dee2e6 !important;
 }

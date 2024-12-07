@@ -38,21 +38,24 @@ const ProductCategories = () => {
   const [totalVersionPages, setTotalVersionPages] = useState(0)
 
   const fetchCategoryData = async () => {
-    const fetchData = await readCategory(currentCategoryPage, limitPage.category)
+    const data = { page: currentCategoryPage, limit: limitPage.category }
+    const fetchData = await readCategory(data)
     setCategories(fetchData?.data)
     setTotalCategoryPages(fetchData?.data?.data?.totalPages)
   }
 
   const fetchBrandData = async (categoryId) => {
     if (categoryId) {
-      const fetchData = await readBrand(currentBrandPage, limitPage.brand, categoryId)
+      const data = { page: currentCategoryPage, limit: limitPage.brand, category_id: categoryId }
+      const fetchData = await readBrand(data)
       setBrands(fetchData?.data)
       setTotalBrandPages(fetchData?.data?.data?.totalPages)
     }
   }
 
   const fetchVersionData = async (brandId = 0) => {
-    const fetchData = await readVersion(currentVersionPage, limitPage.version, brandId)
+    const data = { page: currentCategoryPage, limit: limitPage.version, brand_id: brandId }
+    const fetchData = await readVersion(data)
     setVersions(fetchData?.data)
     setTotalVersionPages(fetchData?.data?.data?.totalPages)
   }

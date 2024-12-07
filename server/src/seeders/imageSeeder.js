@@ -5,7 +5,7 @@ const iphoneImages = require('./imagesData/smartphone/iphone');
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.bulkInsert("Image", [
-      ...iphoneImages
+      ...iphoneImages,
     ], {});
   },
 

@@ -18,13 +18,10 @@ module.exports = {
       desc: {
         type: Sequelize.STRING,
       },
+      slug: {
+        type: Sequelize.STRING,
+      },
       category_id: {
-        type: Sequelize.INTEGER,
-      },
-      brand_id: {
-        type: Sequelize.INTEGER,
-      },
-      version_id: {
         type: Sequelize.INTEGER,
       },
       ram_id: {
@@ -33,23 +30,14 @@ module.exports = {
       capacity_id: {
         type: Sequelize.INTEGER,
       },
-      color_id: {
+      brand_id: {
         type: Sequelize.INTEGER,
       },
-      stock: {
+      version_id: {
         type: Sequelize.INTEGER,
-      },
-      discount: {
-        type: Sequelize.INTEGER,
-      },
-      price: {
-        type: Sequelize.FLOAT,
       },
       is_active: {
         type: Sequelize.BOOLEAN,
-      },
-      slug: {
-        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,

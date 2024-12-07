@@ -1,5 +1,7 @@
 import db from "../models/index";
 
+const order_attributes = ["id", "user_id", "cart_ids", "order_line_id", "total", "note", "updatedAt", "createdAt"]
+
 const readFunc = async (req, res) => {
   try {
     let data
@@ -11,27 +13,30 @@ const readFunc = async (req, res) => {
       let { count, rows } = await db.Order.findAndCountAll({
         offset: offset,
         limit: limit,
-        attributes: ["id", "user_id", "order_line_id", "total", "aa","note", "updatedAt", "createdAt"],
+        where: { user_id: req.query.user_id },
+        attributes: order_attributes,
         order: [["user_id", "ASC"]],
       })
       const totalPages = Math.ceil(count / limit);
       data = { totalRows: count, totalPages: totalPages, order: rows, }
     } else {
-      data = await db.Order.findAll({ attributes: ["id", "user_id", "order_line_id", "total", "note", "updatedAt", "createdAt"], order: [["user_id", "ASC"]] })
+      data = await db.Order.findAll({ attributes: order_attributes, where: { user_id: req.query.user_id }, order: [["user_id", "ASC"]] })
     }
     return res.status(200).json({ message: "get order success", code: 0, data: data, });
   } catch (error) {
+    console.log(error)
     return res.status(500).json({ message: "error from server", code: -1 });
   }
 }
 
 const createFunc = async (req, res) => {
   try {
-    const { user_id, order_line_id, total, note } = req.body.data;
-    if (!user_id || !order_line_id || !total || !note) return res.status(200).json({ message: "missing required parameters", code: 1 });
-    let data = await db.Order.create({ user_id: user_id, order_line_id: order_line_id, total: total, note: note });
+    const { user_id, cart_ids, order_line_id, total, note } = req.body.data;
+    if (!user_id || !cart_ids || !order_line_id || !total || !note) return res.status(200).json({ message: "missing required parameters", code: 1 });
+    let data = await db.Order.create({ user_id: user_id, cart_ids: cart_ids, order_line_id: order_line_id, total: total, note: note });
     return res.status(200).json({ message: "a order is created successfully", code: 0, data: data });
   } catch (error) {
+    console.log(error)
     return res.status(500).json({ message: "error from server", code: -1 });
   }
 }
@@ -41,7 +46,7 @@ const updateFunc = async (req, res) => {
     let data = req?.body?.data
     let order = await db.Order.findOne({ where: { id: data?.id, }, });
     if (order) {
-      await order.update({ user_id: data.user_id, order_line_id: data.order_line_id, total: data.total, note: data.note });
+      await order.update({ user_id: data.user_id, cart_ids: data.cart_ids, order_line_id: data.order_line_id, total: data.total, note: data.note });
       return res.status(200).json({ message: "update order success", code: 0 });
     } else {
       return res.status(200).json({ message: "order not exist", code: 1 });

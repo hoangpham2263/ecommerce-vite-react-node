@@ -17,7 +17,8 @@ const Account = () => {
   const [totalPages, setTotalPages] = useState(0)
 
   const fetchData = async () => {
-    let fetchData = await readUser(currentPage, limit)
+    const data = { page: currentPage, limit: limit }
+    let fetchData = await readUser(data)
     setData(fetchData?.data)
     setTotalPages(fetchData?.data?.data?.totalPages)
   }

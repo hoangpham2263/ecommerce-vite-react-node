@@ -4,44 +4,27 @@ import { IoLocationSharp } from 'react-icons/io5'
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js'
 import { toast } from 'react-toastify'
 import { useEffect, useState } from 'react'
-import { LocalStorageGetInfo } from '../../../main/components/LocalStorageMethod'
-import { readImage, readCartByIds, readProductByIds } from '../../services/publicApi'
+import { readCartByIds, sendMailer, createOrder, deleteCart } from '../../services/publicApi'
+import { BsCashCoin } from 'react-icons/bs'
+import { BsPaypal } from 'react-icons/bs'
+import config from '../../config'
+import { useAuth } from '../../../main/context/AuthContext'
 
 const cx = classNames.bind(styles)
 const Checkout = () => {
+  const { user } = useAuth()
+  const LocalStorageGetInfos = user
   const dataCheckout = JSON.parse(localStorage.getItem('dataCheckout'))
-  const LocalStorageGetInfos = LocalStorageGetInfo() || {}
   const [carts, setCarts] = useState([])
 
   // ---------- formatNumber ----------
   const formatNumber = (number) => { return number != null ? number.toLocaleString('vi-VN') : '' }
 
-  // ---------- totalPrice ----------
-  const totalPrice = carts.reduce((acc, product) => {
-    return acc + (product.total)
-  }, 0)
-
   // ---------- fetch product ----------
   const fetchProduct = async () => {
-    const fetchDataImage = await readImage(1, 10000)
-    const fetchDataCart = await readCartByIds(dataCheckout)
-    const imageData = fetchDataImage?.data?.data?.image
-    const cartsData = fetchDataCart?.data?.data
-
-    const imagesByProductId = imageData.reduce((acc, image) => {
-      if (!acc[image.product_id]) {
-        acc[image.product_id] = []
-      }
-      acc[image.product_id].push(image)
-      return acc
-    }, {})
-    const groupedProducts = cartsData.map((cart) => {
-      return {
-        ...cart,
-        images: imagesByProductId[cart?.Product?.id] || []
-      }
-    })
-    setCarts(groupedProducts)
+    const ids = dataCheckout
+    const fetchCartsByIds = await readCartByIds(ids)
+    setCarts(fetchCartsByIds?.data?.data)
   }
   useEffect(() => { fetchProduct() }, [])
 
@@ -59,70 +42,57 @@ const Checkout = () => {
 
   const handleCheckout = async (e) => {
     e.preventDefault()
-    // let currentDataPayment = { ...dataCheckout[0], priceDiscount: dataCheckout[0]?.priceDiscount + dataPayment.ship }
-    // const value = (+totalPrice() + +dataPayment.ship)
-    // const fetchSendMailer = await sendMailer({ userLogin, dataCheckout, value })
-    // console.log(fetchSendMailer);
-    // if (fetchSendMailer) {
-    //   let fetchOrder = await createOrderWithUser(userLogin?.id)
-    //   if (fetchOrder) {
-    //     await dataCheckout.map(async (cart, index) => {
-    //       if (!cart.id) {
-    //         let currentCart = { ...cart, idOrder: fetchOrder?.DT?.id }
-    //         await createCart(currentCart)
-    //         await fetchJWT()
-    //       } else {
-    //         await updateCart(cart.id, fetchOrder?.DT?.id)
-    //         await fetchJWT()
-    //       }
-    //     })
-    //   }
-    //   toast.success("Đặt hàng thành công");
-    //   navigate(`/${config.routes.order}`)
-    // }
+    let currentDataPayment = carts.reduce((total, item) => total + (item?.Config?.price * item?.quantity || 0), 0) + +dataPayment.ship
+    const fetchSendMailer = await sendMailer({ userLogin: LocalStorageGetInfos?.user, dataCheckout: carts, value: currentDataPayment })
+    if (fetchSendMailer) {
+      let fetchCreateOrder = await createOrder({ user_id: LocalStorageGetInfos?.user?.id, cart_ids: dataCheckout, order_line_id: 1, total: currentDataPayment, note: 'Thanh toán khi nhận hàng' })
+      if (fetchCreateOrder) {
+        const ids = dataCheckout
+        await deleteCart(ids)
+        localStorage.removeItem('dataCheckout')
+        toast.success('Đặt hàng thành công')
+        window.location.href = config.routes.order
+      }
+    }
   }
 
-  const createOrder = (data, actions) => {
-    // return actions.order.create({
-    //   purchase_units: [{
-    //     amount: {
-    //       value: (+totalPrice() + +dataPayment.ship) / 10000
-    //     }
-    //   }]
-    // })
+  const createNewOrder = (data, actions) => {
+    const total = (carts.reduce((total, item) => total + (item?.Config?.price * item?.quantity || 0), 0) + +dataPayment.ship) / 100000
+    return actions.order.create({
+      purchase_units: [{
+        amount: {
+          value: total
+        }
+      }]
+    })
   }
 
   const onApprove = (data, actions) => {
-    // return actions.order.capture().then(async (details) => {
-    //   if (details.status === 'COMPLETED') {
-    //     let fetchOrder = await createOrderWithUser(userLogin?.id)
-    //     if (fetchOrder) {
-    //       await dataCheckout.map(async (cart, index) => {
-    //         if (!cart.id) {
-    //           let currentCart = { ...cart, idOrder: fetchOrder?.DT?.id }
-    //           await createCart(currentCart)
-    //           await fetchJWT()
-    //         } else {
-    //           await updateCart(cart.id, fetchOrder?.DT?.id)
-    //           await fetchJWT()
-    //         }
-    //       })
-    //     }
-    //     toast.success('Đặt hàng thành công')
-    //     navigate(`/${config.routes.order}`)
-    //   } else {
-    //     toast.warning('Số dư không đủ')
-    //   }
-    // }).catch((error) => {
-    //   console.error('Transaction failed: ', error)
-    //   toast.warning('Đã xảy ra lỗi trong quá trình giao dịch.')
-    // })
+    return actions.order.capture().then(async (details) => {
+      if (details.status === 'COMPLETED') {
+        let currentDataPayment = carts.reduce((total, item) => total + (item?.Config?.price * item?.quantity || 0), 0) + +dataPayment.ship
+        const fetchSendMailer = await sendMailer({ userLogin: LocalStorageGetInfos?.user, dataCheckout: carts, value: currentDataPayment })
+        if (fetchSendMailer) {
+          let fetchCreateOrder = await createOrder({ user_id: LocalStorageGetInfos?.user?.id, cart_ids: dataCheckout, order_line_id: 1, total: currentDataPayment, note: 'Thanh toán khi nhận hàng' })
+          if (fetchCreateOrder) {
+            const ids = dataCheckout
+            await deleteCart(ids)
+            localStorage.removeItem('dataCheckout')
+            toast.success('Đặt hàng thành công')
+            window.location.href = config.routes.order
+          }
+        }
+      } else {
+        toast.warning('Số dư không đủ')
+      }
+    }).catch((error) => {
+      toast.warning('Đã xảy ra lỗi trong quá trình giao dịch.')
+    })
   }
   const onError = (err) => {
-    console.error('PayPal Checkout onError', err)
     toast.error('Đã xảy ra lỗi trong quá trình giao dịch.')
   }
-  console.log(carts)
+
   return (
     <>
       <div className={cx('bl-logo-checkout')} >
@@ -159,29 +129,31 @@ const Checkout = () => {
           <h4 className="rounded p-4 bg-white w-100 mb-1">Sản phẩm</h4>
           <table className="table table-hover mb-4">
             <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Hình ảnh</th>
-                <th scope="col">Tên sản phẩm</th>
-                <th scope="col">Giá</th>
-                <th scope="col">Màu</th>
-                <th scope="col">Dung lượng</th>
-                <th scope="col">Số lượng</th>
-                <th scope="col">Tổng tiền</th>
+              <tr className={cx('cursor-text')}>
+                <th className={cx('cursor-text')} scope="col">#</th>
+                <th className={cx('cursor-text')} scope="col">Hình ảnh</th>
+                <th className={cx('cursor-text')} scope="col">Tên sản phẩm</th>
+                <th className={cx('cursor-text')} scope="col">Giá</th>
+                <th className={cx('cursor-text')} scope="col">Màu</th>
+                <th className={cx('cursor-text')} scope="col">Dung lượng</th>
+                <th className={cx('cursor-text')} scope="col">Số lượng</th>
+                <th className={cx('cursor-text')} scope="col">Tổng tiền</th>
               </tr>
             </thead>
             <tbody>
               {carts && carts.map((cart, index) => {
-                return (<tr key={`${index}-product`}>
-                  <th scope="row">{index + 1}</th>
-                  <td><img className={cx('img-avatar')} src={cart?.images[0]?.url || ''} alt="" /></td>
-                  <td >{cart?.Product?.title}</td>
-                  <td>{cart && formatNumber(cart?.Product?.price)}₫</td>
-                  <td>{cart?.Product?.Color?.name}</td>
-                  <td>{cart?.Product?.Capacity?.name}</td>
-                  <td>{cart?.quantity}</td>
-                  <td>{cart && formatNumber(cart?.total)}₫</td>
-                </tr>)
+                return (
+                  <tr key={`${index}-product`} className={cx('cursor-text')}>
+                    <th className={cx('cursor-text')} scope="row">{index + 1}</th>
+                    <td><img className={cx('img-avatar', 'cursor-text')} src={cart?.images && cart?.images[0]?.url || ''} alt="" /></td>
+                    <td className={cx('cursor-text')} >{cart?.Product?.title}</td>
+                    <td className={cx('cursor-text')}>{cart && formatNumber(cart?.Config?.price)}₫</td>
+                    <td className={cx('cursor-text')}>{cart?.Config?.Color?.name}</td>
+                    <td className={cx('cursor-text')}>{cart?.Product?.Capacity?.name}</td>
+                    <td className={cx('cursor-text')}>{cart?.quantity}</td>
+                    <td className={cx('cursor-text')}>{cart && formatNumber(cart?.Config?.price * cart?.quantity)}₫</td>
+                  </tr>
+                )
               })}
             </tbody>
           </table>
@@ -193,14 +165,14 @@ const Checkout = () => {
                   <h5 className="fw-bold mb-3">Chọn phương thức giao hàng</h5>
                   <div className="border border-primary-subtle rounded w-50 bg-primary bg-opacity-10 p-4">
                     <div className="form-check mb-2">
-                      <input defaultChecked className="form-check-input" value={20000} type="radio" name="ship" id="ship1" onChange={handlePayment} />
-                      <label className="form-check-label" htmlFor="ship1">
+                      <input defaultChecked className={cx('form-check-input', 'cursor-pointer', 'cs-input-option')} value={20000} type="radio" name="ship" id="ship1" onChange={handlePayment} />
+                      <label className={cx('form-check-label', 'cursor-pointer')} htmlFor="ship1">
                         Giao hàng tiết kiệm
                       </label>
                     </div>
                     <div className="form-check">
-                      <input className="form-check-input" value={30000} type="radio" name="ship" id="ship2" onChange={handlePayment} />
-                      <label className="form-check-label" htmlFor="ship2">
+                      <input className={cx('form-check-input', 'cursor-pointer', 'cs-input-option')} value={30000} type="radio" name="ship" id="ship2" onChange={handlePayment} />
+                      <label className={cx('form-check-label', 'cursor-pointer')} htmlFor="ship2">
                         Giao hàng nhanh
                       </label>
                     </div>
@@ -209,15 +181,17 @@ const Checkout = () => {
                 <div className="rounded p-4 bg-white w-100">
                   <h5 className="fw-bold mb-3">Chọn phương thức thanh toán</h5>
                   <div className="border border-primary-subtle rounded w-50 bg-primary bg-opacity-10 p-4">
-                    <div className="form-check">
-                      <input defaultChecked className="form-check-input" value={'payment-on-delivery'} type="radio" name="payment" id="payment1" onChange={handlePayment} />
-                      <label className="form-check-label mb-2" htmlFor="payment1">
+                    <div className="form-check mb-2">
+                      <input defaultChecked className={cx('form-check-input', 'cursor-pointer', 'cs-input-option')} value={'payment-on-delivery'} type="radio" name="payment" id="payment1" onChange={handlePayment} />
+                      <label className={cx('form-check-label', 'cursor-pointer', 'd-flex', 'align-items-center')} htmlFor="payment1">
+                        <BsCashCoin className={cx('me-2', 'fs-4', 'text-secondary')} />
                         Thanh toán tiền mặt khi nhận hàng
                       </label>
                     </div>
                     <div className="form-check">
-                      <input className="form-check-input" value={'payment-paypal'} type="radio" name="payment" id="payment2" onChange={handlePayment} />
-                      <label className="form-check-label" htmlFor="payment2">
+                      <input className={cx('form-check-input', 'cursor-pointer', 'cs-input-option')} value={'payment-paypal'} type="radio" name="payment" id="payment2" onChange={handlePayment} />
+                      <label className={cx('form-check-label', 'cursor-pointer', 'd-flex', 'align-items-center')} htmlFor="payment2">
+                        <BsPaypal className={cx('me-2', 'fs-4', 'text-primary')} />
                         Thanh toán tiền bằng paypal
                       </label>
                     </div>
@@ -230,7 +204,7 @@ const Checkout = () => {
                     <tbody>
                       <tr>
                         <td>Tạm tính</td>
-                        <td className="d-flex justify-content-end fw-bold">{carts && formatNumber(+totalPrice)} VND</td>
+                        <td className="d-flex justify-content-end fw-bold">{carts && formatNumber(carts.reduce((total, item) => total + (item?.Config?.price * item?.quantity || 0), 0))}VND</td>
                       </tr>
                       <tr>
                         <td>Giảm giá</td>
@@ -248,7 +222,7 @@ const Checkout = () => {
                     <tbody>
                       <tr>
                         <td>Tổng tiền</td>
-                        <td className="d-flex justify-content-end fw-bold fs-3 text-danger">{carts && formatNumber((+totalPrice + +dataPayment.ship))} VND</td>
+                        <td className="d-flex justify-content-end fw-bold fs-3 text-danger">{carts && formatNumber(carts.reduce((total, item) => total + (item?.Config?.price * item?.quantity || 0), 0) + +dataPayment.ship)} VND</td>
                       </tr>
                       <tr>
                         <td colSpan={2} className="text-center">(Đã bao gồm VAT nếu có)</td>
@@ -266,7 +240,7 @@ const Checkout = () => {
                   }
                   {dataPayment.payment === 'payment-paypal'
                     && <PayPalScriptProvider options={{ 'client-id': import.meta.env.VITE_PAYPAL_CLIENT_ID }} amount={10000000}>
-                      <PayPalButtons style={{ layout: 'vertical' }} onApprove={onApprove} createOrder={createOrder} onError={onError} />
+                      <PayPalButtons style={{ layout: 'vertical' }} onApprove={onApprove} createOrder={createNewOrder} onError={onError} />
                     </PayPalScriptProvider>
                   }
                 </div>

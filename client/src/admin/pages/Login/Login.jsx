@@ -3,18 +3,18 @@ import { toast } from 'react-toastify'
 import { FaFacebookF } from 'react-icons/fa'
 import { FaTwitter } from 'react-icons/fa'
 import { BiShow, BiHide } from 'react-icons/bi'
-import { jwtDecode } from 'jwt-decode'
 
 import './Login.css'
 import config from '../../config'
 import classNames from 'classnames/bind'
 import styles from './Login.module.scss'
 import LoginWithGoogleAdmin from '../../../main/components/LoginWithGoogleAdmin'
-import { loginAccountBasic, readProfileJWT } from '../../../main/services/sharedApi'
+import { useAuth } from '../../../main/context/AuthContext.jsx'
 
 const cx = classNames.bind(styles)
 
 const Login = () => {
+  const { loginAdmin } = useAuth()
   const [showPassword, setShowPassword] = useState([false])
   const [data, setData] = useState({
     userName: '',
@@ -32,22 +32,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    let res = await loginAccountBasic(data)
-    if (res?.data?.code === 0) {
-      const infoLoginJWT = await readProfileJWT()
-      if (infoLoginJWT?.data?.code === 0) {
-        const infoAccountLogin = jwtDecode(infoLoginJWT?.data?.data?.jwt)
-        if (infoAccountLogin?.userPresent?.position?.is_master === true) {
-          localStorage.setItem('infoAccountLogin', JSON.stringify(infoAccountLogin))
-          toast.success(res?.data?.message)
-          window.location.href = config.routes.account
-        } else {
-          toast.error('account is not admin')
-        }
-      }
-    } else {
-      toast.error(res?.data?.message)
-    }
+    await loginAdmin(data)
   }
 
   return (

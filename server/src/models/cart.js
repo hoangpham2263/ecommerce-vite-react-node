@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Cart.belongsTo(models.Product, { foreignKey: 'ProductId' });
       Cart.belongsTo(models.User, { foreignKey: 'UserId' });
+      Cart.belongsTo(models.Config, { foreignKey: 'config_id' });
     }
   }
   Cart.init(
@@ -18,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       UserId: DataTypes.INTEGER,
       ProductId: DataTypes.INTEGER,
       quantity: DataTypes.INTEGER,
-      total: DataTypes.FLOAT,
+      config_id: DataTypes.INTEGER,
     },
     {
       sequelize,

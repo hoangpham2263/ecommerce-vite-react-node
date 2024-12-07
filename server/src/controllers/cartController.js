@@ -1,5 +1,28 @@
 import db from "../models/index";
 const { Op } = require('sequelize');
+const jwt = require("jsonwebtoken");
+
+const prod_attributes = ["id", "title", "desc", "slug", "capacity_id", "ram_id", "category_id", "brand_id", "version_id", "is_active", "updatedAt", "createdAt"]
+const prod_includes = [
+  { model: db.Capacity, attributes: ["id", "name"] },
+  { model: db.Ram, attributes: ["id", "name"] },
+  { model: db.Category, attributes: ["id", "name"] },
+  { model: db.Brand, attributes: ["id", "name"] },
+  { model: db.Version, attributes: ["id", "name"] },
+]
+const conf_attributes = ["id", "price", "stock", "discount", "color_id", "product_id", "is_active", "updatedAt", "createdAt"]
+const conf_includes = [
+  { model: db.Color, attributes: ["id", "name", 'color_code'] },
+  { model: db.Product, attributes: ["id", "title", "desc", "slug", "capacity_id", "ram_id", "category_id", "brand_id", "version_id", "is_active", "updatedAt", "createdAt"] },
+]
+
+const cart_attributes = ["id", "UserId", "ProductId", "quantity", "config_id", "updatedAt", "createdAt"]
+const cart_includes = [
+  { model: db.Product, attributes: prod_attributes, include: prod_includes },
+  { model: db.Config, attributes: conf_attributes, include: conf_includes }
+]
+
+
 
 const readFunc = async (req, res) => {
   try {
@@ -12,45 +35,41 @@ const readFunc = async (req, res) => {
       let { count, rows } = await db.Cart.findAndCountAll({
         offset: offset,
         limit: limit,
-        where: { UserId: req.query.userId },
-        attributes: ["id", "UserId", "ProductId", "quantity", "total", "updatedAt", "createdAt"],
+        where: { UserId: req.query.user_id },
+        attributes: cart_attributes,
         order: [["UserId", "ASC"]],
-        include: [
-          {
-            model: db.Product, attributes: ["id", "title", "capacity_id", "ram_id", "color_id", "stock", "discount", "price", "desc", "is_active", "slug", "category_id", "brand_id", "version_id", "updatedAt", "createdAt"],
-            include: [
-              { model: db.Capacity, attributes: ["id", "name"] },
-              { model: db.Color, attributes: ["id", "name", 'color_code'] },
-              { model: db.Ram, attributes: ["id", "name"] },
-              { model: db.Category, attributes: ["id", "name"] },
-              { model: db.Brand, attributes: ["id", "name"] },
-              { model: db.Version, attributes: ["id", "name"] },
-            ]
-          }
-        ],
+        include: cart_includes,
       })
       const totalPages = Math.ceil(count / limit);
       data = { totalRows: count, totalPages: totalPages, cart: rows, }
     } else {
       data = await db.Cart.findAll({
-        where: { UserId: req.query.userId },
-        attributes: ["id", "UserId", "ProductId", "quantity", "total", "updatedAt", "createdAt"], order: [["UserId", "ASC"]],
-        include: [
-          {
-            model: db.Product, attributes: ["id", "title", "capacity_id", "ram_id", "color_id", "stock", "discount", "price", "desc", "is_active", "slug", "category_id", "brand_id", "version_id", "updatedAt", "createdAt"],
-            include: [
-              { model: db.Capacity, attributes: ["id", "name"] },
-              { model: db.Color, attributes: ["id", "name", 'color_code'] },
-              { model: db.Ram, attributes: ["id", "name"] },
-              { model: db.Category, attributes: ["id", "name"] },
-              { model: db.Brand, attributes: ["id", "name"] },
-              { model: db.Version, attributes: ["id", "name"] },
-            ]
-          }
-        ],
+        where: { UserId: req.query.user_id },
+        attributes: cart_attributes,
+        order: [["UserId", "ASC"]],
+        include: cart_includes,
       })
     }
-    return res.status(200).json({ message: "get cart success", code: 0, data: data, });
+
+    const cartWithImages = await Promise.all(data.map(async (cart) => {
+      const cartData = cart.dataValues;
+
+      const images = await db.Image.findAll({
+        where: { config_id: cartData.config_id },
+        attributes: ["id", "url", "file_name"],
+      });
+
+      return {
+        ...cartData,
+        images: images.map(image => ({
+          id: image.id,
+          url: image.url,
+          file_name: image.file_name,
+        }))
+      };
+    }));
+
+    return res.status(200).json({ message: "get cart success", code: 0, data: cartWithImages, });
   } catch (error) {
     return res.status(500).json({ message: "error from server", code: -1 });
   }
@@ -58,12 +77,13 @@ const readFunc = async (req, res) => {
 
 const readFuncAmount = async (req, res) => {
   try {
-    if (req.query.userId) {
-      const { count, rows } = await db.Cart.findAndCountAll({ where: { UserId: req.query.userId }, attributes: ["id", "UserId", "ProductId", "quantity", "total", "updatedAt", "createdAt"], order: [["UserId", "ASC"]] })
-      return res.status(200).json({ message: "get cart success", code: 0, data: count, });
-    }
+    const token = req?.cookies?.jwt;
+    if (!token) return res.status(401).json({ message: "No token provided", code: -1 });
+    const decoded = jwt.decode(token);
+    
+    const { count, rows } = await db.Cart.findAndCountAll({ where: { UserId: decoded?.userPresent?.user?.id }, attributes: cart_attributes, order: [["UserId", "ASC"]] })
+    return res.status(200).json({ message: "get cart success", code: 0, data: count, });
   } catch (error) {
-    console.log(error)
     return res.status(500).json({ message: "error from server", code: -1 });
   }
 }
@@ -71,47 +91,52 @@ const readFuncAmount = async (req, res) => {
 const readFuncByIds = async (req, res) => {
   try {
     let { ids } = req.query;
-    ids = typeof (ids) === 'string' ? JSON.parse(ids) : ids
+    ids = typeof (ids) === 'string' ? JSON.parse(ids) : ids;
+
     const data = await db.Cart.findAll({
       where: { id: { [Op.in]: ids } },
-      attributes: ["id", "UserId", "ProductId", "quantity", "total", "updatedAt", "createdAt"],
+      attributes: cart_attributes,
       order: [["UserId", "ASC"]],
-      include: [
-        {
-          model: db.Product, attributes: ["id", "title", "capacity_id", "ram_id", "color_id", "stock", "discount", "price", "desc", "is_active", "slug", "category_id", "brand_id", "version_id", "updatedAt", "createdAt"],
-          include: [
-            { model: db.Capacity, attributes: ["id", "name"] },
-            { model: db.Color, attributes: ["id", "name", 'color_code'] },
-            { model: db.Ram, attributes: ["id", "name"] },
-            { model: db.Category, attributes: ["id", "name"] },
-            { model: db.Brand, attributes: ["id", "name"] },
-            { model: db.Version, attributes: ["id", "name"] },
-          ]
-        }
-      ],
-    })
+      include: cart_includes,
+    });
 
-    return res.status(200).json({ message: "get cart success", code: 0, data: data, });
+    const cartWithImages = await Promise.all(data.map(async (cart) => {
+      const cartData = cart.dataValues;
+
+      const images = await db.Image.findAll({
+        where: { config_id: cartData.config_id },
+        attributes: ["id", "url", "file_name"],
+      });
+      return {
+        ...cartData,
+        images: images.map(image => ({
+          id: image.id,
+          url: image.url,
+          file_name: image.file_name,
+        }))
+      };
+    }));
+    return res.status(200).json({ message: "get cart success", code: 0, data: cartWithImages });
   } catch (error) {
-    console.log(error)
+    console.log(error);
     return res.status(500).json({ message: "error from server", code: -1 });
   }
 }
 
+
 const createFunc = async (req, res) => {
   try {
-    const { UserId, ProductId, quantity, total } = req.body.data;
-    if (!UserId || !ProductId || !quantity || !total) return res.status(200).json({ message: "missing required parameters", code: 1 });
-    let cart = await db.Cart.findOne({ where: { [Op.and]: [{ UserId: UserId }, { ProductId: ProductId }] } });
+    const { UserId, ProductId, quantity, config_id } = req.body.data;
+    if (!UserId || !ProductId || !quantity) return res.status(200).json({ message: "missing required parameters", code: 1 });
+    let cart = await db.Cart.findOne({ where: { [Op.and]: [{ UserId: UserId }, { ProductId: ProductId }, { config_id: config_id }] } });
     if (!cart) {
-      let data = await db.Cart.create({ UserId: UserId, ProductId: ProductId, quantity: quantity, total: total });
+      let data = await db.Cart.create({ UserId: UserId, ProductId: ProductId, quantity: quantity, config_id: config_id });
       return res.status(200).json({ message: "a cart is created successfully", code: 0, data: data });
     } else {
-      const a = await cart.update({ quantity: quantity, total: total });
+      const a = await cart.update({ quantity: quantity, config_id: config_id });
       return res.status(200).json({ message: "update cart success", code: 0, data: a });
     }
   } catch (error) {
-    console.log(error)
     return res.status(500).json({ message: "error from server", code: -1 });
   }
 }

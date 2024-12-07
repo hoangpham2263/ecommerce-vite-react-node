@@ -8,7 +8,7 @@ module.exports = {
     await queryInterface.bulkInsert(
       "Product",
       [
-        ...iphoneProducts
+        ...iphoneProducts,
       ],
       {}
     );

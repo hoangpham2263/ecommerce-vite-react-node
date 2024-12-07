@@ -13,11 +13,11 @@ import brandController from "../controllers/brandController"
 import versionController from "../controllers/versionController"
 import imageController from "../controllers/imageController"
 import addressController from "../controllers/addressController"
-import orderItemController from "../controllers/orderItemController"
 import orderController from "../controllers/orderController"
 import cartController from "../controllers/cartController"
 import assessmentController from "../controllers/assessmentController"
 import userController from "../controllers/userController"
+import configController from "../controllers/configController"
 
 const router = express.Router();
 
@@ -55,6 +55,14 @@ const adminRoute = (app) => {
   router.put("/product", authCheckExistToken, authCheckUserPermission(), productController.updateFunc)
   router.put("/product-status", authCheckExistToken, authCheckUserPermission(), productController.updateFuncStatus)
   router.delete("/product", authCheckExistToken, authCheckUserPermission(), productController.deleteFunc)
+
+  // config
+  router.get("/config", authCheckExistToken, authCheckUserPermission(), configController.readFunc)
+  // router.get("/config/:slug", authCheckExistToken, authCheckUserPermission(), configController.readFuncWithSlug)
+  router.post("/config", authCheckExistToken, authCheckUserPermission(), configController.createFunc)
+  router.put("/config", authCheckExistToken, authCheckUserPermission(), configController.updateFunc)
+  // router.put("/config-status", authCheckExistToken, authCheckUserPermission(), configController.updateFuncStatus)
+  // router.delete("/config", authCheckExistToken, authCheckUserPermission(), configController.deleteFunc)
 
   // capacity
   router.get("/capacity", authCheckExistToken, authCheckUserPermission(), capacityController.readFunc)
@@ -110,12 +118,6 @@ const adminRoute = (app) => {
   router.post("/address", authCheckExistToken, authCheckUserPermission(), addressController.createFunc)
   router.put("/address", authCheckExistToken, authCheckUserPermission(), addressController.updateFunc)
   router.delete("/address", authCheckExistToken, authCheckUserPermission(), addressController.deleteFunc)
-
-  // orderItem
-  router.get("/order-item", authCheckExistToken, authCheckUserPermission(), orderItemController.readFunc)
-  router.post("/order-item", authCheckExistToken, authCheckUserPermission(), orderItemController.createFunc)
-  // router.put("/order-item", authCheckExistToken, authCheckUserPermission(), orderItemController.updateFunc)
-  router.delete("/order-item", authCheckExistToken, authCheckUserPermission(), orderItemController.deleteFunc)
 
   // order
   router.get("/order", authCheckExistToken, authCheckUserPermission(), orderController.readFunc)

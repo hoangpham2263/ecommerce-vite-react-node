@@ -36,21 +36,24 @@ const ProductAttribute = () => {
 
   // Fetch Color Data
   const fetchDataColor = async () => {
-    const fetchData = await readColor(currentPageColor, limitColor)
+    const data = { page: currentPageColor, limit: limitColor }
+    const fetchData = await readColor(data)
     setDataColor(fetchData?.data)
     setTotalPagesColor(fetchData?.data?.data?.totalPages)
   }
 
   // Fetch Capacity Data
   const fetchDataCapacity = async () => {
-    const fetchData = await readCapacity(currentPageCapacity, limitCapacity)
+    const data = { page: currentPageCapacity, limit: limitCapacity }
+    const fetchData = await readCapacity(data)
     setDataCapacity(fetchData?.data)
     setTotalPagesCapacity(fetchData?.data?.data?.totalPages)
   }
 
   // Fetch RAM Data
   const fetchDataRam = async () => {
-    const fetchData = await readRam(currentPageRam, limitRam)
+    const data = { page: currentPageRam, limit: limitRam }
+    const fetchData = await readRam(data)
     setDataRam(fetchData?.data)
     setTotalPagesRam(fetchData?.data?.data?.totalPages)
   }
@@ -144,15 +147,15 @@ const ProductAttribute = () => {
                     <th scope="row">{(currentPageCapacity - 1) * limitCapacity + index + 1}</th>
                     <td>{item?.name}</td>
                     <td className='text-end'>
-                      <ModalEditCapacity item={item} index={`modal-del-${index}`} fetchDataCapacity={fetchDataCapacity}/>
-                      <ModalDeleteCapacity id={item?.id} index={`modal-del-${index}`} fetchDataCapacity={fetchDataCapacity}/>
+                      <ModalEditCapacity item={item} index={`modal-del-${index}`} fetchDataCapacity={fetchDataCapacity} />
+                      <ModalDeleteCapacity id={item?.id} index={`modal-del-${index}`} fetchDataCapacity={fetchDataCapacity} />
                     </td>
                   </tr>
                 ))
               }
             </tbody>
           </table>
-          <ModalCreateCapacity fetchDataCapacity={fetchDataCapacity}/>
+          <ModalCreateCapacity fetchDataCapacity={fetchDataCapacity} />
           {/* Pagination */}
           {totalPagesCapacity > 0 && (
             <div className={cx('row')}>
@@ -192,14 +195,14 @@ const ProductAttribute = () => {
                   <th scope="row">{(currentPageRam - 1) * limitRam + index + 1}</th>
                   <td>{item?.name}</td>
                   <td className='text-end'>
-                    <ModalEditRam item={item} index={`modal-del-${index}`} fetchDataRam={fetchDataRam}/>
-                    <ModalDeleteRam id={item?.id} index={`modal-del-${index}`} fetchDataRam={fetchDataRam}/>
+                    <ModalEditRam item={item} index={`modal-del-${index}`} fetchDataRam={fetchDataRam} />
+                    <ModalDeleteRam id={item?.id} index={`modal-del-${index}`} fetchDataRam={fetchDataRam} />
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
-          <ModalCreateRam fetchDataRam={fetchDataRam}/>
+          <ModalCreateRam fetchDataRam={fetchDataRam} />
           {/* Pagination */}
           {totalPagesRam > 0 && (
             <div className={cx('row')}>

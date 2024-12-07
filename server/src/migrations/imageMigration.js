@@ -18,7 +18,7 @@ module.exports = {
       file_name: {
         type: Sequelize.STRING,
       },
-      product_id: {
+      config_id: {
         type: Sequelize.INTEGER,
       },
       createdAt: {

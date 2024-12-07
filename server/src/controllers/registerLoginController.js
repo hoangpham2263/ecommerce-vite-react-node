@@ -19,11 +19,11 @@ const registerAccount = async (req, res) => {
   try {
     const { fullName, userName, password, gender } = req?.body?.data;
 
-    if (!fullName || !userName || !password || !gender) {return res.status(200).json({ message: "Missing required parameters", code: 1 })}
+    if (!fullName || !userName || !password || !gender) { return res.status(200).json({ message: "Missing required parameters", code: 1 }) }
 
-    if (password.length < 6) {return res.status(200).json({ message: "Your password must have more than 6 letters", code: 1 })}
+    if (password.length < 6) { return res.status(200).json({ message: "Your password must have more than 6 letters", code: 1 }) }
 
-    if (await checkUsernameExist(userName)) {return res.status(200).json({ message: "The username already exists", code: 1 })}
+    if (await checkUsernameExist(userName)) { return res.status(200).json({ message: "The username already exists", code: 1 }) }
 
     const hashPassword = await hashAccountPassword(password);
 
@@ -49,7 +49,7 @@ const registerAccount = async (req, res) => {
 // Login
 const createJWT = (payload) => {
   const key = process.env.JWT_SECRET;
-  if (!key) {throw new Error('JWT_SECRET is not defined')}
+  if (!key) { throw new Error('JWT_SECRET is not defined') }
   try {
     return jwt.sign(payload, key);
   } catch (error) {
@@ -91,10 +91,10 @@ const loginAccount = async (req, res) => {
       secure: process.env.NODE_SECURE,
       sameSite: 'None'
     });
-
-    return res.status(200).json({ message: "Login successful!", code: 0 });
+    return res.status(200).json({ message: "Login successful!", jwt: req?.cookies?.jwt });
 
   } catch (error) {
+    console.log(error)
     return res.status(500).json({ message: "Error from server", code: -1 });
   }
 };
@@ -116,18 +116,18 @@ const logoutAccount = async (req, res) => {
 };
 
 
-// Read JWT
-const readJWT = async (req, res) => {
+// checkSession
+const checkSession = async (req, res) => {
   try {
     const cookie = req.cookies;
     if (cookie?.jwt) {
-      return res.status(200).json({ message: "Read JWT success", code: 0, data: cookie });
+      return res.status(200).json({ message: "check session success", jwt: cookie.jwt });
     } else {
-      return res.status(200).json({ message: "JWT not exists success", code: 1 });
+      return res.status(401).json({ message: "No active session found", code: 1 });
     }
   } catch (error) {
     return res.status(500).json({ message: "Error from server", code: -1 });
   }
 };
 
-module.exports = { registerAccount, loginAccount, logoutAccount, readJWT };
+module.exports = { registerAccount, loginAccount, logoutAccount, checkSession };

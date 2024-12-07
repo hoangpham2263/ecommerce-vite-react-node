@@ -1,88 +1,105 @@
 import axios from 'axios'
 
-const baseUrl = import.meta.env.VITE_API_API_URL
-
-axios.defaults.baseURL = baseUrl
+const authAxios = axios.create({
+  baseURL: import.meta.env.VITE_API_API_URL,
+  withCredentials: true,
+  headers: {
+    'Content-Type': 'application/json'
+  }
+})
 
 // CRUD User
-const readUser = (currentPage, currentLimit) => { return axios.get('/api/admin/user', { params: { page: currentPage, limit: currentLimit }, headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
-const createUser = (data) => { return axios.post('/api/admin/user', { data }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
-const updateUser = (data) => { return axios.put('/api/admin/user', { data }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
-const deleteUser = (id) => { return axios.delete('/api/admin/user', { data: { id }, headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
+const readUser = (data) => { return authAxios.get('/api/admin/user', { params: data }) }
+const createUser = (data) => { return authAxios.post('/api/admin/user', { data }) }
+const updateUser = (data) => { return authAxios.put('/api/admin/user', { data }) }
+const deleteUser = (id) => { return authAxios.delete('/api/admin/user', { data: { id } }) }
 
 // CRUD Position
-const readPosition = (currentPage, currentLimit) => { return axios.get('/api/admin/position', { params: { page: currentPage, limit: currentLimit }, headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
-const readPositionIsMaster = (position_id) => { return axios.get('/api/admin/position-is-master', { params: { position_id: position_id }, headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
-const createPosition = (data) => { return axios.post('/api/admin/position', { data }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
-const updatePosition = (data) => { return axios.put('/api/admin/position', { data }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
-const deletePosition = (id) => { return axios.delete('/api/admin/position', { data: { id }, headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
+const readPosition = (data) => { return authAxios.get('/api/admin/position', { params: data }) }
+const readPositionIsMaster = (position_id) => { return authAxios.get('/api/admin/position-is-master', { params: { position_id: position_id } }) }
+const createPosition = (data) => { return authAxios.post('/api/admin/position', { data }) }
+const updatePosition = (data) => { return authAxios.put('/api/admin/position', { data }) }
+const deletePosition = (id) => { return authAxios.delete('/api/admin/position', { data: { id } }) }
 
 // CRUD Position Role
-const readPositionRole = (currentPage, currentLimit, positionId) => { return axios.get('/api/admin/position-role', { params: { page: currentPage, limit: currentLimit, position_id: positionId }, headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
-const readPositionRoleReverse = (currentPage, currentLimit, positionId) => { return axios.get('/api/admin/position-role-reverse', { params: { page: currentPage, limit: currentLimit, position_id: positionId }, headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
-const createPositionRole = (data) => { return axios.post('/api/admin/position-role', { data }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
-const deletePositionRole = (id) => { return axios.delete('/api/admin/position-role', { data: { id }, headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
+const readPositionRole = (data) => { return authAxios.get('/api/admin/position-role', { params: data }) }
+const readPositionRoleReverse = (data) => { return authAxios.get('/api/admin/position-role-reverse', { params: data }) }
+const createPositionRole = (data) => { return authAxios.post('/api/admin/position-role', { data }) }
+const deletePositionRole = (id) => { return authAxios.delete('/api/admin/position-role', { data: { id } }) }
 
 // CRUD Role
-const readRole = (currentPage, currentLimit) => { return axios.get('/api/admin/role', { params: { page: currentPage, limit: currentLimit }, headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
-const createRole = (data) => { return axios.post('/api/admin/role', { data }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
-const updateRole = (data) => { return axios.put('/api/admin/role', { data }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
-const deleteRole = (id) => { return axios.delete('/api/admin/role', { data: { id }, headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
+const readRole = (data) => { return authAxios.get('/api/admin/role', { params: data }) }
+const createRole = (data) => { return authAxios.post('/api/admin/role', { data }) }
+const updateRole = (data) => { return authAxios.put('/api/admin/role', { data }) }
+const deleteRole = (id) => { return authAxios.delete('/api/admin/role', { data: { id } }) }
 
 // CRUD Address
-const readAddress = (userId, currentPage, currentLimit) => { return axios.get('/api/admin/address', { params: { page: currentPage, limit: currentLimit, user_id: userId }, headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
+const readAddress = (data) => { return authAxios.get('/api/admin/address', { params: data }) }
 
 // CRUD Product
-const readProduct = (currentPage, currentLimit) => { return axios.get('/api/admin/product', { params: { page: currentPage, limit: currentLimit }, headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
-const createProduct = (data) => { return axios.post('/api/admin/product', { data }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
-const updateProduct = (data) => { return axios.put('/api/admin/product', { data }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
-const updateProductStatus = (data) => { return axios.put('/api/admin/product-status', { data }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
-const deleteProduct = (id) => { return axios.delete('/api/admin/product', { data: { id }, headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
+const readProduct = (data) => { return authAxios.get('/api/admin/product', { params: data }) }
+const createProduct = (data) => { return authAxios.post('/api/admin/product', { data }) }
+const updateProduct = (data) => { return authAxios.put('/api/admin/product', { data }) }
+const updateProductStatus = (data) => { return authAxios.put('/api/admin/product-status', { data }) }
+const deleteProduct = (id) => { return authAxios.delete('/api/admin/product', { data: { id } }) }
+
+// CRUD Config
+const readConfig = (data) => { return authAxios.get('/api/admin/config', { params: data }) }
+const createConfig = (data) => { return authAxios.post('/api/admin/config', { data }) }
+const updateConfig = (data) => { return authAxios.put('/api/admin/config', { data }) }
+// const updateConfigStatus = (data) => { return authAxios.put('/api/admin/product-status', { data }) }
+// const deleteConfig = (id) => { return authAxios.delete('/api/admin/product', { data: { id }}) }
 
 // CRUD Image
-const readImage = (currentPage, currentLimit) => { return axios.get('/api/admin/image', { params: { page: currentPage, limit: currentLimit }, headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
-const createImage = (data) => { return axios.post('/api/admin/image', { data }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
-const updateImage = (data) => { return axios.put('/api/admin/image', { data }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
-const deleteImage = (id) => { return axios.delete('/api/admin/image', { data: { id }, headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
+const readImage = (data) => { return authAxios.get('/api/admin/image', { params: data }) }
+const createImage = (data) => { return authAxios.post('/api/admin/image', { data }) }
+const updateImage = (data) => { return authAxios.put('/api/admin/image', { data }) }
+const deleteImage = (id) => { return authAxios.delete('/api/admin/image', { data: { id } }) }
 
 // CRUD Color
-const readColorDetail = (id) => { return axios.get(`/api/admin/color/${id}`, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
-const readColor = (currentPage, currentLimit) => { return axios.get('/api/admin/color', { params: { page: currentPage, limit: currentLimit }, headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
-const createColor = (data) => { return axios.post('/api/admin/color', { data }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
-const updateColor = (data) => { return axios.put('/api/admin/color', { data }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
-const deleteColor = (id) => { return axios.delete('/api/admin/color', { data: { id }, headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
+const readColorDetail = (id) => { return authAxios.get(`/api/admin/color/${id}`) }
+const readColor = (data) => { return authAxios.get('/api/admin/color', { params: data }) }
+const createColor = (data) => { return authAxios.post('/api/admin/color', { data }) }
+const updateColor = (data) => { return authAxios.put('/api/admin/color', { data }) }
+const deleteColor = (id) => { return authAxios.delete('/api/admin/color', { data: { id } }) }
 
 
 // CRUD Capacity
-const readCapacity = (currentPage, currentLimit) => { return axios.get('/api/admin/capacity', { params: { page: currentPage, limit: currentLimit }, headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
-const createCapacity = (data) => { return axios.post('/api/admin/capacity', { data }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
-const updateCapacity = (data) => { return axios.put('/api/admin/capacity', { data }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
-const deleteCapacity = (id) => { return axios.delete('/api/admin/capacity', { data: { id }, headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
+const readCapacity = (data) => { return authAxios.get('/api/admin/capacity', { params: data }) }
+const createCapacity = (data) => { return authAxios.post('/api/admin/capacity', { data }) }
+const updateCapacity = (data) => { return authAxios.put('/api/admin/capacity', { data }) }
+const deleteCapacity = (id) => { return authAxios.delete('/api/admin/capacity', { data: { id } }) }
 
 
 // CRUD Ram
-const readRam = (currentPage, currentLimit) => { return axios.get('/api/admin/ram', { params: { page: currentPage, limit: currentLimit }, headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
-const createRam = (data) => { return axios.post('/api/admin/ram', { data }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
-const updateRam = (data) => { return axios.put('/api/admin/ram', { data }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
-const deleteRam = (id) => { return axios.delete('/api/admin/ram', { data: { id }, headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
+const readRam = (data) => { return authAxios.get('/api/admin/ram', { params: data }) }
+const createRam = (data) => { return authAxios.post('/api/admin/ram', { data }) }
+const updateRam = (data) => { return authAxios.put('/api/admin/ram', { data }) }
+const deleteRam = (id) => { return authAxios.delete('/api/admin/ram', { data: { id } }) }
 
 // CRUD Category
-const readCategory = (currentPage, currentLimit) => { return axios.get('/api/admin/category', { params: { page: currentPage, limit: currentLimit }, headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
-const createCategory = (data) => { return axios.post('/api/admin/category', { data }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
-const updateCategory = (data) => { return axios.put('/api/admin/category', { data }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
-const deleteCategory = (id) => { return axios.delete('/api/admin/category', { data: { id }, headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
+const readCategory = (data) => { return authAxios.get('/api/admin/category', { params: data }) }
+const createCategory = (data) => { return authAxios.post('/api/admin/category', { data }) }
+const updateCategory = (data) => { return authAxios.put('/api/admin/category', { data }) }
+const deleteCategory = (id) => { return authAxios.delete('/api/admin/category', { data: { id } }) }
 
 // CRUD Brand
-const readBrand = (currentPage, currentLimit, categoryId) => { return axios.get('/api/admin/brand', { params: { page: currentPage, limit: currentLimit, category_id: categoryId }, headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
-const createBrand = (data) => { return axios.post('/api/admin/brand', { data }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
-const updateBrand = (data) => { return axios.put('/api/admin/brand', { data }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
-const deleteBrand = (id) => { return axios.delete('/api/admin/brand', { data: { id }, headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
+const readBrand = (data) => { return authAxios.get('/api/admin/brand', { params: data }) }
+const createBrand = (data) => { return authAxios.post('/api/admin/brand', { data }) }
+const updateBrand = (data) => { return authAxios.put('/api/admin/brand', { data }) }
+const deleteBrand = (id) => { return authAxios.delete('/api/admin/brand', { data: { id } }) }
 
 // CRUD Version
-const readVersion = (currentPage, currentLimit, brandId) => { return axios.get('/api/admin/version', { params: { page: currentPage, limit: currentLimit, brand_id: brandId }, headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
-const createVersion = (data) => { return axios.post('/api/admin/version', { data }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
-const updateVersion = (data) => { return axios.put('/api/admin/version', { data }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
-const deleteVersion = (id) => { return axios.delete('/api/admin/version', { data: { id }, headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
+const readVersion = (data) => { return authAxios.get('/api/admin/version', { params: data }) }
+const createVersion = (data) => { return authAxios.post('/api/admin/version', { data }) }
+const updateVersion = (data) => { return authAxios.put('/api/admin/version', { data }) }
+const deleteVersion = (id) => { return authAxios.delete('/api/admin/version', { data: { id } }) }
+
+// CRUD Order
+const readOrder = (data) => { return authAxios.get('/api/admin/order', { params: data }) }
+const createOrder = (data) => { return authAxios.post('/api/admin/order', { data }) }
+const updateOrder = (data) => { return authAxios.put('/api/admin/order', { data }) }
+const deleteOrder = (id) => { return authAxios.delete('/api/admin/order', { data: { id } }) }
 
 
 export {
@@ -91,6 +108,7 @@ export {
   createPositionRole, readPositionRole, deletePositionRole, readPositionRoleReverse,
   createRole, readRole, updateRole, deleteRole,
   createProduct, readProduct, updateProduct, deleteProduct, updateProductStatus, readColorDetail,
+  createConfig, readConfig, updateConfig,
   createImage, readImage, updateImage, deleteImage,
   createColor, readColor, updateColor, deleteColor,
   createCapacity, readCapacity, updateCapacity, deleteCapacity,
@@ -98,5 +116,6 @@ export {
   createCategory, readCategory, updateCategory, deleteCategory,
   createBrand, readBrand, updateBrand, deleteBrand,
   createVersion, readVersion, updateVersion, deleteVersion,
-  readAddress
+  readAddress,
+  readOrder, createOrder, updateOrder, deleteOrder
 }

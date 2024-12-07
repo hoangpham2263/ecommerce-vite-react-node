@@ -9,7 +9,7 @@ import classNames from 'classnames/bind'
 import styles from './Register.module.scss'
 import config from '../../config'
 import LoginWithGoogle from '../../../main/components/LoginWithGoogle'
-import { registerAccountBasic } from '../../../main/services/sharedApi'
+import { registerAccountBasic } from '../../../main/services/sharedApi.jsx'
 
 
 const cx = classNames.bind(styles)

@@ -21,8 +21,8 @@ module.exports = {
       quantity: {
         type: Sequelize.INTEGER,
       },
-      total: {
-        type: Sequelize.FLOAT,
+      config_id: {
+        type: Sequelize.INTEGER,
       },
       createdAt: {
         allowNull: false,

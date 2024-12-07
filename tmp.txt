@@ -15,3 +15,162 @@ Copy code
    }
 }
 Lưu file. Từ giờ, bạn có thể dùng Cmd + Shift + E (hoặc phím bạn đã chọn) để chèn comment theo yêu cầu.
+
+
+
+
+
+
+user {
+	id integer pk increments unique
+	full_name char
+	avatar char
+	username char
+	password char
+	email char
+	gender char
+	is_active boolean
+	is_verified boolean
+	position_id integer *> position.id
+}
+
+position {
+	id integer pk increments unique
+	key_position integer
+	name char
+	desc char
+	is_active boolean
+	is_master boolean
+}
+
+position_role {
+	id integer pk increments unique
+	PositionId integer *> position.id
+	RoleId integer *> role.id
+}
+
+role {
+	id integer pk increments unique
+	key_role integer
+	name char
+}
+
+address {
+	id integer pk increments unique
+	user_id integer *> user.id
+	name char
+	house_address char
+	ward char
+	district char
+	city char
+	phone_number char
+	default char
+}
+
+ram {
+	id integer pk increments unique
+	name char
+}
+
+product {
+	id integer pk increments unique
+	title char
+	capacity_id integer *> capacity.id
+	color_id integer *> color.id
+	stock integer
+	discount integer
+	price float
+	desc char
+	slug char
+	category_id integer *> category.id
+	ram_id integer *> ram.id
+	brand_id integer
+	version_id integer
+}
+
+image {
+	id integer pk increments unique
+	url char
+	file_name char
+	product_id integer *> product.id
+}
+
+category {
+	id integer pk increments unique
+	name char
+}
+
+assessment {
+	id integer pk increments unique
+	UserId integer *> user.id
+	ProductId integer *> product.id
+	rate integer
+	comment char
+}
+
+capacity {
+	id integer pk increments unique
+	name char
+}
+
+color {
+	id integer pk increments unique
+	name char
+	color_code char
+}
+
+brand {
+	id integer pk increments unique
+	name char
+	category_id integer *> category.id
+}
+
+version {
+	id integer pk increments unique
+	name char
+	brand_id integer *> brand.id
+}
+
+message {
+	id integer pk increments unique
+	user_id_send integer *> user.id
+	user_id_receive integer *> user.id
+	content integer
+}
+
+order {
+	id integer pk increments unique
+	user_id integer *> user.id
+	order_line_id integer *> order_line.id
+	total float
+	note char
+}
+
+order_line {
+	id integer pk increments unique
+	name char
+}
+
+bank_account {
+	id integer pk increments unique
+	name char
+	account_number integer
+	user_id integer *> user.id
+}
+
+cart {
+	id integer pk increments unique
+	UserId integer *> user.id
+	ProductId integer *> product.id
+	quantity integer
+	total float
+}
+
+order_item {
+	id integer pk increments unique
+	OrderId integer *> order.id
+	ProductId integer *> product.id
+	quantity integer
+	price float
+}
+

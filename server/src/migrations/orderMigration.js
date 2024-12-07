@@ -15,6 +15,9 @@ module.exports = {
       user_id: {
         type: Sequelize.INTEGER,
       },
+      cart_ids: {
+        type: Sequelize.JSON,
+      },
       order_line_id: {
         type: Sequelize.INTEGER,
       },

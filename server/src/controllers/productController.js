@@ -1,70 +1,172 @@
 import slugify from "slugify";
 import db from "../models/index";
-import { UploadCloudList } from "../utility/UploadCloudList";
 const { Op } = require('sequelize');
+
+const prod_attributes = ["id", "title", "desc", "slug", "capacity_id", "ram_id", "category_id", "brand_id", "version_id", "is_active", "updatedAt", "createdAt"]
+const prod_includes = [
+  { model: db.Capacity, attributes: ["id", "name"] },
+  { model: db.Ram, attributes: ["id", "name"] },
+  { model: db.Category, attributes: ["id", "name"] },
+  { model: db.Brand, attributes: ["id", "name"] },
+  { model: db.Version, attributes: ["id", "name"] },
+]
+
+// ---------- group images by config_id ----------
+const groupImagesByConfigId = (images) => {
+  return images.reduce((acc, image) => {
+    if (!acc[image.config_id]) {
+      acc[image.config_id] = [];
+    }
+    acc[image.config_id].push(image);
+    return acc;
+  }, {});
+};
+
+// ---------- group configs by product_id ----------
+const groupConfigsByProductId = (configs) => {
+  return configs.reduce((acc, config) => {
+    if (!acc[config.product_id]) {
+      acc[config.product_id] = [];
+    }
+    acc[config.product_id].push(config);
+    return acc;
+  }, {});
+};
 
 const readFunc = async (req, res) => {
   try {
-    let data
+    let data;
+    const queryImage = await db.Image.findAll({ attributes: ["id", "url", "file_name", "config_id", "updatedAt", "createdAt"], order: [["id", "ASC"]] });
+    const queryConfig = await db.Config.findAll({ attributes: ["id", "price", "stock", "discount", "color_id", "product_id", "is_active", "updatedAt", "createdAt"], order: [["id", "ASC"]], include: [{ model: db.Color, attributes: ["id", "name", "color_code", "updatedAt", "createdAt"] }] });
+
+    const imagesByConfigId = groupImagesByConfigId(queryImage);
+    const groupedConfigs = queryConfig.map((config) => {
+      const configData = config.toJSON();
+      return { ...configData, images: imagesByConfigId[configData.id] || [] }
+    });
+    const configByProductId = groupConfigsByProductId(groupedConfigs);
+    // ---------- pagination ----------
     if (req.query.page && req.query.limit) {
       let { page, limit } = req.query;
       page = parseInt(page, 10) || 1;
       limit = parseInt(limit, 10) || 10;
       let offset = (page - 1) * limit;
+
       let { count, rows } = await db.Product.findAndCountAll({
         offset: offset,
         limit: limit,
-        attributes: ["id", "title", "capacity_id", "ram_id", "color_id", "stock", "discount", "price", "desc", "is_active", "slug", "category_id", "brand_id", "version_id", "updatedAt", "createdAt"],
-        order: [["title", "ASC"]],
-        include: [
-          { model: db.Capacity, attributes: ["id", "name"] },
-          { model: db.Color, attributes: ["id", "name", 'color_code'] },
-          { model: db.Ram, attributes: ["id", "name"] },
-          { model: db.Category, attributes: ["id", "name"] },
-          { model: db.Brand, attributes: ["id", "name"] },
-          { model: db.Version, attributes: ["id", "name"] },
-        ],
-      })
-      const totalPages = Math.ceil(count / limit);
-      data = { totalRows: count, totalPages: totalPages, product: rows, }
+        attributes: prod_attributes,
+        order: [["id", "DESC"]],
+        include: prod_includes,
+      });
+
+      let totalPages = Math.ceil(count / limit);
+      const groupedProducts = rows.map((product) => {
+        const productData = product.toJSON();
+        return {
+          ...productData,
+          configs: configByProductId[productData.id] || [],
+        };
+      });
+      data = { totalRows: count, totalPages: totalPages, product: groupedProducts };
+
+    } else if (req.query.ids) {
+      let { ids } = req.query;
+      ids = typeof (ids) === 'string' ? JSON.parse(ids) : ids;
+      data = await db.Product.findAll({
+        where: { id: { [Op.in]: ids } },
+        attributes: prod_attributes,
+        order: [["id", "DESC"]],
+        include: prod_includes,
+      });
+      data = data.map((product) => {
+        const productData = product.toJSON();
+        return {
+          ...productData,
+          configs: configByProductId[productData.id] || [],
+        };
+      });
+
+    } else if (req.query.category_id && req.query.brand_id && req.query.version_id) {
+      let { category_id, brand_id, version_id } = req.query;
+      data = await db.Product.findAll({
+        where: { [Op.and]: [{ category_id: category_id }, { brand_id: brand_id }, { version_id: version_id }] },
+        attributes: prod_attributes,
+        order: [["capacity_id", "ASC"]],
+        include: prod_includes,
+      });
+      data = data.map((product) => {
+        const productData = product.toJSON();
+        return {
+          ...productData,
+          configs: configByProductId[productData.id] || [],
+        };
+      });
+
     } else {
       data = await db.Product.findAll({
-        attributes: ["id", "title", "capacity_id", "ram_id", "color_id", "stock", "discount", "price", "desc", "is_active", "slug", "category_id", "brand_id", "version_id", "updatedAt", "createdAt"],
-        order: [["title", "ASC"]],
-        include: [
-          { model: db.Capacity, attributes: ["id", "name"] },
-          { model: db.Color, attributes: ["id", "name", 'color_code'] },
-          { model: db.Ram, attributes: ["id", "name"] },
-          { model: db.Category, attributes: ["id", "name"] },
-          { model: db.Brand, attributes: ["id", "name"] },
-          { model: db.Version, attributes: ["id", "name"] },
-        ],
-      })
+        attributes: prod_attributes,
+        order: [["id", "DESC"]],
+        include: prod_includes,
+      });
+      data = data.map((product) => {
+        const productData = product.toJSON();
+        return {
+          ...productData,
+          configs: configByProductId[productData.id] || [],
+        };
+      });
     }
-    return res.status(200).json({ message: "get product success", code: 0, data: data, });
+
+    return res.status(200).json({ message: "get product success", code: 0, data: data });
+
   } catch (error) {
     return res.status(500).json({ message: "error from server", code: -1 });
   }
-}
+};
 
-// Read Product Detail
+// ---------- Read Product Detail ----------
 const readFuncWithSlug = async (req, res) => {
   try {
     if (req.params.slug) {
       const { slug } = req.params;
-      const data = await db.Product.findOne({
+
+      // Fetch the product by slug
+      const product = await db.Product.findOne({
         where: { slug: slug },
-        attributes: ["id", "title", "capacity_id", "ram_id", "color_id", "stock", "discount", "price", "desc", "is_active", "slug", "category_id", "brand_id", "version_id", "updatedAt", "createdAt"],
-        include: [
-          { model: db.Capacity, attributes: ["id", "name"] },
-          { model: db.Color, attributes: ["id", "name", 'color_code'] },
-          { model: db.Ram, attributes: ["id", "name"] },
-          { model: db.Category, attributes: ["id", "name"] },
-          { model: db.Brand, attributes: ["id", "name"] },
-          { model: db.Version, attributes: ["id", "name"] },
-        ],
+        attributes: prod_attributes,
+        include: prod_includes,
       });
-      return res.status(200).json({ message: "get product success", code: 0, data: data });
+
+      if (!product) {
+        return res.status(404).json({ message: "Product not found", code: -1 });
+      }
+
+      // Query configurations and images for the product
+      const queryConfig = await db.Config.findAll({
+        where: { product_id: product.id },
+        attributes: ["id", "price", "stock", "discount", "color_id", "product_id", "is_active", "updatedAt", "createdAt"],
+        order: [["id", "ASC"]],
+        include: [{ model: db.Color, attributes: ["id", "name", "color_code", "updatedAt", "createdAt"] }]
+      });
+      const queryImage = await db.Image.findAll({
+        attributes: ["id", "url", "file_name", "config_id", "updatedAt", "createdAt"],
+        order: [["id", "ASC"]],
+      });
+
+      // Group images by config_id and configs by product_id
+      const imagesByConfigId = groupImagesByConfigId(queryImage);
+      const groupedConfigs = queryConfig.map((config) => {
+        const configData = config.toJSON();
+        return { ...configData, images: imagesByConfigId[configData.id] || [] };
+      });
+
+      // Attach configs to the product
+      const productData = product.toJSON();
+      productData.configs = groupedConfigs;
+
+      return res.status(200).json({ message: "get product success", code: 0, data: productData });
+
     } else {
       return res.status(400).json({ message: "slug not provided", code: -1 });
     }
@@ -73,129 +175,74 @@ const readFuncWithSlug = async (req, res) => {
   }
 };
 
-const readFuncByIds = async (req, res) => {
-  try {
-    let { ids } = req.query;
-    ids = typeof (ids) === 'string' ? JSON.parse(ids) : ids
-    const data = await db.Product.findAll({
-      where: { id: { [Op.in]: ids } },
-      attributes: ["id", "title", "capacity_id", "ram_id", "color_id", "stock", "discount", "price", "desc", "is_active", "slug", "category_id", "brand_id", "version_id", "updatedAt", "createdAt"],
-      order: [["id", "ASC"]],
-      include: [
-        { model: db.Capacity, attributes: ["id", "name"] },
-        { model: db.Color, attributes: ["id", "name", 'color_code'] },
-        { model: db.Ram, attributes: ["id", "name"] },
-        { model: db.Category, attributes: ["id", "name"] },
-        { model: db.Brand, attributes: ["id", "name"] },
-        { model: db.Version, attributes: ["id", "name"] },
-      ],
-    })
-    return res.status(200).json({ message: "get product success", code: 0, data: data, });
-  } catch (error) {
-    console.log(error)
-    return res.status(500).json({ message: "error from server", code: -1 });
-  }
-}
 
-const createProductTitle = async (brand_id, version_id, ram_id, capacity_id, color_id) => {
-  const [brand, version, ram, capacity, color] = await Promise.all([
+// ---------- crate product ----------
+const createProductTitle = async (category_id, brand_id, version_id, ram_id, capacity_id) => {
+  const [category, brand, version, ram, capacity] = await Promise.all([
+    db.Category.findOne({ where: { id: category_id } }),
     db.Brand.findOne({ where: { id: brand_id } }),
     db.Version.findOne({ where: { id: version_id } }),
     db.Ram.findOne({ where: { id: ram_id } }),
     db.Capacity.findOne({ where: { id: capacity_id } }),
-    db.Color.findOne({ where: { id: color_id } })
   ]);
-  const title = `${brand?.dataValues?.name} ${version?.dataValues?.name} ${ram?.dataValues?.name} ${capacity?.dataValues?.name} ${color?.dataValues?.name}`;
+  const title = `${category?.dataValues?.name} ${brand?.dataValues?.name} ${version?.dataValues?.name} - RAM ${ram?.dataValues?.name}, Dung lượng bộ nhớ ${capacity?.dataValues?.name}`;
   return title
 };
 
-const createProductSlug = async (brand_id, version_id, category_id, ram_id, capacity_id, color_id) => {
-  const [brand, version, category, ram, capacity, color] = await Promise.all([
+const createProductSlug = async (category_id, brand_id, version_id, ram_id, capacity_id) => {
+  const [category, brand, version, ram, capacity] = await Promise.all([
+    db.Category.findOne({ where: { id: category_id } }),
     db.Brand.findOne({ where: { id: brand_id } }),
     db.Version.findOne({ where: { id: version_id } }),
-    db.Category.findOne({ where: { id: category_id } }),
     db.Ram.findOne({ where: { id: ram_id } }),
     db.Capacity.findOne({ where: { id: capacity_id } }),
-    db.Color.findOne({ where: { id: color_id } })
   ]);
-  const combinedString = `${brand?.dataValues?.name}-${version?.dataValues?.name}-${category?.dataValues?.name}-${ram?.dataValues?.name}-${capacity?.dataValues?.name}-${color?.dataValues?.name}`;
-  return slugify(combinedString, { lower: true, strict: true, replacement: '-' });
-};
-
-// create product
-const handleCreateImageByProduct = async (images, product_id) => {
-  if (!Array.isArray(images) || images.length === 0) throw new Error("missing required parameters");
-
-  const imageUrls = images.map(({ url }) => url);
-  const imageFileName = images.map(({ file_name }) => file_name);
-
-  const uploadedImageUrls = await UploadCloudList(imageFileName, imageUrls, "imageWebList");
-
-  const imageData = images.map(({ file_name }, index) => {
-    if (!file_name) throw new Error("missing required parameters");
-    return {
-      url: uploadedImageUrls[index] || null,
-      file_name,
-      product_id,
-    };
-  });
-
-  return db.Image.bulkCreate(imageData);
+  const combinedString = `${category?.dataValues?.name}-${brand?.dataValues?.name}-${version?.dataValues?.name}-${ram?.dataValues?.name}-${capacity?.dataValues?.name}`;
+  return slugify(combinedString, { lower: true, strict: true, replacement: '-', locale: 'vi' });
 };
 
 const createFunc = async (req, res) => {
-  const { capacity_id, ram_id, color_id, stock, discount, price, desc, category_id, brand_id, version_id, is_active, images } = req.body.data;
+  const { desc, ram_id, capacity_id, category_id, brand_id, version_id, is_active } = req.body.data;
 
-  if (!capacity_id || !ram_id || !color_id || !stock || !discount || !price || !category_id || !brand_id || !version_id) {
+  if (!ram_id || !capacity_id || !category_id || !brand_id || !version_id) {
     return res.status(400).json({ message: "missing required parameters", code: 1 });
   }
 
   const t = await db.sequelize.transaction();
   try {
-    const title = await createProductTitle(brand_id, version_id, ram_id, capacity_id, color_id);
-    const slug = await createProductSlug(brand_id, version_id, category_id, ram_id, capacity_id, color_id);
+    const title = await createProductTitle(category_id, brand_id, version_id, ram_id, capacity_id);
+    const slug = await createProductSlug(category_id, brand_id, version_id, ram_id, capacity_id);
 
-    const productData = { title, ram_id, capacity_id, color_id, stock, discount, price, desc, category_id, brand_id, version_id, is_active: is_active ?? true, slug };
+    const productData = { title, desc, ram_id, capacity_id, category_id, brand_id, version_id, is_active: is_active ?? true, slug };
 
     const data = await db.Product.create(productData, { transaction: t });
 
-    await handleCreateImageByProduct(images, data.id);
-
     await t.commit();
 
-    return res.status(200).json({ message: "A product is created successfully with images", code: 0, data });
+    return res.status(200).json({ message: "a product is created successfully", code: 0, data });
   } catch (error) {
     await t.rollback();
     return res.status(500).json({ message: error.message || "error from server", code: -1 });
   }
 };
 
+// ---------- update product ----------
 const updateFuncStatus = async (req, res) => {
   try {
     const data = req?.body?.data;
-    if (!data || !data.id) {
-      return res.status(400).json({ message: "Missing required parameters", code: 1 });
-    }
+    if (!data || !data.id) { return res.status(400).json({ message: "Missing required parameters", code: 1 }) }
 
-    const product = await db.Product.findOne({
-      where: { id: data.id },
-      attributes: ["id", "capacity_id", "ram_id", "color_id", "stock", "discount", "price", "desc", "is_active", "slug", "category_id", "brand_id", "version_id", "updatedAt", "createdAt"],
-    });
+    const product = await db.Product.findOne({ where: { id: data.id }, attributes: prod_attributes });
 
-    if (!product) {
-      return res.status(404).json({ message: "Product does not exist", code: 1 });
-    }
+    if (!product) { return res.status(404).json({ message: "Product does not exist", code: 1 }) }
 
     const isActive = data.is_active !== undefined ? data.is_active : product.is_active;
 
-    await product.update({
-      is_active: isActive,
-    });
+    await product.update({ is_active: isActive });
 
     return res.status(200).json({ message: "Product status updated successfully", code: 0 });
 
   } catch (error) {
-    console.log(error);
     return res.status(500).json({ message: "Server error", code: -1 });
   }
 };
@@ -207,67 +254,34 @@ const updateFunc = async (req, res) => {
       return res.status(400).json({ message: "Missing required parameters", code: 1 });
     }
 
-    const product = await db.Product.findOne({ where: { id: data.id }, attributes: ["id", "capacity_id", "ram_id", "color_id", "stock", "discount", "price", "desc", "is_active", "slug", "category_id", "brand_id", "version_id", "updatedAt", "createdAt"] });
+    const product = await db.Product.findOne({ where: { id: data.id }, attributes: prod_attributes });
 
     if (!product) { return res.status(404).json({ message: "Product does not exist", code: 1 }) }
 
-    // Fetch related data
-    const [query_brand, query_version, query_category, query_ram, query_capacity, query_color] = await Promise.all([
+    const [query_category, query_brand, query_version, query_ram, query_capacity] = await Promise.all([
+      db.Category.findOne({ where: { id: data.category_id } }),
       db.Brand.findOne({ where: { id: data.brand_id } }),
       db.Version.findOne({ where: { id: data.version_id } }),
-      db.Category.findOne({ where: { id: data.category_id } }),
       db.Ram.findOne({ where: { id: data.ram_id } }),
       db.Capacity.findOne({ where: { id: data.capacity_id } }),
-      db.Color.findOne({ where: { id: data.color_id } }),
     ]);
 
-    // Create slug based on the latest data
-    const combinedString = `${query_brand?.name}-${query_version?.name}-${query_category?.name}-${query_ram?.name}-${query_capacity?.name}-${query_color?.name}`;
-    const slug = slugify(combinedString, { lower: true, strict: true, replacement: '-' });
+    const combinedString = `${query_category?.name}-${query_brand?.name}-${query_version?.name}-${query_ram?.name}-${query_capacity?.name}`;
+    const slug = slugify(combinedString, { lower: true, strict: true, replacement: '-', locale: 'vi' });
+    const title = `${query_category?.name} ${query_brand?.name} ${query_version?.name} - RAM ${query_ram?.name}, Dung lượng bộ nhớ ${query_capacity?.name}`
 
-    // Create title
-    const title = `${query_brand?.name} ${query_version?.name} ${query_ram?.name} ${query_capacity?.name} ${query_color?.name}`;
-    const { capacity_id, ram_id, color_id, stock, discount, price, desc, category_id, brand_id, version_id, is_active, images } = data;
+    const { desc, ram_id, capacity_id, category_id, brand_id, version_id, is_active } = data;
 
-    // Handle images update
-    if (Array.isArray(images)) {
-      const currentImages = await db.Image.findAll({ where: { product_id: data.id } });
-      const currentImageUrls = currentImages.map(image => image.url);
-      const newImageUrls = images.map(image => image.url);
-      const isImageChanged = JSON.stringify(currentImageUrls) !== JSON.stringify(newImageUrls);
-
-      if (isImageChanged) {
-        await db.Image.destroy({ where: { product_id: data.id } });
-        await handleCreateImageByProduct(images, data.id);
-      }
-    }
-
-    // Update product details
-    await product.update({
-      title,
-      capacity_id,
-      ram_id,
-      color_id,
-      stock,
-      discount,
-      price,
-      desc,
-      category_id,
-      brand_id,
-      version_id,
-      slug,
-      is_active: is_active ?? product.is_active,
-    });
+    await product.update({ title, desc, slug, ram_id, capacity_id, category_id, brand_id, version_id, is_active: is_active ?? product.is_active });
 
     return res.status(200).json({ message: "Product updated successfully", code: 0 });
 
   } catch (error) {
-    console.log(error)
     return res.status(500).json({ message: "Server error", code: -1 });
   }
 };
 
-
+// ---------- delete product ----------
 const deleteFunc = async (req, res) => {
   try {
     let { id } = req.body;
@@ -283,4 +297,4 @@ const deleteFunc = async (req, res) => {
   }
 }
 
-module.exports = { readFunc, readFuncWithSlug, createFunc, updateFunc, deleteFunc, updateFuncStatus, readFuncByIds };
+module.exports = { readFunc, readFuncWithSlug, createFunc, updateFunc, deleteFunc, updateFuncStatus };
