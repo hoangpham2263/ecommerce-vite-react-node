@@ -19,11 +19,11 @@ const registerAccount = async (req, res) => {
   try {
     const { fullName, userName, password, gender } = req?.body?.data;
 
-    if (!fullName || !userName || !password || !gender) { return res.status(200).json({ message: "Missing required parameters", code: 1 }) }
+    if (!fullName || !userName || !password || !gender) { return res.status(400).json({ message: "Vui lòng nhập đầy đủ thông tin", code: 1 }) }
 
-    if (password.length < 6) { return res.status(200).json({ message: "Your password must have more than 6 letters", code: 1 }) }
+    if (password.length < 6) { return res.status(400).json({ message: "mật khẩu phải ít nhất 6 ký tự", code: 1 }) }
 
-    if (await checkUsernameExist(userName)) { return res.status(200).json({ message: "The username already exists", code: 1 }) }
+    if (await checkUsernameExist(userName)) { return res.status(400).json({ message: "username đã tồn tại", code: 1 }) }
 
     const hashPassword = await hashAccountPassword(password);
 
@@ -38,7 +38,7 @@ const registerAccount = async (req, res) => {
       position_id: 3
     });
 
-    return res.status(200).json({ message: "Account registration successful!", code: 0 });
+    return res.status(201).json({ message: "đăng ký tài khoản thành công!", code: 0 });
 
   } catch (error) {
     return res.status(500).json({ message: "Error from server", code: -1 });
@@ -61,8 +61,8 @@ const loginAccount = async (req, res) => {
   try {
     const { userName, password } = req?.body?.data;
 
-    if (!userName || !password) { return res.status(200).json({ message: "Missing required parameters", code: 1 }); }
-    if (password.length < 6) { return res.status(200).json({ message: "Your password must have more than 6 letters", code: 1 }); }
+    if (!userName || !password) { return res.status(400).json({ message: "Vui lòng nhập đầy đủ thông tin", code: 1 }); }
+    if (password.length < 6) { return res.status(400).json({ message: "mật khẩu phải ít nhất 6 ký tự", code: 1 }); }
 
     const user = await db.User.findOne({
       where: { username: userName },
@@ -71,7 +71,7 @@ const loginAccount = async (req, res) => {
     });
 
     if (!user || !await checkPassword(password, user.password)) {
-      return res.status(200).json({ message: "Your username or password is incorrect!", code: 1 });
+      return res.status(401).json({ message: "tài khoản hoặc mật khẩu không đúng", code: 1 });
     }
 
     const { id, full_name, avatar, email, gender, is_active, is_verified, position_id, createdAt, updatedAt } = user.dataValues;
@@ -91,7 +91,7 @@ const loginAccount = async (req, res) => {
       secure: process.env.NODE_SECURE,
       sameSite: 'None'
     });
-    return res.status(200).json({ message: "Login successful!", jwt: req?.cookies?.jwt });
+    return res.status(200).json({ message: "đăng nhập thành công", jwt: req?.cookies?.jwt });
 
   } catch (error) {
     console.log(error)
@@ -106,12 +106,12 @@ const logoutAccount = async (req, res) => {
     const cookie = req.cookies;
     if (cookie?.jwt) {
       res.clearCookie("jwt", { secure: process.env.NODE_ENV === 'production' });
-      return res.status(200).json({ message: "Logout user success", code: 0 });
+      return res.status(200).json({ message: "đăng xuất thành công", code: 0 });
     } else {
-      return res.status(200).json({ message: "No active session found", code: 1 });
+      return res.status(400).json({ message: "No active session found", code: 1 });
     }
   } catch (error) {
-    return res.status(200).json({ message: "Error from server", code: -1 });
+    return res.status(500).json({ message: "Error from server", code: -1 });
   }
 };
 
@@ -131,3 +131,4 @@ const checkSession = async (req, res) => {
 };
 
 module.exports = { registerAccount, loginAccount, logoutAccount, checkSession };
+

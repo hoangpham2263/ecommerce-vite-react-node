@@ -57,14 +57,14 @@ const ModalCreateConfig = ({ fetchProductData, product }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    let res = await createConfig(data)
-    if (res?.data?.code === 0) {
+    try {
+      const res = await createConfig(data)
       setData({ price: '', stock: '', discount: '', color_id: '', is_active: true, images: [], buttonColor: '#000', product_id: product?.id })
       closeButtonRef.current.click()
       toast.success(res?.data?.message)
       fetchProductData()
-    } else {
-      toast.error(res?.data?.message)
+    } catch (error) {
+      toast.error(error?.response?.data?.message)
     }
   }
 

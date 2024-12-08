@@ -205,7 +205,7 @@ const createFunc = async (req, res) => {
   const { desc, ram_id, capacity_id, category_id, brand_id, version_id, is_active } = req.body.data;
 
   if (!ram_id || !capacity_id || !category_id || !brand_id || !version_id) {
-    return res.status(400).json({ message: "missing required parameters", code: 1 });
+    return res.status(400).json({ message: "Vui lòng nhập đầy đủ thông tin", code: 1 });
   }
 
   const t = await db.sequelize.transaction();
@@ -219,7 +219,7 @@ const createFunc = async (req, res) => {
 
     await t.commit();
 
-    return res.status(200).json({ message: "a product is created successfully", code: 0, data });
+    return res.status(200).json({ message: "tạo sản phẩm thành công", code: 0, data });
   } catch (error) {
     await t.rollback();
     return res.status(500).json({ message: error.message || "error from server", code: -1 });
@@ -230,7 +230,7 @@ const createFunc = async (req, res) => {
 const updateFuncStatus = async (req, res) => {
   try {
     const data = req?.body?.data;
-    if (!data || !data.id) { return res.status(400).json({ message: "Missing required parameters", code: 1 }) }
+    if (!data || !data.id) { return res.status(400).json({ message: "Vui lòng nhập đầy đủ thông tin", code: 1 }) }
 
     const product = await db.Product.findOne({ where: { id: data.id }, attributes: prod_attributes });
 
@@ -251,7 +251,7 @@ const updateFunc = async (req, res) => {
   try {
     const data = req?.body?.data;
     if (!data || !data.id) {
-      return res.status(400).json({ message: "Missing required parameters", code: 1 });
+      return res.status(400).json({ message: "Vui lòng nhập đầy đủ thông tin", code: 1 });
     }
 
     const product = await db.Product.findOne({ where: { id: data.id }, attributes: prod_attributes });

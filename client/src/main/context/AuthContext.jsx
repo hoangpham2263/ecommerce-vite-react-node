@@ -37,14 +37,10 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (data) => {
     try {
-      let res = await loginAccountBasic(data)
-      if (res.status === 200) {
-        window.location.href = config.routes.home
-      } else {
-        toast.error(res.data.message)
-      }
+      await loginAccountBasic(data)
+      window.location.href = config.routes.home
     } catch (error) {
-      toast.error(error.message)
+      toast.error(error?.response?.data.message)
     }
   }
 
@@ -74,14 +70,10 @@ export const AuthProvider = ({ children }) => {
 
   const loginAdmin = async (data) => {
     try {
-      let res = await loginAccountBasic(data)
-      if (res.status === 200) {
-        window.location.href = configAdmin.routes.account
-      } else {
-        toast.error(res.data.message)
-      }
+      await loginAccountBasic(data)
+      window.location.href = config.routes.home
     } catch (error) {
-      toast.error(error.message)
+      toast.error(error?.response?.data.message)
     }
   }
 

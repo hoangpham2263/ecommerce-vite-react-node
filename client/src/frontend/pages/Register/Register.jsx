@@ -44,7 +44,9 @@ const Register = () => {
     let response = await registerAccountBasic(data)
     if (response?.data?.code === 0) {
       toast.success(response?.data?.message)
-      window.location.href = config.routes.login
+      setTimeout(() => {
+        window.location.href = config.routes.login
+      }, 2000)
     } else {
       toast.error(response?.data?.message)
     }

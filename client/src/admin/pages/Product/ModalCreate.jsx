@@ -49,8 +49,8 @@ const ModalCreate = ({ fetchProductData }) => {
   useEffect(() => {
     const fetchData = async () => {
       if (data?.category_id && data.category_id.length > 0) {
-        const data = { page: 1, limit: 100, category_id: data?.category_id }
-        const result = await readBrand(data)
+        const dataBrand = { page: 1, limit: 100, category_id: data?.category_id }
+        const result = await readBrand(dataBrand)
         setBrands(result?.data?.data?.brand)
         setVersions('')
       }
@@ -61,8 +61,8 @@ const ModalCreate = ({ fetchProductData }) => {
   useEffect(() => {
     const fetchData = async () => {
       if (data?.brand_id && data.brand_id.length > 0) {
-        const data = { page: 1, limit: 100, brand_id: data?.brand_id }
-        const result = await readVersion(data)
+        const dataVersion = { page: 1, limit: 100, brand_id: data?.brand_id }
+        const result = await readVersion(dataVersion)
         setVersions(result?.data?.data?.version)
       }
     }
@@ -71,14 +71,14 @@ const ModalCreate = ({ fetchProductData }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    let res = await createProduct(data)
-    if (res?.data?.code === 0) {
+    try {
+      const res = await createProduct(data)
       setData({ desc: '', ram_id: '', capacity_id: '', category_id: '', brand_id: '', version_id: '', is_active: true })
       closeButtonRef.current.click()
       toast.success(res?.data?.message)
       fetchProductData()
-    } else {
-      toast.error(res?.data?.message)
+    } catch (error) {
+      toast.error(error?.response?.data?.message)
     }
   }
 

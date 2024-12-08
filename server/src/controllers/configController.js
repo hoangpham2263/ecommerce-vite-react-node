@@ -36,7 +36,7 @@ const readFunc = async (req, res) => {
 
 // ---------- create config ----------
 const handleCreateImageByConfig = async (images, config_id) => {
-  if (!Array.isArray(images) || images.length === 0) throw new Error("missing required parameters");
+  if (!Array.isArray(images) || images.length === 0) throw new Error("Vui lòng nhập đầy đủ thông tin");
 
   const imageUrls = images.map(({ url }) => url);
   const imageFileName = images.map(({ file_name }) => file_name);
@@ -44,7 +44,7 @@ const handleCreateImageByConfig = async (images, config_id) => {
   const uploadedImageUrls = await UploadCloudList(imageFileName, imageUrls, "imageWebListTmp");
 
   const imageData = images.map(({ file_name }, index) => {
-    if (!file_name) throw new Error("missing required parameters");
+    if (!file_name) throw new Error("Vui lòng nhập đầy đủ thông tin");
     return {
       url: uploadedImageUrls[index] || null,
       file_name,
@@ -57,13 +57,21 @@ const handleCreateImageByConfig = async (images, config_id) => {
 
 const createFunc = async (req, res) => {
   const { price, stock, discount, color_id, images, is_active, product_id } = req.body.data;
-
   if (!price || !stock || !discount || !color_id || !images || !product_id) {
-    return res.status(400).json({ message: "missing required parameters", code: 1 });
+    return res.status(400).json({ message: "Vui lòng nhập đầy đủ thông tin", code: 1 });
   }
-
+  if (price < 0) {
+    return res.status(400).json({ message: "giá sản phẩm không hợp lệ", code: 2 });
+  }
+  if (stock < 0) {
+    return res.status(400).json({ message: "giảm giá không hợp lệ", code: 2 });
+  }
+  if (discount < 0 || discount > 100) {
+    return res.status(400).json({ message: "giảm giá không hợp lệ", code: 2 });
+  }
   const t = await db.sequelize.transaction();
   try {
+
     const configData = { price, stock, discount, color_id, is_active: is_active ?? true, product_id };
 
     const data = await db.Config.create(configData, { transaction: t });
@@ -72,55 +80,40 @@ const createFunc = async (req, res) => {
 
     await t.commit();
 
-    return res.status(200).json({ message: "A config is created successfully with images", code: 0, data });
+    return res.status(200).json({ message: "Thêm Config thành công", code: 0, data });
   } catch (error) {
     await t.rollback();
     return res.status(500).json({ message: error.message || "error from server", code: -1 });
   }
 };
 
-// // ---------- update product ----------
-// const updateFuncStatus = async (req, res) => {
-//   try {
-//     const data = req?.body?.data;
-//     if (!data || !data.id) {
-//       return res.status(400).json({ message: "Missing required parameters", code: 1 });
-//     }
-
-//     const product = await db.Product.findOne({
-//       where: { id: data.id },
-//       attributes: ["id", "capacity_id", "ram_id", "color_id", "stock", "discount", "price", "desc", "is_active", "slug", "category_id", "brand_id", "version_id", "updatedAt", "createdAt"],
-//     });
-
-//     if (!product) {
-//       return res.status(404).json({ message: "Product does not exist", code: 1 });
-//     }
-
-//     const isActive = data.is_active !== undefined ? data.is_active : product.is_active;
-
-//     await product.update({
-//       is_active: isActive,
-//     });
-
-//     return res.status(200).json({ message: "Product status updated successfully", code: 0 });
-
-//   } catch (error) {
-//     console.log(error);
-//     return res.status(500).json({ message: "Server error", code: -1 });
-//   }
-// };
-
+// ---------- update config ----------
 const updateFunc = async (req, res) => {
   try {
     const data = req?.body?.data;
     if (!data || !data.id) {
-      return res.status(200).json({ message: "Missing required parameters", code: 1 });
+      return res.status(400).json({ message: "Vui lòng nhập đầy đủ thông tin", code: 1 });
     }
 
     const config = await db.Config.findOne({ where: { id: data.id }, attributes: conf_attributes });
 
-    if (!config) { return res.status(200).json({ message: "Product does not exist", code: 1 }) }
+    if (!config) {
+      return res.status(404).json({ message: "Sản phẩm không tồn tại", code: 1 });
+    }
+
     const { price, stock, discount, color_id, is_active, images, product_id } = data;
+
+    if (price < 0) {
+      return res.status(400).json({ message: "giá sản phẩm không hợp lệ", code: 2 });
+    }
+
+    if (stock < 0) {
+      return res.status(400).json({ message: "giảm giá không hợp lệ", code: 2 });
+    }
+    if (discount < 0 || discount > 100) {
+      return res.status(400).json({ message: "giảm giá không hợp lệ", code: 2 });
+    }
+
     if (Array.isArray(images)) {
       const currentImages = await db.Image.findAll({ where: { config_id: data.id } });
       const currentImageUrls = currentImages.map(image => image.url);
@@ -139,13 +132,12 @@ const updateFunc = async (req, res) => {
       color_id,
       product_id,
       is_active: is_active ?? config.is_active,
-    });
+    })
 
-    return res.status(200).json({ message: "Product updated successfully", code: 0 });
+    return res.status(200).json({ message: "Cập nhật Config thành công", code: 0 });
 
   } catch (error) {
-    console.log(error)
-    return res.status(500).json({ message: "Server error", code: -1 });
+    return res.status(500).json({ message: "error from server", code: -1 });
   }
 };
 
@@ -166,3 +158,4 @@ const updateFunc = async (req, res) => {
 // }
 
 module.exports = { createFunc, readFunc, updateFunc };
+

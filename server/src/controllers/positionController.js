@@ -49,15 +49,15 @@ const readFuncIsMaster = async (req, res) => {
 const createFunc = async (req, res) => {
   try {
     const { key_position, name, desc } = req.body.data;
-    if (!key_position || !name) return res.status(200).json({ message: "missing required parameters", code: 1 });
+    if (!key_position || !name) return res.status(200).json({ message: "Vui lòng nhập đầy đủ thông tin", code: 1 });
 
     const existingPosition = await db.Position.findOne({ where: { key_position } });
     if (existingPosition) {
-      return res.status(200).json({ message: "key_position already exists", code: 2 });
+      return res.status(200).json({ message: "Key Position đã tồn tại", code: 2 });
     }
 
     let data = await db.Position.create({ key_position: key_position, name: name, desc: desc, is_active: true, is_master: false });
-    return res.status(200).json({ message: "a position is created successfully", code: 0, data: data });
+    return res.status(200).json({ message: "Thêm Position thành công", code: 0, data: data });
   } catch (error) {
     return res.status(500).json({ message: "error from server", code: -1 });
   }
@@ -72,10 +72,9 @@ const updateFunc = async (req, res) => {
       if (data.key_position) {
         let existingPosition = await db.Position.findOne({ where: { key_position: data.key_position, id: { [db.Sequelize.Op.ne]: data.id } } });
         if (existingPosition) {
-          return res.status(200).json({ message: "key_position must be unique", code: 2 });
+          return res.status(200).json({ message: "key_position phải là duy nhất", code: 2 });
         }
       }
-
       await position.update({
         key_position: data.key_position !== undefined ? data.key_position : position.key_position,
         name: data.name !== undefined ? data.name : position.name,
@@ -84,7 +83,7 @@ const updateFunc = async (req, res) => {
         is_master: data.is_master !== undefined ? data.is_master : position.is_master
       });
 
-      return res.status(200).json({ message: "update position success", code: 0 });
+      return res.status(200).json({ message: "Cập nhật thành công", code: 0 });
     } else {
       return res.status(200).json({ message: "position not exist", code: 1 });
     }
@@ -100,9 +99,9 @@ const deleteFunc = async (req, res) => {
     let position = await db.Position.findOne({ where: { id: id, }, });
     if (position) {
       await position.destroy();
-      return res.status(200).json({ message: "delete position success", code: 0 });
+      return res.status(200).json({ message: "Xóa position thành công", code: 0 });
     } else {
-      return res.status(200).json({ message: "position not exist", code: 1 });
+      return res.status(200).json({ message: "position không tồn tại", code: 1 });
     }
   } catch (error) {
     return res.status(500).json({ message: "error from server", code: -1 });
