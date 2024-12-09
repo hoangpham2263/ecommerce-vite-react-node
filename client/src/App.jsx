@@ -1,17 +1,16 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { Fragment, useEffect } from 'react'
+import { Fragment } from 'react'
 import { arrayRoutes } from './main/routes/routes'
 import DefaultLayout from './frontend/layout/DefaultLayout'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import useFetchAmountCart from './frontend/hooks/useFetchAmountCart'
+import { CountCartProvider } from './frontend/hooks/useContext'
 
 function App() {
-  const fetchAmountCart = useFetchAmountCart()
-  useEffect(() => { fetchAmountCart() }, [])
 
   return (
     <BrowserRouter>
+
       <div className="App">
         <Routes>
           {arrayRoutes.map((route, index) => {
@@ -22,11 +21,16 @@ function App() {
             } else if (route.layout === null) {
               Layout = Fragment
             }
-            return <Route key={index} path={route.path} element={<Layout><Page /></Layout>} />
+            if (route?.path.includes('admin')) {
+              return <Route key={index} path={route.path} element={<Layout><Page /></Layout>} />
+            } else {
+              return <Route key={index} path={route.path} element={<CountCartProvider><Layout><Page /></Layout></CountCartProvider>} />
+            }
           })}
         </Routes>
         <ToastContainer autoClose={600} position="top-center" />
       </div>
+
     </BrowserRouter>
   )
 }

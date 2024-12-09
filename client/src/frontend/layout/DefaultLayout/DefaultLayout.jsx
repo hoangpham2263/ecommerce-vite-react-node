@@ -4,25 +4,27 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 import PageReload from '../../../main/components/PageReload/PageReload'
 import { AuthProvider } from '../../../main/context/AuthContext.jsx'
-import { CountCartProvider } from '../../hooks/useContext.jsx'
+import useFetchAmountCart from '../../hooks/useFetchAmountCart.jsx'
+import { useEffect } from 'react'
 
 const cx = classNames.bind(styles)
 
 const DefaultLayout = ({ children }) => {
+  const fetchAmountCart = useFetchAmountCart()
+  useEffect(() => { fetchAmountCart() }, [])
+
   return (
-    <CountCartProvider>
-      <AuthProvider>
-        <div className={cx('wrapper')}>
-          <Header />
-          <PageReload>
-            <div className={cx('container-default')}>{children}</div>
-            <Footer />
-          </PageReload>
-          <div>
-          </div>
+    <AuthProvider>
+      <div className={cx('wrapper')}>
+        <Header />
+        <PageReload>
+          <div className={cx('container-default')}>{children}</div>
+          <Footer />
+        </PageReload>
+        <div>
         </div>
-      </AuthProvider>
-    </CountCartProvider>
+      </div>
+    </AuthProvider>
   )
 }
 
