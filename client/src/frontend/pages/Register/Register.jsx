@@ -9,7 +9,7 @@ import classNames from 'classnames/bind'
 import styles from './Register.module.scss'
 import config from '../../config'
 import LoginWithGoogle from '../../../main/components/LoginWithGoogle'
-import { registerAccountBasic } from '../../../main/services/sharedApi.jsx'
+import { registerAccountBasic } from '../../../main/services/apiAuthentication.jsx'
 
 
 const cx = classNames.bind(styles)
@@ -41,14 +41,14 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    let response = await registerAccountBasic(data)
-    if (response?.data?.code === 0) {
+    try {
+      let response = await registerAccountBasic(data)
       toast.success(response?.data?.message)
       setTimeout(() => {
         window.location.href = config.routes.login
       }, 2000)
-    } else {
-      toast.error(response?.data?.message)
+    } catch (error) {
+      toast.error(error?.response?.data?.message)
     }
   }
   return (

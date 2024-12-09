@@ -4,7 +4,9 @@ import googleOAuth from '../controllers/googleOAuth'
 
 const router = express.Router();
 
-const sharedApiRoute = (app) => {
+const apiAuthenticationRoute = (app) => {
+
+  // ---------- user ----------
   // login with google
   router.post('/auth/google', googleOAuth.loginGoogleOAuth)
   router.post('/auth/google/create', googleOAuth.saveAccountGoogleOAuth)
@@ -18,4 +20,4 @@ const sharedApiRoute = (app) => {
   return app.use("/api", router);
 };
 
-export default sharedApiRoute;
+export default apiAuthenticationRoute;

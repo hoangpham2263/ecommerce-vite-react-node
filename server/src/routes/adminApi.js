@@ -1,5 +1,7 @@
 import express from "express";
-import { authCheckExistToken, authCheckUserPermission } from "../middleware/authCheckExistToken";
+import { authCheckExistToken, authCheckUserPermission } from "../middleware/authCheckExistTokenAdmin";
+import registerLoginAdminController from "../controllers/registerLoginAdminController";
+import googleOAuthAdmin from '../controllers/googleOAuthAdmin'
 import positionController from "../controllers/positionController"
 import positionRoleController from "../controllers/positionRoleController"
 import roleController from "../controllers/roleController"
@@ -19,9 +21,21 @@ import assessmentController from "../controllers/assessmentController"
 import userController from "../controllers/userController"
 import configController from "../controllers/configController"
 
+
 const router = express.Router();
 
 const adminRoute = (app) => {
+
+  // ---------- admin ----------
+  // login with google
+  router.post('/auth/google', googleOAuthAdmin.loginGoogleOAuth)
+  router.post('/auth/google/create', googleOAuthAdmin.saveAccountGoogleOAuth)
+
+  // ---------- auth ----------
+  router.post("/auth/register", registerLoginAdminController.registerAccount);
+  router.post("/auth/login", registerLoginAdminController.loginAccount);
+  router.post("/auth/logout", registerLoginAdminController.logoutAccount);
+  router.get("/auth/check-session", registerLoginAdminController.checkSession);
 
   // user
   router.get("/user", authCheckExistToken, authCheckUserPermission(), userController.readFunc)

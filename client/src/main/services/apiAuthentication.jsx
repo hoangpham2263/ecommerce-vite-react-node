@@ -1,0 +1,40 @@
+import axios from 'axios'
+
+const baseUrl = import.meta.env.VITE_API_API_URL
+const apiGoogleClientId = import.meta.env.VITE_API_GOOGLE_CLIENT_ID
+
+axios.defaults.baseURL = baseUrl
+
+// login with google
+const confirmGetToken = (response) => { return axios.post('/api/auth/google', { code: response.code }) }
+const getInfoAccountUseAccessToke = (accessToken) => { return axios.get(`${apiGoogleClientId}`, { headers: { Authorization: `Bearer ${accessToken}` }, withCredentials: false }) }
+const saveAccountToServer = (data) => { return axios.post('/api/auth/google/create', { data: data }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
+
+// login basic
+const loginAccountBasic = (data) => { return axios.post('/api/auth/login', { data }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
+const registerAccountBasic = (data) => { return axios.post('/api/auth/register', { data }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
+const logoutAccount = () => { return axios.post('/api/auth/logout', {}, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
+const readCheckSession = () => { return axios.get('/api/auth/check-session', { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
+const readProfileJWT = () => { return axios.get('/api/auth/check-session', { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
+
+
+// ---------- admin ----------
+// login with google
+const confirmGetTokenAdmin = (response) => { return axios.post('/api/admin/auth/google', { code: response.code }) }
+const getInfoAccountUseAccessTokeAdmin = (accessToken) => { return axios.get(`${apiGoogleClientId}`, { headers: { Authorization: `Bearer ${accessToken}` }, withCredentials: false }) }
+const saveAccountToServerAdmin = (data) => { return axios.post('/api/admin/auth/google/create', { data: data }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
+
+// login basic
+const loginAccountBasicAdmin = (data) => { return axios.post('/api/admin/auth/login', { data }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
+const registerAccountBasicAdmin = (data) => { return axios.post('/api/admin/auth/register', { data }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
+const logoutAccountAdmin = () => { return axios.post('/api/admin/auth/logout', {}, { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
+const readCheckSessionAdmin = () => { return axios.get('/api/admin/auth/check-session', { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
+const readProfileJWTAdmin = () => { return axios.get('/api/admin/auth/check-session', { headers: { 'Content-Type': 'application/json' }, withCredentials: true }) }
+
+
+export {
+  confirmGetToken, getInfoAccountUseAccessToke, saveAccountToServer,
+  loginAccountBasic, registerAccountBasic, logoutAccount, readCheckSession, readProfileJWT,
+  confirmGetTokenAdmin, getInfoAccountUseAccessTokeAdmin, saveAccountToServerAdmin,
+  loginAccountBasicAdmin, registerAccountBasicAdmin, logoutAccountAdmin, readCheckSessionAdmin, readProfileJWTAdmin
+}

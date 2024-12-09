@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { toast } from 'react-toastify'
 import { FaFacebookF } from 'react-icons/fa'
 import { FaTwitter } from 'react-icons/fa'
 import { BiShow, BiHide } from 'react-icons/bi'
@@ -9,12 +8,12 @@ import config from '../../config'
 import classNames from 'classnames/bind'
 import styles from './Login.module.scss'
 import LoginWithGoogleAdmin from '../../../main/components/LoginWithGoogleAdmin'
-import { useAuth } from '../../../main/context/AuthContext.jsx'
+import { useAuthAdmin } from '../../../main/context/AuthContextAdmin.jsx'
 
 const cx = classNames.bind(styles)
 
 const Login = () => {
-  const { loginAdmin } = useAuth()
+  const { loginAdmin } = useAuthAdmin()
   const [showPassword, setShowPassword] = useState([false])
   const [data, setData] = useState({
     userName: '',

@@ -2,12 +2,16 @@ import LogoSmall from '../../../components/Logo/LogoSmall'
 import Search from '../Search'
 import classNames from 'classnames/bind'
 import styles from './Header.module.scss'
-import { useAuth } from '../../../../main/context/AuthContext'
+import { useAuthAdmin } from '../../../../main/context/AuthContextAdmin'
 
 const cx = classNames.bind(styles)
 
 const Header = () => {
-  const { user } = useAuth()
+  const { user, logoutAdmin } = useAuthAdmin()
+  const handleLogout = () => {
+    logoutAdmin()
+    window.location.reload()
+  }
   return (
     <header className={cx('ct-wrapper')}>
       <div className={cx('d-flex justify-content-between', 'ct-inner')}>
@@ -21,7 +25,7 @@ const Header = () => {
             <ul className="dropdown-menu">
               <li><a className="dropdown-item" href="/">Profile</a></li>
               <li><a className="dropdown-item" href="#">Dashboard</a></li>
-              <li><a className="dropdown-item" href="#">Sign out</a></li>
+              <li><a className="dropdown-item" onClick={handleLogout}>Sign out</a></li>
             </ul>
           </div>
         </div>
@@ -31,3 +35,4 @@ const Header = () => {
 }
 
 export default Header
+

@@ -9,9 +9,8 @@ import {
   loginAccountBasic,
   logoutAccount,
   readCheckSession
-} from '../services/sharedApi.jsx'
+} from '../services/apiAuthentication.jsx'
 import config from '../../frontend/config'
-import configAdmin from '../../admin/config'
 
 const AuthContext = createContext()
 
@@ -68,40 +67,6 @@ export const AuthProvider = ({ children }) => {
     }
   })
 
-  const loginAdmin = async (data) => {
-    try {
-      await loginAccountBasic(data)
-      window.location.href = config.routes.home
-    } catch (error) {
-      toast.error(error?.response?.data.message)
-    }
-  }
-
-  const loginWithGoogleAdmin = useGoogleLogin({
-    flow: 'auth-code',
-    onSuccess: async (response) => {
-      try {
-        const tokenResponse = await confirmGetToken(response)
-        const accessToken = tokenResponse.data.access_token
-
-        const userInfoResponse = await getInfoAccountUseAccessToke(accessToken)
-        const saveAccountGoogleOAuth = await saveAccountToServer(userInfoResponse?.data)
-
-        if (saveAccountGoogleOAuth.status === 200) {
-          window.location.href = configAdmin.routes.account
-        } else {
-          setUser(null)
-        }
-      } catch (error) {
-        toast.error('Error during Google login:', error)
-      }
-    },
-    onError: (errorResponse) => {
-      toast.error('Google login failed.')
-    }
-  })
-
-
   const logout = async () => {
     await logoutAccount()
     setUser(null)
@@ -109,7 +74,7 @@ export const AuthProvider = ({ children }) => {
   }
 
   return (
-    <AuthContext.Provider value={{ user, login, loginAdmin, loginWithGoogle, loginWithGoogleAdmin, logout }}>
+    <AuthContext.Provider value={{ user, login, loginWithGoogle, logout }}>
       {children}
     </AuthContext.Provider>
   )
