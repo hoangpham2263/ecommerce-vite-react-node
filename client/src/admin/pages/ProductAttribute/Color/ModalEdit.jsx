@@ -32,13 +32,13 @@ const ModalEdit = ({ item, index, fetchDataColor }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const res = await updateColor(data)
-    if (res?.data?.code === 0) {
+    try {
+      const res = await updateColor(data)
       toast.success(res?.data?.message)
       fetchDataColor()
       if (closeButtonRef.current) closeButtonRef.current.click()
-    } else {
-      toast.error(res?.data?.message)
+    } catch (error) {
+      toast.error(error?.response?.data?.message)
     }
   }
 

@@ -19,11 +19,11 @@ const registerAccount = async (req, res) => {
   try {
     const { fullName, userName, password, gender } = req?.body?.data;
 
-    if (!fullName || !userName || !password || !gender) { return res.status(400).json({ message: "Vui lòng nhập đầy đủ thông tin", code: 1 }) }
+    if (!fullName || !userName || !password || !gender) { return res.status(400).json({ message: "Vui lòng nhập đầy đủ thông tin" }) }
 
-    if (password.length < 6) { return res.status(400).json({ message: "mật khẩu phải ít nhất 6 ký tự", code: 1 }) }
+    if (password.length < 6) { return res.status(400).json({ message: "mật khẩu phải ít nhất 6 ký tự" }) }
 
-    if (await checkUsernameExist(userName)) { return res.status(400).json({ message: "username đã tồn tại", code: 1 }) }
+    if (await checkUsernameExist(userName)) { return res.status(400).json({ message: "username đã tồn tại" }) }
 
     const hashPassword = await hashAccountPassword(password);
 
@@ -38,10 +38,10 @@ const registerAccount = async (req, res) => {
       position_id: 3
     });
 
-    return res.status(201).json({ message: "đăng ký tài khoản thành công!", code: 0 });
+    return res.status(201).json({ message: "đăng ký tài khoản thành công!" });
 
   } catch (error) {
-    return res.status(500).json({ message: "Error from server", code: -1 });
+    return res.status(500).json({ message: "Error from server" });
   }
 };
 
@@ -61,32 +61,32 @@ const loginAccount = async (req, res) => {
   try {
     const { userName, password } = req?.body?.data;
 
-    if (!userName || !password) { return res.status(400).json({ message: "Vui lòng nhập đầy đủ thông tin", code: 1 }); }
-    if (password.length < 6) { return res.status(400).json({ message: "mật khẩu phải ít nhất 6 ký tự", code: 1 }); }
+    if (!userName || !password) { return res.status(400).json({ message: "Vui lòng nhập đầy đủ thông tin" }); }
+    if (password.length < 6) { return res.status(400).json({ message: "mật khẩu phải ít nhất 6 ký tự" }); }
 
     const user = await db.User.findOne({
       where: { username: userName },
       attributes: ["id", "full_name", "avatar", "username", "password", "email", "gender", "is_active", "is_verified", "position_id", "updatedAt", "createdAt"],
-      include: { model: db.Position, attributes: ["id", "key_position", "name", 'desc', 'is_active', 'is_master', "updatedAt", "createdAt"] }
+      include: { model: db.Position, attributes: ["id", "key_position", "name", 'desc', 'is_active', 'is_master', "is_admin", "updatedAt", "createdAt"] }
     });
 
     if (!user || !await checkPassword(password, user.password)) {
-      return res.status(401).json({ message: "tài khoản hoặc mật khẩu không đúng", code: 1 });
+      return res.status(401).json({ message: "tài khoản hoặc mật khẩu không đúng" });
     }
 
-    const { id, full_name, avatar, email, gender, is_active, is_verified, position_id, createdAt, updatedAt } = user.dataValues;
+    const { id, full_name, avatar, email, gender, is_active, is_verified, is_admin, position_id, createdAt, updatedAt } = user.dataValues;
     const userPosition = user?.dataValues?.Position?.dataValues;
-    if (!userPosition?.is_master) {
-      return res.status(401).json({ message: "tài khoản không phải là admin", code: 1 });
+    if (!userPosition?.is_admin) {
+      return res.status(401).json({ message: "tài khoản không phải là admin" });
     }
     const payload = {
       userPresent: {
-        user: { id, full_name, avatar, username: userName, email, gender, is_active, is_verified, position_id, createdAt, updatedAt },
+        user: { id, full_name, avatar, username: userName, email, gender, is_active, is_verified, is_admin, position_id, createdAt, updatedAt },
         position: userPosition
       }
     };
 
-    const token = await createJWT(payload);
+    const token = createJWT(payload);
 
     await res.cookie("jwt_admin", token, {
       httpOnly: true,
@@ -97,7 +97,7 @@ const loginAccount = async (req, res) => {
     return res.status(200).json({ message: "đăng nhập thành công", jwt_admin: req?.cookies?.jwt_admin });
 
   } catch (error) {
-    return res.status(500).json({ message: "Error from server", code: -1 });
+    return res.status(500).json({ message: "Error from server" });
   }
 };
 
@@ -108,12 +108,12 @@ const logoutAccount = async (req, res) => {
     const cookie = req.cookies;
     if (cookie?.jwt_admin) {
       res.clearCookie("jwt_admin", { secure: process.env.NODE_ENV === 'production' });
-      return res.status(200).json({ message: "đăng xuất thành công", code: 0 });
+      return res.status(200).json({ message: "đăng xuất thành công" });
     } else {
-      return res.status(400).json({ message: "No active session found", code: 1 });
+      return res.status(400).json({ message: "No active session found" });
     }
   } catch (error) {
-    return res.status(500).json({ message: "Error from server", code: -1 });
+    return res.status(500).json({ message: "Error from server" });
   }
 };
 
@@ -125,10 +125,10 @@ const checkSession = async (req, res) => {
     if (cookie?.jwt_admin) {
       return res.status(200).json({ message: "check session success", jwt_admin: cookie.jwt_admin });
     } else {
-      return res.status(401).json({ message: "No active session found", code: 1 });
+      return res.status(401).json({ message: "No active session found" });
     }
   } catch (error) {
-    return res.status(500).json({ message: "Error from server", code: -1 });
+    return res.status(500).json({ message: "Error from server" });
   }
 };
 

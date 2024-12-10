@@ -22,7 +22,7 @@ export const AuthProviderAdmin = ({ children }) => {
       try {
         const fetchCheckSessionUser = await readCheckSessionAdmin()
         const access_token = jwtDecode(fetchCheckSessionUser?.data?.jwt_admin)
-        if (access_token?.userPresent?.position?.is_master) {
+        if (access_token?.userPresent?.position?.is_admin) {
           if (window.location.pathname === '/admin') {
             window.location.href = configAdmin.routes.dashboard
           }

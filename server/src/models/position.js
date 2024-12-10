@@ -20,6 +20,7 @@ module.exports = (sequelize, DataTypes) => {
       desc: DataTypes.STRING,
       is_active: DataTypes.BOOLEAN,
       is_master: DataTypes.BOOLEAN,
+      is_admin: DataTypes.BOOLEAN,
     },
     {
       sequelize,

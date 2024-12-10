@@ -178,7 +178,7 @@ const PositionRole = () => {
             {isMaster ?
               <tbody>
                 <tr>
-                  <th scope="row" colSpan="3">Master is full permission</th>
+                  <th scope="row" colSpan="3">Master được cấp đầy đủ quyền truy cập.</th>
                 </tr>
               </tbody> : <tbody>
                 {dataPositionRole?.data?.positionRole.length ? (
@@ -193,7 +193,7 @@ const PositionRole = () => {
                   ))
                 ) : (
                   <tr>
-                    <th scope="row" colSpan="3">No access permissions granted yet.</th>
+                    <th scope="row" colSpan="3">Chưa có quyền truy cập nào được cấp.</th>
                   </tr>
                 )}
               </tbody>}
@@ -235,7 +235,7 @@ const PositionRole = () => {
             {isMaster ?
               <tbody>
                 <tr>
-                  <th scope="row" colSpan="2">Master is full permission</th>
+                  <th scope="row" colSpan="2">Master được cấp đầy đủ quyền truy cập.</th>
                 </tr>
               </tbody> :
               <tbody>
@@ -251,7 +251,7 @@ const PositionRole = () => {
                   ))
                 ) : (
                   <tr>
-                    <th scope="row" colSpan="2">Current role is fully privileged</th>
+                    <th scope="row" colSpan="2">Vai trò hiện tại được hưởng đầy đủ đặc quyền</th>
                   </tr>
                 )}
               </tbody>

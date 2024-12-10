@@ -1,5 +1,7 @@
 import express from "express";
 import { authCheckExistToken, authCheckUserPermission } from "../middleware/authCheckExistToken";
+import registerLoginController from "../controllers/registerLoginController";
+import googleOAuth from '../controllers/googleOAuth'
 import positionController from "../controllers/positionController"
 import positionRoleController from "../controllers/positionRoleController"
 import roleController from "../controllers/roleController"
@@ -21,6 +23,17 @@ import sendMailContact from '../utility/SendMailContact'
 const router = express.Router();
 
 const adminRoute = (app) => {
+
+  // ---------- user ----------
+  // login with google
+  router.post('/auth/google', googleOAuth.loginGoogleOAuth)
+  router.post('/auth/google/create', googleOAuth.saveAccountGoogleOAuth)
+
+  // ---------- auth ----------
+  router.post("/auth/register", registerLoginController.registerAccount);
+  router.post("/auth/login", registerLoginController.loginAccount);
+  router.post("/auth/logout", registerLoginController.logoutAccount);
+  router.get("/auth/check-session", registerLoginController.checkSession);
 
   // position
   router.get("/position", positionController.readFunc)

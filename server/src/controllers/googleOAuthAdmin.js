@@ -46,7 +46,7 @@ const saveAccountGoogleOAuth = async (req, res) => {
   try {
     const { name, email, picture, email_verified } = req?.body?.data;
     if (!name || !email || !picture || !email_verified) {
-      return res.status(200).json({ message: "missing required parameters", code: 1, data: [] });
+      return res.status(200).json({ message: "missing required parameters", data: [] });
     }
 
     let isEmailExist = await checkEmailExist(email);
@@ -63,9 +63,9 @@ const saveAccountGoogleOAuth = async (req, res) => {
       });
     }
 
-    let user = await db.User.findOne({ where: { email: email }, include: { model: db.Position, attributes: ["id", "key_position", "name", 'desc', 'is_active', 'is_master', "updatedAt", "createdAt"] } });
-    if (!user?.dataValues?.Position?.dataValues?.is_master) {
-      return res.status(401).json({ message: "tài khoản không có quyền truy cập", code: 1 });
+    let user = await db.User.findOne({ where: { email: email }, include: { model: db.Position, attributes: ["id", "key_position", "name", 'desc', 'is_active', 'is_master', 'is_admin', "updatedAt", "createdAt"] } });
+    if (!user?.dataValues?.Position?.dataValues?.is_admin) {
+      return res.status(401).json({ message: "tài khoản không phải là admin" });
     }
     if (user) {
       let { id, full_name, avatar, username, email, phone, gender, is_active, is_verified, position_id, createdAt, updatedAt } = user.dataValues;
@@ -76,7 +76,7 @@ const saveAccountGoogleOAuth = async (req, res) => {
           position: userPosition
         }
       };
-      let token = await createJWT(payload);
+      let token = createJWT(payload);
 
       await res.cookie("jwt_admin", token, {
         httpOnly: true,
@@ -86,7 +86,7 @@ const saveAccountGoogleOAuth = async (req, res) => {
       });
       return res.status(200).json({ message: "Login successful!", jwt_admin: req?.cookies?.jwt_admin });
     }
-    return res.status(200).json({ message: "system error", code: 1, data: [] });
+    return res.status(200).json({ message: "system error", data: [] });
   } catch (error) {
     return res.status(500).json({ message: "error from server", code: -1, data: [] });
   }

@@ -4,7 +4,6 @@ import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import adminApiRoute from "./routes/adminApi";
 import userApiRoute from "./routes/userApi";
-import sharedApiRoute from './routes/sharedApi'
 import connectDB from './config/connectDB';
 import cors from 'cors';
 
@@ -27,7 +26,6 @@ app.use(cookieParser());
 // routes
 adminApiRoute(app);
 userApiRoute(app)
-sharedApiRoute(app)
 
 // connect
 connectDB();

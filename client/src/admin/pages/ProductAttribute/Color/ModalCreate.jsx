@@ -16,17 +16,14 @@ const ModalCreate = ({ fetchDataColor }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    let res = await createColor(data)
-    if (res?.data?.code === 0) {
-      setData({
-        name: '',
-        color_code: ''
-      })
+    try {
+      let res = await createColor(data)
+      setData({ name: '', color_code: '' })
       toast.success(res?.data?.message)
       fetchDataColor()
       closeButtonRef.current.click()
-    } else {
-      toast.error(res?.data?.message)
+    } catch (error) {
+      toast.error(error?.response?.data?.message)
     }
   }
 

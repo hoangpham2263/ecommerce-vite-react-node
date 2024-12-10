@@ -13,15 +13,15 @@ const ModalDelete = ({ id, index, fetchDataColor }) => {
 
   const handleConfirm = async (e) => {
     e.preventDefault()
-    let res = await deleteColor(id)
-    if (res?.data?.code === 0) {
+    try {
+      const res = await deleteColor(id)
       toast.success(res?.data?.message)
       fetchDataColor()
       if (closeButtonRef.current) {
         closeButtonRef.current.click()
       }
-    } else {
-      toast.error(res?.data?.message)
+    } catch (error) {
+      toast.error(error?.response?.data?.message)
     }
   }
 

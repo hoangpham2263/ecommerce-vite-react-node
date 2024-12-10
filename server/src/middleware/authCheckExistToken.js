@@ -20,6 +20,7 @@ const authCheckUserPermission = (key_role = null) => {
   return async (req, res, next) => {
     try {
       // if (key_role === null) return next()
+      console.log(req?.account?.position)
       if (req?.account?.position?.is_master) return next()
       if (req?.account) {
         let positionLogin = req.account.user.position_id;
@@ -32,7 +33,6 @@ const authCheckUserPermission = (key_role = null) => {
         } else { return res.status(403).json({ message: "Access denied: insufficient permissions" }) }
       } else { return res.status(401).json({ message: "Not authenticated the user" }) }
     } catch (error) {
-      console.error(error);
       return res.status(500).json({ message: "Internal server error" })
     }
   };
