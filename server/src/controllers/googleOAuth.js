@@ -73,7 +73,7 @@ const saveAccountGoogleOAuth = async (req, res) => {
           position: userPosition
         }
       };
-      let token = await createJWT(payload);
+      let token = createJWT(payload);
 
       await res.cookie("jwt", token, {
         httpOnly: true,
@@ -83,9 +83,9 @@ const saveAccountGoogleOAuth = async (req, res) => {
       });
       return res.status(200).json({ message: "Login successful!", jwt: req?.cookies?.jwt });
     }
-    return res.status(200).json({ message: "system error", code: 1, data: [] });
+    return res.status(200).json({ message: "system error" });
   } catch (error) {
-    return res.status(500).json({ message: "error from server", code: -1, data: [] });
+    return res.status(500).json({ message: "error from server" });
   }
 }
 

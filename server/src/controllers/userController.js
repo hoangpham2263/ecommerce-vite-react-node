@@ -70,7 +70,6 @@ const updateFunc = async (req, res) => {
       return res.status(404).json({ message: "User not exist", code: 1 });
     }
   } catch (error) {
-    console.error(error);
     return res.status(500).json({ message: "Error from server", code: -1 });
   }
 };

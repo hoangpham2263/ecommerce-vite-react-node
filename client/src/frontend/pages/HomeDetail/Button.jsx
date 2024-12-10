@@ -35,17 +35,18 @@ const Button = ({ product, selectConfig }) => {
   // ---------- button add to cart ----------
   const handleAddProductToCart = async (e) => {
     e.preventDefault()
-    const data = {
-      UserId: LocalStorageGetInfos?.user?.id,
-      ProductId: product?.id,
-      quantity: quantity,
-      config_id: product.configs && product.configs[selectConfig]?.id
-    }
-    const fetchData = await addCart(data)
-    if (fetchData?.data?.code === 0) {
+    try {
+      const data = {
+        ProductId: product?.id,
+        quantity: quantity,
+        config_id: product.configs && product.configs[selectConfig]?.id
+      }
+      await addCart(data)
       toast.success('Thêm vào giỏ hàng thành công')
       fetchAmountCart()
       closeButtonRef.current.click()
+    } catch (error) {
+      toast.error(error?.response?.data?.message)
     }
   }
   const formatNumber = (number) => {

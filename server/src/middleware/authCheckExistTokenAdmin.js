@@ -3,7 +3,7 @@ import db from "../models/index";
 import { Op } from "sequelize";
 
 const authCheckExistToken = (req, res, next) => {
-  const token = req?.cookies?.jwt
+  const token = req?.cookies?.jwt_admin
   if (!token) {
     return res.status(401).json({ message: 'Truy cập bị từ chối: không đủ quyền 1' });
   }

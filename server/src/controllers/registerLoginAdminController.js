@@ -108,6 +108,7 @@ const logoutAccount = async (req, res) => {
     const cookie = req.cookies;
     if (cookie?.jwt_admin) {
       res.clearCookie("jwt_admin", { secure: process.env.NODE_ENV === 'production' });
+      req.account = null;
       return res.status(200).json({ message: "đăng xuất thành công" });
     } else {
       return res.status(400).json({ message: "No active session found" });

@@ -35,23 +35,23 @@ const adminRoute = (app) => {
   router.post("/auth/logout", registerLoginController.logoutAccount);
   router.get("/auth/check-session", registerLoginController.checkSession);
 
-  // position
-  router.get("/position", positionController.readFunc)
-  router.get("/position-role", positionRoleController.readFunc)
-  router.get("/role", roleController.readFunc)
+  // // position
+  // router.get("/position", positionController.readFunc)
+  // router.get("/position-role", positionRoleController.readFunc)
+  // router.get("/role", roleController.readFunc)
 
   // cart
-  router.get("/cart", authCheckExistToken, authCheckUserPermission(), cartController.readFunc)
-  router.get("/cart-amount", authCheckExistToken, authCheckUserPermission(), cartController.readFuncAmount)
+  router.get("/cart", authCheckExistToken, authCheckUserPermission(99), cartController.readFunc)
+  router.get("/cart-amount", authCheckExistToken, authCheckUserPermission(99), cartController.readFuncAmount)
   router.get("/cart-by-ids", cartController.readFuncByIds)
-  router.post("/cart", authCheckExistToken, authCheckUserPermission(), cartController.createFunc)
-  router.delete("/cart", authCheckExistToken, authCheckUserPermission(), cartController.deleteFunc)
+  router.post("/cart", authCheckExistToken, authCheckUserPermission(99), cartController.createFunc)
+  router.delete("/cart", authCheckExistToken, authCheckUserPermission(99), cartController.deleteFunc)
 
   // order
-  router.get("/order", authCheckExistToken, authCheckUserPermission(), orderController.readFunc)
-  router.post("/order", authCheckExistToken, authCheckUserPermission(), orderController.createFunc)
-  router.put("/order", authCheckExistToken, authCheckUserPermission(), orderController.updateFunc)
-  router.delete("/order", authCheckExistToken, authCheckUserPermission(), orderController.deleteFunc)
+  router.get("/order", authCheckExistToken, authCheckUserPermission(99), orderController.readFunc)
+  router.post("/order", authCheckExistToken, authCheckUserPermission(99), orderController.createFunc)
+  router.put("/order", authCheckExistToken, authCheckUserPermission(99), orderController.updateFunc)
+  router.delete("/order", authCheckExistToken, authCheckUserPermission(99), orderController.deleteFunc)
 
   // product
   router.get("/product", productController.readFunc)

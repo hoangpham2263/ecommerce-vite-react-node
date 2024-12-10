@@ -83,7 +83,7 @@ const loginAccount = async (req, res) => {
       }
     };
 
-    const token = await createJWT(payload);
+    const token = createJWT(payload);
 
     await res.cookie("jwt", token, {
       httpOnly: true,
@@ -94,7 +94,6 @@ const loginAccount = async (req, res) => {
     return res.status(200).json({ message: "đăng nhập thành công", jwt: req?.cookies?.jwt });
 
   } catch (error) {
-    console.log(error)
     return res.status(500).json({ message: "Error from server", code: -1 });
   }
 };
@@ -106,6 +105,7 @@ const logoutAccount = async (req, res) => {
     const cookie = req.cookies;
     if (cookie?.jwt) {
       res.clearCookie("jwt", { secure: process.env.NODE_ENV === 'production' });
+      req.account = null;
       return res.status(200).json({ message: "đăng xuất thành công", code: 0 });
     } else {
       return res.status(400).json({ message: "No active session found", code: 1 });

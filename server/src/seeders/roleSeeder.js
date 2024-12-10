@@ -29,6 +29,8 @@ module.exports = {
         { key_role: 16, name: "order", },           // order
         { key_role: 17, name: "order line", },      // order line
         { key_role: 18, name: "assessment", },      // assessment
+
+        { key_role: 99, name: "is customer", },      // is customer
       ],
       {}
     );

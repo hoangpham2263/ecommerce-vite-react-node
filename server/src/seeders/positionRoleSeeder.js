@@ -30,8 +30,10 @@ module.exports = {
         { PositionId: 2, RoleId: 16, },
         { PositionId: 2, RoleId: 17, },
         { PositionId: 2, RoleId: 18, },
+        { PositionId: 2, RoleId: 99, },
 
         // ---------- customer ----------
+        { PositionId: 3, RoleId: 99, },
       ],
       {}
     );

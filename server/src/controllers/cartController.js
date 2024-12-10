@@ -80,7 +80,7 @@ const readFuncAmount = async (req, res) => {
     const token = req?.cookies?.jwt;
     if (!token) return res.status(401).json({ message: "No token provided", code: -1 });
     const decoded = jwt.decode(token);
-    
+
     const { count, rows } = await db.Cart.findAndCountAll({ where: { UserId: decoded?.userPresent?.user?.id }, attributes: cart_attributes, order: [["UserId", "ASC"]] })
     return res.status(200).json({ message: "get cart success", code: 0, data: count, });
   } catch (error) {
@@ -118,7 +118,6 @@ const readFuncByIds = async (req, res) => {
     }));
     return res.status(200).json({ message: "get cart success", code: 0, data: cartWithImages });
   } catch (error) {
-    console.log(error);
     return res.status(500).json({ message: "error from server", code: -1 });
   }
 }
@@ -126,18 +125,19 @@ const readFuncByIds = async (req, res) => {
 
 const createFunc = async (req, res) => {
   try {
-    const { UserId, ProductId, quantity, config_id } = req.body.data;
-    if (!UserId || !ProductId || !quantity) return res.status(200).json({ message: "missing required parameters", code: 1 });
-    let cart = await db.Cart.findOne({ where: { [Op.and]: [{ UserId: UserId }, { ProductId: ProductId }, { config_id: config_id }] } });
+    console.log(req?.account?.user)
+    const { ProductId, quantity, config_id } = req.body.data;
+    if (!ProductId || !quantity) return res.status(400).json({ message: "missing required parameters" });
+    let cart = await db.Cart.findOne({ where: { [Op.and]: [{ UserId: req?.account?.user?.id }, { ProductId: ProductId }, { config_id: config_id }] } });
     if (!cart) {
-      let data = await db.Cart.create({ UserId: UserId, ProductId: ProductId, quantity: quantity, config_id: config_id });
-      return res.status(200).json({ message: "a cart is created successfully", code: 0, data: data });
+      let data = await db.Cart.create({ UserId: req?.account?.user?.id, ProductId: ProductId, quantity: quantity, config_id: config_id });
+      return res.status(200).json({ message: "a cart is created successfully", data: data });
     } else {
       const a = await cart.update({ quantity: quantity, config_id: config_id });
-      return res.status(200).json({ message: "update cart success", code: 0, data: a });
+      return res.status(200).json({ message: "update cart success", data: a });
     }
   } catch (error) {
-    return res.status(500).json({ message: "error from server", code: -1 });
+    return res.status(500).json({ message: "error from server" });
   }
 }
 

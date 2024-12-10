@@ -1,5 +1,5 @@
 import express from "express";
-import { authCheckExistToken, authCheckUserPermission } from "../middleware/authCheckExistToken";
+import { authCheckExistToken, authCheckUserPermission } from "../middleware/authCheckExistTokenAdmin";
 import registerLoginAdminController from "../controllers/registerLoginAdminController";
 import googleOAuthAdmin from '../controllers/googleOAuthAdmin'
 import positionController from "../controllers/positionController"

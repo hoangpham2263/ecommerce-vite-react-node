@@ -34,27 +34,29 @@ const Order = () => {
 
   // ---------- quantity ----------
   const handleDecreaseQuantityCart = async (item) => {
-    const data = {
-      UserId: item?.UserId,
-      ProductId: item?.Product?.id,
-      quantity: item?.quantity > 1 ? item?.quantity - 1 : item.quantity,
-      config_id: item?.config_id
-    }
-    const fetchCart = await addCart(data)
-    if (fetchCart?.data?.code === 0) {
+    try {
+      const data = {
+        ProductId: item?.Product?.id,
+        quantity: item?.quantity > 1 ? item?.quantity - 1 : item.quantity,
+        config_id: item?.config_id
+      }
+      const fetchCart = await addCart(data)
       handleFetchCarts()
+    } catch (error) {
+      toast.error(error?.response?.data?.message)
     }
   }
   const handleIncreaseQuantityCart = async (item) => {
-    const data = {
-      UserId: item?.UserId,
-      ProductId: item?.Product?.id,
-      quantity: item?.quantity + 1,
-      config_id: item?.config_id
-    }
-    const fetchCart = await addCart(data)
-    if (fetchCart?.data?.code === 0) {
+    try {
+      const data = {
+        ProductId: item?.Product?.id,
+        quantity: item?.quantity + 1,
+        config_id: item?.config_id
+      }
+      const fetchCart = await addCart(data)
       handleFetchCarts()
+    } catch (error) {
+      toast.error(error?.response?.data?.message)
     }
   }
 

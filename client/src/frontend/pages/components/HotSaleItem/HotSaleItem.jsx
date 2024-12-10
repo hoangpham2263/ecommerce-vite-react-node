@@ -43,20 +43,21 @@ const HotSaleItem = () => {
       setQuantity(quantity - 1)
     }
   }
-  const handleAddProductToCart = async (e) => {
-    const data = {
-      UserId: LocalStorageGetInfos?.user?.id,
-      ProductId: product?.id,
-      quantity: quantity,
-      config_id: product.configs && product.configs[Number(selectConfig)]?.id
-    }
-    const fetchData = await addCart(data)
-    if (fetchData?.data?.code === 0) {
-      toast.success('Thêm vào giỏ hàng thành công')
+  const handleAddProductToCart = async () => {
+    try {
+      const data = {
+        ProductId: product?.id,
+        quantity: quantity,
+        config_id: product.configs && product.configs[Number(selectConfig)]?.id
+      }
+      await addCart(data)
+      toast.success('Thêm vào giỏ hàng thành công')
       fetchAmountCart()
       closeButtonRef.current.click()
       setQuantity(1)
       setSelectConfig(0)
+    } catch (error) {
+      toast.error(error?.response?.data?.message)
     }
   }
   const handleSelectConfig = (event) => {
