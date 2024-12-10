@@ -125,7 +125,6 @@ const readFuncByIds = async (req, res) => {
 
 const createFunc = async (req, res) => {
   try {
-    console.log(req?.account?.user)
     const { ProductId, quantity, config_id } = req.body.data;
     if (!ProductId || !quantity) return res.status(400).json({ message: "missing required parameters" });
     let cart = await db.Cart.findOne({ where: { [Op.and]: [{ UserId: req?.account?.user?.id }, { ProductId: ProductId }, { config_id: config_id }] } });

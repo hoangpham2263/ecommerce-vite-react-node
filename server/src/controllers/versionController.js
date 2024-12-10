@@ -22,7 +22,6 @@ const readFunc = async (req, res) => {
     }
     return res.status(200).json({ message: "get version success", code: 0, data: data, });
   } catch (error) {
-    console.log(error)
     return res.status(500).json({ message: "error from server", code: -1 });
   }
 }

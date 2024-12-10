@@ -14,7 +14,7 @@ module.exports = {
         { key_role: 1, name: "account", },          // account
         { key_role: 2, name: "position", },         // position
         { key_role: 3, name: "position role", },    // position role
-        { key_role: 4, name: "role", },             // role role
+        { key_role: 4, name: "role", },             // role
         { key_role: 5, name: "product", },          // product
         { key_role: 6, name: "config", },           // config"
         { key_role: 7, name: "category", },         // category

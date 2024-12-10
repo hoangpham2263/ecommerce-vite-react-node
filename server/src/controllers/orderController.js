@@ -24,7 +24,6 @@ const readFunc = async (req, res) => {
     }
     return res.status(200).json({ message: "get order success", code: 0, data: data, });
   } catch (error) {
-    console.log(error)
     return res.status(500).json({ message: "error from server", code: -1 });
   }
 }
@@ -36,7 +35,6 @@ const createFunc = async (req, res) => {
     let data = await db.Order.create({ user_id: user_id, cart_ids: cart_ids, order_line_id: order_line_id, total: total, note: note });
     return res.status(200).json({ message: "a order is created successfully", code: 0, data: data });
   } catch (error) {
-    console.log(error)
     return res.status(500).json({ message: "error from server", code: -1 });
   }
 }
