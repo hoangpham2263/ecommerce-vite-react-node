@@ -1,6 +1,11 @@
 import db from "../models/index";
 
 const order_attributes = ["id", "user_id", "cart_ids", "order_line_id", "total", "note", "updatedAt", "createdAt"]
+// const cart_attributes = ["id", "UserId", "ProductId", "quantity", "config_id", "updatedAt", "createdAt"]
+// const cart_includes = [
+//   { model: db.Product, attributes: prod_attributes, include: prod_includes },
+//   { model: db.Config, attributes: conf_attributes, include: conf_includes }
+// ]
 
 const readFunc = async (req, res) => {
   try {
@@ -13,18 +18,24 @@ const readFunc = async (req, res) => {
       let { count, rows } = await db.Order.findAndCountAll({
         offset: offset,
         limit: limit,
-        where: { user_id: req.query.user_id },
+        where: { user_id: req?.account?.user?.id },
         attributes: order_attributes,
         order: [["user_id", "ASC"]],
       })
       const totalPages = Math.ceil(count / limit);
       data = { totalRows: count, totalPages: totalPages, order: rows, }
     } else {
-      data = await db.Order.findAll({ attributes: order_attributes, where: { user_id: req.query.user_id }, order: [["user_id", "ASC"]] })
+      data = await db.Order.findAll({
+        attributes: order_attributes,
+        where: { user_id: req?.account?.user?.id },
+        order: [["user_id", "ASC"]],
+        // include: [{ model: db.Cart, attributes: cart_attributes, }]
+      })
     }
-    return res.status(200).json({ message: "get order success", code: 0, data: data, });
+    return res.status(200).json({ message: "get order success", data: data, });
   } catch (error) {
-    return res.status(500).json({ message: "error from server", code: -1 });
+    console.log(error)
+    return res.status(500).json({ message: "error from server" });
   }
 }
 
