@@ -178,8 +178,8 @@ const ProductItem = ({ data, stt }) => {
         <div className={cx('modal fade', 'cs-cartModalProd')} id={`cartModalProd-${stt}`} tabIndex={-1} aria-labelledby={`cartModalProdLabel-${stt}`} aria-hidden="true">
           <div className="modal-dialog modal-dialog-centered">
             <div className="modal-content">
-              <div className="modal-header">
-                <h1 className="modal-title fs-5" id={`cartModalProdLabel-${stt}`}>Số lượng</h1>
+              <div className="modal-header bg-primary text-white py-3 d-flex justify-content-between align-items-center">
+                <h1 className="modal-title fs-4 m-0" id={`cartModalProdLabel-${stt}`}>Số lượng</h1>
                 <button ref={closeButtonRef} type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" />
               </div>
               <div className="modal-body text-center">
@@ -188,19 +188,21 @@ const ProductItem = ({ data, stt }) => {
                   <button disabled type="button" className="btn btn-outline-secondary text-dark">{quantity}</button>
                   <button type="button" className="btn btn-outline-secondary" onClick={handleIncreaseQuantity}>+</button>
                 </div>
-                <h5 className='text-start mt-3'>{productCurrent?.title}</h5>
-                <span className='d-flex align-items-center mt-2 w-100'>
-                  <select className="form-select w-25" onChange={handleSelectConfig}>
+                <h5 className="text-start mt-4">{productCurrent?.title}</h5>
+                <span className="d-flex align-items-center mt-3 w-100">
+                  <select className="form-select w-50" onChange={handleSelectConfig}>
                     {productCurrent?.configs && productCurrent?.configs.map((item, index) => (
-                      <option key={item?.id} value={index} >
+                      <option key={item?.id} value={index}>
                         {item?.Color?.name}
                       </option>
                     ))}
                   </select>
-                  <p className='w-50 mb-0 ms-3 text-start fs-5 fw-normal'>{productCurrent?.configs && formatNumber((productCurrent?.configs[selectConfig].price || 0) * (1 - productCurrent?.configs[selectConfig].discount / 100) - 2000000)}đ</p>
+                  <p className="w-50 mb-0 ms-4 text-start fs-5 fw-semibold text-primary">
+                    {productCurrent?.configs && formatNumber((productCurrent?.configs[selectConfig].price || 0) * (1 - productCurrent?.configs[selectConfig].discount / 100) - 2000000)}đ
+                  </p>
                 </span>
               </div>
-              <div className="modal-footer">
+              <div className="modal-footer justify-content-between">
                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Thoát</button>
                 <button type="button" className="btn btn-primary" onClick={handleAddProductToCartProd}>Thêm vào giỏ hàng</button>
               </div>
@@ -208,6 +210,7 @@ const ProductItem = ({ data, stt }) => {
           </div>
         </div>
       </div>
+
     </div >
   )
 }

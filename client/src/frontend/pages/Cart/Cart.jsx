@@ -65,6 +65,7 @@ const Cart = () => {
         : [...prevSelectedItems, itemId]
     )
   }
+
   const handleSelectAll = (e) => {
     if (e.target.checked) {
       setSelectedItems(carts.map((item) => item.id))
@@ -72,6 +73,7 @@ const Cart = () => {
       setSelectedItems([])
     }
   }
+
   // ---------- delete ----------
   const handleDeleteCart = async (item) => {
     const ids = [item?.id]
@@ -115,80 +117,89 @@ const Cart = () => {
 
   return (
     <>
-      {carts.length > 0 ? <div className='container'>
-        <div className={cx('cs-wrapper')}>
-          <h4 className={cx('pt-4', 'pb-2', 'fw-normal')}>Giỏ Hàng</h4>
-          <table className="table table-striped">
-            <thead>
-              <tr className=''>
-                <th className={cx('fw-normal')} scope="col">
-                  <label htmlFor='checkboxNoLabelTitle' className={cx('w-100', 'cs-cursor')}>
-                    <input className={cx('form-check-input', 'cs-cursor')} type="checkbox" id="checkboxNoLabelTitle" aria-label="..." onChange={handleSelectAll} checked={selectedItems.length === carts.length && carts.length > 0} />
-                  </label>
-                </th>
-                <th className={cx('fw-normal', 'cs-cursor-text')} scope="col">STT</th>
-                <th className={cx('fw-normal', 'cs-cursor-text')} scope="col"></th>
-                <th className={cx('fw-normal', 'cs-cursor-text')} scope="col">TÊN SẢN PHẨM</th>
-                <th className={cx('fw-normal', 'cs-cursor-text')} scope="col">MÀU</th>
-                <th className={cx('fw-normal', 'cs-cursor-text')} scope="col">GIÁ GỐC</th>
-                <th className={cx('fw-normal', 'cs-cursor-text')} scope="col">SỐ LƯỢNG</th>
-                <th className={cx('fw-normal', 'cs-cursor-text')} scope="col">TỔNG TIỀN</th>
-                <th className={cx('fw-normal', 'cs-cursor-text')} scope="col"></th>
-              </tr>
-            </thead>
-            <tbody>
-              {carts && carts.map((item, index) => {
-                return (
-                  <tr key={`cart-${index}`}>
-                    <th className={cx('fw-light')}>
-                      <label htmlFor={`checkboxNoLabelDesc-${index}`} className={cx('w-100', 'cs-cursor')}>
-                        <input className={cx('form-check-input', 'cs-cursor')} type="checkbox" id={`checkboxNoLabelDesc-${index}`} aria-label="..." onChange={() => handleCheckboxChange(item.id)} checked={selectedItems.includes(item.id)} />
-                      </label>
-                    </th>
-                    <th className={cx('fw-light', 'cs-cursor-text')}>{index + 1}</th>
-                    <td className={cx('fw-light', 'cs-cursor-text')}>
-                      <img className={cx('cs-img')} src={item?.images && item?.images[0]?.url} />
-                    </td>
-                    <td className={cx('fw-light', 'cs-cursor-text')}>{item?.Product?.title}</td>
-                    <td className={cx('fw-light', 'cs-cursor-text')}>{item?.Config?.Color?.name}</td>
-                    <td className={cx('fw-light', 'cs-cursor-text')}>{formatNumber(item?.Config?.price)}đ</td>
-                    <td className={cx('fw-light', 'cs-cursor-text')}>
-                      <div className="btn-group" role="group" aria-label="Default button group">
-                        <button type="button" className="btn btn-outline-secondary" onClick={() => handleDecreaseQuantityCart(item)}>-</button>
-                        <button disabled type="button" className="btn btn-outline-secondary text-dark">{item?.quantity}</button>
-                        <button type="button" className="btn btn-outline-secondary" onClick={() => handleIncreaseQuantityCart(item)}>+</button>
-                      </div>
-                    </td>
-                    <td className={cx('fw-light', 'cs-cursor-text')}>{formatNumber(item?.Config?.price * item?.quantity)}đ</td>
-                    <td className={cx('fw-light text-end', 'w-btn')}>
-                      <button type="button" className="btn btn-primary me-2" onClick={() => handleBuyOne(item)}>Mua ngay</button>
-                      <button type="button" className="btn btn-danger" onClick={() => handleDeleteCart(item)}>Xóa</button>
-                    </td>
-                  </tr>
-                )
-              })}
-              {/* total */}
-              <tr className={cx('cs-border')}>
-                <th className={cx('fw-light')}></th>
-                <th className={cx('fw-light')}></th>
-                <td className={cx('fw-light')}></td>
-                <td className={cx('fw-light')}></td>
-                <td className={cx('fw-light')}></td>
-                <td className={cx('fw-light')}></td>
-                <td className={cx('fw-medium px-5 text-danger')}>{carts && carts.reduce((total, num) => total + (num?.quantity || 0), 0)}</td>
-                <td className={cx('fw-medium text-danger')}>{carts && formatNumber(carts.reduce((total, item) => total + (item?.Config?.price * item?.quantity || 0), 0))}đ</td>
-                <td className={cx('fw-light text-end', 'w-btn')}>
-                  <button type="button" className="btn btn-primary text-light me-2" onClick={handleBuyMultiple}>Mua nhiều</button>
-                  <button type="button" className="btn btn-danger text-light" onClick={handleDeleteMultiple}>Xóa nhiều</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+      {carts.length > 0 ? (
+        <div className="mb-5">
+          <div className={cx('cart-container', 'container')}>
+            <h4 className={cx('cart-title')}>Giỏ Hàng</h4>
+
+            <div className={cx('cart-select-all')}>
+              <label className='fs-5'>
+                <input
+                  type="checkbox"
+                  onChange={handleSelectAll}
+                  checked={selectedItems.length === carts.length && carts.length > 0}
+                  className='me-2'
+                />
+                Chọn tất cả
+              </label>
+              <button className="btn btn-danger" onClick={handleDeleteMultiple}>Xóa nhiều</button>
+            </div>
+
+            <div className={cx('cart-items')}>
+              {carts.map((item, index) => (
+                <div
+                  key={`cart-${index}`}
+                  className={cx('cart-item')}
+                  onClick={() => handleCheckboxChange(item.id)} // Khi click vào item, sẽ chọn hoặc bỏ chọn checkbox
+                >
+                  <div className={cx('cart-item-check')}>
+                    <input
+                      type="checkbox"
+                      onChange={() => handleCheckboxChange(item.id)} // Đảm bảo checkbox có thể tự thay đổi
+                      checked={selectedItems.includes(item.id)}
+                    />
+                  </div>
+                  <div className={cx('cart-item-img')}>
+                    <img src={item?.images?.[0]?.url || 'https://via.placeholder.com/100'} alt={item?.Product?.title} />
+                  </div>
+                  <div className={cx('cart-item-info')}>
+                    <h5 className={cx('item-title')}>{item?.Product?.title}</h5>
+                    <p className={cx('item-color')}>{item?.Config?.Color?.name}</p>
+                    <p className={cx('item-price')}>{formatNumber(item?.Config?.price)}đ</p>
+                  </div>
+                  <div className={cx('cart-item-quantity')}>
+                    <button className="btn btn-sm fs-5" onClick={() => handleDecreaseQuantityCart(item)}>-</button>
+                    <span className='fs-5'>{item?.quantity}</span>
+                    <button className="btn btn-sm fs-5" onClick={() => handleIncreaseQuantityCart(item)}>+</button>
+                  </div>
+                  <div className={cx('cart-item-total')}>
+                    <div className={cx('total-price', 'mb-0')}>
+                      {formatNumber(item?.Config?.price * item?.quantity)}đ
+                    </div>
+                    <div className={cx('total-quantity', 'mb-2')}>
+                      {item?.quantity} x {formatNumber(item?.Config?.price)}đ
+                    </div>
+                    <div className={cx('cart-item-actions')}>
+                      <button className="btn btn-primary" onClick={() => handleBuyOne(item)}>Mua ngay</button>
+                      <button className="btn btn-danger" onClick={() => handleDeleteCart(item)}>Xóa</button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className={cx('cart-summary')}>
+              <div className={cx('summary-info')}>
+                <span className='fs-5'>Tổng cộng:</span>
+                <span className='fs-5'>{carts.reduce((total, item) => total + item?.quantity, 0)} sản phẩm</span>
+              </div>
+              <div className={cx('summary-total')}>
+                <span className='fs-4'>{formatNumber(carts.reduce((total, item) => total + item?.Config?.price * item?.quantity, 0))}đ</span>
+              </div>
+              <div className={cx('summary-actions')}>
+                <button className="btn btn-success" onClick={handleBuyMultiple}>Mua nhiều</button>
+              </div>
+            </div>
+          </div>
         </div>
-      </div> : <div className={cx('no-cart')}><img src='https://res.cloudinary.com/dqhj1sukr/image/upload/v1730960241/uploadLocal_ecommerce/cart.png' /></div>
-      }
+      ) : (
+        <div className={cx('empty-cart')}>
+          <img src="https://res.cloudinary.com/dqhj1sukr/image/upload/v1730960241/uploadLocal_ecommerce/cart.png" alt="Empty Cart" />
+          <p>Giỏ hàng của bạn hiện đang trống.</p>
+        </div>
+      )}
     </>
-  )
+  );
 }
 
-export default Cart
+export default Cart;
