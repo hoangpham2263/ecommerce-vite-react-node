@@ -21,7 +21,7 @@ module.exports = {
       rate: {
         type: Sequelize.INTEGER,
       },
-      comment: {
+      content: {
         type: Sequelize.STRING,
       },
       createdAt: {

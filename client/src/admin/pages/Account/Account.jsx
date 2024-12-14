@@ -84,7 +84,7 @@ const Account = () => {
           <tbody>
             {data?.data?.user.map((item, index) => (
               <tr key={index}>
-                <th scope="row">{(currentPage - 1) * limit + index + 1}</th>
+                <th scope="row">{(currentPage - 1) * limit + index + 1}</th>{console.log(item?.avatar)}
                 <td>{item?.avatar ? <img className={cx('image-avatar')} src={item?.avatar} alt="..." /> : <p></p>}</td>
                 <td>{item?.full_name}</td>
                 <td>{item?.username}</td>
