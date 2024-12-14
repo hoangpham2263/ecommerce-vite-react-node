@@ -183,7 +183,7 @@ const Cart = () => {
                 <span className='fs-5'>Tổng cộng:</span>
                 <span className='fs-5'>{carts.reduce((total, item) => total + item?.quantity, 0)} sản phẩm</span>
               </div>
-              <div className={cx('summary-total')}>
+              <div className={cx('summary-total','d-flex justify-content-end')}>
                 <span className='fs-4'>{formatNumber(carts.reduce((total, item) => total + item?.Config?.price * item?.quantity, 0))}đ</span>
               </div>
               <div className={cx('summary-actions')}>
