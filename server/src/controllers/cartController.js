@@ -131,15 +131,16 @@ const createFunc = async (req, res) => {
   try {
     const { ProductId, quantity, config_id } = req.body.data;
     if (!ProductId || !quantity) return res.status(400).json({ message: "missing required parameters" });
-    let cart = await db.Cart.findOne({ where: { [Op.and]: [{ UserId: req?.account?.user?.id }, { ProductId: ProductId }, { config_id: config_id }] } });
+    let cart = await db.Cart.findOne({ where: { [Op.and]: [{ UserId: req?.account?.user?.id }, { ProductId: ProductId }, { config_id: config_id }, { is_purchased: false }] } });
     if (!cart) {
       let data = await db.Cart.create({ UserId: req?.account?.user?.id, ProductId: ProductId, quantity: quantity, config_id: config_id });
-      return res.status(200).json({ message: "a cart is created successfully", data: data });
+      return res.status(201).json({ message: "a cart is created successfully", data: data });
     } else {
       const a = await cart.update({ quantity: quantity, config_id: config_id });
       return res.status(200).json({ message: "update cart success", data: a });
     }
   } catch (error) {
+    console.log(error)
     return res.status(500).json({ message: "error from server" });
   }
 }
@@ -171,10 +172,12 @@ const deleteFunc = async (req, res) => {
     })
     if (deleteCount > 0) {
       return res.status(200).json({ message: "delete cart success" });
+    } else {
+      return res.status(404).json({ message: "cart not found" });
     }
   } catch (error) {
     return res.status(500).json({ message: "error from server" });
   }
 }
 
-module.exports = { readFunc, createFunc, deleteFunc, readFuncAmount, readFuncByIds,updateFunc };
+module.exports = { readFunc, createFunc, deleteFunc, readFuncAmount, readFuncByIds, updateFunc };

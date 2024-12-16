@@ -48,25 +48,28 @@
         }
 
         .order-id-date {
-          display: flex;
+          display       : flex;
           flex-direction: column;
-          gap: 5px;
+          gap           : 5px;
 
           .order-id,
           .order-time,
           .order-date {
-            font-size   : 16px;
-            color       : var(--primary-color); /* Đặt màu chính */
+            font-size: 16px;
+            color    : var(--primary-color);
+            /* Đặt màu chính */
           }
 
           .order-time {
             font-size: 14px;
-            color     : var(--primary-color); /* Đặt màu chính */
+            color    : var(--primary-color);
+            /* Đặt màu chính */
           }
 
           .order-date {
             font-size: 14px;
-            color     : var(--primary-color); /* Đặt màu chính */
+            color    : var(--primary-color);
+            /* Đặt màu chính */
           }
         }
 
@@ -83,10 +86,11 @@
       }
 
       .order-status-wrapper {
-        margin-top: 10px;
-        font-size : 16px;
+        margin-top : 10px;
+        font-size  : 16px;
         font-weight: bold;
-        color: var(--primary-color); /* Giữ nguyên màu cho trạng thái */
+        color      : var(--primary-color);
+        /* Giữ nguyên màu cho trạng thái */
       }
 
       .order-details {
@@ -140,20 +144,25 @@
 
   .highlight {
     font-weight: bold;
-    color: var(--primary) !important; /* Áp dụng màu chính cho các nội dung in đậm */
+    color      : var(--primary) !important;
+    /* Áp dụng màu chính cho các nội dung in đậm */
   }
 }
 
 .cs-title-item {
-  cursor: pointer;
+  cursor    : pointer;
   transition: color 0.3s ease;
 
   &.cs-title-item-active {
-    color: var(--primary) !important; 
-    font-weight: bold; 
+    color      : var(--primary) !important;
+    font-weight: bold;
   }
 
   &:hover {
-    color: var(--primary) !important; 
+    color: var(--primary) !important;
   }
+}
+
+.btn-details {
+  width: 110px !important;
 }

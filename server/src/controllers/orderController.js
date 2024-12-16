@@ -135,13 +135,13 @@ const updateFunc = async (req, res) => {
     let data = req?.body?.data
     let order = await db.Order.findOne({ where: { id: data?.id, }, });
     if (order) {
-      await order.update({ user_id: data.user_id, cart_ids: data.cart_ids, order_status: data.order_status, total: data.total, note: data.note });
-      return res.status(200).json({ message: "update order success", code: 0 });
+      await order.update({ order_status: data.order_status });
+      return res.status(200).json({ message: data.order_status });
     } else {
-      return res.status(200).json({ message: "order not exist", code: 1 });
+      return res.status(200).json({ message: "order not exist" });
     }
   } catch (error) {
-    return res.status(500).json({ message: "error from server", code: -1 });
+    return res.status(500).json({ message: "error from server" });
   }
 }
 
@@ -151,12 +151,12 @@ const deleteFunc = async (req, res) => {
     let order = await db.Order.findOne({ where: { id: id, }, });
     if (order) {
       await order.destroy();
-      return res.status(200).json({ message: "delete order success", code: 0 });
+      return res.status(200).json({ message: "delete order success" });
     } else {
-      return res.status(200).json({ message: "order not exist", code: 1 });
+      return res.status(200).json({ message: "order not exist" });
     }
   } catch (error) {
-    return res.status(500).json({ message: "error from server", code: -1 });
+    return res.status(500).json({ message: "error from server" });
   }
 }
 

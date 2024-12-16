@@ -76,26 +76,30 @@ const Cart = () => {
 
   // ---------- delete ----------
   const handleDeleteCart = async (item) => {
-    const ids = [item?.id]
-    const fetchCart = await deleteCart(ids)
-    if (fetchCart?.data?.code === 0) {
+    try {
+      const ids = [item?.id]
+      await deleteCart(ids)
       handleFetchCarts()
       fetchAmountCart()
       toast.success('Đã xóa sản phẩm thành công')
+    } catch (error) {
+      toast.error(error?.response?.data?.message)
     }
   }
 
   const handleDeleteMultiple = async () => {
-    if (selectedItems.length > 0) {
-      const ids = selectedItems
-      const fetchCart = await deleteCart(ids)
-      if (fetchCart?.data?.code === 0) {
+    try {
+      if (selectedItems.length > 0) {
+        const ids = selectedItems
+        const fetchCart = await deleteCart(ids)
         handleFetchCarts()
         fetchAmountCart()
         toast.success('Đã xóa sản phẩm thành công')
+      } else {
+        toast.error('Vui lòng chọn ít nhất 1 sản phẩm')
       }
-    } else {
-      toast.error('Vui lòng chọn ít nhất 1 sản phẩm')
+    } catch (error) {
+      toast.error(error?.response?.data?.message)
     }
   }
 
@@ -183,7 +187,7 @@ const Cart = () => {
                 <span className='fs-5'>Tổng cộng:</span>
                 <span className='fs-5'>{carts.reduce((total, item) => total + item?.quantity, 0)} sản phẩm</span>
               </div>
-              <div className={cx('summary-total','d-flex justify-content-end')}>
+              <div className={cx('summary-total', 'd-flex justify-content-end')}>
                 <span className='fs-4'>{formatNumber(carts.reduce((total, item) => total + item?.Config?.price * item?.quantity, 0))}đ</span>
               </div>
               <div className={cx('summary-actions')}>

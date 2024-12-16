@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import classNames from 'classnames/bind'
 import styles from './Order.module.scss'
-import { readOrder, readOrderLine } from '../../services/publicApi'
+import { readOrder, readOrderLine, updateOrder } from '../../services/publicApi'
 
 const cx = classNames.bind(styles)
 
@@ -14,7 +14,7 @@ const Order = () => {
 
   const handleFetchOrder = async (status = null) => {
     try {
-      const response = await readOrder({ order_status: status }) 
+      const response = await readOrder({ order_status: status })
       setData(response?.data?.data || [])
     } catch (error) {
       toast.error('Error fetching orders.')
@@ -44,6 +44,21 @@ const Order = () => {
 
   const handleViewDetails = (orderId) => {
     setSelectedOrderId((prevId) => (prevId === orderId ? null : orderId))
+  }
+
+  const handleCancelOrder = async (orderId) => {
+    try {
+      let data = {
+        id: orderId,
+        order_status: 'cancelled'
+      }
+      await updateOrder(data)
+      // Fetch lại dữ liệu theo tab hiện tại
+      const status = activeTab === 'Tất cả' ? null : Object.keys(getStatus()).find(key => getStatus()[key] === activeTab)
+      handleFetchOrder(status)
+    } catch (error) {
+      toast.error(error?.response?.data?.message)
+    }
   }
 
   const getStatus = () => ({
@@ -120,12 +135,26 @@ const Order = () => {
                     </div>
                     <div className={cx('order-footer')}>
                       <button
-                        className={cx('btn', 'btn-primary me-2')}
+                        className={cx('btn', 'btn-primary me-2', 'btn-details')}
                         onClick={() => handleViewDetails(order?.dataValues?.id)}
                       >
-                        {selectedOrderId === order?.dataValues?.id ? 'Hide Details' : 'View Details'}
+                        {selectedOrderId === order?.dataValues?.id ? 'Ẩn chi tiết' : 'Xem chi tiết'}
                       </button>
-                      <button className={cx('btn', 'btn-secondary')}>Cancel Order</button>
+                      {order?.dataValues?.order_status !== 'cancelled' ? (
+                        <button 
+                          className={cx('btn', 'btn-danger')}
+                          onClick={() => handleCancelOrder(order?.dataValues?.id)}
+                        >
+                          Hủy đơn hàng
+                        </button>
+                      ) : (
+                        <button 
+                          className={cx('btn', 'btn-secondary')}
+                          disabled
+                        >
+                          Đơn hàng đã hủy
+                        </button>
+                      )}
                     </div>
                   </div>
                   {selectedOrderId === order?.dataValues?.id && (
@@ -135,6 +164,7 @@ const Order = () => {
                           <tr>
                             <th></th>
                             <th>Sản phẩm</th>
+                            <th>Màu</th>
                             <th>Số lượng</th>
                             <th>Giá</th>
                           </tr>
@@ -144,6 +174,7 @@ const Order = () => {
                             <tr key={index}>
                               <td><img src={cart?.images?.[0]?.url} alt={cart?.Product?.title} width="50" /></td>
                               <td>{cart?.Product?.title} - {cart?.Product?.Capacity?.name} - {cart?.Product?.Ram?.name}</td>
+                              <td>{cart?.Config?.Color?.name}</td>
                               <td>{cart?.quantity}</td>
                               <td>{formatNumber(cart?.Config?.price)}₫</td>
                             </tr>
