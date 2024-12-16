@@ -143,3 +143,17 @@
     color: var(--primary) !important; /* Áp dụng màu chính cho các nội dung in đậm */
   }
 }
+
+.cs-title-item {
+  cursor: pointer;
+  transition: color 0.3s ease;
+
+  &.cs-title-item-active {
+    color: var(--primary) !important; 
+    font-weight: bold; 
+  }
+
+  &:hover {
+    color: var(--primary) !important; 
+  }
+}

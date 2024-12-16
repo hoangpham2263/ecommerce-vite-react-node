@@ -18,8 +18,8 @@ module.exports = {
       cart_ids: {
         type: Sequelize.JSON,
       },
-      order_line_id: {
-        type: Sequelize.INTEGER,
+      order_status: {
+        type: Sequelize.STRING,
       },
       total: {
         type: Sequelize.FLOAT,

@@ -1,5 +1,7 @@
 import db from "../models/index";
 
+const order_line_attributes = ["id", "name", 'translated_name', "updatedAt", "createdAt"]
+
 const readFunc = async (req, res) => {
   try {
     let data
@@ -11,13 +13,13 @@ const readFunc = async (req, res) => {
       let { count, rows } = await db.Order_Line.findAndCountAll({
         offset: offset,
         limit: limit,
-        attributes: ["id", "name","updatedAt","createdAt"],
-        order: [["name", "ASC"]],
+        attributes: order_line_attributes,
+        order: [["id", "ASC"]],
       })
       const totalPages = Math.ceil(count / limit);
       data = { totalRows: count, totalPages: totalPages, orderLine: rows, }
     } else {
-      data = await db.Order_Line.findAll({ attributes: ["id", "name","updatedAt","createdAt"], order: [["name", "ASC"]] })
+      data = await db.Order_Line.findAll({ attributes: order_line_attributes, order: [["id", "ASC"]] })
     }
     return res.status(200).json({ message: "get order line success", code: 0, data: data, });
   } catch (error) {
@@ -27,9 +29,9 @@ const readFunc = async (req, res) => {
 
 const createFunc = async (req, res) => {
   try {
-    const { name} = req.body.data;
-    if (!name ) return res.status(200).json({ message: "missing required parameters", code: 1 });
-    let data = await db.Order_Line.create({ name: name});
+    const { name } = req.body.data;
+    if (!name) return res.status(200).json({ message: "missing required parameters", code: 1 });
+    let data = await db.Order_Line.create({ name: name });
     return res.status(200).json({ message: "a order line is created successfully", code: 0, data: data });
   } catch (error) {
     return res.status(500).json({ message: "error from server", code: -1 });

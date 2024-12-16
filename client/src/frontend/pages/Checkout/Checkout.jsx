@@ -45,7 +45,7 @@ const Checkout = () => {
     let currentDataPayment = carts.reduce((total, item) => total + (item?.Config?.price * item?.quantity || 0), 0) + +dataPayment.ship
     const fetchSendMailer = await sendMailer({ userLogin: LocalStorageGetInfos?.user, dataCheckout: carts, value: currentDataPayment })
     if (fetchSendMailer) {
-      let fetchCreateOrder = await createOrder({ user_id: LocalStorageGetInfos?.user?.id, cart_ids: dataCheckout, order_line_id: 1, total: currentDataPayment, note: 'Thanh toán khi nhận hàng' })
+      let fetchCreateOrder = await createOrder({ user_id: LocalStorageGetInfos?.user?.id, cart_ids: dataCheckout, order_status: 'pending', total: currentDataPayment, note: 'Thanh toán khi nhận hàng' })
       if (fetchCreateOrder) {
         const ids = dataCheckout
         await updateCart(ids)
@@ -73,7 +73,7 @@ const Checkout = () => {
         let currentDataPayment = carts.reduce((total, item) => total + (item?.Config?.price * item?.quantity || 0), 0) + +dataPayment.ship
         const fetchSendMailer = await sendMailer({ userLogin: LocalStorageGetInfos?.user, dataCheckout: carts, value: currentDataPayment })
         if (fetchSendMailer) {
-          let fetchCreateOrder = await createOrder({ user_id: LocalStorageGetInfos?.user?.id, cart_ids: dataCheckout, order_line_id: 1, total: currentDataPayment, note: 'Thanh toán khi nhận hàng' })
+          let fetchCreateOrder = await createOrder({ user_id: LocalStorageGetInfos?.user?.id, cart_ids: dataCheckout, order_status: 'pending', total: currentDataPayment, note: 'Thanh toán khi nhận hàng' })
           if (fetchCreateOrder) {
             const ids = dataCheckout
             await updateCart(ids)

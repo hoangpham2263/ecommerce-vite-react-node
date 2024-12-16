@@ -9,7 +9,6 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Order.belongsTo(models.Order_Line, { foreignKey: 'order_line_id' });
       Order.belongsTo(models.User, { foreignKey: 'user_id' });
     }
   }
@@ -17,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       user_id: DataTypes.INTEGER,
       cart_ids: DataTypes.JSON,
-      order_line_id: DataTypes.INTEGER,
+      order_status: DataTypes.STRING,
       total: DataTypes.FLOAT,
       note: DataTypes.STRING,
     },

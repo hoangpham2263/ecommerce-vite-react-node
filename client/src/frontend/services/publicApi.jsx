@@ -52,13 +52,18 @@ const createOrder = (data) => { return authAxios.post('/api/order', { data }) }
 const updateOrder = (data) => { return authAxios.put('/api/order', { data }) }
 const deleteOrder = (id) => { return authAxios.delete('/api/order', { data: { id } }) }
 
+
+// CRUD Order Line
+const readOrderLine = (data) => { return authAxios.get('/api/order-line', { params: data }) }
+
+
 // Send Mail
 const sendMailer = (data) => { return defaultAxios.post('/api/send-mail', { data }) }
 const sendMailerContact = (data) => { return defaultAxios.post('/api/send-mail-contact', { data }) }
 
 export {
   readCart, addCart, deleteCart, readCartAmount, readCartByIds, readConfig,updateCart,
-  createImage, readImage, updateImage, deleteImage,
+  createImage, readImage, updateImage, deleteImage,readOrderLine,
   readUser, readProduct, readProductDetail,
   readColorDetail, readColor, readCapacity, readRam, readCategory, readBrand, readVersion, readAddress,
   sendMailer, sendMailerContact,
