@@ -26,7 +26,7 @@ const cart_includes = [
 
 const readFunc = async (req, res) => {
   try {
-    let data
+    let data;
     if (req.query.page && req.query.limit) {
       let { page, limit } = req.query;
       page = parseInt(page, 10) || 1;
@@ -35,7 +35,7 @@ const readFunc = async (req, res) => {
       let { count, rows } = await db.Cart.findAndCountAll({
         offset: offset,
         limit: limit,
-        where: { UserId: req.query.user_id },
+        where: { UserId: req.query.user_id, is_purchased: false },
         attributes: cart_attributes,
         order: [["UserId", "ASC"]],
         include: cart_includes,
@@ -44,7 +44,7 @@ const readFunc = async (req, res) => {
       data = { totalRows: count, totalPages: totalPages, cart: rows, }
     } else {
       data = await db.Cart.findAll({
-        where: { UserId: req.query.user_id },
+        where: { UserId: req.query.user_id, is_purchased: false },
         attributes: cart_attributes,
         order: [["UserId", "ASC"]],
         include: cart_includes,
@@ -81,7 +81,11 @@ const readFuncAmount = async (req, res) => {
     if (!token) return res.status(401).json({ message: "No token provided", code: -1 });
     const decoded = jwt.decode(token);
 
-    const { count, rows } = await db.Cart.findAndCountAll({ where: { UserId: decoded?.userPresent?.user?.id }, attributes: cart_attributes, order: [["UserId", "ASC"]] })
+    const { count, rows } = await db.Cart.findAndCountAll({
+      where: { UserId: decoded?.userPresent?.user?.id, is_purchased: false },
+      attributes: cart_attributes,
+      order: [["UserId", "ASC"]]
+    });
     return res.status(200).json({ message: "get cart success", code: 0, data: count, });
   } catch (error) {
     return res.status(500).json({ message: "error from server", code: -1 });
@@ -94,7 +98,7 @@ const readFuncByIds = async (req, res) => {
     ids = typeof (ids) === 'string' ? JSON.parse(ids) : ids;
 
     const data = await db.Cart.findAll({
-      where: { id: { [Op.in]: ids } },
+      where: { id: { [Op.in]: ids }, is_purchased: false },
       attributes: cart_attributes,
       order: [["UserId", "ASC"]],
       include: cart_includes,
@@ -140,6 +144,25 @@ const createFunc = async (req, res) => {
   }
 }
 
+const updateFunc = async (req, res) => {
+  try {
+    let { ids } = req.body.data;
+
+    const updateCount = await db.Cart.update(
+      { is_purchased: true },
+      { where: { id: { [Op.in]: ids } } }
+    );
+
+    if (updateCount[0] > 0) {
+      return res.status(200).json({ message: "update cart success" });
+    } else {
+      return res.status(404).json({ message: "cart not found" });
+    }
+  } catch (error) {
+    return res.status(500).json({ message: "error from server" });
+  }
+};
+
 const deleteFunc = async (req, res) => {
   try {
     let { ids } = req.body;
@@ -147,11 +170,11 @@ const deleteFunc = async (req, res) => {
       where: { id: { [Op.in]: ids } }
     })
     if (deleteCount > 0) {
-      return res.status(200).json({ message: "delete cart success", code: 0 });
+      return res.status(200).json({ message: "delete cart success" });
     }
   } catch (error) {
-    return res.status(500).json({ message: "error from server", code: -1 });
+    return res.status(500).json({ message: "error from server" });
   }
 }
 
-module.exports = { readFunc, createFunc, deleteFunc, readFuncAmount, readFuncByIds };
+module.exports = { readFunc, createFunc, deleteFunc, readFuncAmount, readFuncByIds,updateFunc };

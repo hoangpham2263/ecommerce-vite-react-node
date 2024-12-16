@@ -4,7 +4,7 @@ import { IoLocationSharp } from 'react-icons/io5'
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js'
 import { toast } from 'react-toastify'
 import { useEffect, useState } from 'react'
-import { readCartByIds, sendMailer, createOrder, deleteCart } from '../../services/publicApi'
+import { readCartByIds, sendMailer, createOrder, updateCart } from '../../services/publicApi'
 import { BsCashCoin } from 'react-icons/bs'
 import { BsPaypal } from 'react-icons/bs'
 import config from '../../config'
@@ -48,7 +48,7 @@ const Checkout = () => {
       let fetchCreateOrder = await createOrder({ user_id: LocalStorageGetInfos?.user?.id, cart_ids: dataCheckout, order_line_id: 1, total: currentDataPayment, note: 'Thanh toán khi nhận hàng' })
       if (fetchCreateOrder) {
         const ids = dataCheckout
-        await deleteCart(ids)
+        await updateCart(ids)
         localStorage.removeItem('dataCheckout')
         toast.success('Đặt hàng thành công')
         window.location.href = config.routes.order
@@ -76,7 +76,7 @@ const Checkout = () => {
           let fetchCreateOrder = await createOrder({ user_id: LocalStorageGetInfos?.user?.id, cart_ids: dataCheckout, order_line_id: 1, total: currentDataPayment, note: 'Thanh toán khi nhận hàng' })
           if (fetchCreateOrder) {
             const ids = dataCheckout
-            await deleteCart(ids)
+            await updateCart(ids)
             localStorage.removeItem('dataCheckout')
             toast.success('Đặt hàng thành công')
             window.location.href = config.routes.order

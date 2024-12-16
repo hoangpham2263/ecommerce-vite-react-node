@@ -24,6 +24,9 @@ module.exports = {
       config_id: {
         type: Sequelize.INTEGER,
       },
+      is_purchased: {
+        type: Sequelize.BOOLEAN,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

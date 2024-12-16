@@ -45,6 +45,7 @@ const adminRoute = (app) => {
   router.get("/cart-amount", authCheckExistToken, authCheckUserPermission(99), cartController.readFuncAmount)
   router.get("/cart-by-ids", cartController.readFuncByIds)
   router.post("/cart", authCheckExistToken, authCheckUserPermission(99), cartController.createFunc)
+  router.put("/cart", authCheckExistToken, authCheckUserPermission(99), cartController.updateFunc)
   router.delete("/cart", authCheckExistToken, authCheckUserPermission(99), cartController.deleteFunc)
 
   // order

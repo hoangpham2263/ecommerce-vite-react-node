@@ -20,6 +20,10 @@ module.exports = (sequelize, DataTypes) => {
       ProductId: DataTypes.INTEGER,
       quantity: DataTypes.INTEGER,
       config_id: DataTypes.INTEGER,
+      is_purchased: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
+      }
     },
     {
       sequelize,

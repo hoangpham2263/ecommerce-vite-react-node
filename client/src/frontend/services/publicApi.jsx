@@ -20,6 +20,7 @@ const readCart = (data) => { return authAxios.get('/api/cart', { params: data })
 const readCartAmount = () => { return authAxios.get('/api/cart-amount') }
 const readCartByIds = (ids) => { return defaultAxios.get('/api/cart-by-ids', { params: { ids: ids } }) }
 const addCart = (data) => { return authAxios.post('/api/cart', { data }) }
+const updateCart = (ids) => { return authAxios.put('/api/cart', { data: { ids } }) }
 const deleteCart = (ids) => { return authAxios.delete('/api/cart', { data: { ids } }) }
 
 // ---------- image ----------
@@ -56,7 +57,7 @@ const sendMailer = (data) => { return defaultAxios.post('/api/send-mail', { data
 const sendMailerContact = (data) => { return defaultAxios.post('/api/send-mail-contact', { data }) }
 
 export {
-  readCart, addCart, deleteCart, readCartAmount, readCartByIds, readConfig,
+  readCart, addCart, deleteCart, readCartAmount, readCartByIds, readConfig,updateCart,
   createImage, readImage, updateImage, deleteImage,
   readUser, readProduct, readProductDetail,
   readColorDetail, readColor, readCapacity, readRam, readCategory, readBrand, readVersion, readAddress,
