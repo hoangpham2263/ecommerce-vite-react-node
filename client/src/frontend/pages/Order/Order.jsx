@@ -9,7 +9,7 @@ const cx = classNames.bind(styles)
 const Order = () => {
   const [data, setData] = useState([])
   const [activeTab, setActiveTab] = useState('Tất cả')
-  const [selectedOrderId, setSelectedOrderId] = useState(null) // Store the selected order's id
+  const [selectedOrderId, setSelectedOrderId] = useState(null)
 
   const handleFetchOrder = async () => {
     try {
@@ -27,7 +27,6 @@ const Order = () => {
   const formatNumber = (number) => number.toLocaleString('vi-VN')
 
   const handleViewDetails = (orderId) => {
-    // Toggle the selected order to show/hide details
     setSelectedOrderId((prevId) => (prevId === orderId ? null : orderId))
   }
 
@@ -77,42 +76,43 @@ const Order = () => {
                     <div className={cx('order-header')}>
                       <div className={cx('order-id-date')}>
                         <div className={cx('order-id')}>
-                          <strong>ID:</strong> {order?.dataValues?.id}
+                          {/* <strong className={cx('highlight')}>ID:</strong> {order?.dataValues?.id} */}
                         </div>
                         <div className={cx('order-time')}>
-                          <strong>Giờ:</strong> {new Date(order?.dataValues?.createdAt).toLocaleTimeString('vi-VN')}
+                          <strong className={cx('highlight')}>Giờ tạo:</strong> {new Date(order?.dataValues?.createdAt).toLocaleTimeString('vi-VN')}
                         </div>
                         <div className={cx('order-date')}>
-                          <strong>Ngày tạo:</strong> {formatDate(order?.dataValues?.createdAt)}
+                          <strong className={cx('highlight')}>Ngày tạo:</strong> {formatDate(order?.dataValues?.createdAt)}
                         </div>
                       </div>
                     </div>
                     <div className={cx('order-body')}>
                       <div className={cx('order-info')}>
                         <div className={cx('info-item')}>
-                          <span className={cx('label')}><strong>Số lượng:</strong> </span>
+                          <span className={cx('label')}><strong className={cx('highlight')}>Số lượng:</strong> </span>
                           <span className={cx('value')}>{order?.dataValues?.cart_ids?.length} sản phẩm</span>
                         </div>
                         <div className={cx('info-item')}>
-                          <span className={cx('label')}><strong>Thành tiền:</strong> </span>
+                          <span className={cx('label')}><strong className={cx('highlight')}>Thành tiền:</strong> </span>
                           <span className={cx('value', 'total')}>{formatNumber(order?.dataValues?.total)}₫</span>
                         </div>
                         <div className={cx('info-item')}>
-                          <span className={cx('label')}><strong>Ghi chú:</strong> </span>
+                          <span className={cx('label')}><strong className={cx('highlight')}>Ghi chú:</strong> </span>
                           <span className={cx('value')}>{order?.dataValues?.note}</span>
                         </div>
                       </div>
                     </div>
 
-                    {/* Status - now placed here after the order body */}
+                    {/* Status - giữ nguyên không thay đổi */}
                     <div className={cx('order-status-wrapper')}>
-                      <span className={cx('order-status')}><strong>Trạng thái:</strong> {getStatus(order?.dataValues?.status)}</span>
+                      <span className={cx('order-status')}><strong className={cx('highlight')}>Trạng thái:</strong> {getStatus(order?.dataValues?.status)}</span>
                     </div>
 
                     <div className={cx('order-footer')}>
                       <button
                         className={cx('btn', 'btn-primary me-2')}
-                        onClick={() => handleViewDetails(order?.dataValues?.id)} // Toggle order details
+                        style={{ backgroundColor: 'var(--primary)', borderColor: 'var(--primary)' }}
+                        onClick={() => handleViewDetails(order?.dataValues?.id)}
                       >
                         {selectedOrderId === order?.dataValues?.id ? 'Hide Details' : 'View Details'}
                       </button>

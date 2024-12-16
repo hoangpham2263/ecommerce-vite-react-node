@@ -50,23 +50,23 @@
         .order-id-date {
           display: flex;
           flex-direction: column;
-          gap: 5px; /* Adjust the space between the lines */
+          gap: 5px;
 
           .order-id,
           .order-time,
           .order-date {
-            font-size: 16px;
-            font-weight: bold;
+            font-size   : 16px;
+            color       : var(--primary-color); /* Đặt màu chính */
           }
 
           .order-time {
             font-size: 14px;
-            color: var(--secondary-color); /* Optional: to make the time slightly lighter */
+            color     : var(--primary-color); /* Đặt màu chính */
           }
 
           .order-date {
             font-size: 14px;
-            color: var(--text-secondary);
+            color     : var(--primary-color); /* Đặt màu chính */
           }
         }
 
@@ -84,9 +84,9 @@
 
       .order-status-wrapper {
         margin-top: 10px;
-        font-size: 16px;
+        font-size : 16px;
         font-weight: bold;
-        color: var(--primary-color);
+        color: var(--primary-color); /* Giữ nguyên màu cho trạng thái */
       }
 
       .order-details {
@@ -136,5 +136,10 @@
       font-size: 16px;
       color    : var(--text-secondary);
     }
+  }
+
+  .highlight {
+    font-weight: bold;
+    color: var(--primary) !important; /* Áp dụng màu chính cho các nội dung in đậm */
   }
 }
