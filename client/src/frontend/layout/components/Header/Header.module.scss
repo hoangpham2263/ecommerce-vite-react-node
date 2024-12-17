@@ -208,3 +208,46 @@
   }
 
 }
+
+/* Dropdown Menu Styles */
+.cs-nav-item-dropdown {
+  position: relative;
+
+  .cs-dropdown-menu {
+    position        : absolute;
+    top             : 100%;
+    left            : 0;
+    background-color: #fff;
+    box-shadow      : 0 2px 5px rgba(0, 0, 0, 0.2);
+    border-radius   : 4px;
+    width           : 200px;
+    z-index         : 10;
+    padding         : 10px 0;
+    margin-top      : 9px;
+  }
+
+  .cs-dropdown-menu::before {
+    content     : '';
+    width       : 20px;
+    height      : 20px;
+    position    : absolute;
+    top         : -20px;
+    left        : 40px;
+    border-width: 9px;
+    border-style: solid;
+    border-color: transparent transparent #fff transparent;
+  }
+
+  .cs-dropdown-item {
+    display        : block;
+    padding        : 8px 16px;
+    color          : #333;
+    text-decoration: none;
+    font-size      : 14px;
+
+    &:hover {
+      color           : var(--primary);
+      background-color: #f0f0f0;
+    }
+  }
+}

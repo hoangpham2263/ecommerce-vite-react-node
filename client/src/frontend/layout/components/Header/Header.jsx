@@ -1,6 +1,7 @@
+import React, { useState } from 'react'
 import { CiLocationOn } from 'react-icons/ci'
 import { IoIosArrowDown } from 'react-icons/io'
-import { PiPhoneCallThin, PiUserCircleThin } from 'react-icons/pi'
+import { PiPhoneCallThin } from 'react-icons/pi'
 import { LiaShippingFastSolid } from 'react-icons/lia'
 import { HiOutlineShoppingBag } from 'react-icons/hi2'
 import Search from '../Search'
@@ -17,7 +18,7 @@ import { CountCartContext } from '../../../hooks/useContext'
 
 // ---------- search ----------
 import { IoIosSearch } from 'react-icons/io'
-import { createContext, useState } from 'react'
+import { createContext, useState as useStateSearch } from 'react'
 export const ToggleSearchFullscreenContext = createContext(null)
 
 const cx = classNames.bind(styles)
@@ -26,7 +27,7 @@ const Header = () => {
   const { countCart } = useContext(CountCartContext)
 
   // ---------- search ----------
-  const [blockSearchFullscreen, setBlockSearchFullscreen] = useState(false)
+  const [blockSearchFullscreen, setBlockSearchFullscreen] = useStateSearch(false)
   const handleSearchFullscreen = (e) => {
     e.preventDefault()
     setBlockSearchFullscreen((pre) => !pre)
@@ -35,18 +36,42 @@ const Header = () => {
     setBlockSearchFullscreen((pre) => !pre)
   }
 
+  // Dropdown state
+  const [dropdownOpen, setDropdownOpen] = useState(false)
+
+  // Toggle dropdown visibility
+  const toggleDropdown = () => {
+    setDropdownOpen((prev) => !prev)
+  }
+
   return (
     <header className={cx('gl-bg-primary', 'w-100', 'wrapper')}>
       <BannerTopHead />
       <div className={cx('container', 'gl-bg-transparent', 'cs-header')}>
         <div className={cx('me-2')}><LogoSmall /></div>
-        <div className={cx('cs-nav-item', 'cs-nav-item-bg')}><CgLoadbarDoc className={cx('cs-nav-item-icon')} />Danh Mục</div>
-        <div className={cx('cs-nav-item', 'cs-nav-item-bg')}><CiLocationOn className={cx('cs-nav-item-icon')} />
+
+        {/* Dropdown Button */}
+        <div className={cx('cs-nav-item', 'cs-nav-item-bg', 'cs-nav-item-dropdown')} onClick={toggleDropdown}>
+          <CgLoadbarDoc className={cx('cs-nav-item-icon')} />
+          Danh mục
+          {/* Dropdown Menu */}
+          {dropdownOpen && (
+            <div className={cx('cs-dropdown-menu')}>
+              <a href={config.routes.phone} className={cx('cs-dropdown-item')}>Điện thoại</a>
+              <a href={config.routes.ipad} className={cx('cs-dropdown-item')}>Máy tính bảng</a>
+              <a href={config.routes.laptop} className={cx('cs-dropdown-item')}>Máy xách tay</a>
+            </div>
+          )}
+        </div>
+
+        <div className={cx('cs-nav-item', 'cs-nav-item-bg')}>
+          <CiLocationOn className={cx('cs-nav-item-icon')} />
           <div className={cx('d-flex', 'flex-column')}>
             <p className={cx('gl-fz-10', 'm-0', 'd-flex', 'justify-content-between')}>Xem giá tại <IoIosArrowDown className={cx('gl-fz-1', 'ms-1')} /></p>
             <p className={cx('gl-fz-14', 'm-0')}>Hồ Chí Minh</p>
           </div>
         </div>
+
         <div className={cx('me-2')}>
           <div to="/" className={cx('social-category-link')} onClick={handleSearchFullscreen}>
             <div className={cx('search')}>
@@ -61,24 +86,31 @@ const Header = () => {
             </div>
           </div>
         </div>
-        <a href="tel:0971955144" className={cx('cs-nav-item', 'text-decoration-none', 'text-light')}><PiPhoneCallThin className={cx('cs-nav-item-icon')} />
+
+        <a href="tel:0971955144" className={cx('cs-nav-item', 'text-decoration-none', 'text-light')}>
+          <PiPhoneCallThin className={cx('cs-nav-item-icon')} />
           <div className={cx('d-flex', 'flex-column')}>
             <p className={cx('gl-fz-12', 'm-0', 'd-flex', 'justify-content-between')}>Gọi mua hàng</p>
             <p className={cx('gl-fz-10', 'm-0')}>0971955144</p>
           </div>
         </a>
-        <div className={cx('cs-nav-item')}><CiLocationOn className={cx('cs-nav-item-icon')} />
+
+        <div className={cx('cs-nav-item')}>
+          <CiLocationOn className={cx('cs-nav-item-icon')} />
           <div className={cx('d-flex', 'flex-column')}>
             <p className={cx('gl-fz-11', 'm-0', 'd-flex', 'justify-content-between')}>Cửa hàng</p>
             <p className={cx('gl-fz-11', 'm-0')}>gần bạn</p>
           </div>
         </div>
-        <div onClick={() => window.location.href = config.routes.order} className={cx('cs-nav-item')}><LiaShippingFastSolid className={cx('cs-nav-item-icon')} />
+
+        <div onClick={() => window.location.href = config.routes.order} className={cx('cs-nav-item')}>
+          <LiaShippingFastSolid className={cx('cs-nav-item-icon')} />
           <div className={cx('d-flex', 'flex-column')}>
             <p className={cx('gl-fz-11', 'm-0', 'd-flex', 'justify-content-between')}>Tra cứu</p>
             <p className={cx('gl-fz-11', 'm-0')}>đơn hàng</p>
           </div>
         </div>
+
         <div onClick={() => window.location.href = config.routes.cart} className={cx('cs-nav-item')}>
           <span className={cx('cs-amount-cart-bl')}>
             <HiOutlineShoppingBag className={cx('cs-icon-cart')} />
@@ -89,6 +121,7 @@ const Header = () => {
             <p className={cx('gl-fz-11', 'm-0')}>hàng</p>
           </div>
         </div>
+
         <UserInfoLogin />
       </div>
       <div className={cx('modal', 'fade')} id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -111,6 +144,7 @@ const Header = () => {
           </div>
         </div>
       </div>
+
       {/* search fullscreen */}
       <ToggleSearchFullscreenContext.Provider value={handleClose}>
         <Search

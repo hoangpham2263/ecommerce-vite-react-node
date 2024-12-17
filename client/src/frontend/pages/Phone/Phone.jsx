@@ -72,7 +72,7 @@ const Phone = () => {
   return (
     <div className='container'>
       <>
-        <h1 className={cx('title')}>IPhone</h1>
+        <h1 className={cx('title')}>Phone</h1>
         <SliderDefaultLayout
           images={['https://shopdunk.com/images/uploaded/banner/banner_thang12/gen10dm.png', 'https://shopdunk.com/images/uploaded/banner/banner_thang12/airdm.png', 'https://shopdunk.com/images/uploaded/banner/banner_thang12/g9dm.png']}
         />
