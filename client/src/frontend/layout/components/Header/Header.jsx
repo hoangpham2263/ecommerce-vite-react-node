@@ -15,10 +15,25 @@ import './Header.css'
 import { useContext } from 'react'
 import { CountCartContext } from '../../../hooks/useContext'
 
+// ---------- search ----------
+import { IoIosSearch } from 'react-icons/io'
+import { createContext, useState } from 'react'
+export const ToggleSearchFullscreenContext = createContext(null)
+
 const cx = classNames.bind(styles)
 
 const Header = () => {
   const { countCart } = useContext(CountCartContext)
+
+  // ---------- search ----------
+  const [blockSearchFullscreen, setBlockSearchFullscreen] = useState(false)
+  const handleSearchFullscreen = (e) => {
+    e.preventDefault()
+    setBlockSearchFullscreen((pre) => !pre)
+  }
+  const handleClose = () => {
+    setBlockSearchFullscreen((pre) => !pre)
+  }
 
   return (
     <header className={cx('gl-bg-primary', 'w-100', 'wrapper')}>
@@ -32,7 +47,20 @@ const Header = () => {
             <p className={cx('gl-fz-14', 'm-0')}>Hồ Chí Minh</p>
           </div>
         </div>
-        <div className={cx('me-2')}><Search /></div>
+        <div className={cx('me-2')}>
+          <div to="/" className={cx('social-category-link')} onClick={handleSearchFullscreen}>
+            <div className={cx('search')}>
+              <input
+                className={cx('input-search')}
+                placeholder="Tìm kiếm sản phẩm ..."
+                spellCheck={false}
+              />
+              <button className={cx('btn-search')}>
+                <IoIosSearch className={cx('btn-search-icon')} />
+              </button>
+            </div>
+          </div>
+        </div>
         <a href="tel:0971955144" className={cx('cs-nav-item', 'text-decoration-none', 'text-light')}><PiPhoneCallThin className={cx('cs-nav-item-icon')} />
           <div className={cx('d-flex', 'flex-column')}>
             <p className={cx('gl-fz-12', 'm-0', 'd-flex', 'justify-content-between')}>Gọi mua hàng</p>
@@ -83,6 +111,13 @@ const Header = () => {
           </div>
         </div>
       </div>
+      {/* search fullscreen */}
+      <ToggleSearchFullscreenContext.Provider value={handleClose}>
+        <Search
+          blockSearchFullscreen={blockSearchFullscreen}
+          handleClose={handleClose}
+        />
+      </ToggleSearchFullscreenContext.Provider>
     </header>
   )
 }

@@ -18,7 +18,7 @@ const readFunc = async (req, res) => {
       const totalPages = Math.ceil(count / limit);
       data = { totalRows: count, totalPages: totalPages, version: rows, }
     } else {
-      data = await db.Version.findAll({ attributes: ["id", "name", "updatedAt", "createdAt"], order: [["name", "ASC"]] })
+      data = await db.Version.findAll({ where: { brand_id: brand_id }, attributes: ["id", "name", "updatedAt", "createdAt"], order: [["name", "ASC"]] })
     }
     return res.status(200).json({ message: "get version success", code: 0, data: data, });
   } catch (error) {

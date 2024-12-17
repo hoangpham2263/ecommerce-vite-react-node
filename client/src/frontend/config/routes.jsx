@@ -6,7 +6,9 @@ const routes = {
   homeDetail: '/:slug',
   cart: '/cart',
   order: '/order',
-  dienThoai: '/dien-thoai',
+  phone: '/dien-thoai',
+  laptop: '/laptop',
+  ipad: '/ipad',
   checkout: '/checkout'
 }
 

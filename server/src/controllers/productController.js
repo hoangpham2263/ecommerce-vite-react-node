@@ -45,14 +45,25 @@ const readFunc = async (req, res) => {
       return { ...configData, images: imagesByConfigId[configData.id] || [] }
     });
     const configByProductId = groupConfigsByProductId(groupedConfigs);
+
     // ---------- pagination ----------
-    if (req.query.page && req.query.limit) {
-      let { page, limit } = req.query;
+    if (req.query.category_id && req.query.brand_id && req.query.version_id && req.query.page && req.query.limit) {
+      // Truy vấn với category_id, brand_id, version_id, page, và limit
+      let { category_id, brand_id, version_id, page, limit } = req.query;
       page = parseInt(page, 10) || 1;
       limit = parseInt(limit, 10) || 10;
       let offset = (page - 1) * limit;
 
+      let whereCondition = {
+        [Op.and]: [
+          { category_id: category_id },
+          { brand_id: brand_id },
+          { version_id: version_id }
+        ]
+      };
+
       let { count, rows } = await db.Product.findAndCountAll({
+        where: whereCondition,
         offset: offset,
         limit: limit,
         attributes: prod_attributes,
@@ -68,7 +79,67 @@ const readFunc = async (req, res) => {
           configs: configByProductId[productData.id] || [],
         };
       });
+
       data = { totalRows: count, totalPages: totalPages, product: groupedProducts };
+
+    } else if (req.query.page && req.query.limit) {
+      // Phân trang mặc định không có category_id, brand_id, version_id
+      let { page, limit, search } = req.query;
+      page = parseInt(page, 10) || 1;
+      limit = parseInt(limit, 10) || 10;
+      let offset = (page - 1) * limit;
+
+      let whereCondition = {};
+      if (search) {
+        whereCondition = {
+          [Op.or]: [
+            { title: { [Op.like]: `%${search}%` } },
+            { desc: { [Op.like]: `%${search}%` } }
+          ]
+        };
+      }
+
+      let { count, rows } = await db.Product.findAndCountAll({
+        where: whereCondition,
+        offset: offset,
+        limit: limit,
+        attributes: prod_attributes,
+        order: [["id", "DESC"]],
+        include: prod_includes,
+      });
+
+      let totalPages = Math.ceil(count / limit);
+      const groupedProducts = rows.map((product) => {
+        const productData = product.toJSON();
+        return {
+          ...productData,
+          configs: configByProductId[productData.id] || [],
+        };
+      });
+
+      data = { totalRows: count, totalPages: totalPages, product: groupedProducts };
+
+    } else if (req.query.category_id && req.query.brand_id && req.query.version_id) {
+      let { category_id, brand_id, version_id } = req.query;
+      data = await db.Product.findAll({
+        where: {
+          [Op.and]: [
+            { category_id: category_id },
+            { brand_id: brand_id },
+            { version_id: version_id }
+          ]
+        },
+        attributes: prod_attributes,
+        order: [["capacity_id", "ASC"]],
+        include: prod_includes,
+      });
+      data = data.map((product) => {
+        const productData = product.toJSON();
+        return {
+          ...productData,
+          configs: configByProductId[productData.id] || [],
+        };
+      });
 
     } else if (req.query.ids) {
       let { ids } = req.query;
@@ -87,12 +158,17 @@ const readFunc = async (req, res) => {
         };
       });
 
-    } else if (req.query.category_id && req.query.brand_id && req.query.version_id) {
-      let { category_id, brand_id, version_id } = req.query;
+    } else if (req.query.search) {
+      const { search } = req.query;
       data = await db.Product.findAll({
-        where: { [Op.and]: [{ category_id: category_id }, { brand_id: brand_id }, { version_id: version_id }] },
+        where: {
+          [Op.or]: [
+            { title: { [Op.like]: `%${search}%` } },
+            { desc: { [Op.like]: `%${search}%` } }
+          ]
+        },
         attributes: prod_attributes,
-        order: [["capacity_id", "ASC"]],
+        order: [["id", "DESC"]],
         include: prod_includes,
       });
       data = data.map((product) => {
@@ -121,9 +197,11 @@ const readFunc = async (req, res) => {
     return res.status(200).json({ message: "get product success", code: 0, data: data });
 
   } catch (error) {
+    console.log(error)
     return res.status(500).json({ message: "error from server", code: -1 });
   }
 };
+
 
 // ---------- Read Product Detail ----------
 const readFuncWithSlug = async (req, res) => {

@@ -78,6 +78,10 @@
             .item-title {
                 font-weight: bold;
                 font-size  : 1.2rem;
+
+                &:hover {
+                    text-decoration: underline;
+                }
             }
 
             .item-color {

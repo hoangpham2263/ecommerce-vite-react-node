@@ -6,41 +6,20 @@ import Favorite from '@mui/icons-material/Favorite'
 import Rating from '@mui/material/Rating'
 import Checkbox from '@mui/material/Checkbox'
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder'
-import { addCart, readProduct } from '../../../services/publicApi'
+import { addCart } from '../../../services/publicApi'
 import useFetchAmountCart from '../../../hooks/useFetchAmountCart'
-import ReactPaginateBlock from '../ReactPaginateBlock'
 import config from '../../../config'
-import { useAuth } from '../../../../main/context/AuthContext'
 
 const cx = classNames.bind(styles)
 
-const ProductItem = ({ data, stt }) => {
+const ProductItem = ({ data, products, stt }) => {
+
   // ---------- init variable ----------
-  const [products, setProducts] = useState(null)
   const [productCurrent, setProductCurrent] = useState({})
   const [selectConfig, setSelectConfig] = useState(0)
-  const [currentPage, setCurrentPage] = useState(1)
-  const [currentLimit, setCurrentLimit] = useState(data?.limit || 12)
-  const [totalPages, setTotalPages] = useState(0)
   const label = { inputProps: { 'aria-label': 'Checkbox demo' } }
-
   const closeButtonRef = useRef(null)
-  const { user } = useAuth()
-  const LocalStorageGetInfos = user
   const [quantity, setQuantity] = useState(1)
-
-  // ---------- navigation ----------
-  const handlePageClick = (event) => { setCurrentPage(event.selected + 1) }
-  useEffect(() => { setCurrentLimit(data?.limit || 12) }, [currentPage])
-
-  // ---------- call api ----------
-  const fetchProductData = async () => {
-    const data = { page: currentPage, limit: currentLimit }
-    const fetchDataProduct = await readProduct(data)
-    setTotalPages(fetchDataProduct?.data?.data?.totalPages)
-    setProducts(fetchDataProduct?.data?.data)
-  }
-  useEffect(() => { fetchProductData() }, [currentPage, currentLimit])
 
   // ---------- format number ----------
   const formatNumber = (number) => { return number.toLocaleString('vi-VN') }
@@ -80,7 +59,7 @@ const ProductItem = ({ data, stt }) => {
 
   // ---------- render ----------
   return (
-    <div className={cx('container mb-5')}>
+    <div className={cx('container mb-2')}>
       <div className={cx('row ', 'mb-3', 'd-flex align-items-center')}>
         <h3 className={cx('col-4', 'm-0')}>{data?.title && data?.title}</h3>
         <div className={cx('col-8', 'text-end')}>
@@ -95,7 +74,7 @@ const ProductItem = ({ data, stt }) => {
         <div className={cx('col-2', 'w-100', 'text-dark')}>
           <span>
             <div className={cx('row', 'd-flex', 'flex-wrap', 'grid', 'pb-3')}>
-              {products && products?.product.map((item, index) => {
+              {products && products.map((item, index) => {
                 const randomConfig = Math.floor(Math.random() * (item?.configs.length))
                 return (
                   <div key={index} className={cx('col-2', 'pt-0', 'pb-2', 'px-1')}>
@@ -171,7 +150,6 @@ const ProductItem = ({ data, stt }) => {
           </span>
         </div>
       </div>
-      {(totalPages > 0 && data?.pagination === true) && <ReactPaginateBlock handlePageClick={handlePageClick} totalPages={totalPages} />}
 
       {/* Modal */}
       <div>

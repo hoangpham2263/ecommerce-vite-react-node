@@ -12,8 +12,7 @@ const ProductItem = ({ product }) => {
   const ToggleSearch = useContext(ToggleSearchFullscreenContext)
   const setSearchValue = useContext(SearchValueContext)
   const navigate = useNavigate()
-  const priceDiscount = product && product.price - product.price * (product.percentDiscount / 100)
-  const firstImageColor = Object.keys(product.image)[0]
+  // const priceDiscount = product && product.price - product.price * (product.percentDiscount / 100)
 
   const handleDetailProduct = () => {
     navigate(`/${product.slug}`)
@@ -33,19 +32,19 @@ const ProductItem = ({ product }) => {
     <div className={cx('wrapper')} onClick={handleDetailProduct}>
       <div className={cx('avatar')}>
         {
-          product?.image && <img src={product?.image[firstImageColor][0]} alt='error' className={cx('avatar-img')} />
+          product?.configs && <img src={product?.configs[0] && product?.configs[0].images[0].url} alt='error' className={cx('avatar-img')} />
         }
       </div>
       <div className={cx('content')}>
         <div className={cx('title')}>{product?.title}</div>
         <div className={cx('price')}>
           <div className={cx('price-new')}>
-            {product && formatNumber(priceDiscount)} <span>₫</span>
+            {product && formatNumber(product?.configs[0] && product?.configs[0].price)} <span>₫</span>
           </div>
           <div className={cx('price-old')}>
-            {product && formatNumber(product?.price)} <span>₫</span>
+            {product && formatNumber(product?.configs[0] && product?.configs[0].price)} <span>₫</span>
           </div>
-          <div className={cx('price-percent')}>-{product?.percentDiscount}%</div>
+          <div className={cx('price-percent')}>-{product?.configs[0] && product?.configs[0].discount}%</div>
         </div>
         <div className={cx('price')}></div>
       </div>

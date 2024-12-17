@@ -30,7 +30,8 @@ const Cart = () => {
   useEffect(() => { fetchAmountCart() }, [])
 
   // ---------- quantity ----------
-  const handleDecreaseQuantityCart = async (item) => {
+  const handleDecreaseQuantityCart = async (e, item) => {
+    e.stopPropagation() // Ngăn chặn sự kiện nổi lên
     try {
       const data = {
         ProductId: item?.Product?.id,
@@ -43,7 +44,9 @@ const Cart = () => {
       toast.error(error?.response?.data?.message)
     }
   }
-  const handleIncreaseQuantityCart = async (item) => {
+
+  const handleIncreaseQuantityCart = async (e, item) => {
+    e.stopPropagation() // Ngăn chặn sự kiện nổi lên
     try {
       const data = {
         ProductId: item?.Product?.id,
@@ -75,7 +78,8 @@ const Cart = () => {
   }
 
   // ---------- delete ----------
-  const handleDeleteCart = async (item) => {
+  const handleDeleteCart = async (e, item) => {
+    e.stopPropagation() // Ngăn chặn sự kiện nổi lên
     try {
       const ids = [item?.id]
       await deleteCart(ids)
@@ -91,7 +95,7 @@ const Cart = () => {
     try {
       if (selectedItems.length > 0) {
         const ids = selectedItems
-        const fetchCart = await deleteCart(ids)
+        await deleteCart(ids)
         handleFetchCarts()
         fetchAmountCart()
         toast.success('Đã xóa sản phẩm thành công')
@@ -104,10 +108,12 @@ const Cart = () => {
   }
 
   // ---------- buy ----------
-  const handleBuyOne = (item) => {
+  const handleBuyOne = (e, item) => {
+    e.stopPropagation() // Ngăn chặn sự kiện nổi lên
     localStorage.setItem('dataCheckout', JSON.stringify([item?.id]))
     navigate(config.routes.checkout)
   }
+
   const handleBuyMultiple = () => {
     if (selectedItems.length > 0) {
       localStorage.setItem('dataCheckout', JSON.stringify(selectedItems))
@@ -115,6 +121,10 @@ const Cart = () => {
     } else {
       toast.error('Vui lòng chọn ít nhất 1 sản phẩm')
     }
+  }
+
+  const handleRedirectProductDetail = (slug) => {
+    window.location.href = '/' + slug
   }
 
   const formatNumber = (number) => { return number.toLocaleString('vi-VN') }
@@ -144,12 +154,12 @@ const Cart = () => {
                 <div
                   key={`cart-${index}`}
                   className={cx('cart-item')}
-                  onClick={() => handleCheckboxChange(item.id)} // Khi click vào item, sẽ chọn hoặc bỏ chọn checkbox
+                  onClick={() => handleCheckboxChange(item.id)}
                 >
                   <div className={cx('cart-item-check')}>
                     <input
                       type="checkbox"
-                      onChange={() => handleCheckboxChange(item.id)} // Đảm bảo checkbox có thể tự thay đổi
+                      onChange={() => handleCheckboxChange(item.id)}
                       checked={selectedItems.includes(item.id)}
                     />
                   </div>
@@ -157,14 +167,24 @@ const Cart = () => {
                     <img src={item?.images?.[0]?.url || 'https://via.placeholder.com/100'} alt={item?.Product?.title} />
                   </div>
                   <div className={cx('cart-item-info')}>
-                    <h5 className={cx('item-title')}>{item?.Product?.title}</h5>
+                    <h5 className={cx('item-title')} onClick={() => handleRedirectProductDetail(item?.Product?.slug)}>{item?.Product?.title}</h5>
                     <p className={cx('item-color')}>{item?.Config?.Color?.name}</p>
                     <p className={cx('item-price')}>{formatNumber(item?.Config?.price)}đ</p>
                   </div>
                   <div className={cx('cart-item-quantity')}>
-                    <button className="btn btn-sm fs-5" onClick={() => handleDecreaseQuantityCart(item)}>-</button>
+                    <button
+                      className="btn btn-sm fs-5"
+                      onClick={(e) => handleDecreaseQuantityCart(e, item)}
+                    >
+                      -
+                    </button>
                     <span className='fs-5'>{item?.quantity}</span>
-                    <button className="btn btn-sm fs-5" onClick={() => handleIncreaseQuantityCart(item)}>+</button>
+                    <button
+                      className="btn btn-sm fs-5"
+                      onClick={(e) => handleIncreaseQuantityCart(e, item)}
+                    >
+                      +
+                    </button>
                   </div>
                   <div className={cx('cart-item-total')}>
                     <div className={cx('total-price', 'mb-0')}>
@@ -174,8 +194,18 @@ const Cart = () => {
                       {item?.quantity} x {formatNumber(item?.Config?.price)}đ
                     </div>
                     <div className={cx('cart-item-actions')}>
-                      <button className="btn btn-primary" onClick={() => handleBuyOne(item)}>Mua ngay</button>
-                      <button className="btn btn-danger" onClick={() => handleDeleteCart(item)}>Xóa</button>
+                      <button
+                        className="btn btn-primary"
+                        onClick={(e) => handleBuyOne(e, item)}
+                      >
+                        Mua ngay
+                      </button>
+                      <button
+                        className="btn btn-danger"
+                        onClick={(e) => handleDeleteCart(e, item)}
+                      >
+                        Xóa
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -198,7 +228,6 @@ const Cart = () => {
         </div>
       ) : (
         <div className={cx('empty-cart')}>
-          <img src="https://res.cloudinary.com/dqhj1sukr/image/upload/v1730960241/uploadLocal_ecommerce/cart.png" alt="Empty Cart" />
           <p>Giỏ hàng của bạn hiện đang trống.</p>
         </div>
       )}

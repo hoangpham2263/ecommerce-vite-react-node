@@ -7,7 +7,9 @@ import Login from '../pages/Login'
 import Cart from '../pages/Cart'
 import Checkout from '../pages/Checkout'
 import Order from '../pages/Order'
-import DienThoai from '../pages/DienThoai'
+import Phone from '../pages/Phone'
+import Laptop from '../pages/Laptop'
+import Ipad from '../pages/Ipad/Ipad'
 
 const frontendRoutes = [
   {
@@ -41,8 +43,18 @@ const frontendRoutes = [
     layout: DefaultLayout
   },
   {
-    path: config.routes.dienThoai,
-    component: DienThoai,
+    path: config.routes.phone,
+    component: Phone,
+    layout: DefaultLayout
+  },
+  {
+    path: config.routes.laptop,
+    component: Laptop,
+    layout: DefaultLayout
+  },
+  {
+    path: config.routes.ipad,
+    component: Ipad,
     layout: DefaultLayout
   },
   {
