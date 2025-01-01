@@ -15,7 +15,7 @@ const Ipad = () => {
   const [sort, setSort] = useState(null)
   const [totalPages, setTotalPages] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)
-  const [currentLimit, setCurrentLimit] = useState(products?.limit || 12)
+  const [currentLimit, setCurrentLimit] = useState(products?.limit || 24)
   const [brand, setBrand] = useState([])
   const [version, setVersion] = useState(null)
 
@@ -66,7 +66,7 @@ const Ipad = () => {
 
   // Reset currentLimit when products change
   useEffect(() => {
-    setCurrentLimit(products?.limit || 12)
+    setCurrentLimit(products?.limit || 24)
   }, [currentPage, products])
 
   return (

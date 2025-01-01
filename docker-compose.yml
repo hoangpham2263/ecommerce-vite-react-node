@@ -1,0 +1,65 @@
+services:
+  db:
+    container_name: db-service
+    image: mysql:8.0
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=change-me
+      - MYSQL_DATABASE=db_ecommerce
+    ports:
+      - '3303:3306'
+    networks:
+      - emc_network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    image: client_e-commerce:latest
+    environment:
+      - VITE_API_API_URL=http://server:8000
+      - VITE_API_GOOGLE_CLIENT_ID=https://www.googleapis.com/oauth2/v3/userinfo
+    ports:
+      - '5173:5173'
+    networks:
+      - emc_network
+
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    image: server_e-commerce:latest
+    environment:
+      - DB_USERNAME=root
+      - DB_PASSWORD=change-me
+      - DB_DATABASE_NAME=db_ecommerce
+      - DB_HOST=db-service
+      - DB_PORT=3306
+      - DB_DIALECT=mysql
+      - JWT_SECRET=change-me
+      - JWT_EXPIRES_IN=1h
+      - NODE_SECURE=develop
+    ports:
+      - '8000:8000'
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - emc_network
+    volumes:
+      - ./server:/app
+
+networks:
+  emc_network:
+    driver: bridge
+
+volumes:
+  mysql_data:
+    driver: local
